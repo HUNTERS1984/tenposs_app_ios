@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Const.h"
 
 @interface Item_Cell_Photo : UICollectionViewCell
 
++(CellSpanType)getCellSpanType;
 @end

@@ -8,11 +8,16 @@
 
 #import "Item_Cell_Product.h"
 
+
 @implementation Item_Cell_Product
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+
++(CellSpanType)getCellSpanType{
+    return CellSpanTypeNormal;
 }
 
 @end

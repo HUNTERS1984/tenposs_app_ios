@@ -25,4 +25,7 @@
     //TODO: load image
 }
 
++(CellSpanType)getCellSpanType{
+    return CellSpanTypeSmall;
+}
 @end

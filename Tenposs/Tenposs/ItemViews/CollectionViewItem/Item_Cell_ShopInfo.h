@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Const.h"
+
 
 @interface Item_Cell_ShopInfo : UICollectionViewCell
 
+
++(CellSpanType)getCellSpanType;
 @end

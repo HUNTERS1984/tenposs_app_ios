@@ -28,6 +28,27 @@
 		02DAF3B51D47CAA70068BB71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02DAF3B31D47CAA70068BB71 /* LaunchScreen.storyboard */; };
 		02DAF3C01D47CAA70068BB71 /* TenpossTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DAF3BF1D47CAA70068BB71 /* TenpossTests.m */; };
 		02DAF3CB1D47CAA70068BB71 /* TenpossUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DAF3CA1D47CAA70068BB71 /* TenpossUITests.m */; };
+		02F2FDC11D4A30E3006D4C83 /* Bundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FD931D4A30E3006D4C83 /* Bundle.m */; };
+		02F2FDC21D4A30E3006D4C83 /* CommonRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FD951D4A30E3006D4C83 /* CommonRequest.m */; };
+		02F2FDC31D4A30E3006D4C83 /* CommonResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FD971D4A30E3006D4C83 /* CommonResponse.m */; };
+		02F2FDC41D4A30E3006D4C83 /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FD9B1D4A30E3006D4C83 /* JSONModel.m */; };
+		02F2FDC51D4A30E3006D4C83 /* JSONModelArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FD9D1D4A30E3006D4C83 /* JSONModelArray.m */; };
+		02F2FDC61D4A30E3006D4C83 /* JSONModelClassProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FD9F1D4A30E3006D4C83 /* JSONModelClassProperty.m */; };
+		02F2FDC71D4A30E3006D4C83 /* JSONModelError.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDA11D4A30E3006D4C83 /* JSONModelError.m */; };
+		02F2FDC81D4A30E3006D4C83 /* NSArray+JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDA41D4A30E3006D4C83 /* NSArray+JSONModel.m */; };
+		02F2FDC91D4A30E3006D4C83 /* JSONAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDA81D4A30E3006D4C83 /* JSONAPI.m */; };
+		02F2FDCA1D4A30E3006D4C83 /* JSONHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDAA1D4A30E3006D4C83 /* JSONHTTPClient.m */; };
+		02F2FDCB1D4A30E3006D4C83 /* JSONModel+networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDAC1D4A30E3006D4C83 /* JSONModel+networking.m */; };
+		02F2FDCC1D4A30E3006D4C83 /* JSONKeyMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDAF1D4A30E3006D4C83 /* JSONKeyMapper.m */; };
+		02F2FDCD1D4A30E3006D4C83 /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDB11D4A30E3006D4C83 /* JSONValueTransformer.m */; };
+		02F2FDCE1D4A30E3006D4C83 /* LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDB31D4A30E3006D4C83 /* LoginRequest.m */; };
+		02F2FDCF1D4A30E3006D4C83 /* LoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDB51D4A30E3006D4C83 /* LoginResponse.m */; };
+		02F2FDD01D4A30E3006D4C83 /* LogoutRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDB71D4A30E3006D4C83 /* LogoutRequest.m */; };
+		02F2FDD11D4A30E3006D4C83 /* LogoutResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDB91D4A30E3006D4C83 /* LogoutResponse.m */; };
+		02F2FDD21D4A30E3006D4C83 /* LoginCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDBC1D4A30E3006D4C83 /* LoginCommunicator.m */; };
+		02F2FDD31D4A30E3006D4C83 /* LogoutCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDBE1D4A30E3006D4C83 /* LogoutCommunicator.m */; };
+		02F2FDD41D4A30E3006D4C83 /* TenpossCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDC01D4A30E3006D4C83 /* TenpossCommunicator.m */; };
+		02F2FDD81D4A32CC006D4C83 /* Const.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDD71D4A32CC006D4C83 /* Const.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +105,49 @@
 		02DAF3C61D47CAA70068BB71 /* TenpossUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TenpossUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02DAF3CA1D47CAA70068BB71 /* TenpossUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TenpossUITests.m; sourceTree = "<group>"; };
 		02DAF3CC1D47CAA70068BB71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		02F2FD921D4A30E3006D4C83 /* Bundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bundle.h; sourceTree = "<group>"; };
+		02F2FD931D4A30E3006D4C83 /* Bundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bundle.m; sourceTree = "<group>"; };
+		02F2FD941D4A30E3006D4C83 /* CommonRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonRequest.h; sourceTree = "<group>"; };
+		02F2FD951D4A30E3006D4C83 /* CommonRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonRequest.m; sourceTree = "<group>"; };
+		02F2FD961D4A30E3006D4C83 /* CommonResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonResponse.h; sourceTree = "<group>"; };
+		02F2FD971D4A30E3006D4C83 /* CommonResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonResponse.m; sourceTree = "<group>"; };
+		02F2FD9A1D4A30E3006D4C83 /* JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModel.h; sourceTree = "<group>"; };
+		02F2FD9B1D4A30E3006D4C83 /* JSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModel.m; sourceTree = "<group>"; };
+		02F2FD9C1D4A30E3006D4C83 /* JSONModelArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelArray.h; sourceTree = "<group>"; };
+		02F2FD9D1D4A30E3006D4C83 /* JSONModelArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModelArray.m; sourceTree = "<group>"; };
+		02F2FD9E1D4A30E3006D4C83 /* JSONModelClassProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelClassProperty.h; sourceTree = "<group>"; };
+		02F2FD9F1D4A30E3006D4C83 /* JSONModelClassProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModelClassProperty.m; sourceTree = "<group>"; };
+		02F2FDA01D4A30E3006D4C83 /* JSONModelError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelError.h; sourceTree = "<group>"; };
+		02F2FDA11D4A30E3006D4C83 /* JSONModelError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModelError.m; sourceTree = "<group>"; };
+		02F2FDA31D4A30E3006D4C83 /* NSArray+JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+JSONModel.h"; sourceTree = "<group>"; };
+		02F2FDA41D4A30E3006D4C83 /* NSArray+JSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+JSONModel.m"; sourceTree = "<group>"; };
+		02F2FDA51D4A30E3006D4C83 /* JSONModelLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelLib.h; sourceTree = "<group>"; };
+		02F2FDA71D4A30E3006D4C83 /* JSONAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONAPI.h; sourceTree = "<group>"; };
+		02F2FDA81D4A30E3006D4C83 /* JSONAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONAPI.m; sourceTree = "<group>"; };
+		02F2FDA91D4A30E3006D4C83 /* JSONHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONHTTPClient.h; sourceTree = "<group>"; };
+		02F2FDAA1D4A30E3006D4C83 /* JSONHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONHTTPClient.m; sourceTree = "<group>"; };
+		02F2FDAB1D4A30E3006D4C83 /* JSONModel+networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONModel+networking.h"; sourceTree = "<group>"; };
+		02F2FDAC1D4A30E3006D4C83 /* JSONModel+networking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSONModel+networking.m"; sourceTree = "<group>"; };
+		02F2FDAE1D4A30E3006D4C83 /* JSONKeyMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKeyMapper.h; sourceTree = "<group>"; };
+		02F2FDAF1D4A30E3006D4C83 /* JSONKeyMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKeyMapper.m; sourceTree = "<group>"; };
+		02F2FDB01D4A30E3006D4C83 /* JSONValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONValueTransformer.h; sourceTree = "<group>"; };
+		02F2FDB11D4A30E3006D4C83 /* JSONValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValueTransformer.m; sourceTree = "<group>"; };
+		02F2FDB21D4A30E3006D4C83 /* LoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginRequest.h; sourceTree = "<group>"; };
+		02F2FDB31D4A30E3006D4C83 /* LoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginRequest.m; sourceTree = "<group>"; };
+		02F2FDB41D4A30E3006D4C83 /* LoginResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponse.h; sourceTree = "<group>"; };
+		02F2FDB51D4A30E3006D4C83 /* LoginResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponse.m; sourceTree = "<group>"; };
+		02F2FDB61D4A30E3006D4C83 /* LogoutRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutRequest.h; sourceTree = "<group>"; };
+		02F2FDB71D4A30E3006D4C83 /* LogoutRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutRequest.m; sourceTree = "<group>"; };
+		02F2FDB81D4A30E3006D4C83 /* LogoutResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutResponse.h; sourceTree = "<group>"; };
+		02F2FDB91D4A30E3006D4C83 /* LogoutResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutResponse.m; sourceTree = "<group>"; };
+		02F2FDBB1D4A30E3006D4C83 /* LoginCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCommunicator.h; sourceTree = "<group>"; };
+		02F2FDBC1D4A30E3006D4C83 /* LoginCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCommunicator.m; sourceTree = "<group>"; };
+		02F2FDBD1D4A30E3006D4C83 /* LogoutCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutCommunicator.h; sourceTree = "<group>"; };
+		02F2FDBE1D4A30E3006D4C83 /* LogoutCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutCommunicator.m; sourceTree = "<group>"; };
+		02F2FDBF1D4A30E3006D4C83 /* TenpossCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TenpossCommunicator.h; sourceTree = "<group>"; };
+		02F2FDC01D4A30E3006D4C83 /* TenpossCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TenpossCommunicator.m; sourceTree = "<group>"; };
+		02F2FDD61D4A32CC006D4C83 /* Const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
+		02F2FDD71D4A32CC006D4C83 /* Const.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Const.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +214,9 @@
 		02DAF3A41D47CAA70068BB71 /* Tenposs */ = {
 			isa = PBXGroup;
 			children = (
+				02F2FDD51D4A32B1006D4C83 /* Utils */,
+				02F2FD911D4A30E3006D4C83 /* Datamodel */,
+				02F2FDBA1D4A30E3006D4C83 /* Communicator */,
 				02CD65951D47CDDC0015661D /* Core */,
 				02CD65961D47CDDC0015661D /* Screens */,
 				02DAF3D81D47CAF80068BB71 /* ItemViews */,
@@ -231,6 +298,110 @@
 				02CD659C1D47D4240015661D /* MenuItem_Common.xib */,
 			);
 			path = MenuItem;
+			sourceTree = "<group>";
+		};
+		02F2FD911D4A30E3006D4C83 /* Datamodel */ = {
+			isa = PBXGroup;
+			children = (
+				02F2FD921D4A30E3006D4C83 /* Bundle.h */,
+				02F2FD931D4A30E3006D4C83 /* Bundle.m */,
+				02F2FD941D4A30E3006D4C83 /* CommonRequest.h */,
+				02F2FD951D4A30E3006D4C83 /* CommonRequest.m */,
+				02F2FD961D4A30E3006D4C83 /* CommonResponse.h */,
+				02F2FD971D4A30E3006D4C83 /* CommonResponse.m */,
+				02F2FD981D4A30E3006D4C83 /* JSONModel */,
+				02F2FDB21D4A30E3006D4C83 /* LoginRequest.h */,
+				02F2FDB31D4A30E3006D4C83 /* LoginRequest.m */,
+				02F2FDB41D4A30E3006D4C83 /* LoginResponse.h */,
+				02F2FDB51D4A30E3006D4C83 /* LoginResponse.m */,
+				02F2FDB61D4A30E3006D4C83 /* LogoutRequest.h */,
+				02F2FDB71D4A30E3006D4C83 /* LogoutRequest.m */,
+				02F2FDB81D4A30E3006D4C83 /* LogoutResponse.h */,
+				02F2FDB91D4A30E3006D4C83 /* LogoutResponse.m */,
+			);
+			path = Datamodel;
+			sourceTree = "<group>";
+		};
+		02F2FD981D4A30E3006D4C83 /* JSONModel */ = {
+			isa = PBXGroup;
+			children = (
+				02F2FD991D4A30E3006D4C83 /* JSONModel */,
+				02F2FDA21D4A30E3006D4C83 /* JSONModelCategories */,
+				02F2FDA51D4A30E3006D4C83 /* JSONModelLib.h */,
+				02F2FDA61D4A30E3006D4C83 /* JSONModelNetworking */,
+				02F2FDAD1D4A30E3006D4C83 /* JSONModelTransformations */,
+			);
+			path = JSONModel;
+			sourceTree = "<group>";
+		};
+		02F2FD991D4A30E3006D4C83 /* JSONModel */ = {
+			isa = PBXGroup;
+			children = (
+				02F2FD9A1D4A30E3006D4C83 /* JSONModel.h */,
+				02F2FD9B1D4A30E3006D4C83 /* JSONModel.m */,
+				02F2FD9C1D4A30E3006D4C83 /* JSONModelArray.h */,
+				02F2FD9D1D4A30E3006D4C83 /* JSONModelArray.m */,
+				02F2FD9E1D4A30E3006D4C83 /* JSONModelClassProperty.h */,
+				02F2FD9F1D4A30E3006D4C83 /* JSONModelClassProperty.m */,
+				02F2FDA01D4A30E3006D4C83 /* JSONModelError.h */,
+				02F2FDA11D4A30E3006D4C83 /* JSONModelError.m */,
+			);
+			path = JSONModel;
+			sourceTree = "<group>";
+		};
+		02F2FDA21D4A30E3006D4C83 /* JSONModelCategories */ = {
+			isa = PBXGroup;
+			children = (
+				02F2FDA31D4A30E3006D4C83 /* NSArray+JSONModel.h */,
+				02F2FDA41D4A30E3006D4C83 /* NSArray+JSONModel.m */,
+			);
+			path = JSONModelCategories;
+			sourceTree = "<group>";
+		};
+		02F2FDA61D4A30E3006D4C83 /* JSONModelNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				02F2FDA71D4A30E3006D4C83 /* JSONAPI.h */,
+				02F2FDA81D4A30E3006D4C83 /* JSONAPI.m */,
+				02F2FDA91D4A30E3006D4C83 /* JSONHTTPClient.h */,
+				02F2FDAA1D4A30E3006D4C83 /* JSONHTTPClient.m */,
+				02F2FDAB1D4A30E3006D4C83 /* JSONModel+networking.h */,
+				02F2FDAC1D4A30E3006D4C83 /* JSONModel+networking.m */,
+			);
+			path = JSONModelNetworking;
+			sourceTree = "<group>";
+		};
+		02F2FDAD1D4A30E3006D4C83 /* JSONModelTransformations */ = {
+			isa = PBXGroup;
+			children = (
+				02F2FDAE1D4A30E3006D4C83 /* JSONKeyMapper.h */,
+				02F2FDAF1D4A30E3006D4C83 /* JSONKeyMapper.m */,
+				02F2FDB01D4A30E3006D4C83 /* JSONValueTransformer.h */,
+				02F2FDB11D4A30E3006D4C83 /* JSONValueTransformer.m */,
+			);
+			path = JSONModelTransformations;
+			sourceTree = "<group>";
+		};
+		02F2FDBA1D4A30E3006D4C83 /* Communicator */ = {
+			isa = PBXGroup;
+			children = (
+				02F2FDBB1D4A30E3006D4C83 /* LoginCommunicator.h */,
+				02F2FDBC1D4A30E3006D4C83 /* LoginCommunicator.m */,
+				02F2FDBD1D4A30E3006D4C83 /* LogoutCommunicator.h */,
+				02F2FDBE1D4A30E3006D4C83 /* LogoutCommunicator.m */,
+				02F2FDBF1D4A30E3006D4C83 /* TenpossCommunicator.h */,
+				02F2FDC01D4A30E3006D4C83 /* TenpossCommunicator.m */,
+			);
+			path = Communicator;
+			sourceTree = "<group>";
+		};
+		02F2FDD51D4A32B1006D4C83 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				02F2FDD61D4A32CC006D4C83 /* Const.h */,
+				02F2FDD71D4A32CC006D4C83 /* Const.m */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -369,15 +540,36 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02F2FDD11D4A30E3006D4C83 /* LogoutResponse.m in Sources */,
+				02F2FDCA1D4A30E3006D4C83 /* JSONHTTPClient.m in Sources */,
+				02F2FDCF1D4A30E3006D4C83 /* LoginResponse.m in Sources */,
+				02F2FDC51D4A30E3006D4C83 /* JSONModelArray.m in Sources */,
+				02F2FDD21D4A30E3006D4C83 /* LoginCommunicator.m in Sources */,
+				02F2FDD31D4A30E3006D4C83 /* LogoutCommunicator.m in Sources */,
+				02F2FDC21D4A30E3006D4C83 /* CommonRequest.m in Sources */,
+				02F2FDCE1D4A30E3006D4C83 /* LoginRequest.m in Sources */,
+				02F2FDC11D4A30E3006D4C83 /* Bundle.m in Sources */,
+				02F2FDCC1D4A30E3006D4C83 /* JSONKeyMapper.m in Sources */,
+				02F2FDD01D4A30E3006D4C83 /* LogoutRequest.m in Sources */,
 				02CD65A21D47D6C50015661D /* Item_Cell_Product.m in Sources */,
 				02CD65991D47CDF50015661D /* AppConfiguration.m in Sources */,
 				02CD65B11D47E7DB0015661D /* Item_Cell_ShopInfo.m in Sources */,
 				02CD65931D47CD130015661D /* MenuItem_User.m in Sources */,
+				02F2FDD41D4A30E3006D4C83 /* TenpossCommunicator.m in Sources */,
+				02F2FDD81D4A32CC006D4C83 /* Const.m in Sources */,
 				02CD65A71D47D8EB0015661D /* Item_Cell_Photo.m in Sources */,
+				02F2FDC41D4A30E3006D4C83 /* JSONModel.m in Sources */,
+				02F2FDC71D4A30E3006D4C83 /* JSONModelError.m in Sources */,
+				02F2FDC81D4A30E3006D4C83 /* NSArray+JSONModel.m in Sources */,
+				02F2FDC61D4A30E3006D4C83 /* JSONModelClassProperty.m in Sources */,
 				02DAF3AD1D47CAA70068BB71 /* ViewController.m in Sources */,
 				02DAF3AA1D47CAA70068BB71 /* AppDelegate.m in Sources */,
 				02CD659D1D47D4240015661D /* MenuItem_Common.m in Sources */,
+				02F2FDCD1D4A30E3006D4C83 /* JSONValueTransformer.m in Sources */,
+				02F2FDC31D4A30E3006D4C83 /* CommonResponse.m in Sources */,
+				02F2FDC91D4A30E3006D4C83 /* JSONAPI.m in Sources */,
 				02CD65AC1D47D9AC0015661D /* Item_Cell_News.m in Sources */,
+				02F2FDCB1D4A30E3006D4C83 /* JSONModel+networking.m in Sources */,
 				02DAF3A71D47CAA70068BB71 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -522,6 +714,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Tenposs/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.tenposs.Tenposs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -533,6 +726,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Tenposs/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.tenposs.Tenposs;
 				PRODUCT_NAME = "$(TARGET_NAME)";

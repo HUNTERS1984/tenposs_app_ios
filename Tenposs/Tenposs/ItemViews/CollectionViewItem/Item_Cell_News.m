@@ -28,4 +28,8 @@
     //TODO: need implementation
 }
 
++(CellSpanType)getCellSpanType{
+    return CellSpanTypeLarge;
+}
+
 @end

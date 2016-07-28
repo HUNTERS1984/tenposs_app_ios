@@ -41,4 +41,8 @@
     return 0.0f;
 }
 
++(CellSpanType)getCellSpanType{
+    return CellSpanTypeFull;
+}
+
 @end
