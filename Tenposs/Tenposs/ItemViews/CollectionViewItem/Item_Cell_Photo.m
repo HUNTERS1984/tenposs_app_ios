@@ -28,4 +28,5 @@
 +(CellSpanType)getCellSpanType{
     return CellSpanTypeSmall;
 }
+
 @end
