@@ -14,12 +14,6 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="220" height="288"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pki-h0-wsF" userLabel="product_image">
-                        <rect key="frame" x="10" y="0.0" width="210" height="210"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="pki-h0-wsF" secondAttribute="height" multiplier="1:1" id="XfF-Rq-6XS"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QqW-RS-bPy" userLabel="product_name">
                         <rect key="frame" x="10" y="218" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -32,6 +26,12 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pki-h0-wsF" userLabel="product_image">
+                        <rect key="frame" x="10" y="0.0" width="210" height="210"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="pki-h0-wsF" secondAttribute="height" multiplier="1:1" id="XfF-Rq-6XS"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -45,6 +45,11 @@
                 <constraint firstItem="QqW-RS-bPy" firstAttribute="top" secondItem="pki-h0-wsF" secondAttribute="bottom" constant="8" id="xCr-4L-nFY"/>
             </constraints>
             <size key="customSize" width="220" height="288"/>
+            <connections>
+                <outlet property="productName" destination="QqW-RS-bPy" id="qoJ-cY-nSS"/>
+                <outlet property="productPrice" destination="KxK-sZ-w9a" id="hMe-gV-g93"/>
+                <outlet property="productThumbnail" destination="pki-h0-wsF" id="qPb-cJ-fvi"/>
+            </connections>
             <point key="canvasLocation" x="341" y="335"/>
         </collectionViewCell>
     </objects>

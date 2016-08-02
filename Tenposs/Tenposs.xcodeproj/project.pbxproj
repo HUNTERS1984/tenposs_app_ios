@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		022F25B51D50B4C0008AEBA1 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 022F25B41D50B4C0008AEBA1 /* DataModel.m */; };
 		02CD65931D47CD130015661D /* MenuItem_User.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CD65911D47CD130015661D /* MenuItem_User.m */; };
 		02CD65941D47CD130015661D /* MenuItem_User.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02CD65921D47CD130015661D /* MenuItem_User.xib */; };
 		02CD65991D47CDF50015661D /* AppConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CD65981D47CDF50015661D /* AppConfiguration.m */; };
@@ -73,6 +74,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		022F25B31D50B4C0008AEBA1 /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
+		022F25B41D50B4C0008AEBA1 /* DataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataModel.m; sourceTree = "<group>"; };
 		02CD65901D47CD130015661D /* MenuItem_User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuItem_User.h; sourceTree = "<group>"; };
 		02CD65911D47CD130015661D /* MenuItem_User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItem_User.m; sourceTree = "<group>"; };
 		02CD65921D47CD130015661D /* MenuItem_User.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuItem_User.xib; sourceTree = "<group>"; };
@@ -330,6 +333,8 @@
 				02F2FDB71D4A30E3006D4C83 /* LogoutRequest.m */,
 				02F2FDB81D4A30E3006D4C83 /* LogoutResponse.h */,
 				02F2FDB91D4A30E3006D4C83 /* LogoutResponse.m */,
+				022F25B31D50B4C0008AEBA1 /* DataModel.h */,
+				022F25B41D50B4C0008AEBA1 /* DataModel.m */,
 			);
 			path = Datamodel;
 			sourceTree = "<group>";
@@ -586,6 +591,7 @@
 				02F2FDC21D4A30E3006D4C83 /* CommonRequest.m in Sources */,
 				02F2FDCE1D4A30E3006D4C83 /* LoginRequest.m in Sources */,
 				02F2FDC11D4A30E3006D4C83 /* Bundle.m in Sources */,
+				022F25B51D50B4C0008AEBA1 /* DataModel.m in Sources */,
 				02F2FDCC1D4A30E3006D4C83 /* JSONKeyMapper.m in Sources */,
 				02F2FDD01D4A30E3006D4C83 /* LogoutRequest.m in Sources */,
 				02CD65A21D47D6C50015661D /* Item_Cell_Product.m in Sources */,

@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Const.h"
+#import "DataModel.h"
 
 @interface Item_Cell_News : UICollectionViewCell
 
+-(void)configureCellWithData:(NewsObject *)news;
 
 +(CellSpanType)getCellSpanType;
 

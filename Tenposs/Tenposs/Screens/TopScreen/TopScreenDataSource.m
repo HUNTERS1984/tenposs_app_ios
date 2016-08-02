@@ -14,6 +14,12 @@
 
 @interface TopScreenDataSource()
 
+@property (strong, nonatomic)NSMutableArray *topItems;
+@property (strong, nonatomic)NSMutableArray *productItems;
+@property (strong, nonatomic)NSMutableArray *galleryItems;
+@property (strong, nonatomic)NSMutableArray *newsItems;
+@property (strong, nonatomic)NSMutableArray *shopItems;
+
 @end
 
 @implementation TopScreenDataSource
@@ -30,7 +36,30 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 0;
+    
+    NSInteger numberOfSection = 0;
+    
+    if (_topItems && [_topItems count] > 0) {
+        numberOfSection += 1;
+    }
+    
+    if (_productItems && [_productItems count] > 0) {
+        numberOfSection += 1;
+    }
+    
+    if (_galleryItems && [_galleryItems count] > 0) {
+        numberOfSection += 1;
+    }
+    
+    if (_newsItems && [_newsItems count] > 0) {
+        numberOfSection += 1;
+    }
+    
+    if (_shopItems && [_shopItems count] > 0) {
+        numberOfSection += 1;
+    }
+    
+    return numberOfSection;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -43,6 +72,29 @@
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     return nil;
+}
+
+- (void)fetchContent{
+    [self loadProducts];
+    [self loadTopItem];
+    [self loadGallery];
+    [self loadShopInformation];
+}
+
+- (void)loadProducts{
+    
+}
+
+- (void)loadTopItem{
+    
+}
+
+- (void)loadGallery{
+
+}
+
+- (void)loadShopInformation{
+    
 }
 
 @end

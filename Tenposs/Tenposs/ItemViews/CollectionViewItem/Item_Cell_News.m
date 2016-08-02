@@ -24,8 +24,12 @@
     // Initialization code
 }
 
-- (void)configureCellWithData:(NSObject *)data{
+-(void)configureCellWithData:(NewsObject *)news{
     //TODO: need implementation
+    [_newsCategory setText:news.parentCategory.categoryName];
+    [_newsTitle setText:news.title];
+    [_newsDescription setText:news.desc];
+    
 }
 
 +(CellSpanType)getCellSpanType{

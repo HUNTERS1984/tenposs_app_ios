@@ -15,6 +15,10 @@
 
 - (void)dataLoadedFailedAtIndexPath:(NSIndexPath *)indexPath;
 
+- (void)needRefreshItemAtIndexPath:(NSIndexPath *)indexPath;
+
+- (void)needRefreshSectionAtIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 @interface TopScreenDataSource : NSObject <UICollectionViewDataSource>

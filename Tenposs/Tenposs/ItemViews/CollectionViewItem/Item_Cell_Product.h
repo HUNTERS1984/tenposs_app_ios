@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Const.h"
+#import "DataModel.h"
 
 @interface Item_Cell_Product : UICollectionViewCell
 
-
-
 +(CellSpanType)getCellSpanType;
+
+-(void)configureCellWithData:(ProductObject *)product;
 
 @end

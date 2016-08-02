@@ -8,12 +8,25 @@
 
 #import "Item_Cell_Product.h"
 
+@interface Item_Cell_Product()
+@property (weak, nonatomic) IBOutlet UIImageView *productThumbnail;
+@property (weak, nonatomic) IBOutlet UILabel *productName;
+@property (weak, nonatomic) IBOutlet UILabel *productPrice;
+
+@end
 
 @implementation Item_Cell_Product
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+
+-(void)configureCellWithData:(ProductObject *)product{
+    
+    [_productName setText:product.title];
+    [_productPrice setText:product.price];
+    
 }
 
 +(CellSpanType)getCellSpanType{
