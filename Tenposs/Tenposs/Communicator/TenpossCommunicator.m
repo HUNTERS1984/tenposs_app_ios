@@ -112,7 +112,7 @@
         if( self.httpCode == 200 ){
             [self process:m_pParams];
         }else{
-            NSString* description = [NSString stringWithFormat:@"Server error: %ld - %@", self.httpCode, [NSHTTPURLResponse localizedStringForStatusCode:self.httpCode]];
+            NSString* description = [NSString stringWithFormat:@"Server error: %ld - %@", (long)self.httpCode, [NSHTTPURLResponse localizedStringForStatusCode:self.httpCode]];
             [m_pParams put:KeyResponseResult value:@(ResultErrorUnknown)];
             [m_pParams put:KeyResponseError value:description];
         }

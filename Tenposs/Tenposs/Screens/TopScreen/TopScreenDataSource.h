@@ -11,9 +11,7 @@
 
 @protocol TopScreenDataSourceDelegate <NSObject>
 
-- (void)dataLoadedSuccessAtIndexPath:(NSIndexPath *)indexPath;
-
-- (void)dataLoadedFailedAtIndexPath:(NSIndexPath *)indexPath;
+- (void)dataLoadedWithError:(NSError *)error;
 
 - (void)needRefreshItemAtIndexPath:(NSIndexPath *)indexPath;
 
@@ -25,6 +23,10 @@
 
 @property(weak, nonatomic) id <TopScreenDataSourceDelegate> delegate;
 
+- (void)registerClassForCollectionView:(UICollectionView *)collection;
+
 -(instancetype)initWithDelegate: (id <TopScreenDataSourceDelegate>) delegate;
+
+- (void)fetchContent;
 
 @end

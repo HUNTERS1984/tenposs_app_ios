@@ -7,9 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "AppConfiguration.h"
 
 @interface AppDelegate ()
-
+@property UIView *loadingView;
 @end
 
 @implementation AppDelegate
@@ -17,6 +18,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+  //  [self loadAppConfig];
+    
     return YES;
 }
 
@@ -41,5 +45,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
 
 @end

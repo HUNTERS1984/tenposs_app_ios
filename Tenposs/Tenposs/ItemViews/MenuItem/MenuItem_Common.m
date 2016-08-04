@@ -8,7 +8,7 @@
 
 #import "MenuItem_Common.h"
 #import "AppConfiguration.h"
-
+#import "HexColors.h"
 
 @interface MenuItem_Common()
 
@@ -35,8 +35,8 @@
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     
     ///Config Text
-    [self.itemTitle setFont:[UIFont fontWithName:appConfig.menuFontFamily size:appConfig.menuTextSize]];
-    [self.itemTitle setTextColor:appConfig.menuTextColor];
+    [self.itemTitle setFont:[UIFont fontWithName:appConfig.appSettings.menu_font_family size:appConfig.appSettings.menu_font_size]];
+    [self.itemTitle setTextColor:[UIColor colorWithHexString:appConfig.appSettings.menu_font_color]];
     
     ///Config Icon
     

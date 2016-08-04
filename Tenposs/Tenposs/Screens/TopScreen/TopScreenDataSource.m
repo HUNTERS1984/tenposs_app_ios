@@ -35,6 +35,13 @@
     return self;
 }
 
+- (void)registerClassForCollectionView:(UICollectionView *)collection{
+    [collection registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Cell_Product class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Cell_Product class])];
+    [collection registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Cell_News class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Cell_News class])];
+    [collection registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Cell_Photo class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Cell_Photo class])];
+    [collection registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Cell_ShopInfo class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Cell_ShopInfo class])];
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
     NSInteger numberOfSection = 0;
@@ -79,6 +86,10 @@
     [self loadTopItem];
     [self loadGallery];
     [self loadShopInformation];
+    
+    if(self.delegate && [self.delegate respondsToSelector:@selector(dataLoadedWithError:)]){
+        [self.delegate dataLoadedWithError:nil];
+    }
 }
 
 - (void)loadProducts{

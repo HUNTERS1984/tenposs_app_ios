@@ -7,8 +7,17 @@
 //
 
 #import "AppConfiguration.h"
+#import "AppInfoCommunicator.h"
 
-@interface AppConfiguration()
+@implementation AppInfo
+
+@end
+
+@implementation AppSettings
+
+@end
+
+@interface AppConfiguration()<TenpossCommunicatorDelegate>
 
 @end
 
@@ -36,5 +45,54 @@
     //TODO: need define default properties
     self.cellSpacing = 8;
 }
+
+- (void)loadAppInfoWithCompletionHandler:(void(^)(NSError *error))handler{
+    
+    [self loadAppInfo];
+    
+    self.completeHandler = handler;
+    
+    //TODO: clean
+    [self mockUp];
+}
+
+- (void)loadAppInfo{
+}
+
+//TODO: clean
+- (void)mockUp{
+    if(self.completeHandler){
+        //self.completeHandler([NSError errorWithDomain:@"This is Error" code:100 userInfo:nil]);
+        self.appSettings = [AppSettings new];
+        self.appSettings.template_id = 1;
+        self.completeHandler(nil);
+    }
+}
+
+#pragma mark - TenpossCommunicatorDelegate
+
+- (void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams{
+    NSError *error = nil;
+    if ([responseParams get:KeyResponseResult] != 0) {
+        NSInteger errorCode = [[responseParams get:KeyResponseResult] integerValue];
+        NSString *errorDomain = [responseParams get:KeyResponseError];
+        error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:nil];
+    }
+    if (self.completeHandler) {
+        self.completeHandler(error);
+    }else{
+        //This should never happen
+        NSAssert(self.completeHandler==nil, @"CompleteHandler cannot be nil");
+    }
+}
+
+- (void)begin:(TenpossCommunicator*)request data:(Bundle*) responseParams{
+
+}
+
+-( void)cancelAllRequest{
+    
+}
+
 
 @end

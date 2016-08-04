@@ -8,6 +8,7 @@
 
 #import "MenuItem_User.h"
 #import "AppConfiguration.h"
+#import "HexColors.h"
 
 @interface MenuItem_User()
 
@@ -33,8 +34,8 @@
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     
     ///Config user name
-    [self.user_name setFont:[UIFont fontWithName:appConfig.menuFontFamily size:appConfig.menuTextSize]];
-    [self.user_name setTextColor:appConfig.menuTextColor];
+    [self.user_name setFont:[UIFont fontWithName:appConfig.appSettings.menu_font_family size:appConfig.appSettings.menu_font_size]];
+    [self.user_name setTextColor:[UIColor colorWithHexString:appConfig.appSettings.menu_font_color]];
     
     
     ///Config Avatar

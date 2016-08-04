@@ -8,11 +8,46 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "JSONModel.h"
+
+@interface AppInfo : JSONModel
+
+@property (strong, nonatomic) NSString *lat;
+@property (strong, nonatomic) NSString *logn;
+@property (strong, nonatomic) NSString *tel;
+@property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *start_time;
+@property (strong, nonatomic) NSString *end_time;
+
+@end
+
+@interface AppSettings : JSONModel
+
+/*
+ *  Navigation bar properties
+ */
+@property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *title_color;
+@property (assign, nonatomic) int font_size;
+@property (strong, nonatomic) NSString *font_family;
+@property (strong, nonatomic) NSString *header_color;
+
+/*
+ *  Menu properties
+ */
+@property (strong, nonatomic) NSString *menu_icon_color;
+@property (strong, nonatomic) NSString *menu_background_color;
+@property (strong, nonatomic) NSString *menu_font_color;
+@property (assign, nonatomic) int menu_font_size;
+@property (strong, nonatomic) NSString *menu_font_family;
+@property (assign, nonatomic) int template_id;
+@property (strong, nonatomic) NSString *top_main_image_url;
+
+@end
+
+typedef void (^AppConfigurationCompleteHandler)(NSError *error);
 
 @interface AppConfiguration : NSObject
-
-+ (instancetype) sharedInstance;
-
 /*
  *  CollectionView properties
  */
@@ -22,21 +57,14 @@
 @property (assign, nonatomic) NSInteger numberOfPhotoColumn_iphone;
 @property (assign, nonatomic) NSInteger numberOfPhotoColumn_ipad;
 
-/*
- *  Navigation bar properties
- */
-@property (strong, nonatomic) UIColor *navBackgroundColor;
-@property (strong, nonatomic) UIColor *navTextColor;
-@property (assign, nonatomic) CGFloat navTextSize;
-@property (strong, nonatomic) UIColor *navMenuIconColor;
-@property (strong, nonatomic) NSString *navFontFamily;
+@property (strong, nonatomic) AppSettings *appSettings;
+@property (strong, nonatomic) AppInfo *appInfo;
 
-/*
- *  Menu properties
- */
-@property (strong, nonatomic) UIColor *menuBackgroundColor;
-@property (strong, nonatomic) UIColor *menuTextColor;
-@property (assign, nonatomic) CGFloat menuTextSize;
-@property (strong, nonatomic) NSString *menuFontFamily;
+@property (copy) AppConfigurationCompleteHandler completeHandler;
+
++ (instancetype) sharedInstance;
+
+- (void)loadAppInfoWithCompletionHandler:(void(^)(NSError *error))handler;
+
 
 @end
