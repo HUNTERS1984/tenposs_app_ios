@@ -8,8 +8,17 @@
 
 #import "DataModel.h"
 
+
+@implementation TopObject
+
+@end
+
 #pragma mark - Product
 @implementation ProductObject
+
++(BOOL)propertyIsOptional:(NSString *)propertyName{
+    return YES;
+}
 
 @end
 
@@ -22,15 +31,27 @@
     }
     return self;
 }
++(BOOL)propertyIsOptional:(NSString *)propertyName{
+    return YES;
+}
+
 
 @end
 
 #pragma mark - Gallery
 @implementation PhotoObject
++(BOOL)propertyIsOptional:(NSString *)propertyName{
+    return YES;
+}
+
 
 @end
 
 @implementation GalleryObject
++(BOOL)propertyIsOptional:(NSString *)propertyName{
+    return YES;
+}
+
 
 - (instancetype)init{
     self = [super init];
@@ -44,6 +65,9 @@
 
 #pragma mark - News
 @implementation NewsObject
++(BOOL)propertyIsOptional:(NSString *)propertyName{
+    return YES;
+}
 
 @end
 
@@ -56,10 +80,18 @@
     }
     return self;
 }
++(BOOL)propertyIsOptional:(NSString *)propertyName{
+    return YES;
+}
+
 
 @end
 
 #pragma mark - Shop
 @implementation ShopObject
++(BOOL)propertyIsOptional:(NSString *)propertyName{
+    return YES;
+}
+
 
 @end

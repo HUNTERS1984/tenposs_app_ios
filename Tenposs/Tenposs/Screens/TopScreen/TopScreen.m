@@ -8,6 +8,7 @@
 
 #import "TopScreen.h"
 #import "TopScreenDataSource.h"
+#import "UIViewController+LoadingView.h"
 
 @interface TopScreen ()<TopScreenDataSourceDelegate>
 @property TopScreenDataSource *dataSource;
@@ -24,6 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self showLoadingViewWithMessage:@""];
     [self.dataSource fetchContent];
 }
 
@@ -36,6 +38,7 @@
 
 - (void)dataLoadedWithError:(NSError *)error{
     [self.collectionView reloadData];
+    [self removeLoadingView];
 }
 
 - (void)needRefreshItemAtIndexPath:(NSIndexPath *)indexPath{

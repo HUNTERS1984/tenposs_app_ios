@@ -18,7 +18,7 @@
 - (instancetype)initWithTemplateId:(NSInteger)templateId{
     UIViewController *rootViewController = nil;
     if (templateId == TEMPLATE_1) {
-        rootViewController = [TopScreen new];
+        rootViewController = [[TopScreen alloc]initWithCollectionViewLayout:[UICollectionViewFlowLayout new]];
     }
     
     self = [super initWithRootViewController:rootViewController];

@@ -17,11 +17,12 @@
 		022F25CC1D52617D008AEBA1 /* MainNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 022F25CB1D52617D008AEBA1 /* MainNavigationController.m */; };
 		022F25D01D52B20A008AEBA1 /* SideMenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 022F25CF1D52B20A008AEBA1 /* SideMenuTableViewController.m */; };
 		022F25D41D52B78C008AEBA1 /* SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 022F25D31D52B78C008AEBA1 /* SplashScreen.m */; };
-		022F25D71D52BD28008AEBA1 /* UIViewController+MFSideMenuAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 022F25D61D52BD28008AEBA1 /* UIViewController+MFSideMenuAdditions.m */; };
 		022F25DB1D52C7D3008AEBA1 /* Top_Header.m in Sources */ = {isa = PBXBuildFile; fileRef = 022F25D91D52C7D3008AEBA1 /* Top_Header.m */; };
 		022F25DC1D52C7D3008AEBA1 /* Top_Header.xib in Resources */ = {isa = PBXBuildFile; fileRef = 022F25DA1D52C7D3008AEBA1 /* Top_Header.xib */; };
 		022F25E01D52C8DA008AEBA1 /* Top_Footer.m in Sources */ = {isa = PBXBuildFile; fileRef = 022F25DE1D52C8DA008AEBA1 /* Top_Footer.m */; };
 		022F25E11D52C8DA008AEBA1 /* Top_Footer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 022F25DF1D52C8DA008AEBA1 /* Top_Footer.xib */; };
+		022F25E61D53563F008AEBA1 /* UIViewController+MFSideMenuAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 022F25E51D53563F008AEBA1 /* UIViewController+MFSideMenuAdditions.m */; };
+		022F25EA1D535983008AEBA1 /* UIViewController+LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 022F25E91D535983008AEBA1 /* UIViewController+LoadingView.m */; };
 		02CD65931D47CD130015661D /* MenuItem_User.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CD65911D47CD130015661D /* MenuItem_User.m */; };
 		02CD65941D47CD130015661D /* MenuItem_User.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02CD65921D47CD130015661D /* MenuItem_User.xib */; };
 		02CD65991D47CDF50015661D /* AppConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CD65981D47CDF50015661D /* AppConfiguration.m */; };
@@ -107,14 +108,16 @@
 		022F25CF1D52B20A008AEBA1 /* SideMenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideMenuTableViewController.m; sourceTree = "<group>"; };
 		022F25D21D52B78C008AEBA1 /* SplashScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashScreen.h; sourceTree = "<group>"; };
 		022F25D31D52B78C008AEBA1 /* SplashScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashScreen.m; sourceTree = "<group>"; };
-		022F25D51D52BD28008AEBA1 /* UIViewController+MFSideMenuAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MFSideMenuAdditions.h"; sourceTree = "<group>"; };
-		022F25D61D52BD28008AEBA1 /* UIViewController+MFSideMenuAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MFSideMenuAdditions.m"; sourceTree = "<group>"; };
 		022F25D81D52C7D3008AEBA1 /* Top_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Top_Header.h; sourceTree = "<group>"; };
 		022F25D91D52C7D3008AEBA1 /* Top_Header.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Top_Header.m; sourceTree = "<group>"; };
 		022F25DA1D52C7D3008AEBA1 /* Top_Header.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Top_Header.xib; sourceTree = "<group>"; };
 		022F25DD1D52C8DA008AEBA1 /* Top_Footer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Top_Footer.h; sourceTree = "<group>"; };
 		022F25DE1D52C8DA008AEBA1 /* Top_Footer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Top_Footer.m; sourceTree = "<group>"; };
 		022F25DF1D52C8DA008AEBA1 /* Top_Footer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Top_Footer.xib; sourceTree = "<group>"; };
+		022F25E41D53563F008AEBA1 /* UIViewController+MFSideMenuAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MFSideMenuAdditions.h"; sourceTree = "<group>"; };
+		022F25E51D53563F008AEBA1 /* UIViewController+MFSideMenuAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MFSideMenuAdditions.m"; sourceTree = "<group>"; };
+		022F25E81D535983008AEBA1 /* UIViewController+LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LoadingView.h"; sourceTree = "<group>"; };
+		022F25E91D535983008AEBA1 /* UIViewController+LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LoadingView.m"; sourceTree = "<group>"; };
 		02CD65901D47CD130015661D /* MenuItem_User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuItem_User.h; sourceTree = "<group>"; };
 		02CD65911D47CD130015661D /* MenuItem_User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItem_User.m; sourceTree = "<group>"; };
 		02CD65921D47CD130015661D /* MenuItem_User.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuItem_User.xib; sourceTree = "<group>"; };
@@ -230,8 +233,8 @@
 		022F25BC1D525F81008AEBA1 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				022F25D51D52BD28008AEBA1 /* UIViewController+MFSideMenuAdditions.h */,
-				022F25D61D52BD28008AEBA1 /* UIViewController+MFSideMenuAdditions.m */,
+				022F25E41D53563F008AEBA1 /* UIViewController+MFSideMenuAdditions.h */,
+				022F25E51D53563F008AEBA1 /* UIViewController+MFSideMenuAdditions.m */,
 				022F25BD1D525F81008AEBA1 /* MFSideMenu.h */,
 				022F25BE1D525F81008AEBA1 /* MFSideMenuContainerViewController.h */,
 				022F25BF1D525F81008AEBA1 /* MFSideMenuContainerViewController.m */,
@@ -268,6 +271,22 @@
 			path = SplashScreen;
 			sourceTree = "<group>";
 		};
+		022F25E71D53595F008AEBA1 /* Additional */ = {
+			isa = PBXGroup;
+			children = (
+				022F25E81D535983008AEBA1 /* UIViewController+LoadingView.h */,
+				022F25E91D535983008AEBA1 /* UIViewController+LoadingView.m */,
+			);
+			path = Additional;
+			sourceTree = "<group>";
+		};
+		022F25EB1D5435AC008AEBA1 /* ReserveScreen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ReserveScreen;
+			sourceTree = "<group>";
+		};
 		02CD65951D47CDDC0015661D /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,6 +299,7 @@
 		02CD65961D47CDDC0015661D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				022F25EB1D5435AC008AEBA1 /* ReserveScreen */,
 				022F25D11D52B777008AEBA1 /* SplashScreen */,
 				022F25CD1D52B1E1008AEBA1 /* SideMenu */,
 				02F2FDE21D4AF783006D4C83 /* TopScreen */,
@@ -505,6 +525,7 @@
 		02F2FDD51D4A32B1006D4C83 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				022F25E71D53595F008AEBA1 /* Additional */,
 				022F25C61D52605E008AEBA1 /* HexColors */,
 				022F25BC1D525F81008AEBA1 /* CustomView */,
 				02F2FDD91D4AF71A006D4C83 /* ThemifyIcon */,
@@ -688,6 +709,7 @@
 				02F2FDC21D4A30E3006D4C83 /* CommonRequest.m in Sources */,
 				02F2FDCE1D4A30E3006D4C83 /* LoginRequest.m in Sources */,
 				02F2FDC11D4A30E3006D4C83 /* Bundle.m in Sources */,
+				022F25E61D53563F008AEBA1 /* UIViewController+MFSideMenuAdditions.m in Sources */,
 				022F25B51D50B4C0008AEBA1 /* DataModel.m in Sources */,
 				02F2FDCC1D4A30E3006D4C83 /* JSONKeyMapper.m in Sources */,
 				022F25CC1D52617D008AEBA1 /* MainNavigationController.m in Sources */,
@@ -703,9 +725,9 @@
 				022F25D41D52B78C008AEBA1 /* SplashScreen.m in Sources */,
 				02F2FDC41D4A30E3006D4C83 /* JSONModel.m in Sources */,
 				02F2FDC71D4A30E3006D4C83 /* JSONModelError.m in Sources */,
+				022F25EA1D535983008AEBA1 /* UIViewController+LoadingView.m in Sources */,
 				02F2FDC81D4A30E3006D4C83 /* NSArray+JSONModel.m in Sources */,
 				02F2FDC61D4A30E3006D4C83 /* JSONModelClassProperty.m in Sources */,
-				022F25D71D52BD28008AEBA1 /* UIViewController+MFSideMenuAdditions.m in Sources */,
 				022F25B81D516E4D008AEBA1 /* TopScreen.m in Sources */,
 				022F25C91D52605E008AEBA1 /* HexColors.m in Sources */,
 				02DAF3AA1D47CAA70068BB71 /* AppDelegate.m in Sources */,
