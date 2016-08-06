@@ -24,16 +24,32 @@
     // Initialization code
 }
 
--(void)configureCellWithData:(NewsObject *)news{
-    //TODO: need implementation
-    [_newsCategory setText:news.parentCategory.categoryName];
+//-(void)configureCellWithData:(NewsObject *)data{
+//    //TODO: need implementation
+//
+//}
+
+- (void)configureCellWithData:(NSObject *)data{
+    NewsObject *news = (NewsObject *)data;
+    if (!news) {
+       return;
+    }
+//    [_newsCategory setText:news.parentCategory.categoryName];
     [_newsTitle setText:news.title];
     [_newsDescription setText:news.desc];
-    
 }
 
 +(CellSpanType)getCellSpanType{
     return CellSpanTypeLarge;
+}
+
++(CGFloat)getCellHeightWithWidth:(CGFloat)width{
+    
+    CGFloat sideEdgeSpacing = 8 * 2;
+    CGFloat topBotSpacing = 8*2;
+    CGFloat imageHeight = (width - sideEdgeSpacing) /3;
+    
+    return imageHeight + topBotSpacing;
 }
 
 @end

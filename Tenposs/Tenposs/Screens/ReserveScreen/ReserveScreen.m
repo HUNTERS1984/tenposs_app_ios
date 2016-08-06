@@ -1,0 +1,30 @@
+//
+//  ReserveScreen.m
+//  Tenposs
+//
+//  Created by Phúc Nguyễn on 8/5/16.
+//  Copyright © 2016 Tenposs. All rights reserved.
+//
+
+#import "ReserveScreen.h"
+
+@interface ReserveScreen ()
+
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+
+@end
+
+@implementation ReserveScreen
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://google.com"]]];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    
+}
+
+@end

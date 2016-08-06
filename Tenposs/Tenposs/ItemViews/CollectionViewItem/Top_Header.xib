@@ -12,7 +12,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ani-7m-8Dh">
-                    <rect key="frame" x="137.5" y="39" width="46" height="21"/>
+                    <rect key="frame" x="137" y="39" width="46" height="21"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                     <color key="textColor" red="0.37350063131313127" green="0.37350063131313127" blue="0.37350063131313127" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>

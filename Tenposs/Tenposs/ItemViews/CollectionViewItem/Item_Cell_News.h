@@ -9,11 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Const.h"
 #import "DataModel.h"
+#import "Common_Item_Cell.h"
 
-@interface Item_Cell_News : UICollectionViewCell
-
--(void)configureCellWithData:(NewsObject *)news;
-
-+(CellSpanType)getCellSpanType;
+@interface Item_Cell_News : Common_Item_Cell
 
 @end

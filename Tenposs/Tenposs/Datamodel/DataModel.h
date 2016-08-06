@@ -16,17 +16,33 @@
 @class ProductCategoryObject;
 @class NewsCategoryObject;
 
+@protocol ProductObject
+@end
+
+@protocol PhotoObject
+@end
+
+@protocol NewsObject
+@end
+
+@protocol ShopObject
+@end
+
+@protocol TopObject
+@end
+
 #pragma mark - TopItem
 @interface TopObject: JSONModel
-@property (strong, nonatomic)NSString *thumbURL;
+@property (strong, nonatomic)NSString *image_url;
 @end
 
 #pragma mark - Product
 @interface ProductObject : JSONModel
+@property (assign, nonatomic) NSInteger product_id;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *desc;
 @property (strong, nonatomic) NSString *price;
-@property (strong, nonatomic) NSString *thumbURL;
+@property (strong, nonatomic) NSString *image_url;
 @property (strong, nonatomic) ProductCategoryObject *parentCategory;
 @end
 
@@ -39,8 +55,11 @@
 
 #pragma mark - News
 @interface NewsObject : JSONModel
+@property (assign, nonatomic) NSInteger news_id;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *desc;
+@property (strong, nonatomic) NSString *image_url;
+@property (strong, nonatomic) NSString *date;
 @property (strong, nonatomic) NewsCategoryObject *parentCategory;
 @end
 
@@ -54,8 +73,10 @@
 
 #pragma mark - Gallery
 @interface PhotoObject : JSONModel
-@property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSString *desc;
+@property (assign, nonatomic) NSInteger photo_id;
+@property (assign, nonatomic) NSInteger category_id;
+@property (strong, nonatomic) NSString *category_name;
+@property (strong, nonatomic) NSString *image_url;
 @end
 
 @interface GalleryObject : JSONModel{
@@ -67,13 +88,14 @@
 @end
 #pragma mark - Shop
 @interface ShopObject : JSONModel
-
-@property (strong, nonatomic) NSString *shopName;
-@property (strong, nonatomic) NSString *shopAddress;
-@property (strong, nonatomic) NSString *shopAddressLong;
-@property (strong, nonatomic) NSString *shopAddressLat;
-@property (strong, nonatomic) NSString *shopPhoneNumber;
-@property (strong, nonatomic) NSString *shopOpenHour;
+@property (assign, nonatomic) NSInteger shopId;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *latitude;
+@property (strong, nonatomic) NSString *longitude;
+@property (strong, nonatomic) NSString *tel;
+@property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *start_time;
+@property (strong, nonatomic) NSString *end_time;
 
 @end
 

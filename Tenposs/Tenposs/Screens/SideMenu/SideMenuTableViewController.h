@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppConfiguration.h"
 
 @interface SideMenuTableViewController : UITableViewController
+
+- (void) setData:(NSMutableArray<MenuModel *> *)menuData;
 
 @end

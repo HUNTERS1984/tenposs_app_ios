@@ -37,8 +37,12 @@
 + (CGFloat)cellHeightWithWidth:(CGFloat)width{
     //TODO: need implementation
     //MapView ratio is 2.5:1 , 3 info view with 60 each, button is 44 with 15 padding both top and bottom
+    CGFloat mapHeight = width / 2.5;
+    CGFloat totalInfoViewHeight = 3*60;
+    CGFloat buttonHeight = 44;
+    CGFloat totalPadding = 15*2;
     
-    return 0.0f;
+    return mapHeight + totalInfoViewHeight + buttonHeight + totalPadding;
 }
 
 +(CellSpanType)getCellSpanType{

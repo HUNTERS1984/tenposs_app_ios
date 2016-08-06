@@ -7,6 +7,7 @@
 //
 
 #import "Item_Cell_Product.h"
+#import "UIUtils.h"
 
 @interface Item_Cell_Product()
 @property (weak, nonatomic) IBOutlet UIImageView *productThumbnail;
@@ -22,15 +23,26 @@
     // Initialization code
 }
 
--(void)configureCellWithData:(ProductObject *)product{
-    
-    [_productName setText:product.title];
-    [_productPrice setText:product.price];
-    
+- (void)configureCellWithData:(NSObject *)data{
+        ProductObject *product = (ProductObject *)data;
+        if (!product || ![product isKindOfClass:[ProductObject class]]) {
+            return;
+        }
+        [_productName setText:product.title];
+        [_productPrice setText:product.price];
 }
 
-+(CellSpanType)getCellSpanType{
++ (CellSpanType)getCellSpanType{
     return CellSpanTypeNormal;
+}
+
++ (CGFloat)getCellHeightWithWidth:(CGFloat)width{
+    //Calculate cell height
+    CGFloat imageHeight = width - 8;
+    CGFloat titleHeight = 22;
+    CGFloat priceHeight = 21;
+    
+    return imageHeight + 8 + titleHeight + 8 + priceHeight + 8;
 }
 
 @end

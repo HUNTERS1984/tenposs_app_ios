@@ -45,6 +45,12 @@
 
 @end
 
+@interface MenuModel : JSONModel
+
+@property (assign, nonatomic)NSInteger menu_id;
+@property (strong, nonatomic) NSString *title;
+@end
+
 typedef void (^AppConfigurationCompleteHandler)(NSError *error);
 
 @interface AppConfiguration : NSObject
@@ -59,6 +65,7 @@ typedef void (^AppConfigurationCompleteHandler)(NSError *error);
 
 @property (strong, nonatomic) AppSettings *appSettings;
 @property (strong, nonatomic) AppInfo *appInfo;
+@property (strong, nonatomic) NSMutableArray <MenuModel *> *menuData;
 
 @property (copy) AppConfigurationCompleteHandler completeHandler;
 

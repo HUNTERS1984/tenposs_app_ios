@@ -10,6 +10,9 @@
 
 
 @implementation TopObject
++(BOOL)propertyIsOptional:(NSString *)propertyName{
+    return YES;
+}
 
 @end
 
@@ -19,7 +22,12 @@
 +(BOOL)propertyIsOptional:(NSString *)propertyName{
     return YES;
 }
+//TODO: need implementation
 
++(JSONKeyMapper*)keyMapper
+{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{@"id":@"product_id",@"description":@"desc"}];
+}
 @end
 
 @implementation ProductCategoryObject
@@ -35,7 +43,12 @@
     return YES;
 }
 
+//TODO: need implementation
 
++(JSONKeyMapper*)keyMapper
+{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{}];
+}
 @end
 
 #pragma mark - Gallery
@@ -44,7 +57,12 @@
     return YES;
 }
 
+//TODO: need implementation
 
++(JSONKeyMapper*)keyMapper
+{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{@"id":@"photo_id",@"categoryid":@"category_id",@"categoryname":@"category_name"}];
+}
 @end
 
 @implementation GalleryObject
@@ -60,7 +78,12 @@
     }
     return self;
 }
+//TODO: need implementation
 
++(JSONKeyMapper*)keyMapper
+{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{}];
+}
 @end
 
 #pragma mark - News
@@ -68,7 +91,12 @@
 +(BOOL)propertyIsOptional:(NSString *)propertyName{
     return YES;
 }
+//TODO: need implementation
 
++(JSONKeyMapper*)keyMapper
+{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{@"id":@"news_id",@"description":@"desc"}];
+}
 @end
 
 @implementation NewsCategoryObject
@@ -83,8 +111,12 @@
 +(BOOL)propertyIsOptional:(NSString *)propertyName{
     return YES;
 }
+//TODO: need implementation
 
-
++(JSONKeyMapper*)keyMapper
+{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{}];
+}
 @end
 
 #pragma mark - Shop
@@ -93,5 +125,11 @@
     return YES;
 }
 
+//TODO: need implementation
+
++(JSONKeyMapper*)keyMapper
+{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{}];
+}
 
 @end

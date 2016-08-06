@@ -21,6 +21,10 @@
     // Initialization code
 }
 
+-(void)configureHeaderWithTitle:(NSString *)title{
+    [self.headerTitle setText:title];
+}
+
 +(CGFloat)height{
     return 70;
 }

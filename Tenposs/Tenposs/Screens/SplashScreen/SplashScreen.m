@@ -48,7 +48,7 @@
 }
 
 - (void)handleAppInfoWithError:(NSError *)error{
-    if (!error) {
+    if (!error){
         [self buildApp];
     }else{
         [UIView animateWithDuration:0.3 animations:^{
@@ -75,7 +75,7 @@
     if (appConfig.appSettings) {
         MainNavigationController *mainNavigation = [[MainNavigationController alloc]initWithTemplateId:appConfig.appSettings.template_id];
         SideMenuTableViewController *sideMenu = [[SideMenuTableViewController alloc] init];
-        
+        [sideMenu setData:appConfig.menuData];
         MFSideMenuContainerViewController *viewController = [MFSideMenuContainerViewController
                                                              containerWithCenterViewController:mainNavigation
                                                              leftMenuViewController:sideMenu

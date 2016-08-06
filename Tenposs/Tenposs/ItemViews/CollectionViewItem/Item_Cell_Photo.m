@@ -29,4 +29,10 @@
     return CellSpanTypeSmall;
 }
 
++(CGFloat)getCellHeightWithWidth:(CGFloat)width{
+    //All photo padding 8 at leading
+    CGFloat height = width;
+    return height;
+}
+
 @end

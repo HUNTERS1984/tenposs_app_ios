@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "Const.h"
+
+#define SPACING_ITEM_PRODUCT 8
+#define SPACING_ITEM_PHOTO 8
 
 @protocol TopScreenDataSourceDelegate <NSObject>
 
@@ -28,5 +32,13 @@
 -(instancetype)initWithDelegate: (id <TopScreenDataSourceDelegate>) delegate;
 
 - (void)fetchContent;
+
+- (CellSpanType)cellSpanTypeForItemAtIndexPath:(NSIndexPath *)indexPath;
+
+- (CGSize)sizeForCellAtIndexPath:(NSIndexPath *)indexPath withCollectionWidth:(CGFloat)superWidth;
+
+-(CGSize)sizeForHeaderAtSection:(NSInteger)section inCollectionView:(UICollectionView *)collectionView;
+
+-(CGSize)sizeForFooterAtSection:(NSInteger)section inCollectionView:(UICollectionView *)collectionView;
 
 @end

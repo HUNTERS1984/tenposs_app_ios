@@ -16,6 +16,7 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uTv-0M-KvP" userLabel="photo">
                         <rect key="frame" x="0.0" y="0.0" width="188" height="188"/>
+                        <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="uTv-0M-KvP" secondAttribute="height" multiplier="1:1" id="nTl-oH-aGz"/>
                         </constraints>
@@ -24,12 +25,24 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="uTv-0M-KvP" secondAttribute="trailing" id="6Gc-Vu-ahm"/>
                 <constraint firstAttribute="bottom" secondItem="uTv-0M-KvP" secondAttribute="bottom" id="6Uk-e7-ja2"/>
                 <constraint firstAttribute="trailing" secondItem="uTv-0M-KvP" secondAttribute="trailing" id="HSA-Ah-LTs"/>
                 <constraint firstItem="uTv-0M-KvP" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="abY-X5-ws5"/>
+                <constraint firstItem="uTv-0M-KvP" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="f52-w9-Ngn"/>
+                <constraint firstItem="uTv-0M-KvP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="hp5-XQ-n8R"/>
                 <constraint firstItem="uTv-0M-KvP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="kgQ-BW-TmU"/>
+                <constraint firstItem="uTv-0M-KvP" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="sTa-0m-8ZF"/>
             </constraints>
             <size key="customSize" width="188" height="188"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="6Uk-e7-ja2"/>
+                    <exclude reference="HSA-Ah-LTs"/>
+                    <exclude reference="abY-X5-ws5"/>
+                    <exclude reference="kgQ-BW-TmU"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="photo" destination="uTv-0M-KvP" id="Fcu-Bi-fR0"/>
             </connections>

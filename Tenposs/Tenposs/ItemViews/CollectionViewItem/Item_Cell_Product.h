@@ -9,11 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Const.h"
 #import "DataModel.h"
+#import "Common_Item_Cell.h"
 
-@interface Item_Cell_Product : UICollectionViewCell
-
-+(CellSpanType)getCellSpanType;
-
--(void)configureCellWithData:(ProductObject *)product;
+@interface Item_Cell_Product : Common_Item_Cell
 
 @end

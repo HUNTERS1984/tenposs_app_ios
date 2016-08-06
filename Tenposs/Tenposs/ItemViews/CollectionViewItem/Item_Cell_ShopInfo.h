@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "Const.h"
+#import "Common_Item_Cell.h"
 
+@interface Item_Cell_ShopInfo : Common_Item_Cell
 
-@interface Item_Cell_ShopInfo : UICollectionViewCell
-
-
-+(CellSpanType)getCellSpanType;
 @end

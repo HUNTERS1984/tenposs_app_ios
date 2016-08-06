@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface Top_Header : UICollectionReusableView
-
+- (void)configureHeaderWithTitle:(NSString *)title;
++(CGFloat)height;
 @end

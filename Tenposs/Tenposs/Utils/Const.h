@@ -14,6 +14,7 @@ typedef NS_ENUM(NSInteger, CellSpanType) {
     CellSpanTypeNormal,
     CellSpanTypeLarge,
     CellSpanTypeFull,
+    CellSpanTypeNone,
 };
 
 @interface Const : NSObject

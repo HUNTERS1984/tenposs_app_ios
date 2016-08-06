@@ -12,7 +12,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hjn-IH-iia">
-                    <rect key="frame" x="16" y="10" width="288" height="40"/>
+                    <rect key="frame" x="8" y="10" width="304" height="40"/>
                     <color key="backgroundColor" red="0.85882352941176465" green="0.96862745098039216" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="962-ty-yt4"/>
@@ -21,12 +21,15 @@
                     <state key="normal" title="Button">
                         <color key="titleColor" red="0.094117647058823528" green="0.75686274509803919" blue="0.74901960784313726" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <connections>
+                        <action selector="footerTouched:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="PWo-eg-bfT"/>
+                    </connections>
                 </button>
             </subviews>
             <constraints>
                 <constraint firstItem="hjn-IH-iia" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="10" id="Juh-cg-c0p"/>
-                <constraint firstAttribute="trailing" secondItem="hjn-IH-iia" secondAttribute="trailing" constant="16" id="MfS-ix-b4J"/>
-                <constraint firstItem="hjn-IH-iia" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="16" id="pzW-SB-xVz"/>
+                <constraint firstAttribute="trailing" secondItem="hjn-IH-iia" secondAttribute="trailing" constant="8" id="MfS-ix-b4J"/>
+                <constraint firstItem="hjn-IH-iia" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="8" id="pzW-SB-xVz"/>
             </constraints>
             <connections>
                 <outlet property="footerButton" destination="hjn-IH-iia" id="mMN-BR-1T9"/>

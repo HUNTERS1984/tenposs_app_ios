@@ -11,6 +11,7 @@
 @interface Top_Footer()
 
 @property (weak, nonatomic) IBOutlet UIButton *footerButton;
+@property(copy) TopFooterTouchHandler touchHandler;
 
 @end
 
@@ -19,6 +20,18 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+
+- (void)configureFooterWithTitle:(NSString *)title withTouchHandler:(TopFooterTouchHandler)handler{
+    [self.footerButton setTitle:title forState:UIControlStateNormal];
+    [self.footerButton setTitle:title forState:UIControlStateHighlighted];
+    self.touchHandler = handler;
+}
+
+- (IBAction)footerTouched:(id)sender {
+    if (self.touchHandler) {
+        self.touchHandler();
+    }
 }
 
 +(CGFloat)height{

@@ -92,6 +92,39 @@
             </objects>
             <point key="canvasLocation" x="1037" y="-285"/>
         </scene>
+        <!--Reserve Screen-->
+        <scene sceneID="AmT-ek-wYu">
+            <objects>
+                <viewController id="Cxw-96-dIK" customClass="ReserveScreen" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="N2S-D7-gSt"/>
+                        <viewControllerLayoutGuide type="bottom" id="KJy-9K-kwC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nHw-1G-0yB">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Gj-bc-FLb">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="KJy-9K-kwC" firstAttribute="top" secondItem="4Gj-bc-FLb" secondAttribute="bottom" id="5Ao-SX-pXV"/>
+                            <constraint firstItem="4Gj-bc-FLb" firstAttribute="leading" secondItem="nHw-1G-0yB" secondAttribute="leading" id="CUr-Kk-Tb9"/>
+                            <constraint firstItem="4Gj-bc-FLb" firstAttribute="top" secondItem="N2S-D7-gSt" secondAttribute="bottom" id="MXQ-eE-3kF"/>
+                            <constraint firstAttribute="trailing" secondItem="4Gj-bc-FLb" secondAttribute="trailing" id="ioc-tS-dh1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="4Gj-bc-FLb" id="30K-sJ-d4R"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x8B-VC-P9v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="328" y="510"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="vnN-mA-fYv">
             <objects>

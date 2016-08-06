@@ -1,0 +1,58 @@
+{
+  "code": "1000",
+  "message": "OK",
+  "data": {
+    "setting": {
+      "title": "phuc's Shop",
+      "title_color": "#000000",
+      "font_size": 15,
+      "font_family": "Nelvetical_neuvl",
+      "header_color": "#333333",
+      "menu_icon_color": "#45D2D2",
+      "menu_background_color": "#32465A",
+      "menu_font_color": "#ffffff",
+      "menu_font_size": 15,
+      "menu_font_family": "Nelvetical_neuvl",
+      "template_id": 1,
+      "top_main_image_url": "https://www.google.com.vn/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjoz8DKpa3OAhWGG5QKHQemDWoQjRwIBw&url=http%3A%2F%2Fweheartit.com%2Fentry%2F13784726&bvm=bv.129391328,d.dGo&psig=AFQjCNG-sK8MmUQK18zlocbdOcFRqUXVJw&ust=1470590198581975"
+    },
+    "menus": [
+      {
+        "id": "111",
+        "title": "Home"
+      },
+      {
+        "id": "112",
+        "title": "Menu"
+      },
+      {
+        "id": "113",
+        "title": "Reserve"
+      },
+      {
+        "id": "114",
+        "title": "News"
+      },
+      {
+        "id": "115",
+        "title": "Photo Gallery"
+      },
+      {
+        "id": "116",
+        "title": "Staff"
+      },
+      {
+        "id": "117",
+        "title": "Coupon"
+      },
+      {
+        "id": "118",
+        "title": "Chat"
+      },
+      {
+        "id": "119",
+        "title": "Settings"
+      }
+    ]
+  }
+}

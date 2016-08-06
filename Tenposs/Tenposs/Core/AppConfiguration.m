@@ -10,10 +10,26 @@
 #import "AppInfoCommunicator.h"
 
 @implementation AppInfo
-
++ (BOOL)propertyIsOptional:(NSString *)propertyName{
+    return YES;
+}
 @end
 
 @implementation AppSettings
++ (BOOL)propertyIsOptional:(NSString *)propertyName{
+    return YES;
+}
+@end
+
+@implementation MenuModel
+
++ (BOOL)propertyIsOptional:(NSString *)propertyName{
+    return YES;
+}
+
++ (JSONKeyMapper *)keyMapper{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{@"id":@"menu_id"}];
+}
 
 @end
 
@@ -57,6 +73,7 @@
 }
 
 - (void)loadAppInfo{
+
 }
 
 //TODO: clean
@@ -93,6 +110,5 @@
 -( void)cancelAllRequest{
     
 }
-
 
 @end
