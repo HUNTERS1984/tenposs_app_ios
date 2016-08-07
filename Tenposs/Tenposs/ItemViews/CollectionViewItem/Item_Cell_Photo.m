@@ -7,6 +7,8 @@
 //
 
 #import "Item_Cell_Photo.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "DataModel.h"
 
 @interface Item_Cell_Photo()
 
@@ -22,7 +24,13 @@
 }
 
 - (void)configureCellWithData:(NSObject *)data{
+    PhotoObject *photo = (PhotoObject *)data;
+    
+    if (!photo || ![photo isKindOfClass:[PhotoObject class]]) {
+        return;
+    }
     //TODO: load image
+    [self.photo sd_setImageWithURL:[NSURL URLWithString:photo.image_url]];
 }
 
 +(CellSpanType)getCellSpanType{

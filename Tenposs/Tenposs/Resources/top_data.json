@@ -7,42 +7,42 @@
         "id": 1001,
         "title": "product 1",
         "price": "$35",
-        "image_url": "https://www.google.com.vn/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjoz8DKpa3OAhWGG5QKHQemDWoQjRwIBw&url=http%3A%2F%2Fweheartit.com%2Fentry%2F13784726&bvm=bv.129391328,d.dGo&psig=AFQjCNG-sK8MmUQK18zlocbdOcFRqUXVJw&ust=1470590198581975",
+        "image_url": "http://data.whicdn.com/images/13784726/large.jpg",
         "description": "This is product description"
       },
       {
         "id": 1002,
         "title": "product 1",
         "price": "$35",
-        "image_url": "https://www.google.com.vn/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjoz8DKpa3OAhWGG5QKHQemDWoQjRwIBw&url=http%3A%2F%2Fweheartit.com%2Fentry%2F13784726&bvm=bv.129391328,d.dGo&psig=AFQjCNG-sK8MmUQK18zlocbdOcFRqUXVJw&ust=1470590198581975",
+        "image_url": "http://data.whicdn.com/images/13784726/large.jpg",
         "description": "This is product description"
       },
       {
         "id": 1003,
         "title": "product 1",
         "price": "$35",
-        "image_url": "https://www.google.com.vn/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjoz8DKpa3OAhWGG5QKHQemDWoQjRwIBw&url=http%3A%2F%2Fweheartit.com%2Fentry%2F13784726&bvm=bv.129391328,d.dGo&psig=AFQjCNG-sK8MmUQK18zlocbdOcFRqUXVJw&ust=1470590198581975",
+        "image_url": "http://data.whicdn.com/images/13784726/large.jpg",
         "description": "This is product description"
       },
       {
         "id": 1004,
         "title": "product 1",
         "price": "$35",
-        "image_url": "https://www.google.com.vn/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjoz8DKpa3OAhWGG5QKHQemDWoQjRwIBw&url=http%3A%2F%2Fweheartit.com%2Fentry%2F13784726&bvm=bv.129391328,d.dGo&psig=AFQjCNG-sK8MmUQK18zlocbdOcFRqUXVJw&ust=1470590198581975",
+        "image_url": "http://data.whicdn.com/images/13784726/large.jpg",
         "description": "This is product description"
       },
       {
         "id": 1005,
         "title": "product 1",
         "price": "$35",
-        "image_url": "https://www.google.com.vn/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjoz8DKpa3OAhWGG5QKHQemDWoQjRwIBw&url=http%3A%2F%2Fweheartit.com%2Fentry%2F13784726&bvm=bv.129391328,d.dGo&psig=AFQjCNG-sK8MmUQK18zlocbdOcFRqUXVJw&ust=1470590198581975",
+        "image_url": "http://data.whicdn.com/images/13784726/large.jpg",
         "description": "This is product description"
       },
       {
         "id": 1006,
         "title": "product 1",
         "price": "$35",
-        "image_url": "https://www.google.com.vn/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjoz8DKpa3OAhWGG5QKHQemDWoQjRwIBw&url=http%3A%2F%2Fweheartit.com%2Fentry%2F13784726&bvm=bv.129391328,d.dGo&psig=AFQjCNG-sK8MmUQK18zlocbdOcFRqUXVJw&ust=1470590198581975",
+        "image_url": "http://data.whicdn.com/images/13784726/large.jpg",
         "description": "This is product description"
       }
     ],
@@ -51,37 +51,37 @@
         "id": 1011,
         "categoryid": 2011,
         "categoryname": "gallery",
-        "image_url": "https://www.google.com.vn/imgres?imgurl=http%3A%2F%2Fwww.bohogems.nl%2Fassets%2Fuploads%2F2013%2F10%2Fheaderfall.jpg&imgrefurl=http%3A%2F%2Fwww.bohogems.nl%2Finspiration-a-bohemian-fall%2F&docid=51LyHxHfTcdIVM&tbnid=e0drBwWYtcahHM%3A&w=640&h=425&bih=816&biw=1360&ved=0ahUKEwigyM3sqK3OAhWMF5QKHS2uAmAQMwghKAgwCA&iact=mrc&uact=8"
+        "image_url": "http://www.bohogems.nl/assets/uploads/2013/10/headerfall.jpg"
       },
       {
         "id": 1012,
         "categoryid": 2012,
         "categoryname": "gallery",
-        "image_url": "https://www.google.com.vn/imgres?imgurl=http%3A%2F%2Fwww.bohogems.nl%2Fassets%2Fuploads%2F2013%2F10%2Fheaderfall.jpg&imgrefurl=http%3A%2F%2Fwww.bohogems.nl%2Finspiration-a-bohemian-fall%2F&docid=51LyHxHfTcdIVM&tbnid=e0drBwWYtcahHM%3A&w=640&h=425&bih=816&biw=1360&ved=0ahUKEwigyM3sqK3OAhWMF5QKHS2uAmAQMwghKAgwCA&iact=mrc&uact=8"
+        "image_url": "http://www.bohogems.nl/assets/uploads/2013/10/headerfall.jpg"
       },
       {
         "id": 1013,
         "categoryid": 2013,
         "categoryname": "gallery",
-        "image_url": "https://www.google.com.vn/imgres?imgurl=http%3A%2F%2Fwww.bohogems.nl%2Fassets%2Fuploads%2F2013%2F10%2Fheaderfall.jpg&imgrefurl=http%3A%2F%2Fwww.bohogems.nl%2Finspiration-a-bohemian-fall%2F&docid=51LyHxHfTcdIVM&tbnid=e0drBwWYtcahHM%3A&w=640&h=425&bih=816&biw=1360&ved=0ahUKEwigyM3sqK3OAhWMF5QKHS2uAmAQMwghKAgwCA&iact=mrc&uact=8"
+        "image_url": "http://www.bohogems.nl/assets/uploads/2013/10/headerfall.jpg"
       },
       {
         "id": 1014,
         "categoryid": 2014,
         "categoryname": "gallery",
-        "image_url": "https://www.google.com.vn/imgres?imgurl=http%3A%2F%2Fwww.bohogems.nl%2Fassets%2Fuploads%2F2013%2F10%2Fheaderfall.jpg&imgrefurl=http%3A%2F%2Fwww.bohogems.nl%2Finspiration-a-bohemian-fall%2F&docid=51LyHxHfTcdIVM&tbnid=e0drBwWYtcahHM%3A&w=640&h=425&bih=816&biw=1360&ved=0ahUKEwigyM3sqK3OAhWMF5QKHS2uAmAQMwghKAgwCA&iact=mrc&uact=8"
+        "image_url": "http://www.bohogems.nl/assets/uploads/2013/10/headerfall.jpg"
       },
       {
         "id": 1015,
         "categoryid": 2015,
         "categoryname": "gallery",
-        "image_url": "https://www.google.com.vn/imgres?imgurl=http%3A%2F%2Fwww.bohogems.nl%2Fassets%2Fuploads%2F2013%2F10%2Fheaderfall.jpg&imgrefurl=http%3A%2F%2Fwww.bohogems.nl%2Finspiration-a-bohemian-fall%2F&docid=51LyHxHfTcdIVM&tbnid=e0drBwWYtcahHM%3A&w=640&h=425&bih=816&biw=1360&ved=0ahUKEwigyM3sqK3OAhWMF5QKHS2uAmAQMwghKAgwCA&iact=mrc&uact=8"
+        "image_url": "http://www.bohogems.nl/assets/uploads/2013/10/headerfall.jpg"
       },
       {
         "id": 1016,
         "categoryid": 2016,
         "categoryname": "gallery",
-        "image_url": "https://www.google.com.vn/imgres?imgurl=http%3A%2F%2Fwww.bohogems.nl%2Fassets%2Fuploads%2F2013%2F10%2Fheaderfall.jpg&imgrefurl=http%3A%2F%2Fwww.bohogems.nl%2Finspiration-a-bohemian-fall%2F&docid=51LyHxHfTcdIVM&tbnid=e0drBwWYtcahHM%3A&w=640&h=425&bih=816&biw=1360&ved=0ahUKEwigyM3sqK3OAhWMF5QKHS2uAmAQMwghKAgwCA&iact=mrc&uact=8"
+        "image_url": "http://www.bohogems.nl/assets/uploads/2013/10/headerfall.jpg"
       }
     ],
     "news": [
@@ -90,32 +90,32 @@
         "title":"Curabitur tortor tellus, tempor ut",
         "description":"Sed ligula lectus, facilisis eu sagittis faucibus, mollis non elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin blandit mollis sollicitudin.",
         "date":"2016-03-15 14:26:11",
-        "image_url":"https://www.google.com.vn/imgres?imgurl=http%3A%2F%2Fin2.ccio.co%2F4D%2FuC%2FIC%2FbohogirlbohemianhippieprettyFavimcom505857.jpg&imgrefurl=http%3A%2F%2Findulgy.com%2Fpost%2FM1IwEGcJb1%2Fboho-girl-bohemian-hippie-pretty-inspirin&docid=hV0ii_emF0ZGNM&tbnid=dkmPbgGlUeWoZM%3A&w=554&h=368&bih=816&biw=1360&ved=0ahUKEwigyM3sqK3OAhWMF5QKHS2uAmAQMwgjKAowCg&iact=mrc&uact=8"
+        "image_url":"http://www.bohogems.nl/assets/uploads/2013/10/headerfall.jpg"
       },
       {
         "id":1022,
         "title":"Curabitur tortor tellus, tempor ut",
         "description":"Sed ligula lectus, facilisis eu sagittis faucibus, mollis non elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin blandit mollis sollicitudin.",
         "date":"2016-03-15 14:26:11",
-        "image_url":"https://www.google.com.vn/imgres?imgurl=http%3A%2F%2Fin2.ccio.co%2F4D%2FuC%2FIC%2FbohogirlbohemianhippieprettyFavimcom505857.jpg&imgrefurl=http%3A%2F%2Findulgy.com%2Fpost%2FM1IwEGcJb1%2Fboho-girl-bohemian-hippie-pretty-inspirin&docid=hV0ii_emF0ZGNM&tbnid=dkmPbgGlUeWoZM%3A&w=554&h=368&bih=816&biw=1360&ved=0ahUKEwigyM3sqK3OAhWMF5QKHS2uAmAQMwgjKAowCg&iact=mrc&uact=8"
+        "image_url":"http://www.bohogems.nl/assets/uploads/2013/10/headerfall.jpg"
       },
       {
         "id":1023,
         "title":"Curabitur tortor tellus, tempor ut",
         "description":"Sed ligula lectus, facilisis eu sagittis faucibus, mollis non elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin blandit mollis sollicitudin.",
         "date":"2016-03-15 14:26:11",
-        "image_url":"https://www.google.com.vn/imgres?imgurl=http%3A%2F%2Fin2.ccio.co%2F4D%2FuC%2FIC%2FbohogirlbohemianhippieprettyFavimcom505857.jpg&imgrefurl=http%3A%2F%2Findulgy.com%2Fpost%2FM1IwEGcJb1%2Fboho-girl-bohemian-hippie-pretty-inspirin&docid=hV0ii_emF0ZGNM&tbnid=dkmPbgGlUeWoZM%3A&w=554&h=368&bih=816&biw=1360&ved=0ahUKEwigyM3sqK3OAhWMF5QKHS2uAmAQMwgjKAowCg&iact=mrc&uact=8"
+        "image_url":"http://www.bohogems.nl/assets/uploads/2013/10/headerfall.jpg"
       }
     ],
     "images": [
       {
-        "image_url": "https://www.google.com.vn/imgres?imgurl=http%3A%2F%2Flifeseasons.getitguru.in%2Fwp-content%2Fuploads%2Fbeautiful%2Fgirl%2FBeautiful-Girls-Wallpaper-HD-1024x640.jpg&imgrefurl=http%3A%2F%2Flifeseasons.getitguru.in%2F1-girl-with-beautiful-eyes-and-hairbeautiful-girl-beautiful-girl-wallpaper%2Fpin%2F995%2F&docid=NCNBfANOWI4vnM&tbnid=SSbZQuFGgp_yvM%3A&w=1024&h=640&bih=816&biw=1360&ved=0ahUKEwjqzZW9qq3OAhVDJ5QKHTYxAYIQMwgaKAEwAQ&iact=mrc&uact=8"
+        "image_url": "http://lifeseasons.getitguru.in/wp-content/uploads/beautiful/girl/Beautiful-Girls-Wallpaper-HD-1024x640.jpg"
       },
       {
-        "image_url": "https://www.google.com.vn/imgres?imgurl=http%3A%2F%2F7-themes.com%2Fdata_images%2Fout%2F58%2F6969623-irina-shayk-sheik-model-girl-fashion.jpg&imgrefurl=http%3A%2F%2F7-themes.com%2F7040236-irina-shayk-sheik-lovely-model-girl-fashion.html&docid=K-aab8BVN9RHCM&tbnid=6dBgreZq21K1RM%3A&w=1680&h=1050&bih=816&biw=1360&ved=0ahUKEwipip7sqq3OAhXFjJQKHYG8DQ0QMwgcKAMwAw&iact=mrc&uact=8"
+        "image_url": "http://www.funcage.com/blog/wp-content/uploads/2013/09/Girls-With-Beautiful-Eyes-040.jpg"
       },
       {
-        "image_url": "https://www.google.com.vn/imgres?imgurl=http%3A%2F%2Flifeseasons.getitguru.in%2Fwp-content%2Fuploads%2Fbeautiful%2Fgirl%2FBeautiful-Girls-Wallpaper-HD-1024x640.jpg&imgrefurl=http%3A%2F%2Flifeseasons.getitguru.in%2F1-girl-with-beautiful-eyes-and-hairbeautiful-girl-beautiful-girl-wallpaper%2Fpin%2F995%2F&docid=NCNBfANOWI4vnM&tbnid=SSbZQuFGgp_yvM%3A&w=1024&h=640&bih=816&biw=1360&ved=0ahUKEwjqzZW9qq3OAhVDJ5QKHTYxAYIQMwgaKAEwAQ&iact=mrc&uact=8"
+        "image_url": "http://lifeseasons.getitguru.in/wp-content/uploads/beautiful/girl/Beautiful-Girls-Wallpaper-HD-1024x640.jpg"
       }
     ]
   }

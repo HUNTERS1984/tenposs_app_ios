@@ -8,9 +8,12 @@
 
 #import "Item_Cell_ShopInfo.h"
 
+#define SHOP_MAPS_IMAGE_FORMAT  @"http://maps.google.com/maps/api/staticmap?center=%@,%@&zoom=15&size=%fx%f&sensor=false"
+
 @interface Item_Cell_ShopInfo()
 
 @property (weak, nonatomic) IBOutlet UIView *shop_map;
+@property (weak, nonatomic) IBOutlet UIImageView *shopMapImage;
 
 @property (weak, nonatomic) IBOutlet UILabel *shopAddressText;
 @property (weak, nonatomic) IBOutlet UIImageView *shopAddressIcon;
@@ -31,6 +34,11 @@
 }
 
 -(void)configureCellWithData:(NSObject *)data{
+    ShopObject *shopInfo = (ShopObject *)data;
+    if (!shopInfo || [shopInfo isKindOfClass:[ShopObject class]]) {
+        return;
+    }
+    
     
 }
 

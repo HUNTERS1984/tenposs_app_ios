@@ -8,6 +8,7 @@
 
 #import "Item_Cell_Product.h"
 #import "UIUtils.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface Item_Cell_Product()
 @property (weak, nonatomic) IBOutlet UIImageView *productThumbnail;
@@ -24,12 +25,13 @@
 }
 
 - (void)configureCellWithData:(NSObject *)data{
-        ProductObject *product = (ProductObject *)data;
-        if (!product || ![product isKindOfClass:[ProductObject class]]) {
-            return;
-        }
-        [_productName setText:product.title];
-        [_productPrice setText:product.price];
+    ProductObject *product = (ProductObject *)data;
+    if (!product || ![product isKindOfClass:[ProductObject class]]) {
+        return;
+    }
+    [_productName setText:product.title];
+    [_productPrice setText:product.price];
+    [_productThumbnail sd_setImageWithURL:[NSURL URLWithString:product.image_url]];
 }
 
 + (CellSpanType)getCellSpanType{

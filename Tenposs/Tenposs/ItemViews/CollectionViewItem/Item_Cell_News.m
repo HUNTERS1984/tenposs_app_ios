@@ -7,6 +7,7 @@
 //
 
 #import "Item_Cell_News.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface Item_Cell_News()
 
@@ -37,6 +38,7 @@
 //    [_newsCategory setText:news.parentCategory.categoryName];
     [_newsTitle setText:news.title];
     [_newsDescription setText:news.desc];
+    [_newsImage sd_setImageWithURL:[NSURL URLWithString:news.image_url]];
 }
 
 +(CellSpanType)getCellSpanType{

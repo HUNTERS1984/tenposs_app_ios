@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Const.h"
 #import "Common_Item_Cell.h"
+#import "DataModel.h"
 
 @interface Item_Cell_ShopInfo : Common_Item_Cell
 

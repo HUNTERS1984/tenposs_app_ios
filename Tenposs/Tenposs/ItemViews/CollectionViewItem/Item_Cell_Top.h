@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "Common_Item_Cell.h"
+#import "DataModel.h"
 
-@interface Item_Cell_Top : Common_Item_Cell
+@interface Item_Cell_Top : Common_Item_Cell <UIScrollViewDelegate>
 
 @end

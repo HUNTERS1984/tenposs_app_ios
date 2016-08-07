@@ -15,18 +15,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="220" height="288"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QqW-RS-bPy" userLabel="product_name">
-                        <rect key="frame" x="8" y="228" width="212" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="8" y="228" width="212" height="18"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                        <color key="textColor" red="0.26844618055555558" green="0.26844618055555558" blue="0.26844618055555558" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KxK-sZ-w9a" userLabel="product_price">
-                        <rect key="frame" x="8" y="257" width="212" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="8" y="250" width="212" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.26844618055555558" green="0.26844618055555558" blue="0.26844618055555558" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pki-h0-wsF" userLabel="product_image">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pki-h0-wsF" userLabel="product_image">
                         <rect key="frame" x="0.0" y="0.0" width="220" height="220"/>
                         <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -43,7 +43,7 @@
                 <constraint firstItem="QqW-RS-bPy" firstAttribute="leading" secondItem="pki-h0-wsF" secondAttribute="leading" constant="8" id="LWM-z0-kip"/>
                 <constraint firstItem="KxK-sZ-w9a" firstAttribute="leading" secondItem="pki-h0-wsF" secondAttribute="leading" constant="8" id="XT2-fd-ttt"/>
                 <constraint firstAttribute="trailing" secondItem="pki-h0-wsF" secondAttribute="trailing" id="ZOa-bu-dk4"/>
-                <constraint firstItem="KxK-sZ-w9a" firstAttribute="top" secondItem="QqW-RS-bPy" secondAttribute="bottom" constant="8" id="fxF-iW-Y1r"/>
+                <constraint firstItem="KxK-sZ-w9a" firstAttribute="top" secondItem="QqW-RS-bPy" secondAttribute="bottom" constant="4" id="fxF-iW-Y1r"/>
                 <constraint firstItem="QqW-RS-bPy" firstAttribute="top" secondItem="pki-h0-wsF" secondAttribute="bottom" constant="8" id="xCr-4L-nFY"/>
                 <constraint firstAttribute="trailing" secondItem="KxK-sZ-w9a" secondAttribute="trailing" id="yXo-JJ-XnV"/>
             </constraints>

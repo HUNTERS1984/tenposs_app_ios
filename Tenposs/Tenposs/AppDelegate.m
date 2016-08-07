@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "AppConfiguration.h"
+#import "GMSServices.h"
 
 @interface AppDelegate ()
 @property UIView *loadingView;
@@ -18,7 +19,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+    [GMSServices provideAPIKey:@"AIzaSyBGQ6CgNp8sb_MDhnPAWlzKgb6qBOa8Bsg"];
   //  [self loadAppConfig];
     
     return YES;

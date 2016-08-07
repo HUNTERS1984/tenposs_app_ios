@@ -17,17 +17,17 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IYz-jL-vbT" userLabel="shop_map">
                         <rect key="frame" x="0.0" y="8" width="485" height="194"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="cgX-SQ-oph">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sxd-Kc-yuR">
                                 <rect key="frame" x="0.0" y="0.0" width="485" height="194"/>
-                            </mapView>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.75667146502692617" green="1" blue="0.71953867607696376" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="IYz-jL-vbT" secondAttribute="height" multiplier="2.5:1" id="9Tn-O5-YhT"/>
-                            <constraint firstAttribute="trailing" secondItem="cgX-SQ-oph" secondAttribute="trailing" id="AFD-sr-0kr"/>
-                            <constraint firstAttribute="bottom" secondItem="cgX-SQ-oph" secondAttribute="bottom" id="XXm-rn-RxP"/>
-                            <constraint firstItem="cgX-SQ-oph" firstAttribute="leading" secondItem="IYz-jL-vbT" secondAttribute="leading" id="YD1-xx-TZt"/>
-                            <constraint firstItem="cgX-SQ-oph" firstAttribute="top" secondItem="IYz-jL-vbT" secondAttribute="top" id="jPQ-4J-Skm"/>
+                            <constraint firstAttribute="trailing" secondItem="Sxd-Kc-yuR" secondAttribute="trailing" id="VOn-Ab-Qxq"/>
+                            <constraint firstItem="Sxd-Kc-yuR" firstAttribute="top" secondItem="IYz-jL-vbT" secondAttribute="top" id="gaI-uN-3xZ"/>
+                            <constraint firstAttribute="bottom" secondItem="Sxd-Kc-yuR" secondAttribute="bottom" id="wDN-gJ-miX"/>
+                            <constraint firstItem="Sxd-Kc-yuR" firstAttribute="leading" secondItem="IYz-jL-vbT" secondAttribute="leading" id="znI-a0-Hdw"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RX6-JX-3xN" userLabel="shop_address">
@@ -172,6 +172,7 @@
             <connections>
                 <outlet property="shopAddressIcon" destination="l2C-ho-OyU" id="Z9m-Go-9WL"/>
                 <outlet property="shopAddressText" destination="NBG-HB-Sa9" id="laT-5E-f7v"/>
+                <outlet property="shopMapImage" destination="Sxd-Kc-yuR" id="C8Y-6z-7WB"/>
                 <outlet property="shopOpenIcon" destination="n99-Ig-q6i" id="veZ-iN-QYA"/>
                 <outlet property="shopOpenText" destination="gES-sp-Bom" id="RRH-de-Jt3"/>
                 <outlet property="shopPhoneIcon" destination="PQj-aM-ceh" id="65L-wl-XFD"/>

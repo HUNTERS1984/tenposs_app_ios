@@ -8,13 +8,35 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Item_Cell_Top" id="gTV-IL-0wX" customClass="Item_Cell_Top">
-            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="411" height="299"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="411" height="299"/>
+                <subviews>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PpC-SI-r1c">
+                        <rect key="frame" x="0.0" y="0.0" width="411" height="299"/>
+                    </scrollView>
+                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="TgJ-k7-3Ua">
+                        <rect key="frame" x="186" y="262" width="39" height="37"/>
+                    </pageControl>
+                </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="PpC-SI-r1c" secondAttribute="trailing" id="7VL-H2-Xgc"/>
+                <constraint firstAttribute="bottom" secondItem="TgJ-k7-3Ua" secondAttribute="bottom" id="A8w-Lu-fDh"/>
+                <constraint firstItem="TgJ-k7-3Ua" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Frz-d8-CBB"/>
+                <constraint firstItem="PpC-SI-r1c" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="TfH-zB-7DR"/>
+                <constraint firstItem="PpC-SI-r1c" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="b08-Ji-Emj"/>
+                <constraint firstAttribute="bottom" secondItem="PpC-SI-r1c" secondAttribute="bottom" id="rXI-yU-YTm"/>
+            </constraints>
+            <size key="customSize" width="411" height="299"/>
+            <connections>
+                <outlet property="pageControl" destination="TgJ-k7-3Ua" id="Rwl-9G-n75"/>
+                <outlet property="scrollView" destination="PpC-SI-r1c" id="JBC-Ry-KS2"/>
+            </connections>
+            <point key="canvasLocation" x="439.5" y="317.5"/>
         </collectionViewCell>
     </objects>
 </document>

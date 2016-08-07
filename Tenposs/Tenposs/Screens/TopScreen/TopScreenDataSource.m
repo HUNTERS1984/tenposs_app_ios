@@ -50,7 +50,10 @@
 
 - (NSObject *)dataAtIndexPath:(NSIndexPath *)indexPath{
     NSObject *sectionData = [self sectionDataForSection:indexPath.section];
-    if (sectionData) {
+    NSObject *data = [(NSMutableArray *)sectionData firstObject];
+    if ([data isKindOfClass:[TopObject class]]) {
+        return sectionData;
+    }else{
         return [(NSMutableArray *)sectionData objectAtIndex:indexPath.row];
     }
     return nil;
@@ -61,8 +64,14 @@
         return 0;
     }
     NSMutableArray *sectionData = [_sectionArray objectAtIndex:section];
+    
     if(sectionData){
-        return [sectionData count];
+        NSObject *data = [(NSMutableArray *)sectionData firstObject];
+        if ([data isKindOfClass:[TopObject class]]) {
+            return 1;
+        }else{
+            return [sectionData count];
+        }
     }else{
         NSAssert(false, @"Wrong section index or sectionArray doesn't contain this section");
     }
@@ -76,7 +85,7 @@
     
     if ([item isKindOfClass:[ProductObject class]]) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Cell_Product class]) forIndexPath:indexPath];
-    }else if([item isKindOfClass:[TopObject class]]){
+    }else if([item isKindOfClass:[NSMutableArray<TopObject *> class]]){
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Cell_Top class]) forIndexPath:indexPath];
     }else if([item isKindOfClass:[PhotoObject class]]){
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Cell_Photo class]) forIndexPath:indexPath];
@@ -194,7 +203,7 @@
     CGFloat height = 0;
     
     NSObject *item = [self dataAtIndexPath:indexPath];
-    if([item isKindOfClass:[TopObject class]]){
+    if([item isKindOfClass:[NSMutableArray<TopObject *> class]]){
         width = superWidth;
         height = [Item_Cell_Top getCellHeightWithWidth:width];
     }else if ([item isKindOfClass:[ProductObject class]]) {
@@ -300,11 +309,9 @@
 }
 
 - (void)begin:(TenpossCommunicator*)request data:(Bundle*) responseParams{
-
 }
 
 -( void)cancelAllRequest{
-
 }
 
 
