@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SimpleDataSource.h"
 
-@interface MenuScreenDataSource : NSObject
+@interface MenuScreenDataSource : SimpleDataSource
 
 @end

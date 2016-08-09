@@ -10,6 +10,8 @@
 		0211402A1D57C99900598AD2 /* MenuScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 021140291D57C99900598AD2 /* MenuScreen.m */; };
 		0211402D1D57D33E00598AD2 /* MenuScreenDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0211402C1D57D33E00598AD2 /* MenuScreenDataSource.m */; };
 		021140311D57D39E00598AD2 /* SimpleDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 021140301D57D39E00598AD2 /* SimpleDataSource.m */; };
+		021140341D58A9C200598AD2 /* MenuCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 021140331D58A9C200598AD2 /* MenuCommunicator.m */; };
+		021140371D58DF5400598AD2 /* UIView+LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 021140361D58DF5400598AD2 /* UIView+LoadingView.m */; };
 		0221142C1D5441E000F44E88 /* Common_Item_Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0221142B1D5441E000F44E88 /* Common_Item_Cell.m */; };
 		0221142F1D54426000F44E88 /* ReserveScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 0221142E1D54426000F44E88 /* ReserveScreen.m */; };
 		022114321D56494300F44E88 /* TopCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 022114311D56494300F44E88 /* TopCommunicator.m */; };
@@ -107,6 +109,10 @@
 		0211402C1D57D33E00598AD2 /* MenuScreenDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScreenDataSource.m; sourceTree = "<group>"; };
 		0211402F1D57D39E00598AD2 /* SimpleDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleDataSource.h; sourceTree = "<group>"; };
 		021140301D57D39E00598AD2 /* SimpleDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleDataSource.m; sourceTree = "<group>"; };
+		021140321D58A9C200598AD2 /* MenuCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCommunicator.h; sourceTree = "<group>"; };
+		021140331D58A9C200598AD2 /* MenuCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCommunicator.m; sourceTree = "<group>"; };
+		021140351D58DF5400598AD2 /* UIView+LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LoadingView.h"; sourceTree = "<group>"; };
+		021140361D58DF5400598AD2 /* UIView+LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LoadingView.m"; sourceTree = "<group>"; };
 		0221142A1D5441E000F44E88 /* Common_Item_Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common_Item_Cell.h; sourceTree = "<group>"; };
 		0221142B1D5441E000F44E88 /* Common_Item_Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common_Item_Cell.m; sourceTree = "<group>"; };
 		0221142D1D54426000F44E88 /* ReserveScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReserveScreen.h; sourceTree = "<group>"; };
@@ -343,6 +349,8 @@
 			children = (
 				022F25E81D535983008AEBA1 /* UIViewController+LoadingView.h */,
 				022F25E91D535983008AEBA1 /* UIViewController+LoadingView.m */,
+				021140351D58DF5400598AD2 /* UIView+LoadingView.h */,
+				021140361D58DF5400598AD2 /* UIView+LoadingView.m */,
 			);
 			path = Additional;
 			sourceTree = "<group>";
@@ -601,6 +609,8 @@
 				022F25BA1D524858008AEBA1 /* AppInfoCommunicator.m */,
 				022114301D56494300F44E88 /* TopCommunicator.h */,
 				022114311D56494300F44E88 /* TopCommunicator.m */,
+				021140321D58A9C200598AD2 /* MenuCommunicator.h */,
+				021140331D58A9C200598AD2 /* MenuCommunicator.m */,
 			);
 			path = Communicator;
 			sourceTree = "<group>";
@@ -856,12 +866,14 @@
 				022F25CC1D52617D008AEBA1 /* MainNavigationController.m in Sources */,
 				022F25BB1D524858008AEBA1 /* AppInfoCommunicator.m in Sources */,
 				0221143D1D566DD700F44E88 /* UIUtils.m in Sources */,
+				021140341D58A9C200598AD2 /* MenuCommunicator.m in Sources */,
 				02F2FDD01D4A30E3006D4C83 /* LogoutRequest.m in Sources */,
 				02CD65A21D47D6C50015661D /* Item_Cell_Product.m in Sources */,
 				02CD65991D47CDF50015661D /* AppConfiguration.m in Sources */,
 				02CD65B11D47E7DB0015661D /* Item_Cell_ShopInfo.m in Sources */,
 				02CD65931D47CD130015661D /* MenuItem_User.m in Sources */,
 				0221142F1D54426000F44E88 /* ReserveScreen.m in Sources */,
+				021140371D58DF5400598AD2 /* UIView+LoadingView.m in Sources */,
 				02F2FDD41D4A30E3006D4C83 /* TenpossCommunicator.m in Sources */,
 				02F2FDD81D4A32CC006D4C83 /* Const.m in Sources */,
 				02CD65A71D47D8EB0015661D /* Item_Cell_Photo.m in Sources */,

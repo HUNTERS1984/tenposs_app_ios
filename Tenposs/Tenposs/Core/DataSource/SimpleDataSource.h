@@ -27,6 +27,10 @@
 
 - (void)loadData;
 
+- (NSInteger)numberOfItem;
+
+- (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath;
+
 - (CGSize)sizeForCellAtIndexPath:(NSIndexPath *)indexPath withCollectionWidth:(CGFloat)superWidth;
 
 - (CGSize)sizeForHeaderAtSection:(NSInteger)section inCollectionView:(UICollectionView *)collectionView;

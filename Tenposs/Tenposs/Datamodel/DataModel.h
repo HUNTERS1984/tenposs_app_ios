@@ -19,6 +19,14 @@
 @protocol ProductObject
 @end
 
+@protocol ProductContainer <NSObject>
+@required
+-(void)addProduct:(ProductObject *)product;
+@optional
+-(void)removeAllProduct;
+-(void)removeProduct:(ProductObject *)productToRemove;
+@end
+
 @protocol PhotoObject
 @end
 
