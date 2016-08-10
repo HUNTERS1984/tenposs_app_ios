@@ -100,7 +100,7 @@
                     [self updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
                     self.collectionView.dataSource = self.dataSource.activeDetailDataSource;
                     [self.collectionView reloadData];
-                    [self.nextCategoryButton setEnabled:NO];
+                    [self.previousCategoryButton setEnabled:NO];
                 }else{
                     NSLog(@"MenuScreen - Change dataSource failed - Error :%@", error.domain);
                 }
