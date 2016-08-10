@@ -18,6 +18,7 @@
 #import "Common_Item_Cell.h"
 #import "MockupData.h"
 #import "TopCommunicator.h"
+#import "TopScreen.h"
 
 
 @interface TopScreenDataSource()<TenpossCommunicatorDelegate>
@@ -159,7 +160,11 @@
         }else{
             Top_Footer *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass([Top_Footer class]) forIndexPath:indexPath];
             [footer configureFooterWithTitle:@"View More" withTouchHandler:^{
-                
+                NSLog(@"Top Footer is tapped!");
+                TopScreen *topScreen = (TopScreen *)self.delegate;
+                if (topScreen) {
+                    [topScreen performNavigateToMenuScreen:nil];
+                }
             }];
             reuseableView = footer;
         }

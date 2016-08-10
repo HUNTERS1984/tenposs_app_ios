@@ -52,6 +52,9 @@
 @property (strong, nonatomic) NSString *price;
 @property (strong, nonatomic) NSString *image_url;
 @property (strong, nonatomic) ProductCategoryObject *parentCategory;
+
+- (void)updateItemWithItem:(ProductObject *)item;
+
 @end
 
 @interface ProductCategoryObject : JSONModel{

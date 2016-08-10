@@ -10,6 +10,10 @@
 #import <UIKit/UIKit.h>
 #import "JSONModel.h"
 
+@interface StoreInfo : JSONModel
+
+@end
+
 @interface AppInfo : JSONModel
 
 @property (strong, nonatomic) NSString *lat;

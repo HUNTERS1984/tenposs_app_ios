@@ -10,6 +10,8 @@
 #import "TopScreenDataSource.h"
 #import "UIViewController+LoadingView.h"
 #import "Const.h"
+#import "MenuScreen.h"
+#import "UIUtils.h"
 
 @interface TopScreen ()<TopScreenDataSourceDelegate, UICollectionViewDelegateFlowLayout>
 @property TopScreenDataSource *dataSource;
@@ -80,5 +82,11 @@
     return [dataSource sizeForFooterAtSection:section inCollectionView:collectionView];
 }
 
+#pragma mark - Navigation Methods
+
+- (void)performNavigateToMenuScreen:(Bundle *)extraData{
+    MenuScreen *menuScreen = (MenuScreen *)[[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([MenuScreen class])];
+    [self.mainNavigationController pushViewController:menuScreen animated:YES];
+}
 
 @end

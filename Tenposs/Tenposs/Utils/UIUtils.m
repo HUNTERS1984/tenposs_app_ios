@@ -25,4 +25,10 @@
     return size.height;
 }
 
++ (UIStoryboard *)mainStoryboard{
+    UIStoryboard *mainStoryboard = nil;
+    mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    return mainStoryboard;
+}
+
 @end

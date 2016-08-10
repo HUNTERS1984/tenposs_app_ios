@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface UIView(LoadingView)
-
+- (void)showLoadingView;
+- (void)removeLoadingView;
 @end

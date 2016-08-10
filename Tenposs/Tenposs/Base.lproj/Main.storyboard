@@ -129,7 +129,7 @@
         <!--Menu Screen-->
         <scene sceneID="MxF-w8-VWc">
             <objects>
-                <viewController id="s1Y-WW-0KS" customClass="MenuScreen" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MenuScreen" id="s1Y-WW-0KS" customClass="MenuScreen" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sGT-Lx-UGR"/>
                         <viewControllerLayoutGuide type="bottom" id="lnd-Po-ltR"/>
@@ -151,6 +151,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oQy-gy-B48">
                                         <rect key="frame" x="548" y="13" width="32" height="30"/>
                                         <state key="normal" title="Next"/>
+                                        <connections>
+                                            <action selector="buttonClick:" destination="s1Y-WW-0KS" eventType="touchUpInside" id="pxh-aw-9NI"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJO-OX-N97">
                                         <rect key="frame" x="89" y="17" width="422" height="21"/>
@@ -161,6 +164,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4FE-BE-jkM">
                                         <rect key="frame" x="20" y="12" width="59" height="30"/>
                                         <state key="normal" title="Previous"/>
+                                        <connections>
+                                            <action selector="buttonClick:" destination="s1Y-WW-0KS" eventType="touchUpInside" id="tIn-fY-Von"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -211,6 +217,12 @@
                             <constraint firstItem="lnd-Po-ltR" firstAttribute="top" secondItem="1jU-SH-43z" secondAttribute="bottom" id="vkt-5W-snf"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="categoryTitle" destination="FJO-OX-N97" id="ace-Q5-eCD"/>
+                        <outlet property="collectionView" destination="1jU-SH-43z" id="0ae-k7-Wz2"/>
+                        <outlet property="nextCategoryButton" destination="oQy-gy-B48" id="m5H-dh-sXo"/>
+                        <outlet property="previousCategoryButton" destination="4FE-BE-jkM" id="5jb-oC-kG6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1jh-6c-Iz1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

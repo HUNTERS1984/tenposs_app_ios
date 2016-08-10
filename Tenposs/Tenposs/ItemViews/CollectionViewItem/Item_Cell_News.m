@@ -39,6 +39,7 @@
     [_newsTitle setText:news.title];
     [_newsDescription setText:news.desc];
     [_newsImage sd_setImageWithURL:[NSURL URLWithString:news.image_url]];
+    _newsImage.layer.masksToBounds = YES;
 }
 
 +(CellSpanType)getCellSpanType{

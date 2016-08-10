@@ -28,6 +28,16 @@
 {
     return [[JSONKeyMapper alloc] initWithDictionary:@{@"id":@"product_id",@"description":@"desc"}];
 }
+
+- (void)updateItemWithItem:(ProductObject *)item{
+    if (self.product_id != item.product_id) {
+        return;
+    }
+   self.title = item.title;
+   self.desc = item.desc;
+   self.price = item.price;
+   self.image_url = item.image_url;
+}
 @end
 
 @implementation ProductCategoryObject

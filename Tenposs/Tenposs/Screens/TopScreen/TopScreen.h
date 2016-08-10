@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Bundle.h"
 
 @interface TopScreen : UICollectionViewController
+@property UINavigationController *mainNavigationController;
+
+- (void)performNavigateToMenuScreen:(Bundle *)extraData;
 
 @end

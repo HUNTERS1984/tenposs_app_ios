@@ -19,6 +19,7 @@
     UIViewController *rootViewController = nil;
     if (templateId == TEMPLATE_1) {
         rootViewController = [[TopScreen alloc]initWithCollectionViewLayout:[UICollectionViewFlowLayout new]];
+        ((TopScreen *)rootViewController).mainNavigationController = self;
     }
     
     self = [super initWithRootViewController:rootViewController];

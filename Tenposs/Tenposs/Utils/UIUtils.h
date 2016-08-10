@@ -11,4 +11,5 @@
 
 @interface UIUtils : NSObject
 +(CGFloat)getLabelHeight:(UILabel*)label;
++ (UIStoryboard *)mainStoryboard;
 @end

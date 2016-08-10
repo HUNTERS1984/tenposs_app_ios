@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0211402A1D57C99900598AD2 /* MenuScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 021140291D57C99900598AD2 /* MenuScreen.m */; };
-		0211402D1D57D33E00598AD2 /* MenuScreenDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0211402C1D57D33E00598AD2 /* MenuScreenDataSource.m */; };
 		021140311D57D39E00598AD2 /* SimpleDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 021140301D57D39E00598AD2 /* SimpleDataSource.m */; };
 		021140341D58A9C200598AD2 /* MenuCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 021140331D58A9C200598AD2 /* MenuCommunicator.m */; };
 		021140371D58DF5400598AD2 /* UIView+LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 021140361D58DF5400598AD2 /* UIView+LoadingView.m */; };
@@ -37,6 +36,13 @@
 		022F25E11D52C8DA008AEBA1 /* Top_Footer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 022F25DF1D52C8DA008AEBA1 /* Top_Footer.xib */; };
 		022F25E61D53563F008AEBA1 /* UIViewController+MFSideMenuAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 022F25E51D53563F008AEBA1 /* UIViewController+MFSideMenuAdditions.m */; };
 		022F25EA1D535983008AEBA1 /* UIViewController+LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 022F25E91D535983008AEBA1 /* UIViewController+LoadingView.m */; };
+		024C4D241D59E89100896EE4 /* GrandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 024C4D231D59E89100896EE4 /* GrandViewController.m */; };
+		024C4D271D59F3D900896EE4 /* MenuScreenDetailDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 024C4D261D59F3D900896EE4 /* MenuScreenDetailDataSource.m */; };
+		024C4D2A1D59F4D200896EE4 /* MenuScreenDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 024C4D291D59F4D200896EE4 /* MenuScreenDataSource.m */; };
+		024C4D2E1D5AA58600896EE4 /* menu_items_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 024C4D2B1D5AA58600896EE4 /* menu_items_2.json */; };
+		024C4D2F1D5AA58600896EE4 /* menu_items_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 024C4D2C1D5AA58600896EE4 /* menu_items_1.json */; };
+		024C4D301D5AA58600896EE4 /* menu_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 024C4D2D1D5AA58600896EE4 /* menu_list.json */; };
+		024C4D331D5AAD1B00896EE4 /* MenuDetailCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 024C4D321D5AAD1B00896EE4 /* MenuDetailCommunicator.m */; };
 		02CD65931D47CD130015661D /* MenuItem_User.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CD65911D47CD130015661D /* MenuItem_User.m */; };
 		02CD65941D47CD130015661D /* MenuItem_User.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02CD65921D47CD130015661D /* MenuItem_User.xib */; };
 		02CD65991D47CDF50015661D /* AppConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CD65981D47CDF50015661D /* AppConfiguration.m */; };
@@ -105,8 +111,6 @@
 /* Begin PBXFileReference section */
 		021140281D57C99900598AD2 /* MenuScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScreen.h; sourceTree = "<group>"; };
 		021140291D57C99900598AD2 /* MenuScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScreen.m; sourceTree = "<group>"; };
-		0211402B1D57D33E00598AD2 /* MenuScreenDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScreenDataSource.h; sourceTree = "<group>"; };
-		0211402C1D57D33E00598AD2 /* MenuScreenDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScreenDataSource.m; sourceTree = "<group>"; };
 		0211402F1D57D39E00598AD2 /* SimpleDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleDataSource.h; sourceTree = "<group>"; };
 		021140301D57D39E00598AD2 /* SimpleDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleDataSource.m; sourceTree = "<group>"; };
 		021140321D58A9C200598AD2 /* MenuCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCommunicator.h; sourceTree = "<group>"; };
@@ -158,6 +162,17 @@
 		022F25E51D53563F008AEBA1 /* UIViewController+MFSideMenuAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MFSideMenuAdditions.m"; sourceTree = "<group>"; };
 		022F25E81D535983008AEBA1 /* UIViewController+LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LoadingView.h"; sourceTree = "<group>"; };
 		022F25E91D535983008AEBA1 /* UIViewController+LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LoadingView.m"; sourceTree = "<group>"; };
+		024C4D221D59E89100896EE4 /* GrandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrandViewController.h; sourceTree = "<group>"; };
+		024C4D231D59E89100896EE4 /* GrandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrandViewController.m; sourceTree = "<group>"; };
+		024C4D251D59F3D900896EE4 /* MenuScreenDetailDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScreenDetailDataSource.h; sourceTree = "<group>"; };
+		024C4D261D59F3D900896EE4 /* MenuScreenDetailDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScreenDetailDataSource.m; sourceTree = "<group>"; };
+		024C4D281D59F4D200896EE4 /* MenuScreenDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScreenDataSource.h; sourceTree = "<group>"; };
+		024C4D291D59F4D200896EE4 /* MenuScreenDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScreenDataSource.m; sourceTree = "<group>"; };
+		024C4D2B1D5AA58600896EE4 /* menu_items_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = menu_items_2.json; sourceTree = "<group>"; };
+		024C4D2C1D5AA58600896EE4 /* menu_items_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = menu_items_1.json; sourceTree = "<group>"; };
+		024C4D2D1D5AA58600896EE4 /* menu_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = menu_list.json; sourceTree = "<group>"; };
+		024C4D311D5AAD1B00896EE4 /* MenuDetailCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuDetailCommunicator.h; sourceTree = "<group>"; };
+		024C4D321D5AAD1B00896EE4 /* MenuDetailCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuDetailCommunicator.m; sourceTree = "<group>"; };
 		02CD65901D47CD130015661D /* MenuItem_User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuItem_User.h; sourceTree = "<group>"; };
 		02CD65911D47CD130015661D /* MenuItem_User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItem_User.m; sourceTree = "<group>"; };
 		02CD65921D47CD130015661D /* MenuItem_User.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuItem_User.xib; sourceTree = "<group>"; };
@@ -279,8 +294,10 @@
 			children = (
 				021140281D57C99900598AD2 /* MenuScreen.h */,
 				021140291D57C99900598AD2 /* MenuScreen.m */,
-				0211402B1D57D33E00598AD2 /* MenuScreenDataSource.h */,
-				0211402C1D57D33E00598AD2 /* MenuScreenDataSource.m */,
+				024C4D251D59F3D900896EE4 /* MenuScreenDetailDataSource.h */,
+				024C4D261D59F3D900896EE4 /* MenuScreenDetailDataSource.m */,
+				024C4D281D59F4D200896EE4 /* MenuScreenDataSource.h */,
+				024C4D291D59F4D200896EE4 /* MenuScreenDataSource.m */,
 			);
 			path = MenuScreen;
 			sourceTree = "<group>";
@@ -297,6 +314,9 @@
 		022114361D565A1000F44E88 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				024C4D2B1D5AA58600896EE4 /* menu_items_2.json */,
+				024C4D2C1D5AA58600896EE4 /* menu_items_1.json */,
+				024C4D2D1D5AA58600896EE4 /* menu_list.json */,
 				022114371D565A1000F44E88 /* app_info.json */,
 				022114381D565A1000F44E88 /* top_data.json */,
 			);
@@ -364,6 +384,15 @@
 			path = ReserveScreen;
 			sourceTree = "<group>";
 		};
+		024C4D211D59E87800896EE4 /* GrandViewController */ = {
+			isa = PBXGroup;
+			children = (
+				024C4D221D59E89100896EE4 /* GrandViewController.h */,
+				024C4D231D59E89100896EE4 /* GrandViewController.m */,
+			);
+			path = GrandViewController;
+			sourceTree = "<group>";
+		};
 		02CD65951D47CDDC0015661D /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,6 +408,7 @@
 		02CD65961D47CDDC0015661D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				024C4D211D59E87800896EE4 /* GrandViewController */,
 				021140271D57C97600598AD2 /* MenuScreen */,
 				022F25EB1D5435AC008AEBA1 /* ReserveScreen */,
 				022F25D11D52B777008AEBA1 /* SplashScreen */,
@@ -611,6 +641,8 @@
 				022114311D56494300F44E88 /* TopCommunicator.m */,
 				021140321D58A9C200598AD2 /* MenuCommunicator.h */,
 				021140331D58A9C200598AD2 /* MenuCommunicator.m */,
+				024C4D311D5AAD1B00896EE4 /* MenuDetailCommunicator.h */,
+				024C4D321D5AAD1B00896EE4 /* MenuDetailCommunicator.m */,
 			);
 			path = Communicator;
 			sourceTree = "<group>";
@@ -775,8 +807,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				024C4D2E1D5AA58600896EE4 /* menu_items_2.json in Resources */,
 				02CD65A81D47D8EB0015661D /* Item_Cell_Photo.xib in Resources */,
+				024C4D301D5AA58600896EE4 /* menu_list.json in Resources */,
 				0221143A1D565A1000F44E88 /* top_data.json in Resources */,
+				024C4D2F1D5AA58600896EE4 /* menu_items_1.json in Resources */,
 				022114421D567C6E00F44E88 /* Item_Cell_Top.xib in Resources */,
 				02CD65B21D47E7DB0015661D /* Item_Cell_ShopInfo.xib in Resources */,
 				02CD65A31D47D6C50015661D /* Item_Cell_Product.xib in Resources */,
@@ -871,6 +906,8 @@
 				02CD65A21D47D6C50015661D /* Item_Cell_Product.m in Sources */,
 				02CD65991D47CDF50015661D /* AppConfiguration.m in Sources */,
 				02CD65B11D47E7DB0015661D /* Item_Cell_ShopInfo.m in Sources */,
+				024C4D331D5AAD1B00896EE4 /* MenuDetailCommunicator.m in Sources */,
+				024C4D271D59F3D900896EE4 /* MenuScreenDetailDataSource.m in Sources */,
 				02CD65931D47CD130015661D /* MenuItem_User.m in Sources */,
 				0221142F1D54426000F44E88 /* ReserveScreen.m in Sources */,
 				021140371D58DF5400598AD2 /* UIView+LoadingView.m in Sources */,
@@ -879,18 +916,19 @@
 				02CD65A71D47D8EB0015661D /* Item_Cell_Photo.m in Sources */,
 				022114351D564FFC00F44E88 /* MockupData.m in Sources */,
 				022F25D41D52B78C008AEBA1 /* SplashScreen.m in Sources */,
+				024C4D2A1D59F4D200896EE4 /* MenuScreenDataSource.m in Sources */,
 				02F2FDC41D4A30E3006D4C83 /* JSONModel.m in Sources */,
 				02F2FDC71D4A30E3006D4C83 /* JSONModelError.m in Sources */,
 				0211402A1D57C99900598AD2 /* MenuScreen.m in Sources */,
 				022F25EA1D535983008AEBA1 /* UIViewController+LoadingView.m in Sources */,
 				022114321D56494300F44E88 /* TopCommunicator.m in Sources */,
+				024C4D241D59E89100896EE4 /* GrandViewController.m in Sources */,
 				02F2FDC81D4A30E3006D4C83 /* NSArray+JSONModel.m in Sources */,
 				02F2FDC61D4A30E3006D4C83 /* JSONModelClassProperty.m in Sources */,
 				022F25B81D516E4D008AEBA1 /* TopScreen.m in Sources */,
 				0221142C1D5441E000F44E88 /* Common_Item_Cell.m in Sources */,
 				022F25C91D52605E008AEBA1 /* HexColors.m in Sources */,
 				02DAF3AA1D47CAA70068BB71 /* AppDelegate.m in Sources */,
-				0211402D1D57D33E00598AD2 /* MenuScreenDataSource.m in Sources */,
 				022F25C21D525F81008AEBA1 /* MFSideMenuContainerViewController.m in Sources */,
 				022F25D01D52B20A008AEBA1 /* SideMenuTableViewController.m in Sources */,
 				02CD659D1D47D4240015661D /* MenuItem_Common.m in Sources */,

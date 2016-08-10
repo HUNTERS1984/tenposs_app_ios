@@ -8,7 +8,27 @@
 
 #import "MenuCommunicator.h"
 
+@implementation MenuListModel
+
++ (BOOL)propertyIsOptional:(NSString *)propertyName{
+    return YES;
+}
+
++ (JSONKeyMapper *)keyMapper{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{@"data":@"items"}];
+}
+
+@end
+
 @implementation MenuCategoryModel
+
++ (BOOL)propertyIsOptional:(NSString *)propertyName{
+    return YES;
+}
+
++ (JSONKeyMapper *)keyMapper{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{@"data.items":@"items"}];
+}
 
 - (instancetype)init{
     self = [super init];
@@ -21,6 +41,12 @@
 - (void)addProduct:(ProductObject *)product{
     if (!self.items) {
         self.items = (NSMutableArray<ProductObject> *)[[NSMutableArray alloc] init];
+    }
+    for (ProductObject *item in self.items) {
+        if (item.product_id == product.product_id) {
+            [item updateItemWithItem:product];
+            return;
+        }
     }
     [self.items addObject:product];
 }

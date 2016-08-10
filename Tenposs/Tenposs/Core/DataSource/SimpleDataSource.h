@@ -9,12 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@class SimpleDataSource;
+
 @protocol SimpleDataSourceDelegate <NSObject>
 @required
-- (void)dataLoadedWithError:(NSError *)error;
+- (void)dataLoaded:(SimpleDataSource *)executor withError:(NSError *)error;
 - (void)needRefreshItemAtIndexPath:(NSIndexPath *)indexPath;
 - (void)needRefreshSectionAtIndexPath:(NSIndexPath *)indexPath;
-
 @end
 
 @interface SimpleDataSource : NSObject <UICollectionViewDataSource>
@@ -26,6 +27,8 @@
 -(void)reloadDataSource;
 
 - (void)loadData;
+
+- (void)registerClassForCollectionView:(UICollectionView *)collection;
 
 - (NSInteger)numberOfItem;
 
