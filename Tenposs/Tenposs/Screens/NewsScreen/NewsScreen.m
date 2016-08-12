@@ -1,42 +1,40 @@
 //
-//  MenuScreen.m
+//  NewsScreen.m
 //  Tenposs
 //
-//  Created by Phúc Nguyễn on 8/8/16.
+//  Created by Phúc Nguyễn on 8/12/16.
 //  Copyright © 2016 Tenposs. All rights reserved.
 //
 
-#import "MenuScreen.h"
-#import "MenuScreenDataSource.h"
-#import "MenuCommunicator.h"
+#import "NewsScreen.h"
+#import "NewsScreenDataSource.h"
 #import "UIViewController+LoadingView.h"
 #import "UIView+LoadingView.h"
 
-@interface MenuScreen ()<UICollectionViewDelegateFlowLayout>
-
+@interface NewsScreen()<UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 /// UI components
-@property (weak, nonatomic) IBOutlet UIButton *nextCategoryButton;
 @property (weak, nonatomic) IBOutlet UIButton *previousCategoryButton;
-@property (weak, nonatomic) IBOutlet UILabel *categoryTitle;
+@property (weak, nonatomic) IBOutlet UIButton *nextCategoryButton;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UILabel *categoryTitle;
 
 /// Data source
-@property (strong, nonatomic) MenuScreenDataSource *dataSource;
+@property (strong, nonatomic) NewsScreenDataSource *dataSource;
 
 @end
 
-@implementation MenuScreen
+@implementation NewsScreen
 
 - (void)loadView{
     [super loadView];
-    self.dataSource = [[MenuScreenDataSource alloc] initAndShouldShowLatest:YES];
+    self.dataSource = [[NewsScreenDataSource alloc] initAndShouldShowLatest:YES];
     self.dataSource.collectionView = self.collectionView;
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     [self.collectionView setCollectionViewLayout:layout];
     self.collectionView.backgroundColor = [UIColor whiteColor];
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad{
     [super viewDidLoad];
     self.collectionView.delegate = self;
     
@@ -67,15 +65,15 @@
     if (sender == self.nextCategoryButton) {
         [self.nextCategoryButton setEnabled:NO];
         [self.previousCategoryButton setEnabled:NO];
-//        [self.collectionView showLoadingView];
+        //        [self.collectionView showLoadingView];
         [self.dataSource changeToNextDetailDataSourceWithCompleteHandler:^(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious) {
             if (!error) {
                 [self updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
                 self.collectionView.dataSource = self.dataSource.activeDetailDataSource;
                 [self.collectionView reloadData];
-//                [self.collectionView removeLoadingView];
+                //                [self.collectionView removeLoadingView];
             }else{
-                if([error.domain isEqualToString:MenuScreenError_isLast]){
+                if([error.domain isEqualToString:NewsScreenError_isLast]){
                     [self updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
                     self.collectionView.dataSource = self.dataSource.activeDetailDataSource;
                     [self.collectionView reloadData];
@@ -88,15 +86,15 @@
     }else if(sender == self.previousCategoryButton){
         [self.nextCategoryButton setEnabled:NO];
         [self.previousCategoryButton setEnabled:NO];
-//        [self.collectionView showLoadingView];
+        //        [self.collectionView showLoadingView];
         [self.dataSource changeToPreviousDetailDataSourceWithCompleteHandler:^(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious) {
             if (!error) {
                 [self updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
                 self.collectionView.dataSource = self.dataSource.activeDetailDataSource;
                 [self.collectionView reloadData];
-//                [self.collectionView removeLoadingView];
+                //                [self.collectionView removeLoadingView];
             }else{
-                if ([error.domain isEqualToString:MenuScreenError_isFirst]) {
+                if ([error.domain isEqualToString:NewsScreenError_isFirst]) {
                     [self updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
                     self.collectionView.dataSource = self.dataSource.activeDetailDataSource;
                     [self.collectionView reloadData];
@@ -132,7 +130,7 @@
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-    return UIEdgeInsetsMake(20, 8, 5, 8);
+    return UIEdgeInsetsMake(8, 8, 8, 8);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
@@ -140,7 +138,7 @@
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-    return 8;
+    return 0;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{

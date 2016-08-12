@@ -25,11 +25,6 @@
     // Initialization code
 }
 
-//-(void)configureCellWithData:(NewsObject *)data{
-//    //TODO: need implementation
-//
-//}
-
 - (void)configureCellWithData:(NSObject *)data{
     NewsObject *news = (NewsObject *)data;
     if (!news) {

@@ -41,4 +41,10 @@
 
 - (CGSize)sizeForFooterAtSection:(NSInteger)section inCollectionView:(UICollectionView *)collectionView;
 
+- (CGFloat)minimumLineSpacingForSection:(NSInteger)section;
+
+- (CGFloat)minimumInteritemSpacingForSection:(NSInteger)section;
+
+- (UIEdgeInsets)insetForSectionAtIndex:(NSInteger)section;
+
 @end

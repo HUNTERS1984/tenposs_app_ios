@@ -13,5 +13,6 @@
 @property UINavigationController *mainNavigationController;
 
 - (void)performNavigateToMenuScreen:(Bundle *)extraData;
+- (void)performNavigateToNewsScreen:(Bundle *)extraData;
 
 @end

@@ -9,6 +9,8 @@
 #import "Item_Cell_Top.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
+#define Top_ThumbnailRatio  2
+
 @interface Item_Cell_Top()
 @property (strong, nonatomic) NSMutableArray <TopObject *> *topArray;
 @property (assign, nonatomic)NSInteger currentPageIndex;
@@ -78,12 +80,12 @@
     self.currentPageIndex = page;
 }
 
-+ (CellSpanType)getCellSpanType{
-    return CellSpanTypeLarge;
-}
+//+ (CellSpanType)getCellSpanType{
+//    return CellSpanTypeLarge;
+//}
 
 + (CGFloat)getCellHeightWithWidth:(CGFloat)width{
-    return width / 2;
+    return width / Top_ThumbnailRatio;
 }
 
 @end

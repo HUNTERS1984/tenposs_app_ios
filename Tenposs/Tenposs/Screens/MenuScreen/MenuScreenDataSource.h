@@ -18,14 +18,6 @@
 
 typedef void (^MenuDataCompleteHandler)(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious);
 
-//@protocol MenuSreenDataSourceDelegate <NSObject>
-//
-//-(void)fetchDataCompleteWithError:(NSError *)error andHandler;
-//- (void)startChangingDetailDataSource:(MenuScreenDetailDataSource *)fromDataSource to:(MenuScreenDetailDataSource *)toDataSource;
-//- (void)endChangingDetailDataSource;
-//
-//@end
-
 @interface MenuScreenDataSource : NSObject
 
 @property (strong, nonatomic)UICollectionView *collectionView;

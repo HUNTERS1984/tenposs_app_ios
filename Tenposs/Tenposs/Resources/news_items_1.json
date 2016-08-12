@@ -1,0 +1,50 @@
+{
+    "code": "1000",
+    "message": "OK",
+    "data": {
+        "news":[
+                {
+                "store_id":1,
+                "id":101,
+                "title":"Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "description":"Nunc vehicula, nunc dictum laoreet pellentesque, sapien erat commodo tellus, ut sollicitudin leo lorem ac lorem. Vivamus ultricies odio bibendum condimentum bibendum. Aliquam vel enim et massa cursus consectetur non ut mauris. Fusce luctus, ipsum eget vehicula",
+                "date":"2016-08-16",
+                "image_url":"http://www.sbs.com.au/news/sites/sbs.com.au.news/files/styles/full/public/images/m/a/march09tuna_800x600.jpg?itok=P9sj4CjS&mtime=1394365903"
+                },
+                {
+                "store_id":1,
+                "id":102,
+                "title":"Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "description":"Nunc vehicula, nunc dictum laoreet pellentesque, sapien erat commodo tellus, ut sollicitudin leo lorem ac lorem. Vivamus ultricies odio bibendum condimentum bibendum. Aliquam vel enim et massa cursus consectetur non ut mauris. Fusce luctus, ipsum eget vehicula",
+                "date":"2016-08-16",
+                "image_url":"http://static.dnaindia.com/sites/default/files/styles/half/public/2016/02/26/430692-japan-gettyimages.jpg?itok=pRGF8rxa"
+                },
+                {
+                "store_id":1,
+                "id":103,
+                "title":"Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "description":"Nunc vehicula, nunc dictum laoreet pellentesque, sapien erat commodo tellus, ut sollicitudin leo lorem ac lorem. Vivamus ultricies odio bibendum condimentum bibendum. Aliquam vel enim et massa cursus consectetur non ut mauris. Fusce luctus, ipsum eget vehicula",
+                "date":"2016-08-16",
+                "image_url":"http://www.japantoday.com/images/size/x/2016/02/chinese.jpg"
+                },
+                {
+                "store_id":1,
+                "id":104,
+                "title":"Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "description":"Nunc vehicula, nunc dictum laoreet pellentesque, sapien erat commodo tellus, ut sollicitudin leo lorem ac lorem. Vivamus ultricies odio bibendum condimentum bibendum. Aliquam vel enim et massa cursus consectetur non ut mauris. Fusce luctus, ipsum eget vehicula",
+                "date":"2016-08-16",
+                "image_url":"http://www.dw.com/image/0,,19189231_303,00.png"
+                },
+                {
+                "store_id":1,
+                "id":105,
+                "title":"Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "description":"Nunc vehicula, nunc dictum laoreet pellentesque, sapien erat commodo tellus, ut sollicitudin leo lorem ac lorem. Vivamus ultricies odio bibendum condimentum bibendum. Aliquam vel enim et massa cursus consectetur non ut mauris. Fusce luctus, ipsum eget vehicula",
+                "date":"2016-08-16",
+                "image_url":"http://i0.wp.com/www.japancrush.com/wp-content/uploads/2015/07/Chinese-state-TV-shows-Gundam-On-News-Japan-Military-02.jpg"
+                }
+                ],
+        "notification":[],
+        "totalnew":5
+    }
+}

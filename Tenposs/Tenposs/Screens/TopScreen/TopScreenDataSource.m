@@ -123,6 +123,11 @@
 }
 
 - (BOOL)sectionShouldHaveFooter:(NSInteger)section{
+    NSObject *sectionData = [self sectionDataForSection:section];
+    NSObject *data = [(NSMutableArray *)sectionData firstObject];
+    if ([data isKindOfClass:[TopObject class]]) {
+        return NO;
+    }
     return YES;
 }
 
@@ -159,13 +164,29 @@
             return nil;
         }else{
             Top_Footer *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass([Top_Footer class]) forIndexPath:indexPath];
-            [footer configureFooterWithTitle:@"View More" withTouchHandler:^{
-                NSLog(@"Top Footer is tapped!");
-                TopScreen *topScreen = (TopScreen *)self.delegate;
-                if (topScreen) {
-                    [topScreen performNavigateToMenuScreen:nil];
-                }
-            }];
+            NSObject *sectionData = [self sectionDataForSection:indexPath.section];
+            NSObject *data = [(NSMutableArray *)sectionData firstObject];
+            TopFooterTouchHandler handler = nil;
+            
+            if ([data isKindOfClass:[TopObject class]]) {
+                handler = ^{
+                    NSLog(@"Top Footer is tapped!");
+                    TopScreen *topScreen = (TopScreen *)self.delegate;
+                    if (topScreen) {
+                        [topScreen performNavigateToMenuScreen:nil];
+                    }
+                };
+            }else if([data isKindOfClass:[NewsObject class]]){
+                handler = ^{
+                    NSLog(@"Top Footer is tapped!");
+                    TopScreen *topScreen = (TopScreen *)self.delegate;
+                    if (topScreen) {
+                        [topScreen performNavigateToNewsScreen:nil];
+                    }
+                };
+            }
+
+            [footer configureFooterWithTitle:@"View More" withTouchHandler:handler];
             reuseableView = footer;
         }
     }
@@ -247,6 +268,22 @@
         return CGSizeMake(collectionView.bounds.size.width, [Top_Footer height]);
     }
 }
+
+- (CGFloat)minimumLineSpacingForSection:(NSInteger)section{
+    return 8;
+}
+
+- (CGFloat)minimumInteritemSpacingForSection:(NSInteger)section{
+    return 8;
+}
+
+- (UIEdgeInsets)insetForSectionAtIndex:(NSInteger)section{
+    if (section == 0) {
+        return UIEdgeInsetsMake(0, 8, 5, 8);
+    }
+    return UIEdgeInsetsMake(10, 8, 5, 8);
+}
+
 
 #pragma mark - Communication
 

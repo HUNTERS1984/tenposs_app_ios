@@ -105,7 +105,7 @@
 
 +(JSONKeyMapper*)keyMapper
 {
-    return [[JSONKeyMapper alloc] initWithDictionary:@{@"id":@"news_id",@"description":@"desc"}];
+    return [[JSONKeyMapper alloc] initWithDictionary:@{@"id":@"news_id",@"description":@"desc",@"title":@"title"}];
 }
 @end
 
@@ -114,7 +114,7 @@
 - (instancetype)init{
     self = [super init];
     if (self) {
-        self->news = (NSMutableArray<NewsObject *> *)[[NSMutableArray alloc]init];
+        self.news = (NSMutableArray<NewsObject> *)[[NSMutableArray alloc]init];
     }
     return self;
 }
@@ -125,7 +125,11 @@
 
 +(JSONKeyMapper*)keyMapper
 {
-    return [[JSONKeyMapper alloc] initWithDictionary:@{}];
+    return [[JSONKeyMapper alloc] initWithDictionary:@{@"data.news":@"news"}];
+}
+
+- (void)addNews:(NewsObject *)new{
+    [self.news addObject:new];
 }
 @end
 

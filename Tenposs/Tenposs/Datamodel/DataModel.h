@@ -27,6 +27,14 @@
 -(void)removeProduct:(ProductObject *)productToRemove;
 @end
 
+@protocol NewsContainer <NSObject>
+@required
+-(void)addNews:(NewsObject *)ne;
+@optional
+-(void)removeAllNews;
+-(void)removeNews:(NewsObject *)news;
+@end
+
 @protocol PhotoObject
 @end
 
@@ -71,14 +79,21 @@
 @property (strong, nonatomic) NSString *desc;
 @property (strong, nonatomic) NSString *image_url;
 @property (strong, nonatomic) NSString *date;
+@property(assign, nonatomic) NSInteger store_id;
 @property (strong, nonatomic) NewsCategoryObject *parentCategory;
 @end
 
-@interface NewsCategoryObject : JSONModel{
+@interface NewsCategoryObject : JSONModel <NewsContainer>{
     @public
-    NSMutableArray<NewsObject *> *news;
 }
+@property (strong, nonatomic) NSString *code;
+@property (strong, nonatomic) NSString *message;
+@property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *categoryName;
+@property (assign, nonatomic) NSInteger pageIndex;
+@property (assign, nonatomic) NSInteger totalnew;
+@property (strong, nonatomic) NSMutableArray<ConvertOnDemand,NewsObject> *news;
+
 @end
 
 
