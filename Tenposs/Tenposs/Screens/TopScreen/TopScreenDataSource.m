@@ -168,7 +168,7 @@
             NSObject *data = [(NSMutableArray *)sectionData firstObject];
             TopFooterTouchHandler handler = nil;
             
-            if ([data isKindOfClass:[TopObject class]]) {
+            if ([data isKindOfClass:[ProductObject class]]) {
                 handler = ^{
                     NSLog(@"Top Footer is tapped!");
                     TopScreen *topScreen = (TopScreen *)self.delegate;

@@ -84,6 +84,10 @@
     }
 }
 
+- (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath{
+    return [self.activeDetailDataSource itemAtIndexPath:indexPath];
+}
+
 - (void)loadMoreDataWithCompleteHandler:(NewsDataCompleteHandler)handler{
     
 }

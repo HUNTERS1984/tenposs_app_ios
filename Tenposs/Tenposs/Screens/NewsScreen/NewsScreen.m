@@ -10,6 +10,8 @@
 #import "NewsScreenDataSource.h"
 #import "UIViewController+LoadingView.h"
 #import "UIView+LoadingView.h"
+#import "UIUtils.h"
+#import "NewsDetailScreen.h"
 
 @interface NewsScreen()<UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 /// UI components
@@ -39,18 +41,18 @@
     self.collectionView.delegate = self;
     
     [self showLoadingViewWithMessage:@""];
-    
+    __weak NewsScreen *weakSelf = self;
     [self.dataSource fetchDataWithCompleteHandler:^(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious) {
         if (error) {
             [UIView animateWithDuration:0.5 animations:^{
-                [self removeLoadingView];
-                [self showLoadingViewWithMessage:error.domain?:@"Error"];
+                [weakSelf removeLoadingView];
+                [weakSelf showLoadingViewWithMessage:error.domain?:@"Error"];
             }];
         }else{
-            [self updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
-            self.collectionView.dataSource = self.dataSource.activeDetailDataSource;
-            [self.collectionView reloadData];
-            [self removeLoadingView];
+            [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
+            weakSelf.collectionView.dataSource = weakSelf.dataSource.activeDetailDataSource;
+            [weakSelf.collectionView reloadData];
+            [weakSelf removeLoadingView];
         }
     }];
 }
@@ -66,18 +68,19 @@
         [self.nextCategoryButton setEnabled:NO];
         [self.previousCategoryButton setEnabled:NO];
         //        [self.collectionView showLoadingView];
+        __weak NewsScreen *weakSelf = self;
         [self.dataSource changeToNextDetailDataSourceWithCompleteHandler:^(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious) {
             if (!error) {
-                [self updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
-                self.collectionView.dataSource = self.dataSource.activeDetailDataSource;
-                [self.collectionView reloadData];
+                [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
+                weakSelf.collectionView.dataSource = weakSelf.dataSource.activeDetailDataSource;
+                [weakSelf.collectionView reloadData];
                 //                [self.collectionView removeLoadingView];
             }else{
                 if([error.domain isEqualToString:NewsScreenError_isLast]){
-                    [self updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
-                    self.collectionView.dataSource = self.dataSource.activeDetailDataSource;
-                    [self.collectionView reloadData];
-                    [self.nextCategoryButton setEnabled:NO];
+                    [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
+                    weakSelf.collectionView.dataSource = weakSelf.dataSource.activeDetailDataSource;
+                    [weakSelf.collectionView reloadData];
+                    [weakSelf.nextCategoryButton setEnabled:NO];
                 }else{
                     NSLog(@"MenuScreen - Change dataSource failed - Error :%@", error.domain);
                 }
@@ -87,18 +90,19 @@
         [self.nextCategoryButton setEnabled:NO];
         [self.previousCategoryButton setEnabled:NO];
         //        [self.collectionView showLoadingView];
+        __weak NewsScreen *weakSelf = self;
         [self.dataSource changeToPreviousDetailDataSourceWithCompleteHandler:^(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious) {
             if (!error) {
-                [self updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
-                self.collectionView.dataSource = self.dataSource.activeDetailDataSource;
-                [self.collectionView reloadData];
+                [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
+                weakSelf.collectionView.dataSource = weakSelf.dataSource.activeDetailDataSource;
+                [weakSelf.collectionView reloadData];
                 //                [self.collectionView removeLoadingView];
             }else{
                 if ([error.domain isEqualToString:NewsScreenError_isFirst]) {
-                    [self updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
-                    self.collectionView.dataSource = self.dataSource.activeDetailDataSource;
-                    [self.collectionView reloadData];
-                    [self.previousCategoryButton setEnabled:NO];
+                    [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
+                    weakSelf.collectionView.dataSource = self.dataSource.activeDetailDataSource;
+                    [weakSelf.collectionView reloadData];
+                    [weakSelf.previousCategoryButton setEnabled:NO];
                 }else{
                     NSLog(@"MenuScreen - Change dataSource failed - Error :%@", error.domain);
                 }
@@ -123,6 +127,17 @@
 
 #pragma mark - Communicator
 
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSObject *item = [self.dataSource itemAtIndexPath:indexPath];
+    if ([item isKindOfClass:[NewsObject class]]) {
+        NewsObject *news = (NewsObject *)item;
+        NewsDetailScreen *controller = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([NewsDetailScreen class])];
+        controller.news = news;
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+}
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{

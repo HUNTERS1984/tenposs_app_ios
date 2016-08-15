@@ -42,17 +42,18 @@
     
     [self showLoadingViewWithMessage:@""];
     
+    __weak MenuScreen *weakSelf = self;
     [self.dataSource fetchDataWithCompleteHandler:^(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious) {
         if (error) {
             [UIView animateWithDuration:0.5 animations:^{
-                [self removeLoadingView];
-                [self showLoadingViewWithMessage:error.domain?:@"Error"];
+                [weakSelf removeLoadingView];
+                [weakSelf showLoadingViewWithMessage:error.domain?:@"Error"];
             }];
         }else{
-            [self updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
-            self.collectionView.dataSource = self.dataSource.activeDetailDataSource;
-            [self.collectionView reloadData];
-            [self removeLoadingView];
+            [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
+            weakSelf.collectionView.dataSource = weakSelf.dataSource.activeDetailDataSource;
+            [weakSelf.collectionView reloadData];
+            [weakSelf removeLoadingView];
         }
     }];
 }
@@ -68,18 +69,19 @@
         [self.nextCategoryButton setEnabled:NO];
         [self.previousCategoryButton setEnabled:NO];
 //        [self.collectionView showLoadingView];
+        __weak MenuScreen *weakSelf = self;
         [self.dataSource changeToNextDetailDataSourceWithCompleteHandler:^(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious) {
             if (!error) {
-                [self updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
-                self.collectionView.dataSource = self.dataSource.activeDetailDataSource;
-                [self.collectionView reloadData];
+                [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
+                weakSelf.collectionView.dataSource = weakSelf.dataSource.activeDetailDataSource;
+                [weakSelf.collectionView reloadData];
 //                [self.collectionView removeLoadingView];
             }else{
                 if([error.domain isEqualToString:MenuScreenError_isLast]){
-                    [self updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
-                    self.collectionView.dataSource = self.dataSource.activeDetailDataSource;
-                    [self.collectionView reloadData];
-                    [self.nextCategoryButton setEnabled:NO];
+                    [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
+                    weakSelf.collectionView.dataSource = weakSelf.dataSource.activeDetailDataSource;
+                    [weakSelf.collectionView reloadData];
+                    [weakSelf.nextCategoryButton setEnabled:NO];
                 }else{
                     NSLog(@"MenuScreen - Change dataSource failed - Error :%@", error.domain);
                 }
@@ -89,18 +91,19 @@
         [self.nextCategoryButton setEnabled:NO];
         [self.previousCategoryButton setEnabled:NO];
 //        [self.collectionView showLoadingView];
+        __weak MenuScreen *weakSelf = self;
         [self.dataSource changeToPreviousDetailDataSourceWithCompleteHandler:^(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious) {
             if (!error) {
-                [self updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
-                self.collectionView.dataSource = self.dataSource.activeDetailDataSource;
-                [self.collectionView reloadData];
+                [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
+                weakSelf.collectionView.dataSource = weakSelf.dataSource.activeDetailDataSource;
+                [weakSelf.collectionView reloadData];
 //                [self.collectionView removeLoadingView];
             }else{
                 if ([error.domain isEqualToString:MenuScreenError_isFirst]) {
-                    [self updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
-                    self.collectionView.dataSource = self.dataSource.activeDetailDataSource;
-                    [self.collectionView reloadData];
-                    [self.previousCategoryButton setEnabled:NO];
+                    [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
+                    weakSelf.collectionView.dataSource = weakSelf.dataSource.activeDetailDataSource;
+                    [weakSelf.collectionView reloadData];
+                    [weakSelf.previousCategoryButton setEnabled:NO];
                 }else{
                     NSLog(@"MenuScreen - Change dataSource failed - Error :%@", error.domain);
                 }

@@ -28,4 +28,5 @@ typedef void (^NewsDataCompleteHandler)(NSError *error, NSString *detailDataSour
 -(void)changeToPreviousDetailDataSourceWithCompleteHandler:(NewsDataCompleteHandler)handler;
 -(void)loadMoreDataWithCompleteHandler:(NewsDataCompleteHandler)handler;
 
+- (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath;
 @end

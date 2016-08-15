@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *errorMessageLabel;
 @property (weak, nonatomic) IBOutlet UIButton *tryAgainButton;
 
+@property(strong, nonatomic) NSString *errorMessage;
+
 @end
 
 @implementation SplashScreen
@@ -28,9 +30,20 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
+    if (!_errorMessage) {
+        [_errorMessageLabel setHidden:NO];
+    }
+    
+    [self.tryAgainButton setHidden:YES];
+    
     [self.loadingIndicator startAnimating];
     
     [self loadAppConfig];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.loadingIndicator stopAnimating];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,11 +78,6 @@
 }
 
 - (void)buildApp{
-    
-    for(UIView *subView in self.view.subviews){
-        [subView setHidden:YES];
-    }
-    
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     
     if (appConfig.appSettings) {
@@ -80,7 +88,14 @@
                                                              containerWithCenterViewController:mainNavigation
                                                              leftMenuViewController:sideMenu
                                                              rightMenuViewController:nil];
-        [self presentViewController:viewController animated:YES completion:nil];
+        __weak SplashScreen *weakSelf = self;
+        [viewController setModalPresentationStyle:UIModalPresentationCustom];
+        viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:viewController animated:YES completion:^{
+            for(UIView *subView in weakSelf.view.subviews){
+                [subView setHidden:YES];
+            }
+        }];
     }
 }
 
