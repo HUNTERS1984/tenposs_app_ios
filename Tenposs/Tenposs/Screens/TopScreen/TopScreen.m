@@ -16,6 +16,8 @@
 
 #import "MenuScreen.h"
 #import "NewsScreen.h"
+#import "CouponScreen.h"
+
 
 @interface TopScreen ()<TopScreenDataSourceDelegate, UICollectionViewDelegateFlowLayout>
 @property TopScreenDataSource *dataSource;
@@ -25,6 +27,7 @@
 
 - (void)loadView{
     [super loadView];
+    [self setTitle:@"Global Work"];
     self.dataSource = [[TopScreenDataSource alloc]initWithDelegate:self];
     [self.dataSource registerClassForCollectionView:self.collectionView];
     self.collectionView.dataSource = self.dataSource;
@@ -35,6 +38,11 @@
     [super viewDidLoad];
     [self showLoadingViewWithMessage:@""];
     [self.dataSource fetchContent];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -99,6 +107,11 @@
 - (void)performNavigateToNewsScreen:(Bundle *)extraData{
     NewsScreen *newsScreen = (NewsScreen *)[[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([NewsScreen class])];
     [self.mainNavigationController pushViewController:newsScreen animated:YES];
+}
+
+- (void)performNavigateToCouponScreen:(Bundle *)extraData{
+    CouponScreen *couponScreen = (CouponScreen *)[[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([CouponScreen class])];
+    [self.mainNavigationController pushViewController:couponScreen animated:YES];
 }
 
 @end

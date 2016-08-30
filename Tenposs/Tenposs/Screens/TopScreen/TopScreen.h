@@ -14,5 +14,5 @@
 
 - (void)performNavigateToMenuScreen:(Bundle *)extraData;
 - (void)performNavigateToNewsScreen:(Bundle *)extraData;
-
+- (void)performNavigateToCouponScreen:(Bundle *)extraData;
 @end

@@ -84,4 +84,3 @@ typedef NS_ENUM(NSInteger, TenpossErrorCode){
 -(void)     cancelRequest;
 
 @end
-

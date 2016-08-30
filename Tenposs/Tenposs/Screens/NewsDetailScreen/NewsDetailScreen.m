@@ -44,7 +44,6 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    CGFloat viewBottom = self.contentView.bounds.size.height;
     CGFloat contentBottom = self.newsContent.frame.origin.y;
     CGFloat allHeight = [self.newsContent sizeThatFits:CGSizeMake(self.newsContent.frame.size.width, CGFLOAT_MAX)].height;
     CGFloat neededHeight = allHeight ;

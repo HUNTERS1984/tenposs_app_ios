@@ -30,12 +30,14 @@
     // Configure the view for the selected state
 }
 
-- (void)configureCellWithData:(NSObject *)data{
+- (void)configureCellWithData:(UserModel *)data{
+    
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+    AppSettings *settings = [appConfig getAvailableAppSettings];
     
     ///Config user name
-    [self.user_name setFont:[UIFont fontWithName:appConfig.appSettings.menu_font_family size:appConfig.appSettings.menu_font_size]];
-    [self.user_name setTextColor:[UIColor colorWithHexString:appConfig.appSettings.menu_font_color]];
+    [self.user_name setFont:[UIFont fontWithName:settings.menu_font_family size:settings.menu_font_size]];
+    [self.user_name setTextColor:[UIColor colorWithHexString:settings.menu_font_color]];
     
     
     ///Config Avatar

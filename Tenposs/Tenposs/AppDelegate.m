@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "AppConfiguration.h"
 #import "GMSServices.h"
+#import "Utils.h"
 
 @interface AppDelegate ()
 @property UIView *loadingView;

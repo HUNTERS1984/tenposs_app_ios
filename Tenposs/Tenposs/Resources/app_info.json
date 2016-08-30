@@ -1,58 +1,97 @@
 {
-  "code": "1000",
-  "message": "OK",
-  "data": {
-    "setting": {
-      "title": "phuc's Shop",
-      "title_color": "#000000",
-      "font_size": 15,
-      "font_family": "Nelvetical_neuvl",
-      "header_color": "#333333",
-      "menu_icon_color": "#45D2D2",
-      "menu_background_color": "#32465A",
-      "menu_font_color": "#ffffff",
-      "menu_font_size": 15,
-      "menu_font_family": "Nelvetical_neuvl",
-      "template_id": 1,
-      "top_main_image_url": "https://www.google.com.vn/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjoz8DKpa3OAhWGG5QKHQemDWoQjRwIBw&url=http%3A%2F%2Fweheartit.com%2Fentry%2F13784726&bvm=bv.129391328,d.dGo&psig=AFQjCNG-sK8MmUQK18zlocbdOcFRqUXVJw&ust=1470590198581975"
-    },
-    "menus": [
-      {
-        "id": "111",
-        "title": "Home"
-      },
-      {
-        "id": "112",
-        "title": "Menu"
-      },
-      {
-        "id": "113",
-        "title": "Reserve"
-      },
-      {
-        "id": "114",
-        "title": "News"
-      },
-      {
-        "id": "115",
-        "title": "Photo Gallery"
-      },
-      {
-        "id": "116",
-        "title": "Staff"
-      },
-      {
-        "id": "117",
-        "title": "Coupon"
-      },
-      {
-        "id": "118",
-        "title": "Chat"
-      },
-      {
-        "id": "119",
-        "title": "Settings"
-      }
-    ]
-  }
+    "code":"ok",
+    "message":"Good!",
+    "data":{
+        "id":1,
+        "name":"Phuc's store",
+        "description":"We selling clothes!!!",
+        "created_at":"30/08/2016",
+        "status":0,
+        "updated_at":"31/08/2016",
+        "top_components":[
+                          {
+                          "id":2,
+                          "name":"Menu"
+                          },
+                          {
+                          "id":3,
+                          "name":"Reserve"
+                          },
+                          {
+                          "id":4,
+                          "name":"News"
+                          },
+                          {
+                          "id":5,
+                          "name":"Gallery"
+                          },
+                          {
+                          "id":7,
+                          "name":"Coupon"
+                          }
+                          ],
+        "app_setting":{
+            "app_id":"1234",
+            "title":"Phuc's store",
+            "title_color":"#212121",
+            "font_size":"17",
+            "font_family":"",
+            "header_color":null,
+            "menu_icon_color":"#1FC0BD",
+            "menu_background_color":"#33475a",
+            "menu_font_color":"#ffffff",
+            "menu_font_size":"14",
+            "menu_font_family":"",
+            "template_id":"1"
+        },	
+        "side_menu":[
+                     {
+                     "id":1,
+                     "name":"Home"
+                     },
+                     {
+                     "id":2,
+                     "name":"Menu"
+                     },
+                     {
+                     "id":3,
+                     "name":"Reserve"
+                     },
+                     {
+                     "id":4,
+                     "name":"News"
+                     },
+                     {
+                     "id":5,
+                     "name":"Gallery"
+                     },
+                     {
+                     "id":6,
+                     "name":"Staff"
+                     },
+                     {
+                     "id":7,
+                     "name":"Coupon"
+                     },
+                     {
+                     "id":8,
+                     "name":"Chat"
+                     },
+                     {
+                     "id":9,
+                     "name":"Settings"
+                     }
+                     ],
+        "stores":
+        [
+         {
+         "id":"100",
+         "name":"Store in Tokyo"
+         },
+         {
+         "id":"102",
+         "name":"Store in New York"
+         }	
+         ]
+    }
 }

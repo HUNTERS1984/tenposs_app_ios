@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DataModel.h"
 
 @interface MenuItem_User : UITableViewCell
-
+- (void)configureCellWithData:(UserModel *)data;
 @end

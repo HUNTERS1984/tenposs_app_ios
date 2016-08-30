@@ -11,7 +11,7 @@
 #define TEMPLATE_1  1
 
 @interface MainNavigationController : UINavigationController
-
+@property (strong, nonatomic) UIViewController *rootViewController;
 - (instancetype)initWithTemplateId:(NSInteger)templateId;
 
 @end

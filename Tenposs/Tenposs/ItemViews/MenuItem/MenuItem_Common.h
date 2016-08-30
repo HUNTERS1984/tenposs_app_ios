@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DataModel.h"
+#import "AppConfiguration.h"
 
 @interface MenuItem_Common : UITableViewCell
-
+- (void)configureCellWithData:(MenuModel *)data;
 @end

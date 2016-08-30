@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface NewsScreen : UIViewController
-
-
+@property UINavigationController *mainNavigationController;
 
 @end

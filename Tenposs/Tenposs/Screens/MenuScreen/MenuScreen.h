@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MenuScreen : UIViewController <UICollectionViewDelegate>
+@property UINavigationController *mainNavigationController;
 
 @end

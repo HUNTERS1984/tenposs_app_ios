@@ -184,6 +184,14 @@
                         [topScreen performNavigateToNewsScreen:nil];
                     }
                 };
+            }else if ([data isKindOfClass:[PhotoObject class]]){
+                handler = ^{
+                    NSLog(@"Top Footer is tapped!");
+                    TopScreen *topScreen = (TopScreen *)self.delegate;
+                    if (topScreen) {
+                        [topScreen performNavigateToCouponScreen:nil];
+                    }
+                };
             }
 
             [footer configureFooterWithTitle:@"View More" withTouchHandler:handler];

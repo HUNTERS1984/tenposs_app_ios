@@ -31,14 +31,19 @@
     // Configure the view for the selected state
 }
 
-- (void)configureCellWithData:(NSObject *)data{
+- (void)configureCellWithData:(MenuModel *)data{
+    ///Config Layout
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+    AppSettings *settings = [appConfig getAvailableAppSettings];
+    if (settings.menu_font_family != nil && ![settings.menu_font_family isEqualToString:@""]) {
+        [self.itemTitle setFont:[UIFont fontWithName:settings.menu_font_family size:settings.menu_font_size]];
+    }else{
+        //TODO: need default value
+    }
+    [self.itemTitle setTextColor:[UIColor colorWithHexString:settings.menu_font_color]];
     
-    ///Config Text
-    [self.itemTitle setFont:[UIFont fontWithName:appConfig.appSettings.menu_font_family size:appConfig.appSettings.menu_font_size]];
-    [self.itemTitle setTextColor:[UIColor colorWithHexString:appConfig.appSettings.menu_font_color]];
-    
-    ///Config Icon
+    ///Config data
+    [self.itemTitle setText:data.name];
     
 }
 

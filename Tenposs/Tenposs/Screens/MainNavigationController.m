@@ -8,6 +8,9 @@
 
 #import "MainNavigationController.h"
 #import "TopScreen.h"
+#import "GrandViewController.h"
+#import "MFSideMenuContainerViewController.h"
+#import "SideMenuTableViewController.h"
 
 @interface MainNavigationController ()
 
@@ -16,13 +19,14 @@
 @implementation MainNavigationController
 
 - (instancetype)initWithTemplateId:(NSInteger)templateId{
-    UIViewController *rootViewController = nil;
     if (templateId == TEMPLATE_1) {
-        rootViewController = [[TopScreen alloc]initWithCollectionViewLayout:[UICollectionViewFlowLayout new]];
-        ((TopScreen *)rootViewController).mainNavigationController = self;
+        self.rootViewController = [[GrandViewController alloc]init];
     }
     
-    self = [super initWithRootViewController:rootViewController];
+    self = [super initWithRootViewController:self.rootViewController];
+    
+    if (self) {
+    }
     
     return self;
 }

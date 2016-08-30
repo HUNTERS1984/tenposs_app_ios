@@ -9,8 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "AppConfiguration.h"
 
+@protocol SideMenuDelegate <NSObject>
+
+- (void)didSelectSideMenuItem:(NSObject *)item;
+
+@end
+
 @interface SideMenuTableViewController : UITableViewController
 
-- (void) setData:(NSMutableArray<MenuModel *> *)menuData;
+@property(weak, nonatomic) id<SideMenuDelegate> delegate;
+
+- (void) setData:(NSArray<MenuModel *> *)menuData;
 
 @end

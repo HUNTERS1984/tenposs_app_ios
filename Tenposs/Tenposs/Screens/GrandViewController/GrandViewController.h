@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SideMenuTableViewController.h"
 
-@interface GrandViewController : UIViewController
+@interface GrandViewController : UIViewController<SideMenuDelegate>
 
 @end
