@@ -8,6 +8,7 @@
 
 #import "GalleryScreenDetailDataSource.h"
 #import "Item_Cell_Photo.h"
+#import "MockupData.h"
 
 #define SPACING_PHOTO 8
 #define SPACING_ITEM_PHOTO 8
@@ -31,6 +32,38 @@
 
 - (void)loadData{
     //TODO: Loading photo for category
+    if(!self.mainData){
+        return;
+    }
+//    if([self.mainData.photos count] == self.mainData.total_photos){
+//        if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
+//            NSError *error = [NSError errorWithDomain:GalleryScreenDetailError_fullyLoaded code:-9904 userInfo:nil];
+//            [self.delegate dataLoaded:self withError:error];
+//        }
+//        return;
+//    }
+    ///TODO: real connection to server
+    
+    NSData *data = nil;
+    
+    if ([self.mainData.photos count] <= 0) {
+        data = [MockupData fetchDataWithResourceName:@"photo"];
+    }
+    
+    NSError *error;
+    PhotoCategory *category = [[PhotoCategory alloc] initWithData:data error:&error];
+    
+    if (error == nil) {
+        if (category && [category.photos count] > 0) {
+            for (PhotoObject *item in category.photos) {
+                [self.mainData addPhoto:item];
+            }
+        }
+    }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
+        [self.delegate dataLoaded:self withError:error];
+    }
+    
 }
 
 - (void)registerClassForCollectionView:(UICollectionView *)collection{
@@ -47,6 +80,10 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return [self.mainData.photos count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{

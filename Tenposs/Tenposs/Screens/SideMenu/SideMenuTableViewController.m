@@ -17,7 +17,6 @@
 @interface SideMenuTableViewController ()
 
 @property (strong, nonatomic) NSArray<MenuModel *> *menuArray;
-@property (assign, nonatomic) NSInteger shouldSelectIndex;
 @property (strong, nonatomic) NSObject *currentMenuItem;
 @end
 
@@ -31,13 +30,18 @@
     return self;
 }
 
+- (void)loadView{
+    [super loadView];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     AppSettings *setting = [appConfig getAvailableAppSettings];
     
     if (setting && setting.menu_background_color != nil && ![setting.menu_background_color isEqualToString:@""]) {
-        self.view.backgroundColor = [UIColor colorWithHexString:setting.menu_background_color];
+        self.view.backgroundColor = [UIColor redColor];
         self.tableView.backgroundColor = [UIColor colorWithHexString:setting.menu_background_color];
     }
     
@@ -46,7 +50,7 @@
     [self registerCellClass];
     
     if (_shouldSelectIndex == -1) {
-        _shouldSelectIndex = 1;
+        _shouldSelectIndex = 0;
     }
 }
 
@@ -60,8 +64,8 @@
     _menuArray = menuData;
     [self.tableView reloadData];
     if (_currentMenuItem == nil) {
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:_shouldSelectIndex inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
-        [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:_shouldSelectIndex inSection:0]];
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:_shouldSelectIndex inSection:1] animated:YES scrollPosition:UITableViewScrollPositionNone];
+        [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:_shouldSelectIndex inSection:1]];
     }
 }
 
@@ -71,7 +75,7 @@
     }
     NSInteger index = [self indexForItemWithId:itemId];
     if (index != - 1) {
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:1] animated:YES scrollPosition:UITableViewScrollPositionNone];
     }
 }
 
@@ -97,21 +101,25 @@
 #pragma mark - Table view data source
 
 - (NSObject *)itemForIndexPath:(NSIndexPath *)indexPath{
+    NSInteger section = indexPath.section;
     NSInteger index = indexPath.row;
-    if (index == 0) {
+    if(section == 0){
         return [UserModel new];
-    }else {
-        return [_menuArray objectAtIndex:index - 1];
+    }else{
+        return [_menuArray objectAtIndex:index];
     }
-    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.menuArray?[self.menuArray count]:0;
+    if(section == 0){
+        return 1;
+    }else{
+        return self.menuArray?[self.menuArray count]:0;
+    }
 }
 
 
@@ -132,6 +140,11 @@
             [((MenuItem_User *)cell) configureCellWithData:(UserModel *)item];
         }
     }
+    
+    UIView *customColorView = [[UIView alloc] init];
+    customColorView.backgroundColor = [UIColor colorWithHexString:@"#ffffff" alpha:0.2];//colorWithRed:180/255.0 green:138/255.0 blue:171/255.0 alpha:0.5];
+    cell.selectedBackgroundView =  customColorView;
+
     return cell;
 }
 
@@ -147,6 +160,51 @@
     if (self.parentViewController && [self.parentViewController isKindOfClass:  [MFSideMenuContainerViewController class]]){
         [((MFSideMenuContainerViewController *)self.parentViewController) setMenuState:MFSideMenuStateClosed completion:nil];
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSInteger index = indexPath.row;
+    if (index == 0) {
+        return 70;
+    }else{
+        return 55;
+    }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+        UIView *header = [[UIView alloc] init];
+        CGRect frame = CGRectMake(0, 0, tableView.bounds.size.width, 30);
+        header.frame = frame;
+        header.backgroundColor = [UIColor clearColor];
+        return header;
+    }
+    return nil;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    if (section == 0) {
+        UIView *footer = [[UIView alloc] init];
+        CGRect frame = CGRectMake(0, 0, tableView.bounds.size.width, 15);
+        footer.frame = frame;
+        footer.backgroundColor = [UIColor clearColor];
+        return footer;
+    }
+    return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+        return 30;
+    }
+    return 0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (section == 0) {
+        return 15;
+    }
+    return 0;
 }
 
 @end

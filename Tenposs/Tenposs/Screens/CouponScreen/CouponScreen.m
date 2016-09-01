@@ -46,6 +46,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (NSString *)title{
+    return @"Coupons";
+}
+
 #pragma mark - SimpleDataSourceDelegate
 - (void)dataLoaded:(SimpleDataSource *)executor withError:(NSError *)error{
     [self.collectionView reloadData];

@@ -12,6 +12,7 @@
 #import "SideMenuTableViewController.h"
 #import "MFSideMenu.h"
 #import "TenpossCommunicator.h"
+#import "UIUtils.h"
 
 @interface SplashScreen ()<TenpossCommunicatorDelegate>
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
@@ -85,7 +86,8 @@
     if ( appSettings != nil && [appConfig getAvailableSideMenu]) {
         
         MainNavigationController *mainNavigation = [[MainNavigationController alloc]initWithTemplateId:appSettings.template_id];
-        SideMenuTableViewController *sideMenu = [[SideMenuTableViewController alloc] init];
+        SideMenuTableViewController *sideMenu = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([SideMenuTableViewController class])]; //[[SideMenuTableViewController alloc] init];
+        sideMenu.shouldSelectIndex = -1;
         MFSideMenuContainerViewController *viewController = [MFSideMenuContainerViewController
                                                              containerWithCenterViewController:mainNavigation
                                                              leftMenuViewController:sideMenu
@@ -93,7 +95,6 @@
         
         sideMenu.delegate = (id<SideMenuDelegate>)mainNavigation.rootViewController;
         [sideMenu setData:[appConfig getAvailableSideMenu]];
-
         __weak SplashScreen *weakSelf = self;
         [viewController setModalPresentationStyle:UIModalPresentationCustom];
         viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;

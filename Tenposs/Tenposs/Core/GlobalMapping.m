@@ -42,7 +42,7 @@
         viewController = (GalleryScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([GalleryScreen class])];
         ((GalleryScreen *)viewController).mainNavigationController = navigationController;
     }else if (viewControlerId == APP_MENU_RESERVE){
-        
+        viewController = (ReserveScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ReserveScreen class])];
     }
     
     return viewController;

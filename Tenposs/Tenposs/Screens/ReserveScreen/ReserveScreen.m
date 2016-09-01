@@ -27,4 +27,8 @@
     
 }
 
+- (NSString *)title{
+    return @"Menu";
+}
+
 @end

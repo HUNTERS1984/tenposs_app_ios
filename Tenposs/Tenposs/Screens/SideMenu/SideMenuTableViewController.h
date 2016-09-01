@@ -16,7 +16,7 @@
 @end
 
 @interface SideMenuTableViewController : UITableViewController
-
+@property (assign, nonatomic) NSInteger shouldSelectIndex;
 @property(weak, nonatomic) id<SideMenuDelegate> delegate;
 
 - (void) setData:(NSArray<MenuModel *> *)menuData;

@@ -16,7 +16,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="87.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6N9-AH-NSe" userLabel="user_avatar">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_icon" translatesAutoresizingMaskIntoConstraints="NO" id="6N9-AH-NSe" userLabel="user_avatar">
                         <rect key="frame" x="18" y="14" width="60" height="60"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="6N9-AH-NSe" secondAttribute="height" multiplier="1:1" id="16L-FJ-J78"/>
@@ -46,4 +46,7 @@
             <point key="canvasLocation" x="283" y="383"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="user_icon" width="92" height="107"/>
+    </resources>
 </document>

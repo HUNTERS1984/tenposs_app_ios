@@ -11,6 +11,7 @@
 #import "GrandViewController.h"
 #import "MFSideMenuContainerViewController.h"
 #import "SideMenuTableViewController.h"
+#import "UIUtils.h"
 
 @interface MainNavigationController ()
 
@@ -20,7 +21,7 @@
 
 - (instancetype)initWithTemplateId:(NSInteger)templateId{
     if (templateId == TEMPLATE_1) {
-        self.rootViewController = [[GrandViewController alloc]init];
+        self.rootViewController = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([GrandViewController class])];
     }
     
     self = [super initWithRootViewController:self.rootViewController];
@@ -29,6 +30,12 @@
     }
     
     return self;
+}
+
+- (void)toogleMenu{
+    if ([self.parentViewController isKindOfClass:[MFSideMenuContainerViewController class]]) {
+        [((MFSideMenuContainerViewController *)self.parentViewController) toggleLeftSideMenuCompletion:nil];
+    }
 }
 
 - (void)viewDidLoad {

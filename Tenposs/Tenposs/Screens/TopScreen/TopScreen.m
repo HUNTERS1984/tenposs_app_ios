@@ -18,6 +18,8 @@
 #import "NewsScreen.h"
 #import "CouponScreen.h"
 
+#import "GlobalMapping.h"
+
 
 @interface TopScreen ()<TopScreenDataSourceDelegate, UICollectionViewDelegateFlowLayout>
 @property TopScreenDataSource *dataSource;
@@ -48,6 +50,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSString *)title{
+    return @"Global work";
 }
 
 #pragma mark - TopScreenDataSourceDelegate
@@ -112,6 +118,13 @@
 - (void)performNavigateToCouponScreen:(Bundle *)extraData{
     CouponScreen *couponScreen = (CouponScreen *)[[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([CouponScreen class])];
     [self.mainNavigationController pushViewController:couponScreen animated:YES];
+}
+
+- (void)performNavigateToScreenWithId:(NSInteger)screenId{
+    Bundle *extra = [Bundle new];
+    [extra put:VC_EXTRA_NAVIGATION value:self.mainNavigationController];
+    UIViewController *screen = [GlobalMapping getViewControllerWithId:screenId withExtraData:extra];
+    [self.mainNavigationController pushViewController:screen animated:YES];
 }
 
 @end

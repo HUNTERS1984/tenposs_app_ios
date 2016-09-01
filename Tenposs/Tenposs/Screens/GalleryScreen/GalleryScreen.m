@@ -9,6 +9,7 @@
 #import "GalleryScreen.h"
 #import "GalleryScreenDataSource.h"
 #import "UIViewController+LoadingView.h"
+#import "PhotoViewer.h"
 
 @interface GalleryScreen()<UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UIButton *previousCategoryButton;
@@ -51,6 +52,10 @@
             [weakSelf removeLoadingView];
         }
     }];
+}
+
+- (NSString *)title{
+    return @"Gallery";
 }
 
 #pragma mark - UI methods
@@ -116,6 +121,19 @@
         [self.previousCategoryButton setEnabled:NO];
     }
 }
+#pragma mark - Public methods
+
+- (void)showPhoto:(PhotoObject *)photoObject{
+    [self performSegueWithIdentifier:@"gallery_photo_viewer" sender:photoObject];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"gallery_photo_viewer"]) {
+        PhotoViewer *viewer = (PhotoViewer *)segue.destinationViewController;
+        [viewer setPhoto:(PhotoObject *)sender];
+    }
+}
+
 
 #pragma mark - Communicator
 
@@ -123,12 +141,12 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSObject *item = [self.dataSource itemAtIndexPath:indexPath];
-//    if ([item isKindOfClass:[NewsObject class]]) {
-//        NewsObject *news = (NewsObject *)item;
-//        NewsDetailScreen *controller = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([NewsDetailScreen class])];
-//        controller.news = news;
-//        [self.navigationController pushViewController:controller animated:YES];
-//    }
+    if ([item isKindOfClass:[PhotoObject class]]) {
+        PhotoObject *photo = (PhotoObject *)item;
+        if (photo) {
+            [self showPhoto:photo];
+        }
+    }
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout

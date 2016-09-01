@@ -19,17 +19,25 @@
 #import "NewsScreen.h"
 #import "CouponScreen.h"
 #import "GalleryScreen.h"
+#import "MFSideMenuContainerViewController.h"
+#import "MainNavigationController.h"
 
-@interface GrandViewController (){
-    UILabel *navigationTitle;
-}
-
+@interface GrandViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *navigationTitle;
 @property (strong, nonatomic) NSMutableDictionary *cachedChildController;
 @property (strong, nonatomic) UIViewController *currentChildController;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
+
 @end
 
 @implementation GrandViewController
-
+-(IBAction)buttonClick:(id)sender{
+    if (sender == _menuButton) {
+        if ([self.navigationController isKindOfClass:[MainNavigationController class]]) {
+            [((MainNavigationController *)self.navigationController) toogleMenu];
+        }
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -49,18 +57,6 @@
     [super viewDidAppear:animated];
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     AppSettings *settings = [appConfig getAvailableAppSettings];
-    
-    if (self.navigationItem != nil && self.navigationItem.titleView == nil) {
-        if (navigationTitle == nil) {
-            navigationTitle = [UILabel new];
-            if (settings && settings.title_color && ![settings.title_color isEqualToString:@""]) {
-                [navigationTitle setTextColor:[UIColor colorWithHexString:settings.title_color]];
-            }else{
-                //TODO: need default value
-            }
-        }
-        [self.navigationItem setTitleView:navigationTitle];
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -104,11 +100,20 @@
     return child;
 }
 
+- (void)setNavigationBarTitle:(NSString *)title{
+    if (_navigationTitle != nil) {
+        [_navigationTitle setText:title];
+    }
+}
+
 - (void)showChildViewControllerWithId:(NSInteger)childId{
     UIViewController *child = [self childViewControllerWithId:childId];
-    
     if(child != nil){
         [self presentChildViewController:child];
+        if (child.title != nil) {
+            [self setNavigationBarTitle:child.title];
+        }
+
     }else {
         UIAlertView *theAlert = [[UIAlertView alloc] initWithTitle:@"Sorry"
                                                            message:@"This feature is under development"

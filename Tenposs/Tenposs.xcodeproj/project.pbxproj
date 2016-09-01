@@ -91,6 +91,10 @@
 		02F0974C1D7376BA00E737C7 /* LoginScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F0974B1D7376BA00E737C7 /* LoginScreen.m */; };
 		02F097541D74CAAB00E737C7 /* LoginWithEmailScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F097531D74CAAB00E737C7 /* LoginWithEmailScreen.m */; };
 		02F097571D7502A200E737C7 /* GlobalMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F097561D7502A200E737C7 /* GlobalMapping.m */; };
+		02F0975A1D7703EA00E737C7 /* photo.json in Resources */ = {isa = PBXBuildFile; fileRef = 02F097581D7703EA00E737C7 /* photo.json */; };
+		02F0975B1D7703EA00E737C7 /* photo_category.json in Resources */ = {isa = PBXBuildFile; fileRef = 02F097591D7703EA00E737C7 /* photo_category.json */; };
+		02F0975E1D77046B00E737C7 /* PhotoCategoryCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F0975D1D77046B00E737C7 /* PhotoCategoryCommunicator.m */; };
+		02F097611D77100E00E737C7 /* PhotoViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F097601D77100E00E737C7 /* PhotoViewer.m */; };
 		02F2FDC11D4A30E3006D4C83 /* Bundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FD931D4A30E3006D4C83 /* Bundle.m */; };
 		02F2FDC21D4A30E3006D4C83 /* CommonRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FD951D4A30E3006D4C83 /* CommonRequest.m */; };
 		02F2FDC31D4A30E3006D4C83 /* CommonResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FD971D4A30E3006D4C83 /* CommonResponse.m */; };
@@ -283,6 +287,12 @@
 		02F097531D74CAAB00E737C7 /* LoginWithEmailScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginWithEmailScreen.m; sourceTree = "<group>"; };
 		02F097551D7502A200E737C7 /* GlobalMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalMapping.h; sourceTree = "<group>"; };
 		02F097561D7502A200E737C7 /* GlobalMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalMapping.m; sourceTree = "<group>"; };
+		02F097581D7703EA00E737C7 /* photo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = photo.json; sourceTree = "<group>"; };
+		02F097591D7703EA00E737C7 /* photo_category.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = photo_category.json; sourceTree = "<group>"; };
+		02F0975C1D77046B00E737C7 /* PhotoCategoryCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoCategoryCommunicator.h; sourceTree = "<group>"; };
+		02F0975D1D77046B00E737C7 /* PhotoCategoryCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoCategoryCommunicator.m; sourceTree = "<group>"; };
+		02F0975F1D77100E00E737C7 /* PhotoViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewer.h; sourceTree = "<group>"; };
+		02F097601D77100E00E737C7 /* PhotoViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewer.m; sourceTree = "<group>"; };
 		02F2FD921D4A30E3006D4C83 /* Bundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bundle.h; sourceTree = "<group>"; };
 		02F2FD931D4A30E3006D4C83 /* Bundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bundle.m; sourceTree = "<group>"; };
 		02F2FD941D4A30E3006D4C83 /* CommonRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonRequest.h; sourceTree = "<group>"; };
@@ -403,6 +413,8 @@
 		021A5EB31D699243001F8F8E /* PhotoViewerScreen */ = {
 			isa = PBXGroup;
 			children = (
+				02F0975F1D77100E00E737C7 /* PhotoViewer.h */,
+				02F097601D77100E00E737C7 /* PhotoViewer.m */,
 			);
 			path = PhotoViewerScreen;
 			sourceTree = "<group>";
@@ -410,6 +422,8 @@
 		022114361D565A1000F44E88 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				02F097581D7703EA00E737C7 /* photo.json */,
+				02F097591D7703EA00E737C7 /* photo_category.json */,
 				024C4DAF1D5D85CA00896EE4 /* news_items_2.json */,
 				02F097241D6B1A8500E737C7 /* coupon_items.json */,
 				024C4DB01D5D85CA00896EE4 /* news_items_1.json */,
@@ -837,6 +851,8 @@
 				024C4D321D5AAD1B00896EE4 /* MenuDetailCommunicator.m */,
 				024C4DA31D5D7C4E00896EE4 /* NewsCommunicator.h */,
 				024C4DA41D5D7C4E00896EE4 /* NewsCommunicator.m */,
+				02F0975C1D77046B00E737C7 /* PhotoCategoryCommunicator.h */,
+				02F0975D1D77046B00E737C7 /* PhotoCategoryCommunicator.m */,
 			);
 			path = Communicator;
 			sourceTree = "<group>";
@@ -1005,6 +1021,7 @@
 			files = (
 				02F097391D6BD8EE00E737C7 /* Item_Detail_ItemInfo.xib in Resources */,
 				024C4D2E1D5AA58600896EE4 /* menu_items_2.json in Resources */,
+				02F0975B1D7703EA00E737C7 /* photo_category.json in Resources */,
 				02CD65A81D47D8EB0015661D /* Item_Cell_Photo.xib in Resources */,
 				024C4D301D5AA58600896EE4 /* menu_list.json in Resources */,
 				0221143A1D565A1000F44E88 /* top_data.json in Resources */,
@@ -1012,6 +1029,7 @@
 				024C4D2F1D5AA58600896EE4 /* menu_items_1.json in Resources */,
 				02CD65B21D47E7DB0015661D /* Item_Cell_ShopInfo.xib in Resources */,
 				02F0972F1D6BD8A400E737C7 /* Item_Detail_TopImage.xib in Resources */,
+				02F0975A1D7703EA00E737C7 /* photo.json in Resources */,
 				02CD65A31D47D6C50015661D /* Item_Cell_Product.xib in Resources */,
 				02CD659E1D47D4240015661D /* MenuItem_Common.xib in Resources */,
 				02F097251D6B1A8500E737C7 /* coupon_items.json in Resources */,
@@ -1088,6 +1106,7 @@
 			files = (
 				02F2FDD11D4A30E3006D4C83 /* LogoutResponse.m in Sources */,
 				02F2FDE11D4AF71A006D4C83 /* UIImage+Font.m in Sources */,
+				02F0975E1D77046B00E737C7 /* PhotoCategoryCommunicator.m in Sources */,
 				02F2FDE01D4AF71A006D4C83 /* UIFont+Themify.m in Sources */,
 				02F0972E1D6BD8A400E737C7 /* Item_Detail_TopImage.m in Sources */,
 				02F2FDCA1D4A30E3006D4C83 /* JSONHTTPClient.m in Sources */,
@@ -1129,6 +1148,7 @@
 				022F25D41D52B78C008AEBA1 /* SplashScreen.m in Sources */,
 				021A5EB21D698FD7001F8F8E /* GalleryScreenDetailDataSource.m in Sources */,
 				024C4D2A1D59F4D200896EE4 /* MenuScreenDataSource.m in Sources */,
+				02F097611D77100E00E737C7 /* PhotoViewer.m in Sources */,
 				024C4DAE1D5D85B300896EE4 /* NewsScreen.m in Sources */,
 				02F2FDC41D4A30E3006D4C83 /* JSONModel.m in Sources */,
 				02F2FDC71D4A30E3006D4C83 /* JSONModelError.m in Sources */,

@@ -129,12 +129,13 @@ typedef enum {
     [super viewWillLayoutSubviews];
     
     if([self respondsToSelector:@selector(topLayoutGuide)]) {
-        UIEdgeInsets insets = UIEdgeInsetsMake([self.topLayoutGuide length], 0, 0, 0);
+        UIEdgeInsets leftInsets = UIEdgeInsetsMake([self.topLayoutGuide length], 0, 0, 0);
         if(_leftSideMenuViewController &&
             [_leftSideMenuViewController automaticallyAdjustsScrollViewInsets] &&
             [_leftSideMenuViewController.view respondsToSelector:@selector(setContentInset:)]) {
-            [(UIScrollView *)_leftSideMenuViewController.view setContentInset:insets];
+            [(UIScrollView *)_leftSideMenuViewController.view setContentInset:leftInsets];
         }
+        UIEdgeInsets insets = UIEdgeInsetsMake([self.topLayoutGuide length], 0, 0, 0);
         if(_rightSideMenuViewController &&
             [_rightSideMenuViewController automaticallyAdjustsScrollViewInsets] &&
             [_rightSideMenuViewController.view respondsToSelector:@selector(setContentInset:)]) {

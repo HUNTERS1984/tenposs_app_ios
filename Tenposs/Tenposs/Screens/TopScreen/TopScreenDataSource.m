@@ -19,6 +19,7 @@
 #import "MockupData.h"
 #import "TopCommunicator.h"
 #import "TopScreen.h"
+#import "AppConfiguration.h"
 
 
 @interface TopScreenDataSource()<TenpossCommunicatorDelegate>
@@ -173,7 +174,7 @@
                     NSLog(@"Top Footer is tapped!");
                     TopScreen *topScreen = (TopScreen *)self.delegate;
                     if (topScreen) {
-                        [topScreen performNavigateToMenuScreen:nil];
+                        [topScreen performNavigateToScreenWithId:APP_MENU_MENU];
                     }
                 };
             }else if([data isKindOfClass:[NewsObject class]]){
@@ -181,7 +182,7 @@
                     NSLog(@"Top Footer is tapped!");
                     TopScreen *topScreen = (TopScreen *)self.delegate;
                     if (topScreen) {
-                        [topScreen performNavigateToNewsScreen:nil];
+                        [topScreen performNavigateToScreenWithId:APP_MENU_NEWS];
                     }
                 };
             }else if ([data isKindOfClass:[PhotoObject class]]){
@@ -189,7 +190,7 @@
                     NSLog(@"Top Footer is tapped!");
                     TopScreen *topScreen = (TopScreen *)self.delegate;
                     if (topScreen) {
-                        [topScreen performNavigateToCouponScreen:nil];
+                        [topScreen performNavigateToScreenWithId:APP_MENU_PHOTO_GALLERY];
                     }
                 };
             }

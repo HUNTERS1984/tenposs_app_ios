@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "DataModel.h"
 
 @interface GalleryScreen : UIViewController
 @property UINavigationController *mainNavigationController;
-
+- (void)showPhoto:(PhotoObject *)photoObject;
 @end

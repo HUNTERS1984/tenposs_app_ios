@@ -9,6 +9,7 @@
 #import "GalleryScreenDataSource.h"
 #import "TenpossCommunicator.h"
 #import "MockupData.h"
+#import "PhotoCategoryCommunicator.h"
 
 @interface GalleryScreenDataSource() <TenpossCommunicatorDelegate, SimpleDataSourceDelegate>
 @property (strong, nonatomic) NSMutableArray<GalleryScreenDetailDataSource *> *detailDataSourceList;
@@ -35,7 +36,7 @@
 - (void)fetchDataWithCompleteHandler:(GalleryDataCompleteHandler)handler{
     self.currentCompleteHandler = handler;
     if ([self.detailDataSourceList count] <= 0) {
-        [self loadNewsCategoryList];
+        [self loadPhotoCategoryList];
     }else{
         if (self.currentDetailDataSourceIndex >= 0 && self.currentDetailDataSourceIndex < [self.detailDataSourceList count]) {
             [self updateCurrentDetailDataSource:self.detailDataSourceList[self.currentDetailDataSourceIndex]];
@@ -92,31 +93,32 @@
 }
 
 #pragma mark - Communicator
--(void)loadNewsCategoryList{
-    NSData *data = [MockupData fetchDataWithResourceName:@"news_list"];
+-(void)loadPhotoCategoryList{
+    NSData *data = [MockupData fetchDataWithResourceName:@"photo_category"];
     NSError *error = nil;
+    PhotoCategoryListModel *cateList = [[PhotoCategoryListModel alloc]initWithData:data error:&error];
+    
     //TODO: Need mockup data
-//    NewsCategoryListModel *menuList = [[NewsCategoryListModel alloc]initWithData:data error:&error];
-//    if (!error && menuList && [menuList.items count] > 0) {
-//        for (NewsCategoryObject *category in menuList.items) {
-//            NewsScreenDetailDataSource *detailDataSource = [[NewsScreenDetailDataSource alloc]initWithDelegate:self andNewsCategory:category];
-//            [self.detailDataSourceList addObject:detailDataSource];
-//        }
-//        if (self.shouldShowLatest) {
-//            NSInteger lastSourceIndex = [self.detailDataSourceList count] -1;
-//            [self updateCurrentDetailDataSource:self.detailDataSourceList[lastSourceIndex]];
-//            self.shouldShowLatest = NO;
-//        }else{
-//            NSInteger rand = arc4random()%[self.detailDataSourceList count];
-//            [self updateCurrentDetailDataSource:self.detailDataSourceList[rand]];
-//        }
-//    }else{
-//        NSError *error = [NSError errorWithDomain:@"Cannot fetch Category List data" code:-9999 userInfo:nil];
-//        if (self.currentCompleteHandler) {
-//            self.currentCompleteHandler(error, @"", NO, NO);
-//            self.currentCompleteHandler = nil;
-//        }
-//    }
+    if (!error && cateList && [cateList.items count] > 0) {
+        for (PhotoCategory *category in cateList.items) {
+            GalleryScreenDetailDataSource *detailDataSource = [[GalleryScreenDetailDataSource alloc]initWithDelegate:self andPhotoCategory:category];
+            [self.detailDataSourceList addObject:detailDataSource];
+        }
+        if (self.shouldShowLatest) {
+            NSInteger lastSourceIndex = [self.detailDataSourceList count] -1;
+            [self updateCurrentDetailDataSource:self.detailDataSourceList[lastSourceIndex]];
+            self.shouldShowLatest = NO;
+        }else{
+            NSInteger rand = arc4random()%[self.detailDataSourceList count];
+            [self updateCurrentDetailDataSource:self.detailDataSourceList[rand]];
+        }
+    }else{
+        NSError *error = [NSError errorWithDomain:@"Cannot fetch Category List data" code:-9999 userInfo:nil];
+        if (self.currentCompleteHandler) {
+            self.currentCompleteHandler(error, @"", NO, NO);
+            self.currentCompleteHandler = nil;
+        }
+    }
 }
 #pragma mark - Helper Methods
 
@@ -129,7 +131,7 @@
 
 - (BOOL)detailDataSourceHasNext:(GalleryScreenDetailDataSource *)dataSource {
     NSInteger detailDataSourceCount = [self.detailDataSourceList count];
-    if ((self.detailDataSourceList[detailDataSourceCount -1]).mainData.category_id != dataSource.mainData.category_id && [self.detailDataSourceList count] > 1) {
+    if ((self.detailDataSourceList[detailDataSourceCount -1]).mainData.category_id == dataSource.mainData.category_id && [self.detailDataSourceList count] > 1) {
         return NO;
     }
     return YES;

@@ -13,5 +13,6 @@
 @interface MainNavigationController : UINavigationController
 @property (strong, nonatomic) UIViewController *rootViewController;
 - (instancetype)initWithTemplateId:(NSInteger)templateId;
+- (void)toogleMenu;
 
 @end
