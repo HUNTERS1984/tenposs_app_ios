@@ -10,5 +10,5 @@
 #import "SideMenuTableViewController.h"
 
 @interface GrandViewController : UIViewController<SideMenuDelegate>
-
+- (void)performSegueWithObject:(NSObject *)object;
 @end

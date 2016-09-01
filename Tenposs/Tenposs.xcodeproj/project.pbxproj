@@ -55,6 +55,7 @@
 		024C4DB31D5D85CA00896EE4 /* news_items_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 024C4DB01D5D85CA00896EE4 /* news_items_1.json */; };
 		024C4DB41D5D85CA00896EE4 /* news_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 024C4DB11D5D85CA00896EE4 /* news_list.json */; };
 		024C4DB81D5DB7DC00896EE4 /* NewsDetailScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 024C4DB71D5DB7DC00896EE4 /* NewsDetailScreen.m */; };
+		028A09871D77DBC1000BDD41 /* SignUpScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 028A09861D77DBC1000BDD41 /* SignUpScreen.m */; };
 		02AEEE961D6A73AD0064BB0B /* Item_Cell_Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AEEE941D6A73AD0064BB0B /* Item_Cell_Coupon.m */; };
 		02AEEE971D6A73AD0064BB0B /* Item_Cell_Coupon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02AEEE951D6A73AD0064BB0B /* Item_Cell_Coupon.xib */; };
 		02AEEE9B1D6A7AD70064BB0B /* CouponScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AEEE9A1D6A7AD70064BB0B /* CouponScreen.m */; };
@@ -226,6 +227,8 @@
 		024C4DB11D5D85CA00896EE4 /* news_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = news_list.json; sourceTree = "<group>"; };
 		024C4DB61D5DB7DC00896EE4 /* NewsDetailScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsDetailScreen.h; sourceTree = "<group>"; };
 		024C4DB71D5DB7DC00896EE4 /* NewsDetailScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsDetailScreen.m; sourceTree = "<group>"; };
+		028A09851D77DBC1000BDD41 /* SignUpScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpScreen.h; sourceTree = "<group>"; };
+		028A09861D77DBC1000BDD41 /* SignUpScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpScreen.m; sourceTree = "<group>"; };
 		02AEEE931D6A73AD0064BB0B /* Item_Cell_Coupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item_Cell_Coupon.h; sourceTree = "<group>"; };
 		02AEEE941D6A73AD0064BB0B /* Item_Cell_Coupon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item_Cell_Coupon.m; sourceTree = "<group>"; };
 		02AEEE951D6A73AD0064BB0B /* Item_Cell_Coupon.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Item_Cell_Coupon.xib; sourceTree = "<group>"; };
@@ -529,6 +532,15 @@
 			path = NewsDetailScreen;
 			sourceTree = "<group>";
 		};
+		028A09841D77DBAC000BDD41 /* SignUpScreen */ = {
+			isa = PBXGroup;
+			children = (
+				028A09851D77DBC1000BDD41 /* SignUpScreen.h */,
+				028A09861D77DBC1000BDD41 /* SignUpScreen.m */,
+			);
+			path = SignUpScreen;
+			sourceTree = "<group>";
+		};
 		02AEEE981D6A7AB90064BB0B /* CouponScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -557,6 +569,7 @@
 		02CD65961D47CDDC0015661D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				028A09841D77DBAC000BDD41 /* SignUpScreen */,
 				02F097491D73704D00E737C7 /* LoginScreen */,
 				02F097261D6BD6C100E737C7 /* ItemDetailScreen */,
 				02F097201D6B139000E737C7 /* CouponDetailScreen */,
@@ -1137,6 +1150,7 @@
 				02CD65931D47CD130015661D /* MenuItem_User.m in Sources */,
 				0221142F1D54426000F44E88 /* ReserveScreen.m in Sources */,
 				021140371D58DF5400598AD2 /* UIView+LoadingView.m in Sources */,
+				028A09871D77DBC1000BDD41 /* SignUpScreen.m in Sources */,
 				024C4DA21D5D784C00896EE4 /* NewsScreenDataSource.m in Sources */,
 				02F097231D6B13A200E737C7 /* CouponDetailScreen.m in Sources */,
 				02F2FDD41D4A30E3006D4C83 /* TenpossCommunicator.m in Sources */,

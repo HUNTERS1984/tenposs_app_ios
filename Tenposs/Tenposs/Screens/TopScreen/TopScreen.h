@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Bundle.h"
+#import "DataModel.h"
 
 @interface TopScreen : UICollectionViewController
 @property UINavigationController *mainNavigationController;

@@ -121,6 +121,7 @@
         [self.previousCategoryButton setEnabled:NO];
     }
 }
+
 #pragma mark - Public methods
 
 - (void)showPhoto:(PhotoObject *)photoObject{
@@ -133,7 +134,6 @@
         [viewer setPhoto:(PhotoObject *)sender];
     }
 }
-
 
 #pragma mark - Communicator
 

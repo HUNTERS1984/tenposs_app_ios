@@ -41,6 +41,11 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.loadingIndicator startAnimating];
+}
+
 - (void) viewDidAppear:(BOOL)animated{
     if (_photo != nil) {
         [self presentPhoto:_photo];

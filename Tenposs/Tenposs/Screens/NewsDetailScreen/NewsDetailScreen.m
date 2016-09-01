@@ -39,6 +39,7 @@
     [self.newsContent setText:contentString];
     [self.newsContent setFont:[UIFont systemFontOfSize:16]];
     [self.thumbnail sd_setImageWithURL:[NSURL URLWithString:self.news.image_url]];
+    self.thumbnail.clipsToBounds = YES;
     [self showLoadingViewWithMessage:@""];
 }
 

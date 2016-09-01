@@ -22,6 +22,14 @@
 #import "MFSideMenuContainerViewController.h"
 #import "MainNavigationController.h"
 
+#import "NewsDetailScreen.h"
+#import "PhotoViewer.h"
+#import "CouponDetailScreen.h"
+
+#define GRAND_IDENTIFIER_NEWS_DETAIL    @"grand_news_detail"
+#define GRAND_IDENTIFIER_PHOTO_DETAIL    @"grand_photo_detail"
+#define GRAND_IDENTIFIER_COUPON_DETAIL    @"grand_coupon_detail"
+
 @interface GrandViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *navigationTitle;
 @property (strong, nonatomic) NSMutableDictionary *cachedChildController;
@@ -133,6 +141,34 @@
     [self addChildViewController:child];
     [self.view addSubview:child.view];
     [child didMoveToParentViewController:self];
+}
+
+- (void)performSegueWithObject:(NSObject *)object{
+    if (!object) {
+        return;
+    }
+    if ([object isKindOfClass:[NewsObject class]]) {
+        [self performSegueWithIdentifier:GRAND_IDENTIFIER_NEWS_DETAIL sender:object];
+    }else if ([object isKindOfClass:[CouponObject class]]){
+        [self performSegueWithIdentifier:GRAND_IDENTIFIER_COUPON_DETAIL sender:object];
+    }else if ([object isKindOfClass:[PhotoObject class]]){
+        [self performSegueWithIdentifier:GRAND_IDENTIFIER_PHOTO_DETAIL sender:object];
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:GRAND_IDENTIFIER_NEWS_DETAIL]) {
+        NewsObject *news = (NewsObject *)sender;
+        NewsDetailScreen *newsDetail = segue.destinationViewController;
+        newsDetail.news = news;
+    }else if ([segue.identifier isEqualToString:GRAND_IDENTIFIER_PHOTO_DETAIL]){
+        PhotoViewer *viewer = (PhotoViewer *)segue.destinationViewController;
+        [viewer setPhoto:(PhotoObject *)sender];
+    }else if ([segue.identifier isEqualToString:GRAND_IDENTIFIER_COUPON_DETAIL]){
+        CouponObject *coupon = (CouponObject *)sender;
+        CouponDetailScreen *couponDetail = (CouponDetailScreen *)segue.destinationViewController;
+        couponDetail.coupon = coupon;
+    }
 }
 
 @end
