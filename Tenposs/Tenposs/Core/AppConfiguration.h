@@ -24,15 +24,15 @@
 @protocol StoreModel
 @end
 
-#define APP_MENU_TOP                 1
+#define APP_MENU_TOP                 6
 #define APP_MENU_MENU                2
-#define APP_MENU_RESERVE             3
-#define APP_MENU_NEWS                4
+#define APP_MENU_RESERVE             4
+#define APP_MENU_NEWS                3
 #define APP_MENU_PHOTO_GALLERY       5
-#define APP_MENU_STAFF               6
-#define APP_MENU_COUPON              7
-#define APP_MENU_CHAT                8
-#define APP_MENU_SETTING             9
+#define APP_MENU_STAFF               8
+#define APP_MENU_COUPON              9
+#define APP_MENU_CHAT                7
+#define APP_MENU_SETTING             10
 
 @interface AppInfo : JSONModel
 
@@ -42,9 +42,6 @@
 //@property (strong, nonatomic) NSString *title;
 //@property (strong, nonatomic) NSString *start_time;
 //@property (strong, nonatomic) NSString *end_time;
-
-@property (strong, nonatomic) NSString *code;
-@property (strong, nonatomic) NSString *message;
 
 @property (assign, nonatomic) NSInteger store_id;
 @property (strong, nonatomic) NSString *name;
@@ -123,5 +120,7 @@ typedef void (^AppConfigurationCompleteHandler)(NSError *error);
 - (NSArray <TopComponentModel *> *) getAvailableTopComponents;
 - (NSArray<MenuModel *> *) getAvailableSideMenu;
 - (AppSettings *)getAvailableAppSettings;
+- (NSString *)getStoreId;
+-(NSArray *)getStoryIdArray;
 
 @end

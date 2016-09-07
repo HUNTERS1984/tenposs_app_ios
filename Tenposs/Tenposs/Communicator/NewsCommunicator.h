@@ -12,7 +12,7 @@
 @protocol NewsCategoryObject
 @end
 
-@interface NewsCategoryListModel : JSONModel
+@interface NewsCategoryResponse : JSONModel
 @property (strong, nonatomic) NSString *code;
 @property (strong, nonatomic) NSString *message;
 @property (strong, nonatomic) NSMutableArray<ConvertOnDemand,NewsCategoryObject> *items;

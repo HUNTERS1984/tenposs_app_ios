@@ -9,6 +9,10 @@
 #import "MenuScreenDataSource.h"
 #import "MenuCommunicator.h"
 #import "SimpleDataSource.h"
+#import "CommunicatorConst.h"
+#import "AppConfiguration.h"
+#import "Utils.h"
+#import "Const.h"
 
 @interface MenuScreenDataSource()<TenpossCommunicatorDelegate, SimpleDataSourceDelegate>
 
@@ -90,30 +94,20 @@
 
 #pragma mark - Communicator
 -(void)loadMenuCategoryList{
-    NSData *data = [MockupData fetchDataWithResourceName:@"menu_list"];
-    NSError *error = nil;
     
-    MenuListModel *menuList = [[MenuListModel alloc]initWithData:data error:&error];
-    if (!error && menuList && [menuList.items count] > 0) {
-        for (MenuCategoryModel *category in menuList.items) {
-            MenuScreenDetailDataSource *detailDataSource = [[MenuScreenDetailDataSource alloc]initWithDelegate:self andMenuCategory:category];
-            [self.detailDataSourceList addObject:detailDataSource];
-        }
-        if (self.shouldShowLatest) {
-            NSInteger lastSourceIndex = [self.detailDataSourceList count] -1;
-            [self updateCurrentDetailDataSource:self.detailDataSourceList[lastSourceIndex]];
-            self.shouldShowLatest = NO;
-        }else{
-            NSInteger rand = arc4random()%[self.detailDataSourceList count];
-            [self updateCurrentDetailDataSource:self.detailDataSourceList[rand]];
-        }
-    }else{
-        NSError *error = [NSError errorWithDomain:@"Cannot fetch Category List data" code:-9999 userInfo:nil];
-        if (self.currentCompleteHandler) {
-            self.currentCompleteHandler(error, @"", NO, NO);
-            self.currentCompleteHandler = nil;
-        }
-    }
+    AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+    NSString * store_id = [appConfig getStoreId];
+    
+    MenuCommunicator *request = [MenuCommunicator new];
+    Bundle *params = [Bundle new];
+    [params put:KeyAPI_APP_ID value:APP_ID];
+    NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
+    [params put:KeyAPI_TIME value:currentTime];
+    NSArray *strings = [NSArray arrayWithObjects:APP_ID,currentTime,store_id,APP_SECRET,nil];
+    [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
+    [params put:KeyAPI_STORE_ID value:store_id];
+    [request execute:params withDelegate:self];
+    
 }
 
 #pragma mark - Helper Methods
@@ -129,12 +123,16 @@
     NSInteger detailDataSourceCount = [self.detailDataSourceList count];
     if ((self.detailDataSourceList[detailDataSourceCount -1]).mainData.menu_id == dataSource.mainData.menu_id && [self.detailDataSourceList count] > 1) {
         return NO;
+    }else if (detailDataSourceCount == 1){
+        return NO;
     }
     return YES;
 }
 
 - (BOOL)detailDataSourceHasPrevious:(MenuScreenDetailDataSource *)dataSource{
     if ((self.detailDataSourceList[0]).mainData.menu_id == dataSource.mainData.menu_id && [self.detailDataSourceList count] > 1) {
+        return NO;
+    }else if ([self.detailDataSourceList count] == 1){
         return NO;
     }
     return YES;
@@ -147,14 +145,30 @@
 - (void)begin:(TenpossCommunicator *)request data:(Bundle *)responseParams{}
 
 - (void)completed:(TenpossCommunicator *)request data:(Bundle *)responseParams{
-    NSInteger errorCode = [responseParams getInt:KeyResponseResult];
-    if (errorCode != 0) {
-        
+    NSInteger errorCode =[responseParams getInt:KeyResponseResult];
+    NSError *error = nil;
+    if (errorCode != ERROR_OK) {
+        NSString *errorDomain = [CommunicatorConst getErrorMessage:errorCode];
+        error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:nil];
     }else{
-        if (self.shouldShowLatest) {
-            [self updateCurrentDetailDataSource:[self.detailDataSourceList objectAtIndex:[self.detailDataSourceList count] -1]];
-            self.shouldShowLatest = NO;
+        MenuResponse *data = (MenuResponse *)[responseParams get:KeyResponseObject];
+        if (data.items && [data.items count] > 0) {
+            for (MenuCategoryModel *menu in data.items) {
+                MenuScreenDetailDataSource *detailDataSource = [[MenuScreenDetailDataSource alloc]initWithDelegate:self andMenuCategory:menu];
+                [self.detailDataSourceList addObject:detailDataSource];
+            }
+            if (self.shouldShowLatest) {
+                [self updateCurrentDetailDataSource:[self.detailDataSourceList objectAtIndex:[self.detailDataSourceList count] -1]];
+                self.shouldShowLatest = NO;
+            }
+            return;
+        }else{
+            error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_NO_CONTENT] code:ERROR_NO_CONTENT userInfo:nil];
         }
+    }
+    if (self.currentCompleteHandler) {
+        self.currentCompleteHandler(error, @"", NO, NO);
+        self.currentCompleteHandler = nil;
     }
 }
 
@@ -164,7 +178,7 @@
     if (!dataSource) {
         //TODO: handle nil detailDataSource
     }
-    NSString *detailDataSourceTitle = dataSource.mainData.title;
+    NSString *detailDataSourceTitle = dataSource.mainData.name;
     if (self.currentCompleteHandler) {
         if ([error.domain isEqualToString:MenuScreenDetailError_fullyLoaded]) {
             self.currentCompleteHandler(nil, detailDataSourceTitle, [self detailDataSourceHasNext:dataSource], [self detailDataSourceHasPrevious:dataSource]);
@@ -183,6 +197,5 @@
 - (void)needRefreshSectionAtIndexPath:(NSIndexPath *)indexPath{
 
 }
-
 
 @end

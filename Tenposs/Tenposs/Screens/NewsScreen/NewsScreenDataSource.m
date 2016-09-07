@@ -10,6 +10,7 @@
 #import "TenpossCommunicator.h"
 #import "MockupData.h"
 #import "NewsCommunicator.h"
+#import "AppConfiguration.h"
 
 @interface NewsScreenDataSource()<TenpossCommunicatorDelegate, SimpleDataSourceDelegate>
 
@@ -58,7 +59,7 @@
     }
     NSInteger indexToChangeTo = [self.detailDataSourceList indexOfObject:self.activeDetailDataSource] + 1;
     NewsScreenDetailDataSource *sourceToChangeTo = self.detailDataSourceList[indexToChangeTo];
-    if (![sourceToChangeTo.mainData.title isEqualToString:self.activeDetailDataSource.mainData.title]) {
+    if (![[sourceToChangeTo.mainData title] isEqualToString:[self.activeDetailDataSource.mainData title]]) {
         self.currentCompleteHandler = handler;
         [self updateCurrentDetailDataSource:sourceToChangeTo];
     }else{
@@ -94,30 +95,31 @@
 
 #pragma mark - Communicator
 -(void)loadNewsCategoryList{
-    NSData *data = [MockupData fetchDataWithResourceName:@"news_list"];
-    NSError *error = nil;
     
-    NewsCategoryListModel *menuList = [[NewsCategoryListModel alloc]initWithData:data error:&error];
-    if (!error && menuList && [menuList.items count] > 0) {
-        for (NewsCategoryObject *category in menuList.items) {
-            NewsScreenDetailDataSource *detailDataSource = [[NewsScreenDetailDataSource alloc]initWithDelegate:self andNewsCategory:category];
-            [self.detailDataSourceList addObject:detailDataSource];
-        }
-        if (self.shouldShowLatest) {
-            NSInteger lastSourceIndex = [self.detailDataSourceList count] -1;
-            [self updateCurrentDetailDataSource:self.detailDataSourceList[lastSourceIndex]];
-            self.shouldShowLatest = NO;
-        }else{
-            NSInteger rand = arc4random()%[self.detailDataSourceList count];
-            [self updateCurrentDetailDataSource:self.detailDataSourceList[rand]];
-        }
+    AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+//    if ([[appConfig getStoryIdArray] count] > 0) {
+//        for(NSNumber *idNum in [appConfig getStoryIdArray]){
+//            NewsCategoryObject *newsCate = [NewsCategoryObject new];
+//            newsCate.store_id = [idNum integerValue];
+//            NewsScreenDetailDataSource *detailDataSource = [[NewsScreenDetailDataSource alloc]initWithDelegate:self andNewsCategory:newsCate];
+//            [self.detailDataSourceList addObject:detailDataSource];
+//        }
+//    }
+    NSString *store_id = [appConfig getStoreId];
+    NewsCategoryObject *newsCate = [NewsCategoryObject new];
+    newsCate.store_id = [store_id integerValue];
+    NewsScreenDetailDataSource *detailDataSource = [[NewsScreenDetailDataSource alloc]initWithDelegate:self andNewsCategory:newsCate];
+    [self.detailDataSourceList addObject:detailDataSource];
+    
+    if (self.shouldShowLatest) {
+        NSInteger lastSourceIndex = [self.detailDataSourceList count] -1;
+        [self updateCurrentDetailDataSource:self.detailDataSourceList[lastSourceIndex]];
+        self.shouldShowLatest = NO;
     }else{
-        NSError *error = [NSError errorWithDomain:@"Cannot fetch Category List data" code:-9999 userInfo:nil];
-        if (self.currentCompleteHandler) {
-            self.currentCompleteHandler(error, @"", NO, NO);
-            self.currentCompleteHandler = nil;
-        }
+        NSInteger rand = arc4random()%[self.detailDataSourceList count];
+        [self updateCurrentDetailDataSource:self.detailDataSourceList[rand]];
     }
+
 }
 #pragma mark - Helper Methods
 
@@ -130,14 +132,18 @@
 
 - (BOOL)detailDataSourceHasNext:(NewsScreenDetailDataSource *)dataSource {
     NSInteger detailDataSourceCount = [self.detailDataSourceList count];
-    if ([(self.detailDataSourceList[detailDataSourceCount -1]).mainData.title isEqualToString:dataSource.mainData.title] && [self.detailDataSourceList count] > 1) {
+    if ([self.detailDataSourceList count] > 1 && [(self.detailDataSourceList[detailDataSourceCount -1]).mainData.title isEqualToString:dataSource.mainData.title] ) {
+        return YES;
+    }else if ([self.detailDataSourceList count] == 1){
         return NO;
     }
-    return YES;
+    return NO;
 }
 
 - (BOOL)detailDataSourceHasPrevious:(NewsScreenDetailDataSource *)dataSource{
     if ([(self.detailDataSourceList[0]).mainData.title isEqualToString:dataSource.mainData.title] && [self.detailDataSourceList count] > 1) {
+        return NO;
+    }else if ([self.detailDataSourceList count] == 1){
         return NO;
     }
     return YES;

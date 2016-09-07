@@ -25,7 +25,7 @@
 }
 
 - (void)reloadDataSource{
-    self.mainData.pageindex = 0;
+    self.mainData.pageindex = 1;
     [self.mainData removeAllPhotos];
     [self loadData];
 }

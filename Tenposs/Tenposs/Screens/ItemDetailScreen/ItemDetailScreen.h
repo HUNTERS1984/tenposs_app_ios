@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DataModel.h"
 
-@interface ItemDetailScreen : UIViewController
-
+@interface ItemDetailScreen : UICollectionViewController
+@property (strong, nonatomic) ProductObject *item;
 @end

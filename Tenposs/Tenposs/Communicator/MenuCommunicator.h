@@ -14,16 +14,14 @@
 @protocol MenuCategoryModel
 @end
 
-@interface MenuListModel : JSONModel
-@property (strong, nonatomic) NSString *code;
+@interface MenuResponse : JSONModel
+@property (assign, nonatomic) NSInteger code;
 @property (strong, nonatomic) NSString *message;
 @property (strong, nonatomic) NSMutableArray<ConvertOnDemand,MenuCategoryModel> *items;
 @end
 
 @interface MenuCategoryModel : JSONModel <ProductContainer>
-@property (strong, nonatomic) NSString *code;
-@property (strong, nonatomic) NSString *message;
-@property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *name;
 @property (assign, nonatomic) NSInteger menu_id;
 @property (assign, nonatomic) NSInteger pageIndex;
 @property (assign, nonatomic) NSInteger totalitem;

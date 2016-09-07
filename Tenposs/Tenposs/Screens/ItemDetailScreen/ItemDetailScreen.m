@@ -7,10 +7,17 @@
 //
 
 #import "ItemDetailScreen.h"
+#import "ItemDetailCommunicator.h"
+#import "Item_Detail_ItemName.h"
+#import "Item_Detail_TopImage.h"
+#import "Item_Detail_Description.h"
+#import "Item_Detail_Header_Segmented.h"
+#import "Top_Header.h"
+#import "Top_Footer.h"
 
 @interface ItemDetailScreen ()
 
-
+@property ItemDetailResponse *itemDetail;
 
 @end
 
@@ -26,14 +33,38 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - UICollectionViewDataSource
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (BOOL)hasRelatedItems{
+    return _itemDetail.items && [_itemDetail.items count] > 0;
 }
-*/
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    switch (section) {
+        case 0:
+            return 1;
+            break;
+        case 1:
+            return 1;
+            break;
+        case 2:{
+            if ([self hasRelatedItems]) {
+                return [_itemDetail.items count];
+            }else return 0;
+        }
+            break;
+        default:
+            return 0;
+            break;
+    }
+}
+
+//- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return [self hasRelatedItems]?3:2;
+}
 
 @end

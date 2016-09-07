@@ -9,6 +9,7 @@
 #import "TenpossCommunicator.h"
 
 @implementation TenpossCommunicator
+
 -(void) prepare:(Bundle*) params
 {
     if(self.cancelled == YES)
@@ -24,6 +25,8 @@
     if([self respondsToSelector:@selector(customProcess:)])
         [self customProcess:params];
 }
+
+
 
 -(void) execute:(Bundle*) params withDelegate:(id) delegate
 {

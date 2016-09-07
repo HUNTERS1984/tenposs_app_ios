@@ -12,7 +12,7 @@
 @class ProductObject;
 @class PhotoObject;
 @class NewsObject;
-@class ShopObject;
+@class ContactObject;
 @class ProductCategoryObject;
 @class NewsCategoryObject;
 @class PhotoCategory;
@@ -54,13 +54,13 @@
 @protocol NewsObject
 @end
 
-@protocol ShopObject
-@end
-
 @protocol TopObject
 @end
 
 @protocol PhotoCategory
+@end
+
+@protocol ContactObject
 @end
 
 #pragma mark - TopItem
@@ -102,14 +102,11 @@
 @interface NewsCategoryObject : JSONModel <NewsContainer>{
     @public
 }
-@property (strong, nonatomic) NSString *code;
-@property (strong, nonatomic) NSString *message;
-@property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSString *categoryName;
+@property (assign, nonatomic) NSInteger store_id;
 @property (assign, nonatomic) NSInteger pageIndex;
 @property (assign, nonatomic) NSInteger totalnew;
 @property (strong, nonatomic) NSMutableArray<ConvertOnDemand,NewsObject> *news;
-
+- (NSString *)title;
 @end
 
 
@@ -137,7 +134,7 @@
 @end
 
 #pragma mark - Shop
-@interface ShopObject : JSONModel
+@interface ContactObject : JSONModel
 @property (assign, nonatomic) NSInteger shopId;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *latitude;
@@ -146,8 +143,9 @@
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *start_time;
 @property (strong, nonatomic) NSString *end_time;
-
 @end
+
+#pragma mark - Coupon
 
 @class CouponObject;
 
@@ -163,7 +161,7 @@
 -(void) removeAllCoupons;
 -(void)removeCoupon:(CouponObject *)coupon;
 @end
-#pragma mark - Coupon
+
 @interface CouponObject : JSONModel
 
 @property (assign, nonatomic) NSInteger coupon_id;

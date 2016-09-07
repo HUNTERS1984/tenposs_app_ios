@@ -11,6 +11,7 @@
 #import "MenuScreenDetailDataSource.h"
 #import <UIKit/UIKit.h>
 #import "MockupData.h"
+#import "MenuCommunicator.h"
 
 #define MenuScreenError_isLast    @"this is last category"
 #define MenuScreenError_isFirst    @"this is first category"
@@ -18,7 +19,7 @@
 
 typedef void (^MenuDataCompleteHandler)(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious);
 
-@interface MenuScreenDataSource : NSObject
+@interface MenuScreenDataSource : NSObject <TenpossCommunicatorDelegate>
 
 @property (strong, nonatomic)UICollectionView *collectionView;
 

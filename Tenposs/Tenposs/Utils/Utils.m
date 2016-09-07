@@ -36,4 +36,35 @@
     return output;
 }
 
++ (long long)currentTimeInMillis{
+    long long milliseconds = (long long)([[NSDate date] timeIntervalSince1970] * 1000.0);
+    return milliseconds;
+}
+
++ (NSString *)currentTimeString{
+    long long milliseconds = (long long)([[NSDate date] timeIntervalSince1970] * 1000.0);
+    return [@(milliseconds) stringValue];
+}
+
++(NSString *)timeString{
+    
+    NSInteger secondGmt = [[NSTimeZone systemTimeZone] secondsFromGMT];
+
+    NSTimeZone *gmtZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    //[dateFormatter setTimeZone:gmtZone];
+    NSDate * now = [NSDate date];
+    NSInteger secondNow = gmtZone.secondsFromGMT;
+    //NSString *timeStamp = [dateFormatter stringFromDate:[NSDate date]];
+    //NSLog(@"%@",timeStamp);
+    return nil;
+}
+
++ (NSString *)getSigWithStrings:(NSArray <NSString *> *)stringArray{
+    NSString *sig = @"";
+    for (NSString *string in stringArray) {
+        sig = [sig stringByAppendingString:string];
+    }
+    return [Utils hashed_string:sig];
+}
+
 @end

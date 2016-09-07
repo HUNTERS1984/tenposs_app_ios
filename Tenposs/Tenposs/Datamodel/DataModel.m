@@ -143,6 +143,7 @@
     self = [super init];
     if (self) {
         self.news = (NSMutableArray<NewsObject> *)[[NSMutableArray alloc]init];
+        self.pageIndex = 1;
     }
     return self;
 }
@@ -155,6 +156,13 @@
     return [[JSONKeyMapper alloc] initWithDictionary:@{@"data.news":@"news"}];
 }
 
+- (NSString *)title{
+    if (_store_id != 0) {
+        return [NSString stringWithFormat:@"%@ - %ld",@"Store",(long)_store_id];
+    }
+    return @"";
+}
+
 - (void)addNews:(NewsObject *)new{
     [self.news addObject:new];
 }
@@ -163,10 +171,14 @@
     self.pageIndex += 1;
 }
 
+- (void)removeAllNews{
+    [self.news removeAllObjects];
+}
+
 @end
 
 #pragma mark - Store
-@implementation ShopObject
+@implementation ContactObject
 +(BOOL)propertyIsOptional:(NSString *)propertyName{
     return YES;
 }
@@ -223,7 +235,7 @@
 
 - (void)removeAllCoupons{
     [self.coupons removeAllObjects];
-    self.pageindex = 0;
+    self.pageindex = 1;
 }
 
 - (void)removeCoupon:(CouponObject *)coupon{

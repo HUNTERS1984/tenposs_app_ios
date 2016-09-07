@@ -20,7 +20,10 @@
 #import "TopCommunicator.h"
 #import "TopScreen.h"
 #import "AppConfiguration.h"
-
+#import "TopCommunicator.h"
+#import "Const.h"
+#import "Utils.h"
+#import "MenuCommunicator.h"
 
 @interface TopScreenDataSource()<TenpossCommunicatorDelegate>
 
@@ -91,7 +94,7 @@
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Cell_Top class]) forIndexPath:indexPath];
     }else if([item isKindOfClass:[PhotoObject class]]){
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Cell_Photo class]) forIndexPath:indexPath];
-    }else if([item isKindOfClass:[ShopObject class]]){
+    }else if([item isKindOfClass:[ContactObject class]]){
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Cell_ShopInfo class]) forIndexPath:indexPath];
     }else if([item isKindOfClass:[NewsObject class]]){
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Cell_News class]) forIndexPath:indexPath];
@@ -117,7 +120,7 @@
         return YES;
     }else if ([data isKindOfClass:[NewsObject class]]) {
         return YES;
-    }else if ([data isKindOfClass:[ShopObject class]]) {
+    }else if ([data isKindOfClass:[ContactObject class]]) {
         return YES;
     }
     return NO;
@@ -141,7 +144,7 @@
         return @"Gallery";
     }else if ([data isKindOfClass:[NewsObject class]]) {
         return @"News";
-    }else if ([data isKindOfClass:[ShopObject class]]) {
+    }else if ([data isKindOfClass:[ContactObject class]]) {
         return @"Shop";
     }
     return @"";
@@ -227,7 +230,7 @@
         return CellSpanTypeFull;
     }else if([item isKindOfClass:[PhotoObject class]]){
         return [Item_Cell_Photo getCellSpanType];
-    }else if([item isKindOfClass:[ShopObject class]]){
+    }else if([item isKindOfClass:[ContactObject class]]){
         return [Item_Cell_ShopInfo getCellSpanType];
     }
     return CellSpanTypeNone;
@@ -250,7 +253,7 @@
     }else if([item isKindOfClass:[PhotoObject class]]){
         width = (superWidth - 4*SPACING_ITEM_PHOTO)/3;
         height = [Item_Cell_Photo getCellHeightWithWidth:width];
-    }else if([item isKindOfClass:[ShopObject class]]){
+    }else if([item isKindOfClass:[ContactObject class]]){
         width = superWidth;
         height = [Item_Cell_ShopInfo getCellHeightWithWidth:width];
     }else if([item isKindOfClass:[NewsObject class]]){
@@ -297,20 +300,29 @@
 #pragma mark - Communication
 
 - (void)loadTopData{
-    NSData *data = [MockupData fetchDataWithResourceName:@"top_data"];
-    NSError *error;
-    TopDataModel *topData = [[TopDataModel alloc] initWithData:data error:&error];
-    [self loadDataIntoSectionArray:topData];
-    if (!error) {
-        if (topData) {
-            if(self.delegate && [self.delegate respondsToSelector:@selector(dataLoadedWithError:)]){
-                [self.delegate dataLoadedWithError:nil];
-            }
-        }
-    }
+//    NSData *data = [MockupData fetchDataWithResourceName:@"top_data"];
+//    NSError *error;
+//    TopResponse *topData = [[TopResponse alloc] initWithData:data error:&error];
+//    [self loadDataIntoSectionArray:topData];
+//    if (!error) {
+//        if (topData) {
+//            if(self.delegate && [self.delegate respondsToSelector:@selector(dataLoadedWithError:)]){
+//                [self.delegate dataLoadedWithError:nil];
+//            }
+//        }
+//    }
+    
+    TopCommunicator *request = [TopCommunicator new];
+    Bundle *params = [Bundle new];
+    [params put:KeyAPI_APP_ID value:APP_ID];
+    NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
+    [params put:KeyAPI_TIME value:currentTime];
+    NSArray *strings = [NSArray arrayWithObjects:APP_ID,currentTime,APP_SECRET,nil];
+    [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
+    [request execute:params withDelegate:self];
 }
 
-- (void)loadDataIntoSectionArray:(TopDataModel *)topData{
+- (void)loadDataIntoSectionArray:(TopResponse *)topData{
     if (!self.sectionArray) {
         self.sectionArray = [[NSMutableArray alloc] init];
     }
@@ -342,6 +354,13 @@
         }
         [self.sectionArray addObject:newsArray];
     }
+    if(topData.contacts && [topData.contacts count] > 0){
+        NSMutableArray<ContactObject *> *contactArray = (NSMutableArray<ContactObject *> *)[[NSMutableArray alloc]init];
+        for (ContactObject *contact in topData.contacts) {
+            [contactArray addObject:contact];
+        }
+        [self.sectionArray addObject:contactArray];
+    }
     topData = nil;
 }
 
@@ -349,10 +368,13 @@
 
 - (void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams{
     NSInteger errorCode =[responseParams getInt:KeyResponseResult];
-    if (errorCode != 0) {
-        
+    NSError *error = nil;
+    if (errorCode != ERROR_OK) {
+        NSString *errorDomain = [responseParams get:KeyResponseError];
+        error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:nil];
     }else{
-        NSObject *data = [responseParams get:KeyResponseObject];
+        TopResponse *data = (TopResponse *)[responseParams get:KeyResponseObject];
+        [self loadDataIntoSectionArray:data];
     }
     if(self.delegate && [self.delegate respondsToSelector:@selector(dataLoadedWithError:)]){
         [self.delegate dataLoadedWithError:nil];

@@ -9,6 +9,9 @@
 #import "AppConfiguration.h"
 #import "AppInfoCommunicator.h"
 #import "MockupData.h"
+#import "Const.h"
+#import "Utils.h"
+#import "CommunicatorConst.h"
 
 @implementation AppInfo
 
@@ -18,16 +21,16 @@
 
 + (JSONKeyMapper *)keyMapper{
     return [[JSONKeyMapper alloc] initWithDictionary:@{
-                                                       @"data.id":@"store_id",
-                                                       @"data.name":@"name",
-                                                       @"data.description":@"desc",
-                                                       @"data.created_at":@"created_at",
-                                                       @"data.status":@"status",
-                                                       @"data.updated_at":@"updated_at",
-                                                       @"data.top_components":@"top_components",
-                                                       @"data.app_setting":@"app_setting",
-                                                       @"data.side_menu":@"side_menu",
-                                                       @"data.stores":@"stores"}];
+                                                       @"id":@"store_id",
+                                                       @"name":@"name",
+                                                       @"description":@"desc",
+                                                       @"created_at":@"created_at",
+                                                       @"status":@"status",
+                                                       @"updated_at":@"updated_at",
+                                                       @"top_components":@"top_components",
+                                                       @"app_setting":@"app_setting",
+                                                       @"side_menu":@"side_menu",
+                                                       @"stores":@"stores"}];
 }
 
 @end
@@ -56,9 +59,11 @@
 @end
 
 @implementation AppSettings
+
 + (BOOL)propertyIsOptional:(NSString *)propertyName{
     return YES;
 }
+
 + (JSONKeyMapper *)keyMapper{
     return [[JSONKeyMapper alloc] initWithDictionary:@{}];
 }
@@ -87,7 +92,6 @@
 @property (assign, nonatomic) NSInteger numberOfPhotoColumn_iphone;
 @property (assign, nonatomic) NSInteger numberOfPhotoColumn_ipad;
 
-@property (strong, nonatomic) AppSettings *appSettings;
 @property (strong, nonatomic) AppInfo *appInfo;
 
 @end
@@ -116,35 +120,47 @@
     //TODO: need define default properties
     self.cellSpacing = 8;
 }
+
 //TODO: clean
-- (void)mockUp{
-    if(self.completeHandler){
-        //self.completeHandler([NSError errorWithDomain:@"This is Error" code:100 userInfo:nil]);
-//        self.appSettings = [AppSettings new];
-//        self.appSettings.template_id = 1;
-        NSError *error = nil;
-        NSDictionary *data = [MockupData fetchDictionaryWithResourceName:@"app_info"];
-        if (data) {
-            self.appInfo = [[AppInfo alloc] initWithDictionary:data error:&error];
-        }
-        self.completeHandler(error);
-        self.completeHandler = nil;
-    }
-}
+//- (void)mockUp{
+//    if(self.completeHandler){
+//        NSError *error = nil;
+//        NSDictionary *data = [MockupData fetchDictionaryWithResourceName:@"app_info"];
+//        if (data) {
+//            self.appInfo = [[AppInfo alloc] initWithDictionary:data error:&error];
+//        }
+//        self.completeHandler(error);
+//        self.completeHandler = nil;
+//    }
+//}
 
 #pragma mark - Public methods
 - (void)loadAppInfoWithCompletionHandler:(void(^)(NSError *error))handler{
-    
     [self loadAppInfo];
-    
+    if (!handler) {
+        NSAssert(false, @"Handler cannot be nil!");
+    }
     self.completeHandler = handler;
-    
-    //TODO: clean
-    [self mockUp];
 }
 
 - (void)loadAppInfo{
+    AppInfoCommunicator *request = [AppInfoCommunicator new];
+    Bundle *params = [Bundle new];
+    [params put:KeyAPI_APP_ID value:APP_ID];
+    NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
+    [params put:KeyAPI_TIME value:currentTime];
+    NSArray *strings = [NSArray arrayWithObjects:APP_ID,currentTime,APP_SECRET,nil];
+    [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
+    [request execute:params withDelegate:self];
+}
 
+- (void)requestCompleteWithError:(NSError *)error{
+    if (self.completeHandler) {
+        self.completeHandler(error);
+    }else{
+        //This should never happen
+        NSAssert(self.completeHandler==nil, @"CompleteHandler cannot be nil");
+    }
 }
 
 - (NSArray <TopComponentModel *> *) getAvailableTopComponents{
@@ -168,22 +184,37 @@
     return nil;
 }
 
+- (NSString *)getStoreId{
+    
+    ///TODO: need fixed!
+    
+    NSInteger storeId = ((StoreModel *)[self.appInfo.stores firstObject]).store_id;
+    return [@(storeId) stringValue];
+}
+
+-(NSArray <NSNumber *> *)getStoryIdArray{
+    NSMutableArray<NSNumber *> *array = (NSMutableArray<NSNumber *> *)[NSMutableArray new];
+    for (StoreModel *store in _appInfo.stores) {
+        [array addObject:@(store.store_id)];
+    }
+    return [array mutableCopy];
+}
 
 #pragma mark - TenpossCommunicatorDelegate
 
 - (void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams{
     NSError *error = nil;
-    if ([responseParams get:KeyResponseResult] != 0) {
+    NSInteger result = [responseParams getInt:KeyResponseResult];
+    if (result != ERROR_OK) {
         NSInteger errorCode = [[responseParams get:KeyResponseResult] integerValue];
         NSString *errorDomain = [responseParams get:KeyResponseError];
         error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:nil];
-    }
-    if (self.completeHandler) {
-        self.completeHandler(error);
     }else{
-        //This should never happen
-        NSAssert(self.completeHandler==nil, @"CompleteHandler cannot be nil");
+        _appInfo = (AppInfo *)[responseParams get:KeyResponseObject];
     }
+    [self requestCompleteWithError:error];
+    
+    
 }
 
 - (void)begin:(TenpossCommunicator*)request data:(Bundle*) responseParams{
