@@ -31,5 +31,5 @@ typedef void (^MenuDataCompleteHandler)(NSError *error, NSString *detailDataSour
 -(void)changeToNextDetailDataSourceWithCompleteHandler:(MenuDataCompleteHandler)handler;
 -(void)changeToPreviousDetailDataSourceWithCompleteHandler:(MenuDataCompleteHandler)handler;
 -(void)loadMoreDataWithCompleteHandler:(MenuDataCompleteHandler)handler;
-
+- (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath;
 @end

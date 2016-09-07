@@ -7,6 +7,7 @@
 //
 
 #import "TenpossSegmentedControl.h"
+#import "HexColors.h"
 
 @interface TenpossSegmentedControl()
 
@@ -22,7 +23,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.labels = [NSMutableArray new];
-        [self setItems:[NSMutableArray arrayWithObjects:@"item 1",@"item 2",@"item 3",nil]];
+        self.thumbView = [UIView new];
+        [self setItems:[NSMutableArray arrayWithObjects:@"Description",@"Size",nil]];
         [self setupView];
     }
     return self;
@@ -32,18 +34,18 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.labels = [NSMutableArray new];
-        [self setItems:[NSMutableArray arrayWithObjects:@"item 1",@"item 2",@"item 3",nil]];
+        self.thumbView = [UIView new];
+        [self setItems:[NSMutableArray arrayWithObjects:@"Description",@"Size",nil]];
         [self setupView];
     }
     return self;
 }
 
 - (void)setupView{
-    self.layer.cornerRadius = 5;
-    self.layer.borderColor = [UIColor redColor].CGColor;
-    self.layer.borderWidth = 1;
     
-    self.backgroundColor = [UIColor lightGrayColor];
+    self.layer.cornerRadius = 5;
+    
+    self.backgroundColor = [UIColor clearColor];
     
     [self setupLabels];
     
@@ -51,6 +53,7 @@
 }
 
 - (void)setItems:(NSMutableArray<NSString *> *)items{
+    _items = items;
     [self setupLabels];
 }
 
@@ -63,9 +66,9 @@
     
     for (int i = 0; i < [_items count]; i ++) {
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectZero];
-        label.text = _items[i -1];
+        label.text = _items[i];
         label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = [UIColor blackColor];
+        label.textColor = [UIColor colorWithHexString:@"#b8b8b8"];
         [self addSubview:label];
         [_labels addObject:label];
     }
@@ -77,7 +80,15 @@
 }
 
 - (void)displayNewSelectedIndex{
-    UILabel *label =_labels[_selectedIndex];
+    UILabel *label = _labels[_selectedIndex];
+    for(int i = 0 ; i < [_labels count]; i++){
+        UILabel *label = _labels[i];
+        if (i == _selectedIndex) {
+            [label setTextColor:[UIColor colorWithHexString:@"#18C1BF"]];
+        }else{
+            [label setTextColor:[UIColor colorWithHexString:@"#b8b8b8"]];
+        }
+    }
     self.thumbView.frame = label.frame;
 }
 
@@ -99,7 +110,7 @@
     selectFrame.size.width = newWidth;
     
     _thumbView.frame = selectFrame;
-    _thumbView.backgroundColor = [UIColor greenColor];
+    _thumbView.backgroundColor = [UIColor whiteColor];
     _thumbView.layer.cornerRadius = 5;
     
     CGFloat labelHeight = self.bounds.size.height;
@@ -107,6 +118,9 @@
     
     for(int i = 0 ; i < [_labels count]; i++){
         UILabel *label = _labels[i];
+        if (i == _selectedIndex) {
+            [label setTextColor:[UIColor colorWithHexString:@"#18C1BF"]];
+        }
         CGFloat xPosition = (CGFloat) (i * labelWidth);
         label.frame = CGRectMake(xPosition, 0, labelWidth, labelHeight);
     }
@@ -122,7 +136,7 @@
         }
     }
     if (calculatedIndex != -1) {
-        _selectedIndex = calculatedIndex;
+        [self setSelectedIndex:calculatedIndex];
         [self sendActionsForControlEvents:UIControlEventValueChanged];
     }
     

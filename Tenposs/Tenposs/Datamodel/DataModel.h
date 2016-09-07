@@ -76,9 +76,8 @@
 @property (strong, nonatomic) NSString *price;
 @property (strong, nonatomic) NSString *image_url;
 @property (strong, nonatomic) ProductCategoryObject *parentCategory;
-
+@property(strong, nonatomic) NSMutableArray <ConvertOnDemand, ProductObject> *rel_items;
 - (void)updateItemWithItem:(ProductObject *)item;
-
 @end
 
 @interface ProductCategoryObject : JSONModel{

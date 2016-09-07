@@ -117,21 +117,6 @@
 
 #pragma mark - Navigation Methods
 
-//- (void)performNavigateToMenuScreen:(Bundle *)extraData{
-//    MenuScreen *menuScreen = (MenuScreen *)[[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([MenuScreen class])];
-//    [self.mainNavigationController pushViewController:menuScreen animated:YES];
-//}
-//
-//- (void)performNavigateToNewsScreen:(Bundle *)extraData{
-//    NewsScreen *newsScreen = (NewsScreen *)[[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([NewsScreen class])];
-//    [self.mainNavigationController pushViewController:newsScreen animated:YES];
-//}
-//
-//- (void)performNavigateToCouponScreen:(Bundle *)extraData{
-//    CouponScreen *couponScreen = (CouponScreen *)[[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([CouponScreen class])];
-//    [self.mainNavigationController pushViewController:couponScreen animated:YES];
-//}
-
 - (void)performNavigateToScreenWithId:(NSInteger)screenId{
     Bundle *extra = [Bundle new];
     [extra put:VC_EXTRA_NAVIGATION value:self.mainNavigationController];

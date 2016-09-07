@@ -25,10 +25,12 @@
 #import "NewsDetailScreen.h"
 #import "PhotoViewer.h"
 #import "CouponDetailScreen.h"
+#import "ItemDetailScreen.h"
 
 #define GRAND_IDENTIFIER_NEWS_DETAIL    @"grand_news_detail"
 #define GRAND_IDENTIFIER_PHOTO_DETAIL    @"grand_photo_detail"
 #define GRAND_IDENTIFIER_COUPON_DETAIL    @"grand_coupon_detail"
+#define GRAND_IDENTIFIER_ITEM_DETAIL    @"grand_item_detail"
 
 @interface GrandViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *navigationTitle;
@@ -153,6 +155,8 @@
         [self performSegueWithIdentifier:GRAND_IDENTIFIER_COUPON_DETAIL sender:object];
     }else if ([object isKindOfClass:[PhotoObject class]]){
         [self performSegueWithIdentifier:GRAND_IDENTIFIER_PHOTO_DETAIL sender:object];
+    }else if ([object isKindOfClass:[ProductObject class]]){
+        [self performSegueWithIdentifier:GRAND_IDENTIFIER_ITEM_DETAIL sender:object];
     }
 }
 
@@ -168,6 +172,10 @@
         CouponObject *coupon = (CouponObject *)sender;
         CouponDetailScreen *couponDetail = (CouponDetailScreen *)segue.destinationViewController;
         couponDetail.coupon = coupon;
+    }else if ([segue.identifier isEqualToString:GRAND_IDENTIFIER_ITEM_DETAIL]){
+        ProductObject *item = (ProductObject *)sender;
+        ItemDetailScreen *itemDetail = (ItemDetailScreen *)segue.destinationViewController;
+        itemDetail.item = item;
     }
 }
 

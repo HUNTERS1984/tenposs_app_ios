@@ -8,7 +8,6 @@
 
 #import "Item_Detail_Description.h"
 
-#define DETAIL_DESCRIPTION_COLLAPSE 120
 
 @implementation DescriptionCellInfo
 
@@ -36,7 +35,7 @@
     if ( _fullSizeHeight > 0) {
         return;
     }
-    if(_fullText || [_fullText isEqualToString:@""]){
+    if(!_fullText || [_fullText isEqualToString:@""]){
         _fullSizeHeight = 0;
     }else{
         @autoreleasepool {
@@ -67,7 +66,7 @@
 
 - (void)configureCellWithData:(NSObject *)data WithWidth:(CGFloat)width{
     if (![data isKindOfClass:[DescriptionCellInfo class]]) {
-        NSAssert(false,@"Data for this cell must be a DescriptionCellInfo instance!");
+        return;
     }else{
         DescriptionCellInfo *cellInfo = (DescriptionCellInfo *)data;
         self.textView.scrollEnabled = NO;

@@ -32,10 +32,11 @@
     if (self.product_id != item.product_id) {
         return;
     }
-   self.title = item.title;
-   self.desc = item.desc;
-   self.price = item.price;
-   self.image_url = item.image_url;
+    self.title = item.title;
+    self.desc = item.desc;
+    self.price = item.price;
+    self.image_url = item.image_url;
+    self.rel_items = item.rel_items;
 }
 @end
 

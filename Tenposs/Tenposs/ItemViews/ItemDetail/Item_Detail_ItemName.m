@@ -36,7 +36,7 @@
         ProductObject *item = (ProductObject *) data;
         
         [self.categoryTitle setText:item.parentCategory.categoryName];
-        [self.ItemTitle setText:item.title];
+        [self.ItemTitle setText: [item.title uppercaseString]];
         [self.itemPrice setText:item.price];
         
     }else {
@@ -48,7 +48,7 @@
     CGFloat cellHeight = 0;
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        cellHeight = SMALL_PADDING + CATEGORY_HEIGHT_phone + SMALL_PADDING + TITLE_HEIGHT_phone + LARGE_PADDING + BUTTON_HEIGHT_phone + SMALL_PADDING;
+        cellHeight = SMALL_PADDING + CATEGORY_HEIGHT_phone + SMALL_PADDING + TITLE_HEIGHT_phone + LARGE_PADDING +LARGE_PADDING + LARGE_PADDING + BUTTON_HEIGHT_phone + LARGE_PADDING + LARGE_PADDING;
     }else {
         //TODO: need height for iPad
     }

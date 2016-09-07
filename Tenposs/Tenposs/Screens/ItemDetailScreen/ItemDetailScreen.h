@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "DataModel.h"
 
-@interface ItemDetailScreen : UICollectionViewController
+@interface ItemDetailScreen : UICollectionViewController <UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) ProductObject *item;
 @end

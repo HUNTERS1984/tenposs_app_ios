@@ -538,6 +538,7 @@
                         <segue destination="cc0-uF-zv1" kind="show" identifier="grand_news_detail" id="jZ0-aJ-BKW"/>
                         <segue destination="XRj-5N-Xcu" kind="show" identifier="grand_coupon_detail" id="Ii5-8N-xRs"/>
                         <segue destination="MMI-il-bv5" kind="presentation" identifier="grand_photo_detail" modalPresentationStyle="overCurrentContext" id="7fE-OL-kfy"/>
+                        <segue destination="kTO-QV-DA7" kind="show" identifier="grand_item_detail" id="4bK-Wz-dDJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -973,7 +974,7 @@
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ld9-Ww-s2e">
                                         <rect key="frame" x="150" y="215" width="20" height="20"/>
                                     </activityIndicatorView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htO-Kj-KKk">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htO-Kj-KKk">
                                         <rect key="frame" x="92.5" y="212" width="135" height="26"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <color key="textColor" red="0.67266414141414144" green="0.67266414141414144" blue="0.67266414141414144" alpha="1" colorSpace="calibratedRGB"/>
@@ -1013,11 +1014,46 @@
                         <outlet property="nextCategoryButton" destination="oQy-gy-B48" id="m5H-dh-sXo"/>
                         <outlet property="previousCategoryButton" destination="4FE-BE-jkM" id="5jb-oC-kG6"/>
                         <segue destination="1LP-hi-Yll" kind="show" id="FiW-9D-dX8"/>
+                        <segue destination="kTO-QV-DA7" kind="show" id="6cy-l9-Kop"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1jh-6c-Iz1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="633" y="600"/>
+        </scene>
+        <!--Item Detail Screen-->
+        <scene sceneID="qen-En-JCi">
+            <objects>
+                <collectionViewController storyboardIdentifier="ItemDetailScreen" id="kTO-QV-DA7" customClass="ItemDetailScreen" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="GYK-2P-R8a">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bsd-Bb-xZf">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="GlD-1Q-2Vg">
+                                <rect key="frame" x="0.0" y="64" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="kTO-QV-DA7" id="jbc-Xk-y8t"/>
+                            <outlet property="delegate" destination="kTO-QV-DA7" id="6nO-eS-Kp6"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SL3-v4-FWb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="200" y="1321"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="vYs-WB-EIy">
@@ -1306,7 +1342,7 @@
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZS4-vI-pv3">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="170"/>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.48860031549999999" green="0.85061553030000003" blue="0.85012264299999996" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="ZS4-vI-pv3" secondAttribute="height" multiplier="32:17" id="ehk-rl-RBD"/>
                                                 </constraints>
@@ -1531,8 +1567,9 @@
         <image name="x_icon" width="12" height="12"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7fE-OL-kfy"/>
-        <segue reference="jZ0-aJ-BKW"/>
         <segue reference="Ii5-8N-xRs"/>
+        <segue reference="jZ0-aJ-BKW"/>
+        <segue reference="7fE-OL-kfy"/>
+        <segue reference="6cy-l9-Kop"/>
     </inferredMetricsTieBreakers>
 </document>

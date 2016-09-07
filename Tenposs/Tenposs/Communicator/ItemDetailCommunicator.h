@@ -10,7 +10,7 @@
 #import "DataModel.h"
 
 @interface ItemDetailResponse:JSONModel
-@property (strong, nonatomic) NSString *code;
+@property (assign, nonatomic) NSInteger code;
 @property (strong, nonatomic) NSString *message;
 @property (strong, nonatomic) ProductObject *detail;
 @property (strong, nonatomic) NSMutableArray<ConvertOnDemand,ProductObject> *items;

@@ -22,37 +22,37 @@
                         <color key="textColor" red="0.43730271459999998" green="0.43730271459999998" blue="0.43730271459999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="item price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpf-0f-ggK" userLabel="productPrice">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="item price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpf-0f-ggK" userLabel="productPrice">
                         <rect key="frame" x="232" y="36" width="80" height="22"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="ti8-1k-x1a"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                         <color key="textColor" red="0.99215686270000003" green="0.17542117609999999" blue="0.2128041785" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MUG-1f-zRR" userLabel="productName">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Item title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MUG-1f-zRR" userLabel="productName">
                         <rect key="frame" x="8" y="36" width="71" height="22"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="Ukv-Vx-xrf"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                         <color key="textColor" red="0.32372553659999997" green="0.32372553659999997" blue="0.32372553659999997" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9zI-Bx-hi8" userLabel="purchasePageButton">
-                        <rect key="frame" x="8" y="74" width="304" height="40"/>
+                        <rect key="frame" x="8" y="106" width="304" height="40"/>
                         <color key="backgroundColor" red="0.1215686275" green="0.74901960779999999" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="ldn-5a-6wl"/>
                         </constraints>
-                        <state key="normal" title="Button"/>
+                        <state key="normal" title="Go to purchase page"/>
                     </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
-                <constraint firstItem="9zI-Bx-hi8" firstAttribute="top" secondItem="MUG-1f-zRR" secondAttribute="bottom" constant="16" id="12f-PV-aTo"/>
+                <constraint firstItem="9zI-Bx-hi8" firstAttribute="top" secondItem="MUG-1f-zRR" secondAttribute="bottom" constant="48" id="12f-PV-aTo"/>
                 <constraint firstItem="MUG-1f-zRR" firstAttribute="leading" secondItem="6po-6s-BUh" secondAttribute="leading" id="E4N-bu-q97"/>
                 <constraint firstAttribute="trailing" secondItem="bpf-0f-ggK" secondAttribute="trailing" constant="8" id="J9l-cK-yFo"/>
                 <constraint firstAttribute="trailing" secondItem="9zI-Bx-hi8" secondAttribute="trailing" constant="8" id="SS3-Gu-5XG"/>
