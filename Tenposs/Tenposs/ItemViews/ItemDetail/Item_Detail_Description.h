@@ -9,12 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "Item_Detail_Common.h"
 
+#define DETAIL_DESCRIPTION_COLLAPSE 120
+
 @interface DescriptionCellInfo : NSObject
 
 @property (assign, nonatomic) BOOL isCollapsed;
 @property (strong, nonatomic) NSString *fullText;
 @property (strong, nonatomic) NSString *collapsedText;
 @property (assign, nonatomic) CGFloat fullSizeHeight;
+- (instancetype)initWithFullText:(NSString *)text;
 - (void)calculateFullTextHeightWithWidth:(CGFloat)width;
 
 @end

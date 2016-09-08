@@ -129,7 +129,7 @@
 - (BOOL)sectionShouldHaveFooter:(NSInteger)section{
     NSObject *sectionData = [self sectionDataForSection:section];
     NSObject *data = [(NSMutableArray *)sectionData firstObject];
-    if ([data isKindOfClass:[TopObject class]]) {
+    if ([data isKindOfClass:[TopObject class]]||[data isKindOfClass:[ContactObject class]]) {
         return NO;
     }
     return YES;

@@ -92,6 +92,10 @@
     
 }
 
+- (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath{
+    return [self.activeDetailDataSource itemAtIndexPath:indexPath];
+}
+
 #pragma mark - Communicator
 -(void)loadMenuCategoryList{
     

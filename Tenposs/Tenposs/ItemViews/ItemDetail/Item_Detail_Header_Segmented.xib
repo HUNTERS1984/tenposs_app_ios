@@ -8,26 +8,67 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="Item_Detail_Header_Segmented">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KkG-GT-jOF" userLabel="contentView">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Af2-in-0YW" customClass="TenpossSegmentedControl">
-                                <rect key="frame" x="5" y="5" width="310" height="61"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jzy-F9-Gcl" userLabel="separator">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                <color key="backgroundColor" red="0.85061553030303028" green="0.85061553030303028" blue="0.85061553030303028" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="VDk-Yp-dV6"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hYf-of-9uB">
+                                <rect key="frame" x="8" y="21" width="304" height="50"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Af2-in-0YW" customClass="TenpossSegmentedControl">
+                                        <rect key="frame" x="5" y="5" width="294" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.89184816919191912" green="0.89184816919191912" blue="0.89184816919191912" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Af2-in-0YW" firstAttribute="leading" secondItem="hYf-of-9uB" secondAttribute="leading" constant="5" id="2z9-cI-bJQ"/>
+                                    <constraint firstItem="Af2-in-0YW" firstAttribute="top" secondItem="hYf-of-9uB" secondAttribute="top" constant="5" id="6wB-gc-NtE"/>
+                                    <constraint firstAttribute="trailing" secondItem="Af2-in-0YW" secondAttribute="trailing" constant="5" id="GG2-W9-ab6"/>
+                                    <constraint firstAttribute="bottom" secondItem="Af2-in-0YW" secondAttribute="bottom" constant="5" id="Ohc-8Z-8il"/>
+                                    <constraint firstAttribute="height" constant="50" id="hLK-zk-64G"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="self.layer.connerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Af2-in-0YW" firstAttribute="top" secondItem="KkG-GT-jOF" secondAttribute="top" constant="5" id="Pc1-uN-oWh"/>
-                            <constraint firstItem="Af2-in-0YW" firstAttribute="leading" secondItem="KkG-GT-jOF" secondAttribute="leading" constant="5" id="RV4-Fp-exc"/>
-                            <constraint firstAttribute="bottom" secondItem="Af2-in-0YW" secondAttribute="bottom" constant="5" id="flF-uv-vWh"/>
-                            <constraint firstAttribute="trailing" secondItem="Af2-in-0YW" secondAttribute="trailing" constant="5" id="wPx-9u-WlQ"/>
+                            <constraint firstAttribute="trailing" secondItem="hYf-of-9uB" secondAttribute="trailing" constant="8" id="6n5-YV-qSI"/>
+                            <constraint firstItem="hYf-of-9uB" firstAttribute="top" secondItem="KkG-GT-jOF" secondAttribute="top" id="Bh9-Z1-LTZ"/>
+                            <constraint firstItem="hYf-of-9uB" firstAttribute="centerX" secondItem="KkG-GT-jOF" secondAttribute="centerX" id="CNI-uO-CF6"/>
+                            <constraint firstAttribute="bottom" secondItem="hYf-of-9uB" secondAttribute="bottom" id="Cl3-IZ-4YM"/>
+                            <constraint firstItem="jzy-F9-Gcl" firstAttribute="leading" secondItem="KkG-GT-jOF" secondAttribute="leading" id="OhU-5c-9qm"/>
+                            <constraint firstAttribute="trailing" secondItem="jzy-F9-Gcl" secondAttribute="trailing" id="Pon-bJ-M7t"/>
+                            <constraint firstItem="hYf-of-9uB" firstAttribute="top" secondItem="jzy-F9-Gcl" secondAttribute="bottom" constant="20" id="S2j-g5-Qcf"/>
+                            <constraint firstItem="hYf-of-9uB" firstAttribute="leading" secondItem="KkG-GT-jOF" secondAttribute="leading" constant="8" id="ZbP-BT-Qtg"/>
+                            <constraint firstAttribute="trailing" secondItem="hYf-of-9uB" secondAttribute="trailing" constant="8" id="don-Bz-JOT"/>
+                            <constraint firstItem="hYf-of-9uB" firstAttribute="leading" secondItem="KkG-GT-jOF" secondAttribute="leading" constant="8" id="mPp-hb-3hY"/>
+                            <constraint firstItem="jzy-F9-Gcl" firstAttribute="top" secondItem="KkG-GT-jOF" secondAttribute="top" id="zD9-Ff-A2D"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="6n5-YV-qSI"/>
+                                <exclude reference="Bh9-Z1-LTZ"/>
+                                <exclude reference="CNI-uO-CF6"/>
+                                <exclude reference="Cl3-IZ-4YM"/>
+                                <exclude reference="ZbP-BT-Qtg"/>
+                            </mask>
+                        </variation>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -38,8 +79,11 @@
                 <constraint firstAttribute="trailing" secondItem="KkG-GT-jOF" secondAttribute="trailing" id="n6v-aT-jzp"/>
                 <constraint firstItem="KkG-GT-jOF" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="qhJ-aE-czN"/>
             </constraints>
-            <size key="customSize" width="320" height="71"/>
-            <point key="canvasLocation" x="465" y="377.5"/>
+            <size key="customSize" width="320" height="130"/>
+            <connections>
+                <outlet property="segmentControlWrapper" destination="hYf-of-9uB" id="HN2-hY-Vxn"/>
+            </connections>
+            <point key="canvasLocation" x="465" y="368"/>
         </collectionViewCell>
     </objects>
 </document>

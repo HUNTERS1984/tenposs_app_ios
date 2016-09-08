@@ -11,6 +11,8 @@
 #import "MenuCommunicator.h"
 #import "UIViewController+LoadingView.h"
 #import "UIView+LoadingView.h"
+#import "ItemDetailScreen.h"
+#import "UIUtils.h"
 
 @interface MenuScreen ()<UICollectionViewDelegateFlowLayout>
 
@@ -172,6 +174,17 @@
 
 
 #pragma mark - UICollectionViewDelegateFlowLayout
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSObject *item = [self.dataSource itemAtIndexPath:indexPath];
+    if ([item isKindOfClass:[ProductObject class]]) {
+        ProductObject *product = (ProductObject *)item;
+        ItemDetailScreen *controller = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([ItemDetailScreen class])];
+        controller.item = product;
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+}
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     return [self.dataSource.activeDetailDataSource sizeForCellAtIndexPath:indexPath withCollectionWidth:collectionView.bounds.size.width];
 }

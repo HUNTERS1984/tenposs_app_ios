@@ -7,11 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Common_Item_Cell.h"
 
-@interface Item_Detail_Common : UICollectionViewCell
-
-- (void)configureCellWithData:(NSObject *)data;
-
-+ (CGFloat)getCellHeightWithWidth:(CGFloat)width;
+@interface Item_Detail_Common : Common_Item_Cell
 
 @end
