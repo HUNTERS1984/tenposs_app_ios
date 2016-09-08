@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
+#import "EntityBase.h"
 
 @class ProductObject;
 @class PhotoObject;
@@ -192,19 +193,18 @@
 @class UserProfile;
 @class UserModel;
 
-@interface UserModel: JSONModel
+@interface UserModel: EntityBase
 @property (strong, nonatomic) NSString *email;
-@property (strong, nonatomic) NSString *password;
 @property (strong, nonatomic) NSString *social_id;
 @property (assign, nonatomic) NSInteger social_type;
 @property (assign, nonatomic) NSInteger app_id;
 @property (strong, nonatomic) UserProfile *profile;
 @end
 
-@interface UserProfile : JSONModel
+@interface UserProfile : EntityBase
 @property (assign, nonatomic) NSInteger user_id;
 @property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSString *gender;
+@property (assign, nonatomic) NSInteger gender;
 @property (strong, nonatomic) NSString *address;
 @property (strong, nonatomic) NSString *avatar_url;
 @property (assign, nonatomic) NSInteger facebook_status;

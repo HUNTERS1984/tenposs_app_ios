@@ -119,9 +119,9 @@ SFSafariViewControllerDelegate
       deviceName = @"iphone";
       break;
 
-    case UIUserInterfaceIdiomTV:
-      deviceName = @"tvos";
-      break;
+    //case UIUserInterfaceIdiomTV:
+     // deviceName = @"tvos";
+     // break;
 
 #if __IPHONE_9_3
     case UIUserInterfaceIdiomCarPlay:

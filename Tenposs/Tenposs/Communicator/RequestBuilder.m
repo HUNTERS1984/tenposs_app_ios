@@ -17,9 +17,10 @@
 
 NSString * const BASE_ADDRESS  =  @"http://ec2-54-204-210-230.compute-1.amazonaws.com/";
 NSString * const API_BASE = @"api/v1";
-NSString * const API_LOGIN  = @"/login?";
+NSString * const API_LOGIN  = @"/signin?";
+NSString * const API_SLOGIN  = @"/social_login?";
 NSString * const API_SIGNUP = @"/signup?";
-NSString * const API_LOGOUT  =   @"/logout?";
+NSString * const API_LOGOUT  =   @"/signout?";
 NSString * const API_TOP  =  @"/top?";
 NSString * const API_MENU  = @"/menu?";
 NSString * const API_APPINFO  =  @"/appinfo?";
@@ -34,7 +35,7 @@ NSString * const API_RESERVE = @"/reserve?";
 NSString * const API_COUPON  = @"/coupon?";
 NSString * const API_COUPON_DETAIL = @"/coupon/detail?";
 NSString * const API_APPUSER  = @"/appuser?";
-NSString * const API_SETPUSHKEY = @"/setpushkey?";
+NSString * const API_SETPUSHKEY = @"/set_push_key?";
 
 #pragma mark - API_KEY
 
@@ -69,7 +70,7 @@ NSString * const KeyAPI_CATEGORY_ID = @"category_id";
 NSString * const KeyAPI_COUPON_ID = @"coupon_id";
 
 ///Profile
-NSString * const KeyAPI_USERNAME = @"username";
+NSString * const KeyAPI_USERNAME = @"name";
 NSString * const KeyAPI_GENDER = @"gender";
 NSString * const KeyAPI_ADDRESS = @"address";
 NSString * const KeyAPI_AVATAR = @"avatar";

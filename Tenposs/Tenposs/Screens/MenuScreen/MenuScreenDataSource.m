@@ -17,9 +17,9 @@
 @interface MenuScreenDataSource()<TenpossCommunicatorDelegate, SimpleDataSourceDelegate>
 
 @property (strong, nonatomic) NSMutableArray<MenuScreenDetailDataSource *> *detailDataSourceList;
-@property BOOL shouldShowLatest;
-@property NSInteger currentDetailDataSourceIndex;
-@property MenuDataCompleteHandler currentCompleteHandler;
+@property (assign, nonatomic) BOOL shouldShowLatest;
+@property (assign, nonatomic) NSInteger currentDetailDataSourceIndex;
+@property (strong, nonatomic) MenuDataCompleteHandler currentCompleteHandler;
 
 @end
 

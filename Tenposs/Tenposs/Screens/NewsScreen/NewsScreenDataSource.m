@@ -15,9 +15,9 @@
 @interface NewsScreenDataSource()<TenpossCommunicatorDelegate, SimpleDataSourceDelegate>
 
 @property (strong, nonatomic) NSMutableArray<NewsScreenDetailDataSource *> *detailDataSourceList;
-@property BOOL shouldShowLatest;
-@property NSInteger currentDetailDataSourceIndex;
-@property NewsDataCompleteHandler currentCompleteHandler;
+@property (assign, nonatomic)BOOL shouldShowLatest;
+@property (assign, nonatomic)NSInteger currentDetailDataSourceIndex;
+@property (strong, nonatomic)NewsDataCompleteHandler currentCompleteHandler;
 
 @end
 

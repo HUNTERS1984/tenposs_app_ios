@@ -37,8 +37,13 @@
     [self.categoryTitle setText:@"Category title"];
     [self.couponEndDate setText:@"Thursday, August 30, 2016"];
     [self.couponDesciption setText:contentString];
+    self.couponDesciption.textAlignment = NSTextAlignmentJustified;
     [self showLoadingViewWithMessage:@""];
 
+}
+
+- (NSString *)title{
+    return @"Coupons Title";
 }
 
 - (void)viewDidAppear:(BOOL)animated{

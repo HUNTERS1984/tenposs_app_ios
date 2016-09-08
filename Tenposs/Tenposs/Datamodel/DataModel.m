@@ -246,23 +246,30 @@
 
 #pragma mark - User
 @implementation UserModel
-+(BOOL)propertyIsOptional:(NSString *)propertyName{
-    return YES;
-}
-
-+(JSONKeyMapper*)keyMapper{
-    return [[JSONKeyMapper alloc] initWithDictionary:@{}];
+-(instancetype)initWithAttributes:(NSDictionary *)attributes{
+    self = [super init];
+    if (self) {
+        self.email = [self null2nil:attributes[@"email"]];
+        self.social_id = [self null2nil:[attributes objectForKey:@"social_id"]];
+        self.social_type = [[self null2nil:[attributes objectForKey:@"social_type"]] integerValue];
+        self.app_id = [[self null2nil:[attributes objectForKey:@"app_id"]] integerValue];
+    }
+    return self;
 }
 
 @end
 
 @implementation UserProfile
-+(BOOL)propertyIsOptional:(NSString *)propertyName{
-    return YES;
-}
-
-+(JSONKeyMapper*)keyMapper{
-    return [[JSONKeyMapper alloc] initWithDictionary:@{@"id":@"user_id"}];
+-(instancetype)initWithAttributes:(NSDictionary *)attributes{
+    self = [super init];
+    if (self) {
+        self.name = [self null2nil:attributes[@"name"]];
+        self.user_id = [[self null2nil:[attributes objectForKey:@"user_id"]] integerValue];
+        self.gender = [[self null2nil:[attributes objectForKey:@"gender"]] integerValue];
+        self.address = [self null2nil:[attributes objectForKey:@"address"]];
+        self.avatar_url = [self null2nil:[attributes objectForKey:@"avatar_url"]];
+    }
+    return self;
 }
 
 @end

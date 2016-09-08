@@ -16,6 +16,7 @@
 #define KeyRequestTimeout               @"KeyRequestTimeout"
 #define KeyRequestURL                   @"KeyRequestURL"
 #define KeyRequestRetry                 @"KeyRequestRetry"
+#define KeyRequestCallback              @"KeyRequestCallback"
 /**
  *  Key for upload data
  **/

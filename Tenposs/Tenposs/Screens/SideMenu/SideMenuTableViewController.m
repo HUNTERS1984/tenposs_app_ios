@@ -13,10 +13,11 @@
 #import "MenuItem_User.h"
 #import "DataModel.h"
 #import "MFSideMenuContainerViewController.h"
+#import "UserData.h"
 
 @interface SideMenuTableViewController ()
 
-@property (strong, nonatomic) NSArray<MenuModel *> *menuArray;
+@property (strong, nonatomic) NSMutableArray<MenuModel *> *menuArray;
 @property (strong, nonatomic) NSObject *currentMenuItem;
 @end
 
@@ -61,7 +62,14 @@
 
 #pragma mark - Public methods
 - (void) setData:(NSArray<MenuModel *> *)menuData{
-    _menuArray = menuData;
+    _menuArray = [menuData mutableCopy];
+    if ([[UserData shareInstance] getToken])
+    {
+        MenuModel *signoutMenu = [MenuModel new];
+        signoutMenu.name = @"ログアウト";
+        signoutMenu.menu_id = -1;
+        [_menuArray addObject:signoutMenu];
+    }
     [self.tableView reloadData];
     if (_currentMenuItem == nil) {
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:_shouldSelectIndex inSection:1] animated:YES scrollPosition:UITableViewScrollPositionNone];
@@ -104,7 +112,9 @@
     NSInteger section = indexPath.section;
     NSInteger index = indexPath.row;
     if(section == 0){
-        return [UserModel new];
+        UserModel *model = [[UserModel alloc] initWithAttributes:[[UserData shareInstance] getUserData]];
+        model.profile = [[UserProfile alloc] initWithAttributes:[[[UserData shareInstance] getUserData] objectForKey:@"profile"]];
+        return model;
     }else{
         return [_menuArray objectAtIndex:index];
     }
@@ -144,7 +154,8 @@
     UIView *customColorView = [[UIView alloc] init];
     customColorView.backgroundColor = [UIColor colorWithHexString:@"#ffffff" alpha:0.2];//colorWithRed:180/255.0 green:138/255.0 blue:171/255.0 alpha:0.5];
     cell.selectedBackgroundView =  customColorView;
-
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
 }
 
@@ -164,11 +175,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger index = indexPath.row;
-    if (index == 0) {
-        return 70;
-    }else{
-        return 55;
-    }
+    return 45;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{

@@ -15,6 +15,7 @@
 extern NSString * const BASE_ADDRESS;
 extern NSString * const API_ADDRESS;
 extern NSString * const API_LOGIN;
+extern NSString * const API_SLOGIN;
 extern NSString * const API_SIGNUP;
 extern NSString * const API_LOGOUT;
 extern NSString * const API_TOP;

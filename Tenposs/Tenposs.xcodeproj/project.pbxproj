@@ -118,7 +118,6 @@
 		02F2FDCB1D4A30E3006D4C83 /* JSONModel+networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDAC1D4A30E3006D4C83 /* JSONModel+networking.m */; };
 		02F2FDCC1D4A30E3006D4C83 /* JSONKeyMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDAF1D4A30E3006D4C83 /* JSONKeyMapper.m */; };
 		02F2FDCD1D4A30E3006D4C83 /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDB11D4A30E3006D4C83 /* JSONValueTransformer.m */; };
-		02F2FDD21D4A30E3006D4C83 /* LoginCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDBC1D4A30E3006D4C83 /* LoginCommunicator.m */; };
 		02F2FDD31D4A30E3006D4C83 /* LogoutCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDBE1D4A30E3006D4C83 /* LogoutCommunicator.m */; };
 		02F2FDD41D4A30E3006D4C83 /* TenpossCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDC01D4A30E3006D4C83 /* TenpossCommunicator.m */; };
 		02F2FDD81D4A32CC006D4C83 /* Const.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDD71D4A32CC006D4C83 /* Const.m */; };
@@ -126,7 +125,17 @@
 		02F2FDE01D4AF71A006D4C83 /* UIFont+Themify.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDDC1D4AF71A006D4C83 /* UIFont+Themify.m */; };
 		02F2FDE11D4AF71A006D4C83 /* UIImage+Font.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDDE1D4AF71A006D4C83 /* UIImage+Font.m */; };
 		02F2FDE51D4AF79B006D4C83 /* TopScreenDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDE41D4AF79B006D4C83 /* TopScreenDataSource.m */; };
-		D466DCE1F597277720C066CD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDF945E86ABB892987CFDBC /* libPods.a */; };
+		14732A0DB88E60FCA0C69402 /* libPods-Tenposs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53DCD160DAA9885D8E1D2B72 /* libPods-Tenposs.a */; };
+		3682129E1D7F0FA500E2DEF0 /* RoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3682129D1D7F0FA500E2DEF0 /* RoundButton.m */; settings = {ASSET_TAGS = (); }; };
+		368212A31D7FBFD800E2DEF0 /* CXAHyperlinkLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 368212A01D7FBFD800E2DEF0 /* CXAHyperlinkLabel.m */; settings = {ASSET_TAGS = (); }; };
+		368212A41D7FBFD800E2DEF0 /* NSAttributedString+CXACoreTextFrameSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 368212A21D7FBFD800E2DEF0 /* NSAttributedString+CXACoreTextFrameSize.m */; settings = {ASSET_TAGS = (); }; };
+		368212A61D7FC29C00E2DEF0 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 368212A51D7FC29C00E2DEF0 /* CoreText.framework */; };
+		368212A81D7FC5F400E2DEF0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 368212A71D7FC5F400E2DEF0 /* CoreGraphics.framework */; };
+		368212AB1D80029800E2DEF0 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 368212AA1D80029800E2DEF0 /* UserData.m */; settings = {ASSET_TAGS = (); }; };
+		368212AE1D8002F900E2DEF0 /* EntityBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 368212AD1D8002F900E2DEF0 /* EntityBase.m */; settings = {ASSET_TAGS = (); }; };
+		368212B11D800C2D00E2DEF0 /* NetworkCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 368212B01D800C2D00E2DEF0 /* NetworkCommunicator.m */; settings = {ASSET_TAGS = (); }; };
+		368212B31D808A0200E2DEF0 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 368212B21D808A0200E2DEF0 /* SafariServices.framework */; };
+		368212B61D80F4F800E2DEF0 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 368212B51D80F4F800E2DEF0 /* BaseViewController.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -345,8 +354,6 @@
 		02F2FDAF1D4A30E3006D4C83 /* JSONKeyMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKeyMapper.m; sourceTree = "<group>"; };
 		02F2FDB01D4A30E3006D4C83 /* JSONValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONValueTransformer.h; sourceTree = "<group>"; };
 		02F2FDB11D4A30E3006D4C83 /* JSONValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValueTransformer.m; sourceTree = "<group>"; };
-		02F2FDBB1D4A30E3006D4C83 /* LoginCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCommunicator.h; sourceTree = "<group>"; };
-		02F2FDBC1D4A30E3006D4C83 /* LoginCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCommunicator.m; sourceTree = "<group>"; };
 		02F2FDBD1D4A30E3006D4C83 /* LogoutCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutCommunicator.h; sourceTree = "<group>"; };
 		02F2FDBE1D4A30E3006D4C83 /* LogoutCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutCommunicator.m; sourceTree = "<group>"; };
 		02F2FDBF1D4A30E3006D4C83 /* TenpossCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TenpossCommunicator.h; sourceTree = "<group>"; };
@@ -360,9 +367,26 @@
 		02F2FDDE1D4AF71A006D4C83 /* UIImage+Font.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Font.m"; sourceTree = "<group>"; };
 		02F2FDE31D4AF79B006D4C83 /* TopScreenDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopScreenDataSource.h; sourceTree = "<group>"; };
 		02F2FDE41D4AF79B006D4C83 /* TopScreenDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopScreenDataSource.m; sourceTree = "<group>"; };
-		7636C41DA4BD773AD6F4609D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		BBDF945E86ABB892987CFDBC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4EC3422AF07D2D57066AA91 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		06778181026272EC61BDAD14 /* Pods-Tenposs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenposs.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tenposs/Pods-Tenposs.debug.xcconfig"; sourceTree = "<group>"; };
+		3682129C1D7F0FA500E2DEF0 /* RoundButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundButton.h; path = Customize/RoundButton.h; sourceTree = "<group>"; };
+		3682129D1D7F0FA500E2DEF0 /* RoundButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundButton.m; path = Customize/RoundButton.m; sourceTree = "<group>"; };
+		3682129F1D7FBFD800E2DEF0 /* CXAHyperlinkLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXAHyperlinkLabel.h; path = Customize/CXAHyperlinkLabel.h; sourceTree = "<group>"; };
+		368212A01D7FBFD800E2DEF0 /* CXAHyperlinkLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXAHyperlinkLabel.m; path = Customize/CXAHyperlinkLabel.m; sourceTree = "<group>"; };
+		368212A11D7FBFD800E2DEF0 /* NSAttributedString+CXACoreTextFrameSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAttributedString+CXACoreTextFrameSize.h"; path = "Customize/NSAttributedString+CXACoreTextFrameSize.h"; sourceTree = "<group>"; };
+		368212A21D7FBFD800E2DEF0 /* NSAttributedString+CXACoreTextFrameSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+CXACoreTextFrameSize.m"; path = "Customize/NSAttributedString+CXACoreTextFrameSize.m"; sourceTree = "<group>"; };
+		368212A51D7FC29C00E2DEF0 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		368212A71D7FC5F400E2DEF0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		368212A91D80029800E2DEF0 /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
+		368212AA1D80029800E2DEF0 /* UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
+		368212AC1D8002F900E2DEF0 /* EntityBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityBase.h; sourceTree = "<group>"; };
+		368212AD1D8002F900E2DEF0 /* EntityBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntityBase.m; sourceTree = "<group>"; };
+		368212AF1D800C2D00E2DEF0 /* NetworkCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkCommunicator.h; sourceTree = "<group>"; };
+		368212B01D800C2D00E2DEF0 /* NetworkCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkCommunicator.m; sourceTree = "<group>"; };
+		368212B21D808A0200E2DEF0 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		368212B41D80F4F800E2DEF0 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		368212B51D80F4F800E2DEF0 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		53DCD160DAA9885D8E1D2B72 /* libPods-Tenposs.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tenposs.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		798DBAA9EEC4322255E96CC7 /* Pods-Tenposs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenposs.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tenposs/Pods-Tenposs.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,8 +394,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				368212B31D808A0200E2DEF0 /* SafariServices.framework in Frameworks */,
+				368212A81D7FC5F400E2DEF0 /* CoreGraphics.framework in Frameworks */,
+				368212A61D7FC29C00E2DEF0 /* CoreText.framework in Frameworks */,
 				022F25C51D525FFD008AEBA1 /* QuartzCore.framework in Frameworks */,
-				D466DCE1F597277720C066CD /* libPods.a in Frameworks */,
+				14732A0DB88E60FCA0C69402 /* libPods-Tenposs.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +435,10 @@
 		0211402E1D57D38A00598AD2 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
+				368212AC1D8002F900E2DEF0 /* EntityBase.h */,
+				368212AD1D8002F900E2DEF0 /* EntityBase.m */,
+				368212A91D80029800E2DEF0 /* UserData.h */,
+				368212AA1D80029800E2DEF0 /* UserData.m */,
 				0211402F1D57D39E00598AD2 /* SimpleDataSource.h */,
 				021140301D57D39E00598AD2 /* SimpleDataSource.m */,
 			);
@@ -604,6 +635,8 @@
 				02F2FDE21D4AF783006D4C83 /* TopScreen */,
 				022F25CA1D52617D008AEBA1 /* MainNavigationController.h */,
 				022F25CB1D52617D008AEBA1 /* MainNavigationController.m */,
+				368212B41D80F4F800E2DEF0 /* BaseViewController.h */,
+				368212B51D80F4F800E2DEF0 /* BaseViewController.m */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -616,8 +649,8 @@
 				02DAF3BE1D47CAA70068BB71 /* TenpossTests */,
 				02DAF3C91D47CAA70068BB71 /* TenpossUITests */,
 				02DAF3A31D47CAA70068BB71 /* Products */,
-				DDBBF87B10986CB3C480C09E /* Pods */,
 				FA281DF0BAF1146BCCD67689 /* Frameworks */,
+				09344413F41F49EA9B95A2DF /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -634,6 +667,7 @@
 		02DAF3A41D47CAA70068BB71 /* Tenposs */ = {
 			isa = PBXGroup;
 			children = (
+				3682129B1D7F0F7600E2DEF0 /* Customize */,
 				022114361D565A1000F44E88 /* Resources */,
 				02F2FDD51D4A32B1006D4C83 /* Utils */,
 				02F2FD911D4A30E3006D4C83 /* Datamodel */,
@@ -859,8 +893,6 @@
 		02F2FDBA1D4A30E3006D4C83 /* Communicator */ = {
 			isa = PBXGroup;
 			children = (
-				02F2FDBB1D4A30E3006D4C83 /* LoginCommunicator.h */,
-				02F2FDBC1D4A30E3006D4C83 /* LoginCommunicator.m */,
 				02F2FDBD1D4A30E3006D4C83 /* LogoutCommunicator.h */,
 				02F2FDBE1D4A30E3006D4C83 /* LogoutCommunicator.m */,
 				02F2FDBF1D4A30E3006D4C83 /* TenpossCommunicator.h */,
@@ -887,6 +919,8 @@
 				021AA4BE1D7F4B470042C511 /* NewsItemCommunicator.m */,
 				021AA4C81D7FD81A0042C511 /* ItemDetailCommunicator.h */,
 				021AA4C91D7FD81A0042C511 /* ItemDetailCommunicator.m */,
+				368212AF1D800C2D00E2DEF0 /* NetworkCommunicator.h */,
+				368212B01D800C2D00E2DEF0 /* NetworkCommunicator.m */,
 			);
 			path = Communicator;
 			sourceTree = "<group>";
@@ -933,19 +967,35 @@
 			path = TopScreen;
 			sourceTree = "<group>";
 		};
-		DDBBF87B10986CB3C480C09E /* Pods */ = {
+		09344413F41F49EA9B95A2DF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C4EC3422AF07D2D57066AA91 /* Pods.debug.xcconfig */,
-				7636C41DA4BD773AD6F4609D /* Pods.release.xcconfig */,
+				06778181026272EC61BDAD14 /* Pods-Tenposs.debug.xcconfig */,
+				798DBAA9EEC4322255E96CC7 /* Pods-Tenposs.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		3682129B1D7F0F7600E2DEF0 /* Customize */ = {
+			isa = PBXGroup;
+			children = (
+				3682129F1D7FBFD800E2DEF0 /* CXAHyperlinkLabel.h */,
+				368212A01D7FBFD800E2DEF0 /* CXAHyperlinkLabel.m */,
+				368212A11D7FBFD800E2DEF0 /* NSAttributedString+CXACoreTextFrameSize.h */,
+				368212A21D7FBFD800E2DEF0 /* NSAttributedString+CXACoreTextFrameSize.m */,
+				3682129C1D7F0FA500E2DEF0 /* RoundButton.h */,
+				3682129D1D7F0FA500E2DEF0 /* RoundButton.m */,
+			);
+			name = Customize;
 			sourceTree = "<group>";
 		};
 		FA281DF0BAF1146BCCD67689 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BBDF945E86ABB892987CFDBC /* libPods.a */,
+				368212B21D808A0200E2DEF0 /* SafariServices.framework */,
+				368212A71D7FC5F400E2DEF0 /* CoreGraphics.framework */,
+				368212A51D7FC29C00E2DEF0 /* CoreText.framework */,
+				53DCD160DAA9885D8E1D2B72 /* libPods-Tenposs.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -957,11 +1007,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 02DAF3CF1D47CAA70068BB71 /* Build configuration list for PBXNativeTarget "Tenposs" */;
 			buildPhases = (
-				0FA06C536E7C29AC51B45AF6 /* Check Pods Manifest.lock */,
+				86D5A158C8151218FA132D48 /* [CP] Check Pods Manifest.lock */,
 				02DAF39E1D47CAA70068BB71 /* Sources */,
 				02DAF39F1D47CAA70068BB71 /* Frameworks */,
 				02DAF3A01D47CAA70068BB71 /* Resources */,
-				67B403B95D1163AE295E8740 /* Copy Pods Resources */,
+				FD4C594643872A8ECC91EEB5 /* [CP] Embed Pods Frameworks */,
+				44845D957376C4AE0EB59C77 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1104,14 +1155,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0FA06C536E7C29AC51B45AF6 /* Check Pods Manifest.lock */ = {
+		44845D957376C4AE0EB59C77 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tenposs/Pods-Tenposs-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		86D5A158C8151218FA132D48 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1119,19 +1185,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		67B403B95D1163AE295E8740 /* Copy Pods Resources */ = {
+		FD4C594643872A8ECC91EEB5 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tenposs/Pods-Tenposs-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1153,8 +1219,8 @@
 				021AA4C61D7F70620042C511 /* Item_Detail_Header_Segmented.m in Sources */,
 				021AA4BF1D7F4B470042C511 /* NewsItemCommunicator.m in Sources */,
 				02F2FDC51D4A30E3006D4C83 /* JSONModelArray.m in Sources */,
-				02F2FDD21D4A30E3006D4C83 /* LoginCommunicator.m in Sources */,
 				02F2FDD31D4A30E3006D4C83 /* LogoutCommunicator.m in Sources */,
+				368212A31D7FBFD800E2DEF0 /* CXAHyperlinkLabel.m in Sources */,
 				02F2FDC11D4A30E3006D4C83 /* Bundle.m in Sources */,
 				022F25E61D53563F008AEBA1 /* UIViewController+MFSideMenuAdditions.m in Sources */,
 				022F25B51D50B4C0008AEBA1 /* DataModel.m in Sources */,
@@ -1179,6 +1245,7 @@
 				02F2FDD41D4A30E3006D4C83 /* TenpossCommunicator.m in Sources */,
 				021AA4CD1D7FD9E60042C511 /* Item_Detail_Common.m in Sources */,
 				024C4DB81D5DB7DC00896EE4 /* NewsDetailScreen.m in Sources */,
+				368212A41D7FBFD800E2DEF0 /* NSAttributedString+CXACoreTextFrameSize.m in Sources */,
 				02F2FDD81D4A32CC006D4C83 /* Const.m in Sources */,
 				02CD65A71D47D8EB0015661D /* Item_Cell_Photo.m in Sources */,
 				022114351D564FFC00F44E88 /* MockupData.m in Sources */,
@@ -1193,6 +1260,7 @@
 				021AA4B31D7EDD0A0042C511 /* CommunicatorConst.m in Sources */,
 				0211402A1D57C99900598AD2 /* MenuScreen.m in Sources */,
 				022F25EA1D535983008AEBA1 /* UIViewController+LoadingView.m in Sources */,
+				3682129E1D7F0FA500E2DEF0 /* RoundButton.m in Sources */,
 				022114321D56494300F44E88 /* TopCommunicator.m in Sources */,
 				024C4D241D59E89100896EE4 /* GrandViewController.m in Sources */,
 				021AA4B01D7EDB8A0042C511 /* NSString.m in Sources */,
@@ -1218,12 +1286,16 @@
 				02AEEE9B1D6A7AD70064BB0B /* CouponScreen.m in Sources */,
 				02AEEE961D6A73AD0064BB0B /* Item_Cell_Coupon.m in Sources */,
 				024C4D9F1D5D71CB00896EE4 /* NewsScreenDetailDataSource.m in Sources */,
+				368212B61D80F4F800E2DEF0 /* BaseViewController.m in Sources */,
 				021A5EAC1D698F5E001F8F8E /* GalleryScreen.m in Sources */,
 				02CD65AC1D47D9AC0015661D /* Item_Cell_News.m in Sources */,
 				021140311D57D39E00598AD2 /* SimpleDataSource.m in Sources */,
+				368212B11D800C2D00E2DEF0 /* NetworkCommunicator.m in Sources */,
 				021AA4CA1D7FD81A0042C511 /* ItemDetailCommunicator.m in Sources */,
 				021AA4D11D7FDAC70042C511 /* Item_Detail_Description.m in Sources */,
 				02AEEE9E1D6A7AF60064BB0B /* CouponDataSource.m in Sources */,
+				368212AB1D80029800E2DEF0 /* UserData.m in Sources */,
+				368212AE1D8002F900E2DEF0 /* EntityBase.m in Sources */,
 				02F2FDCB1D4A30E3006D4C83 /* JSONModel+networking.m in Sources */,
 				021AA4C21D7F67FC0042C511 /* TenpossSegmentedControl.m in Sources */,
 				022F25DB1D52C7D3008AEBA1 /* Top_Header.m in Sources */,
@@ -1368,27 +1440,31 @@
 		};
 		02DAF3D01D47CAA70068BB71 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C4EC3422AF07D2D57066AA91 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 06778181026272EC61BDAD14 /* Pods-Tenposs.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: ryo fujiyoshi (K24VZ28973)";
 				INFOPLIST_FILE = Tenposs/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.tenposs.Tenposs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c9d5ac3a-4c4e-4f69-853c-5d33acbd3897";
 			};
 			name = Debug;
 		};
 		02DAF3D11D47CAA70068BB71 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7636C41DA4BD773AD6F4609D /* Pods.release.xcconfig */;
+			baseConfigurationReference = 798DBAA9EEC4322255E96CC7 /* Pods-Tenposs.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: ryo fujiyoshi (K24VZ28973)";
 				INFOPLIST_FILE = Tenposs/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.tenposs.Tenposs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c9d5ac3a-4c4e-4f69-853c-5d33acbd3897";
 			};
 			name = Release;
 		};

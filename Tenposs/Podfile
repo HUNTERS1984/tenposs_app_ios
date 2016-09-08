@@ -1,4 +1,5 @@
-platform :ios, '7.0'
+platform :ios, '8.0'
+target "Tenposs" do
 pod 'SDWebImage', "~>3.7"
 pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
@@ -6,3 +7,6 @@ pod 'FBSDKShareKit'
 pod 'SVPullToRefresh'
 pod 'GoogleMaps'
 pod 'GooglePlaces'
+pod 'TwitterKit', "~>2.2"
+pod 'SVProgressHUD'
+end

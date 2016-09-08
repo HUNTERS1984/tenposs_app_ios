@@ -48,11 +48,18 @@
     
     if (data == nil) {
         [_user_avatar setImage:[UIImage imageNamed:@"user_icon"]];
+        return;
     }
     if (data.profile.avatar_url == nil || [data.profile.avatar_url isEqualToString:@""]) {
         [_user_avatar setImage:[UIImage imageNamed:@"user_icon"]];
     }else{
         [_user_avatar sd_setImageWithURL:[NSURL URLWithString:(data.profile.avatar_url)] placeholderImage:[UIImage imageNamed:@"user_icon"]];
+        
+    }
+    if (data.profile.name == nil || [data.profile.name isEqualToString:@""]) {
+        
+    } else  {
+        [self.user_name setText:data.profile.name];
     }
 }
 

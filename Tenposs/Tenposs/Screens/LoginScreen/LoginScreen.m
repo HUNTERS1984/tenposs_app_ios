@@ -8,6 +8,13 @@
 
 #import "LoginScreen.h"
 #import "HexColors.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import "NetworkCommunicator.h"
+#import "UserData.h"
+#import "AppDelegate.h"
+#import <TwitterKit/TwitterKit.h>
+#import <Fabric/Fabric.h>
 
 @interface LoginScreen ()
 
@@ -23,11 +30,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if ([[UserData shareInstance] getToken]) {
+        [self performSegueWithIdentifier:@"login_skip" sender:nil];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self customizeButton];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,18 +51,9 @@
     // Pass the selected object to the new view controller.
 }
 
+
 - (void)customizeButton{
     self.skipButton.backgroundColor = [UIColor colorWithHexString:@"#ffffff" alpha:0.5f];
-    self.skipButton.layer.cornerRadius = 5;
-    
-    self.loginWithEmailButton.layer.cornerRadius = 5;
-    self.loginWithEmailButton.clipsToBounds = true;
-    
-    self.loginTwitterButton.layer.cornerRadius = 5;
-    self.loginTwitterButton.clipsToBounds = true;
-    
-    self.loginFacebookButton.layer.cornerRadius = 5;
-    self.loginFacebookButton.clipsToBounds = true;
 }
 
 - (IBAction)buttionClicked:(id)sender{
@@ -67,6 +69,79 @@
     
     }
 }
+
+- (IBAction)buttionFacebookClicked:(id)sender{
+    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+    [login logInWithReadPermissions:@[@"email", @"public_profile"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+        if (error) {
+            // Process error
+            NSLog(@"error %@",error);
+        } else if (result.isCancelled) {
+            // Handle cancellations
+            NSLog(@"Cancelled");
+        } else {
+            if ([result.grantedPermissions containsObject:@"email"]) {
+                // Do work
+                NSString *token = result.token.tokenString;
+                [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
+                 startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                     if (!error) {
+                         NSLog(@"fetched user:%@", result);
+                         NSMutableDictionary *params = [NSMutableDictionary new];
+                         [params setObject:@"1" forKey:KeyAPI_SOCIAL_TYPE];
+                         [params setObject:[result objectForKey:@"id"] forKey:KeyAPI_SOCIAL_ID];
+                         [params setObject:token forKey:KeyAPI_SOCIAL_TOKEN];
+                         [params setObject:[result objectForKey:@"name"] forKey:KeyAPI_USERNAME];
+                         
+                         [[NetworkCommunicator shareInstance] POST:API_SLOGIN parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+                             if(isSuccess) {
+                                 [UserData shareInstance].userDataDictionary = [dictionary mutableCopy];
+                                 [[UserData shareInstance] saveUserData];
+                                 AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+                                 [delegate registerPushNotification];
+                                 [self performSegueWithIdentifier:@"login_skip" sender:nil];
+                             }else{
+                                 
+                             }
+                         }];
+                     }
+                 }];
+               
+                
+            }
+        }
+    }];
+}
+
+- (IBAction)buttionTwitterClicked:(id)sender{
+    
+    [[Twitter sharedInstance] logInWithViewController:self methods:TWTRLoginMethodAll completion:^(TWTRSession *session, NSError *error) {
+        if (session) {
+            NSLog(@"signed in as %@", [session userName]);
+            NSMutableDictionary *params = [NSMutableDictionary new];
+            [params setObject:@"2" forKey:KeyAPI_SOCIAL_TYPE];
+            [params setObject:[session userID] forKey:KeyAPI_SOCIAL_ID];
+            [params setObject:[session authToken] forKey:KeyAPI_SOCIAL_TOKEN];
+            [params setObject:[session authTokenSecret] forKey:KeyAPI_SOCIAL_SECRET];
+            [params setObject:[session userName] forKey:KeyAPI_USERNAME];
+            
+            [[NetworkCommunicator shareInstance] POST:API_SLOGIN parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+                if(isSuccess) {
+                    [UserData shareInstance].userDataDictionary = [dictionary mutableCopy];
+                    [[UserData shareInstance] saveUserData];
+                    AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+                    [delegate registerPushNotification];
+                    [self performSegueWithIdentifier:@"login_skip" sender:nil];
+                }else{
+                    
+                }
+            }];
+        } else {
+            NSLog(@"error: %@", [error localizedDescription]);
+        }
+    }];
+}
+
 
 - (void) doEmailLogin{
     

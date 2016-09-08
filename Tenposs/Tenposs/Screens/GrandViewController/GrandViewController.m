@@ -30,7 +30,7 @@
 #define GRAND_IDENTIFIER_PHOTO_DETAIL    @"grand_photo_detail"
 #define GRAND_IDENTIFIER_COUPON_DETAIL    @"grand_coupon_detail"
 
-@interface GrandViewController ()
+@interface GrandViewController ()<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *navigationTitle;
 @property (strong, nonatomic) NSMutableDictionary *cachedChildController;
 @property (strong, nonatomic) UIViewController *currentChildController;
@@ -115,6 +115,17 @@
 }
 
 - (void)showChildViewControllerWithId:(NSInteger)childId{
+    
+    if (childId == -1 ) // Sign Out
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"警告"
+                                                             message:@"アプリをサインアウトですか？"
+                                                            delegate:self
+                                                   cancelButtonTitle:@"閉じる"
+                                                   otherButtonTitles:@"OK", nil];
+        [alert show];
+        return;
+    }
     UIViewController *child = [self childViewControllerWithId:childId];
     if(child != nil){
         [self presentChildViewController:child];
@@ -131,6 +142,18 @@
         [theAlert show];
     }
 }
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch(buttonIndex) {
+        case 0: //"No" pressed
+            //do something?
+            break;
+        case 1: //"Yes" pressed
+            [self signOut];
+            break;
+    }
+}
+
 
 - (void)presentChildViewController:(UIViewController *)child{
     if (self.currentChildController) {

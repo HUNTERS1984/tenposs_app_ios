@@ -35,8 +35,9 @@
     
     [self.newsTitle setText:self.news.title];
     [self.categoryTitle setText:@"August"];
-    [self.date setText:@"2016-08-14"];
+    [self.date setText:@"2016-09-14"];
     [self.newsContent setText:contentString];
+    self.newsContent.textAlignment = NSTextAlignmentJustified;
     [self.newsContent setFont:[UIFont systemFontOfSize:16]];
     [self.thumbnail sd_setImageWithURL:[NSURL URLWithString:self.news.image_url]];
     self.thumbnail.clipsToBounds = YES;

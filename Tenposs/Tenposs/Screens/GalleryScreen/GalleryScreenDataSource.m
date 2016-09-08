@@ -13,9 +13,9 @@
 
 @interface GalleryScreenDataSource() <TenpossCommunicatorDelegate, SimpleDataSourceDelegate>
 @property (strong, nonatomic) NSMutableArray<GalleryScreenDetailDataSource *> *detailDataSourceList;
-@property BOOL shouldShowLatest;
-@property NSInteger currentDetailDataSourceIndex;
-@property GalleryDataCompleteHandler currentCompleteHandler;
+@property (assign, nonatomic)BOOL shouldShowLatest;
+@property (assign, nonatomic)NSInteger currentDetailDataSourceIndex;
+@property (strong, nonatomic)GalleryDataCompleteHandler currentCompleteHandler;
 
 @end
 

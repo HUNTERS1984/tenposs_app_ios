@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "SideMenuTableViewController.h"
+#import "BaseViewController.h"
 
-@interface GrandViewController : UIViewController<SideMenuDelegate>
+@interface GrandViewController : BaseViewController<SideMenuDelegate>
 - (void)performSegueWithObject:(NSObject *)object;
 @end
