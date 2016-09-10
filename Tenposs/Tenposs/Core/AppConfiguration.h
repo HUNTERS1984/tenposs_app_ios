@@ -92,6 +92,7 @@
 
 @property (assign, nonatomic)NSInteger menu_id;
 @property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *icon;
 @end
 
 @interface TopComponentModel : JSONModel

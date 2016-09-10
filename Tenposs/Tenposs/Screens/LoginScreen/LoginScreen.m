@@ -30,9 +30,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    if ([[UserData shareInstance] getToken]) {
-        [self performSegueWithIdentifier:@"login_skip" sender:nil];
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{

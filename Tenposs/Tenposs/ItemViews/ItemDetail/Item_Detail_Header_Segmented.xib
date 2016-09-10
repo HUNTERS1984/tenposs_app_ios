@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -24,14 +24,14 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hYf-of-9uB">
-                                <rect key="frame" x="8" y="21" width="304" height="50"/>
+                                <rect key="frame" x="10" y="21" width="300" height="50"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Af2-in-0YW" customClass="TenpossSegmentedControl">
-                                        <rect key="frame" x="5" y="5" width="294" height="40"/>
+                                        <rect key="frame" x="5" y="5" width="290" height="40"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.89184816919191912" green="0.89184816919191912" blue="0.89184816919191912" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="Af2-in-0YW" firstAttribute="leading" secondItem="hYf-of-9uB" secondAttribute="leading" constant="5" id="2z9-cI-bJQ"/>
                                     <constraint firstItem="Af2-in-0YW" firstAttribute="top" secondItem="hYf-of-9uB" secondAttribute="top" constant="5" id="6wB-gc-NtE"/>
@@ -56,8 +56,8 @@
                             <constraint firstAttribute="trailing" secondItem="jzy-F9-Gcl" secondAttribute="trailing" id="Pon-bJ-M7t"/>
                             <constraint firstItem="hYf-of-9uB" firstAttribute="top" secondItem="jzy-F9-Gcl" secondAttribute="bottom" constant="20" id="S2j-g5-Qcf"/>
                             <constraint firstItem="hYf-of-9uB" firstAttribute="leading" secondItem="KkG-GT-jOF" secondAttribute="leading" constant="8" id="ZbP-BT-Qtg"/>
-                            <constraint firstAttribute="trailing" secondItem="hYf-of-9uB" secondAttribute="trailing" constant="8" id="don-Bz-JOT"/>
-                            <constraint firstItem="hYf-of-9uB" firstAttribute="leading" secondItem="KkG-GT-jOF" secondAttribute="leading" constant="8" id="mPp-hb-3hY"/>
+                            <constraint firstAttribute="trailing" secondItem="hYf-of-9uB" secondAttribute="trailing" constant="10" id="don-Bz-JOT"/>
+                            <constraint firstItem="hYf-of-9uB" firstAttribute="leading" secondItem="KkG-GT-jOF" secondAttribute="leading" constant="10" id="mPp-hb-3hY"/>
                             <constraint firstItem="jzy-F9-Gcl" firstAttribute="top" secondItem="KkG-GT-jOF" secondAttribute="top" id="zD9-Ff-A2D"/>
                         </constraints>
                         <variation key="default">

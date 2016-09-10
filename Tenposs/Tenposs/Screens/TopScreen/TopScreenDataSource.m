@@ -121,7 +121,7 @@
     }else if ([data isKindOfClass:[NewsObject class]]) {
         return YES;
     }else if ([data isKindOfClass:[ContactObject class]]) {
-        return YES;
+        return NO;
     }
     return NO;
 }
@@ -139,13 +139,11 @@
     NSObject *sectionData = [self sectionDataForSection:section];
     NSObject *data = [(NSMutableArray *)sectionData firstObject];
     if ([data isKindOfClass:[ProductObject class]]) {
-        return @"Products";
+        return @"最近";
     }else if ([data isKindOfClass:[PhotoObject class]]) {
-        return @"Gallery";
+        return @"フォトギャラリー";
     }else if ([data isKindOfClass:[NewsObject class]]) {
-        return @"News";
-    }else if ([data isKindOfClass:[ContactObject class]]) {
-        return @"Shop";
+        return @"ニュース";
     }
     return @"";
 }
@@ -198,7 +196,7 @@
                 };
             }
 
-            [footer configureFooterWithTitle:@"View More" withTouchHandler:handler];
+            [footer configureFooterWithTitle:@"もっと見る" withTouchHandler:handler];
             reuseableView = footer;
         }
     }

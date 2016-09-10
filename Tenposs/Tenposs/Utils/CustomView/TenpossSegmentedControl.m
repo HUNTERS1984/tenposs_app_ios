@@ -24,7 +24,7 @@
     if (self) {
         self.labels = [NSMutableArray new];
         self.thumbView = [UIView new];
-        [self setItems:[NSMutableArray arrayWithObjects:@"Description",@"Size",nil]];
+        [self setItems:[NSMutableArray arrayWithObjects:@"商品詳細",@"サイズ",nil]];
         [self setupView];
     }
     return self;
@@ -35,7 +35,7 @@
     if (self) {
         self.labels = [NSMutableArray new];
         self.thumbView = [UIView new];
-        [self setItems:[NSMutableArray arrayWithObjects:@"Description",@"Size",nil]];
+        [self setItems:[NSMutableArray arrayWithObjects:@"商品詳細",@"サイズ",nil]];
         [self setupView];
     }
     return self;

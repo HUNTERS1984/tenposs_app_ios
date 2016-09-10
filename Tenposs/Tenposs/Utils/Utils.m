@@ -67,4 +67,28 @@
     return [Utils hashed_string:sig];
 }
 
++(NSString *)stringForIcon:(UTF32Char)char32
+{
+    if ((char32 & 0xFFFF0000) != 0)
+        return [self stringFromUTF32Char:char32];
+    else
+        return [self stringFromUTF16Char:(UTF16Char)(char32&0xFFFF)];
+}
+
++(NSString *)stringFromUTF32Char:(UTF32Char)char32
+{
+    char32 -= 0x10000;
+    unichar highSurrogate = (unichar)(char32 >> 10); // leave the top 10 bits
+    highSurrogate += 0xD800;
+    unichar lowSurrogate = char32 & 0x3FF; // leave the low 10 bits
+    lowSurrogate += 0xDC00;
+    return [NSString stringWithCharacters:(unichar[]){highSurrogate, lowSurrogate} length:2];
+}
+
++(NSString *)stringFromUTF16Char:(UTF16Char)char16
+{
+    return [NSString stringWithCharacters:(unichar[]){char16} length:1];
+}
+
+
 @end

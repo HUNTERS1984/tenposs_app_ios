@@ -1009,7 +1009,7 @@
                                         <rect key="frame" x="150" y="215" width="20" height="20"/>
                                     </activityIndicatorView>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htO-Kj-KKk">
-                                        <rect key="frame" x="92.5" y="212" width="135" height="26"/>
+                                        <rect key="frame" x="93" y="212" width="135" height="26"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <color key="textColor" red="0.67266414141414144" green="0.67266414141414144" blue="0.67266414141414144" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1615,9 +1615,9 @@
         <image name="x_icon" width="12" height="12"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="4bK-Wz-dDJ"/>
         <segue reference="Ii5-8N-xRs"/>
-        <segue reference="jZ0-aJ-BKW"/>
         <segue reference="7fE-OL-kfy"/>
-        <segue reference="6cy-l9-Kop"/>
+        <segue reference="jZ0-aJ-BKW"/>
     </inferredMetricsTieBreakers>
 </document>

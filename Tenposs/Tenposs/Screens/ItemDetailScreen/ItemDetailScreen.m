@@ -222,7 +222,7 @@
                 };
             }
             
-            [footer configureFooterWithTitle:@"View More" withTouchHandler:handler];
+            [footer configureFooterWithTitle:@"もっと見る" withTouchHandler:handler];
             reuseableView = footer;
         }
     }

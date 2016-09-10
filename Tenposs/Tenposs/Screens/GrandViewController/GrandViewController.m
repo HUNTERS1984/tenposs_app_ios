@@ -26,6 +26,7 @@
 #import "PhotoViewer.h"
 #import "CouponDetailScreen.h"
 #import "ItemDetailScreen.h"
+#import "UIFont+Themify.h"
 
 #define GRAND_IDENTIFIER_NEWS_DETAIL    @"grand_news_detail"
 #define GRAND_IDENTIFIER_PHOTO_DETAIL    @"grand_photo_detail"
@@ -54,6 +55,18 @@
     if (_cachedChildController == nil) {
         _cachedChildController = [NSMutableDictionary new];
     }
+    
+    AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+    AppSettings *settings = [appConfig getAvailableAppSettings];
+    
+    [_menuButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                        [UIFont themifyFontOfSize:settings.font_size], NSFontAttributeName,
+                                        [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
+                                        nil] 
+                              forState:UIControlStateNormal];
+    [_menuButton setTitle:[NSString stringWithFormat: @"\ue68e"]];
+    self.navigationController.navigationBar.backgroundColor= [UIColor colorWithHexString:settings.header_color];
+    [_navigationTitle setTextColor:[UIColor colorWithHexString:settings.title_color]];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -65,8 +78,7 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    AppConfiguration *appConfig = [AppConfiguration sharedInstance];
-    AppSettings *settings = [appConfig getAvailableAppSettings];
+
 }
 
 - (void)didReceiveMemoryWarning {

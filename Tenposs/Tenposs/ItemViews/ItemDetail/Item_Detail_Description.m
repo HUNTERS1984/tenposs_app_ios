@@ -73,6 +73,7 @@
         self.textView.textContainer.maximumNumberOfLines = 0;
         self.textView.textContainer.lineBreakMode = NSLineBreakByTruncatingTail;
         [self.textView setText:cellInfo.fullText];
+        self.textView.textAlignment = NSTextAlignmentJustified;
         if(cellInfo.isCollapsed){
             _heightConstraint.constant = DETAIL_DESCRIPTION_COLLAPSE;
         }else {

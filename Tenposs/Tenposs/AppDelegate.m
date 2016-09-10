@@ -9,12 +9,16 @@
 #import "AppDelegate.h"
 #import "AppConfiguration.h"
 //#import "GMSServices.h"
+#import <GoogleMaps/GoogleMaps.h>
 #import "Utils.h"
 #import "UserData.h"
 #import "NetworkCommunicator.h"
+#import "SplashScreen.h"
+
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <TwitterKit/TwitterKit.h>
 #import <Fabric/Fabric.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface AppDelegate ()<TenpossCommunicatorDelegate>
 @property UIView *loadingView;
@@ -31,7 +35,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    //[GMSServices provideAPIKey:@"AIzaSyBGQ6CgNp8sb_MDhnPAWlzKgb6qBOa8Bsg"];
+    [GMSServices provideAPIKey:@"AIzaSyBfiFffrkztj8i920-blC-QXA0Ix-6CLyM"];
   //  [self loadAppConfig];
     
     [[FBSDKApplicationDelegate sharedInstance] application:application
@@ -44,6 +48,15 @@
     if(userInfo)
     {
         [self application:[UIApplication sharedApplication] didReceiveRemoteNotification:userInfo];
+    }
+    
+    
+    if ([[UserData shareInstance] getToken]) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        SplashScreen *nextController = [storyboard instantiateViewControllerWithIdentifier:@"SplashScreen"];
+        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];
+        [navi.navigationBar setHidden:YES];
+        [self.window setRootViewController:navi];
     }
     
     return YES;
@@ -141,17 +154,14 @@
     return YES;
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)_userInfo
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     @try {
         
         // case: push comes after user logs out
         if([[UserData shareInstance] getToken].length == 0)
             return;
-        
-        NSString *notiType = _userInfo[@"type"];
-        
-        
+        _userInfo = userInfo;
         if (application.applicationState == UIApplicationStateActive) {
             
             if (!self.smallNofiticationView) {
@@ -159,7 +169,7 @@
                 self.smallNofiticationView.backgroundColor = HEXCOLOR(0x3498db);
                 self.smallNofiticationView.opaque = TRUE;
                 self.infor = [[UILabel alloc] initWithFrame:CGRectMake(43, 7, self.window.bounds.size.width - 46, 64)];
-                self.infor.text = [[_userInfo objectForKey:@"aps"] objectForKey:@"alert"];
+                self.infor.text = [[[_userInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"body"];
                 self.infor.textColor = [UIColor whiteColor];
                 self.infor.font = [UIFont systemFontOfSize:12];
                 self.infor.textAlignment = NSTextAlignmentLeft;
@@ -168,21 +178,33 @@
                 [self.smallNofiticationView addSubview:self.infor];
                 
                 self.avatarIcon = [[UIImageView alloc]initWithFrame:CGRectMake(7, 25, 30, 30)];
-                //[self setIcon:notiType imageURL:[NSString stringWithFormat:@"%@%@",kServerPath,[_userInfo objectForKey:@"avatar"]]];
+                self.avatarIcon.layer.cornerRadius = self.avatarIcon.bounds.size.width/2;
+                self.avatarIcon.layer.borderWidth = 1;
+                self.avatarIcon.layer.borderColor = [UIColor whiteColor].CGColor;
+                self.avatarIcon.clipsToBounds = YES;
+                
+                NSString *image_url = [[[_userInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"image_url"];
+                if (image_url != nil )
+                    [self.avatarIcon sd_setImageWithURL:[NSURL URLWithString:image_url]];
+                else
+                    [self.avatarIcon setImage:[UIImage imageNamed:@"user_icon"]];
                 [self.smallNofiticationView addSubview:self.avatarIcon];
                 
                 _customTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapNotificationView:)];
                 _customTap.numberOfTapsRequired = 1;
-                //[_customTap requireGestureRecognizerToFail:doubleTap];
                 [self.smallNofiticationView addGestureRecognizer:_customTap];
                 
                 [self.window addSubview:self.smallNofiticationView];
                 self.infor.userInteractionEnabled = YES;
             } else {
-                self.infor.text = [[_userInfo objectForKey:@"aps"] objectForKey:@"alert"];
-                //[self setIcon:notiType imageURL:[NSString stringWithFormat:@"%@%@",kServerPath,[_userInfo objectForKey:@"avatar"]]];
+                self.infor.text = [[[_userInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"body"];
+                NSString *image_url = [[[_userInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"image_url"];
+                if (image_url != nil )
+                    [self.avatarIcon sd_setImageWithURL:[NSURL URLWithString:image_url]];
+                else
+                    [self.avatarIcon setImage:[UIImage imageNamed:@"user_icon"]];
             }
-            self.userInfo = _userInfo;
+            
 
             [UIView animateWithDuration:1 animations:^{
                 [self.smallNofiticationView setFrame:CGRectMake(0, 0, self.window.bounds.size.width, 64)];
@@ -200,9 +222,9 @@
             });
             
         } else if (application.applicationState == UIApplicationStateInactive) {
-            //[self showPushNotification:_userInfo];
+            [self showPushNotification:_userInfo];
         } else if (application.applicationState == UIApplicationStateBackground) {
-            //[self showPushNotification:_userInfo];
+            [self showPushNotification:_userInfo];
         }
     }
     @catch (NSException *exception) {
@@ -213,7 +235,9 @@
     }
 }
 -(void)handleTapNotificationView:(UITapGestureRecognizer*)customTap{
-    //[self showPushNotification:_userInfo];
+    [self showPushNotification:_userInfo];
+}
+- (void) showPushNotification: (NSDictionary *)userInfo {
 }
 
 

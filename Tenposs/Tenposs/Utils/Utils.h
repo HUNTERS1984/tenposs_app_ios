@@ -19,5 +19,6 @@
 + (NSString *)hashed_string:(NSString *)input;
 + (long long)currentTimeInMillis;
 + (NSString *)getSigWithStrings:(NSArray <NSString *> *)stringArray;
-+(NSString *)timeString;
++ (NSString *)timeString;
++ (NSString *)stringForIcon:(UTF32Char)char32;
 @end

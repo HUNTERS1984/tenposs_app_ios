@@ -1,37 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Item_Cell_ShopInfo" id="gTV-IL-0wX" customClass="Item_Cell_ShopInfo">
-            <rect key="frame" x="0.0" y="0.0" width="485" height="461"/>
+            <rect key="frame" x="0.0" y="0.0" width="485" height="501"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="485" height="461"/>
+                <rect key="frame" x="0.0" y="0.0" width="485" height="501"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IYz-jL-vbT" userLabel="shop_map">
-                        <rect key="frame" x="0.0" y="8" width="485" height="194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="485" height="242"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sxd-Kc-yuR">
-                                <rect key="frame" x="0.0" y="0.0" width="485" height="194"/>
+                                <rect key="frame" x="0.0" y="48" width="485" height="194"/>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QHy-zY-wMa" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="485" height="242"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.75667146502692617" green="1" blue="0.71953867607696376" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="IYz-jL-vbT" secondAttribute="height" multiplier="2.5:1" id="9Tn-O5-YhT"/>
+                            <constraint firstAttribute="width" secondItem="IYz-jL-vbT" secondAttribute="height" multiplier="2.5:1" constant="-120" id="9Tn-O5-YhT"/>
+                            <constraint firstAttribute="trailing" secondItem="QHy-zY-wMa" secondAttribute="trailing" id="Lbs-R6-da3"/>
                             <constraint firstAttribute="trailing" secondItem="Sxd-Kc-yuR" secondAttribute="trailing" id="VOn-Ab-Qxq"/>
-                            <constraint firstItem="Sxd-Kc-yuR" firstAttribute="top" secondItem="IYz-jL-vbT" secondAttribute="top" id="gaI-uN-3xZ"/>
+                            <constraint firstItem="Sxd-Kc-yuR" firstAttribute="top" secondItem="IYz-jL-vbT" secondAttribute="top" constant="48" id="gaI-uN-3xZ"/>
+                            <constraint firstItem="QHy-zY-wMa" firstAttribute="top" secondItem="IYz-jL-vbT" secondAttribute="top" id="jqz-ym-mR7"/>
+                            <constraint firstAttribute="bottom" secondItem="QHy-zY-wMa" secondAttribute="bottom" id="naf-ec-37z"/>
+                            <constraint firstItem="QHy-zY-wMa" firstAttribute="leading" secondItem="IYz-jL-vbT" secondAttribute="leading" id="qfH-gn-YUO"/>
                             <constraint firstAttribute="bottom" secondItem="Sxd-Kc-yuR" secondAttribute="bottom" id="wDN-gJ-miX"/>
                             <constraint firstItem="Sxd-Kc-yuR" firstAttribute="leading" secondItem="IYz-jL-vbT" secondAttribute="leading" id="znI-a0-Hdw"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RX6-JX-3xN" userLabel="shop_address">
-                        <rect key="frame" x="20" y="202" width="457" height="60"/>
+                        <rect key="frame" x="20" y="242" width="457" height="60"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="f_location" translatesAutoresizingMaskIntoConstraints="NO" id="l2C-ho-OyU" userLabel="shop_address_icon">
                                 <rect key="frame" x="8" y="20" width="20" height="20"/>
@@ -69,7 +77,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W0m-RI-jhX" userLabel="shop_open_hour">
-                        <rect key="frame" x="20" y="262" width="457" height="60"/>
+                        <rect key="frame" x="20" y="302" width="457" height="60"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="f_time" translatesAutoresizingMaskIntoConstraints="NO" id="n99-Ig-q6i" userLabel="shop_open_hour_icon">
                                 <rect key="frame" x="8" y="20" width="20" height="20"/>
@@ -106,7 +114,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m2T-ds-lla" userLabel="shop_phone">
-                        <rect key="frame" x="20" y="322" width="457" height="60"/>
+                        <rect key="frame" x="20" y="362" width="457" height="60"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="f_tel" translatesAutoresizingMaskIntoConstraints="NO" id="PQj-aM-ceh" userLabel="shop_phone_icon">
                                 <rect key="frame" x="8" y="20" width="20" height="20"/>
@@ -123,8 +131,8 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zmq-8r-xaN" userLabel="shop_phone">
-                                <rect key="frame" x="48" y="20.5" width="401" height="18"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <rect key="frame" x="48" y="22" width="401" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.26372111180000002" blue="0.92700104454473686" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -142,13 +150,13 @@
                             <constraint firstItem="Zmq-8r-xaN" firstAttribute="leading" secondItem="PQj-aM-ceh" secondAttribute="trailing" constant="20" id="igc-4R-7ri"/>
                         </constraints>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n5b-Ts-Jf0">
-                        <rect key="frame" x="10" y="397" width="465" height="44"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n5b-Ts-Jf0" customClass="RoundButton">
+                        <rect key="frame" x="10" y="437" width="465" height="44"/>
                         <color key="backgroundColor" red="0.062745098039215685" green="0.74901960784313726" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="HOZ-Tj-qUF"/>
                         </constraints>
-                        <state key="normal" title="Reserve">
+                        <state key="normal" title="予約">
                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                     </button>
@@ -164,7 +172,7 @@
                 <constraint firstAttribute="trailing" secondItem="W0m-RI-jhX" secondAttribute="trailing" constant="8" id="TQp-O2-lQa"/>
                 <constraint firstItem="RX6-JX-3xN" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="Z5K-Tc-Ntk"/>
                 <constraint firstItem="m2T-ds-lla" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="ZMe-H0-uJ6"/>
-                <constraint firstItem="IYz-jL-vbT" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="bNF-84-5vN"/>
+                <constraint firstItem="IYz-jL-vbT" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="bNF-84-5vN"/>
                 <constraint firstAttribute="trailing" secondItem="n5b-Ts-Jf0" secondAttribute="trailing" constant="10" id="lLN-oa-O7y"/>
                 <constraint firstItem="n5b-Ts-Jf0" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="lUM-J5-Rrg"/>
                 <constraint firstItem="IYz-jL-vbT" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="p3J-AJ-sLm"/>
@@ -172,8 +180,9 @@
                 <constraint firstItem="W0m-RI-jhX" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="yTF-aY-cQG"/>
                 <constraint firstItem="W0m-RI-jhX" firstAttribute="top" secondItem="RX6-JX-3xN" secondAttribute="bottom" id="zdu-G0-zcv"/>
             </constraints>
-            <size key="customSize" width="485" height="461"/>
+            <size key="customSize" width="485" height="501"/>
             <connections>
+                <outlet property="mapView" destination="QHy-zY-wMa" id="W2Z-2M-M9k"/>
                 <outlet property="shopAddressIcon" destination="l2C-ho-OyU" id="Z9m-Go-9WL"/>
                 <outlet property="shopAddressText" destination="NBG-HB-Sa9" id="laT-5E-f7v"/>
                 <outlet property="shopMapImage" destination="Sxd-Kc-yuR" id="C8Y-6z-7WB"/>
@@ -183,7 +192,7 @@
                 <outlet property="shopPhoneText" destination="Zmq-8r-xaN" id="9hp-XR-KKm"/>
                 <outlet property="shop_map" destination="IYz-jL-vbT" id="ANb-mJ-cm3"/>
             </connections>
-            <point key="canvasLocation" x="428.5" y="379.5"/>
+            <point key="canvasLocation" x="428.5" y="359.5"/>
         </collectionViewCell>
     </objects>
     <resources>

@@ -68,6 +68,7 @@
         MenuModel *signoutMenu = [MenuModel new];
         signoutMenu.name = @"ログアウト";
         signoutMenu.menu_id = -1;
+        signoutMenu.icon = @"e603";
         [_menuArray addObject:signoutMenu];
     }
     [self.tableView reloadData];
