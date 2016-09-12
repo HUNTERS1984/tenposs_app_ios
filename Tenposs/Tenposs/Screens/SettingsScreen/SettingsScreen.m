@@ -246,7 +246,7 @@
         //TODO: Get UserData and fill the text
         [((Settings_Expand_Selector *)cell).title setText:specifier.title];
         //TODO: get info from UserData
-        [((Settings_Expand_Selector *)cell).text  setText:[userData getUserProvine]];
+        [((Settings_Expand_Selector *)cell).text  setText:NSLocalizedString([userData getUserProvine], nil)];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }else if ([specifier.key isEqualToString:@"KeyFacebookConnect"]){
         cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([Settings_Social_Connect class])];
@@ -295,12 +295,12 @@
         [self presentViewController:_imagePickerController animated:YES completion:nil];
     }else if ([specifier.key isEqualToString:@"KeyUserGender"]){
         UIActionSheet *actionSheet = [[UIActionSheet alloc]
-                                      //TODO: need localize
-                                      initWithTitle:@"Select gender"
+                                      initWithTitle:NSLocalizedString(@"gender",nil)
                                       delegate:self
-                                      cancelButtonTitle:@"Cancel"
+                                      cancelButtonTitle:NSLocalizedString(@"cancel", nil)
                                       destructiveButtonTitle:nil
-                                      otherButtonTitles:@"Male",@"Female",nil];
+                                      otherButtonTitles:NSLocalizedString(@"gender_male",nil),NSLocalizedString(@"gender_female",nil)
+                                      ,nil];
         
         actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
         [actionSheet showInView:self.view];

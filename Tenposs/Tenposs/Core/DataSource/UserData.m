@@ -113,18 +113,18 @@ NSMutableArray *recentSearchList=nil;
         NSString *gender = (NSString *)[[_userDataDictionary objectForKey:@"profile"] objectForKey:@"gender"];
         if ([gender isEqualToString:@"0"]) {
             //TODO: need localize
-            return @"Male";
+            return NSLocalizedString(@"gender_male",nil);
         }else if ([gender isEqualToString:@"1"]) {
-            return @"Female";
+            return NSLocalizedString(@"gender_female",nil);
         }
     }
     NSString *gender = (NSString *)[[[self getUserData] objectForKey:@"profile"] objectForKey:@"gender"];
     NSInteger genderInt = [gender integerValue];
     if (genderInt == GENDER_MALE) {
         //TODO: need localize
-        return @"Male";
+        return NSLocalizedString(@"gender_male",nil);
     }else if (genderInt == GENDER_MALE) {
-        return @"Female";
+        return NSLocalizedString(@"gender_female",nil);
     }
     return @"";
 }

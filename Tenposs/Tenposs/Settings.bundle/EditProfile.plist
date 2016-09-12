@@ -8,7 +8,7 @@
 	<array>
 		<dict>
 			<key>Title</key>
-			<string>CHANGE_AVATAR</string>
+			<string>change_avatar</string>
 			<key>Key</key>
 			<string>KeyUserAvatar</string>
 			<key>Type</key>
@@ -18,13 +18,13 @@
 			<key>Type</key>
 			<string>IASKCustomViewSpecifier</string>
 			<key>Title</key>
-			<string>USER_ID</string>
+			<string>user_id</string>
 			<key>Key</key>
 			<string>KeyUserID</string>
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>USERNAME</string>
+			<string>user_name</string>
 			<key>Key</key>
 			<string>KeyUsername</string>
 			<key>Type</key>
@@ -32,7 +32,7 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>USER_EMAIL</string>
+			<string>email_address</string>
 			<key>Key</key>
 			<string>KeyUserEmail</string>
 			<key>Type</key>
@@ -40,7 +40,7 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>USER_GENDER</string>
+			<string>gender</string>
 			<key>Key</key>
 			<string>KeyUserGender</string>
 			<key>Type</key>
@@ -48,7 +48,7 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>USER_PROVINE</string>
+			<string>province</string>
 			<key>Key</key>
 			<string>KeyUserProvine</string>
 			<key>Type</key>

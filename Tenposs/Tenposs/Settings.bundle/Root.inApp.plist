@@ -12,7 +12,7 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
-			<string>EDIT_PROFILE</string>
+			<string>edit_profile</string>
 			<key>File</key>
 			<string>EditProfile</string>
 		</dict>
@@ -20,7 +20,7 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>PUSH_NOTIFICATION</string>
+			<string>receive_push</string>
 			<key>Key</key>
 			<string>keyPushNotification</string>
 			<key>DefaultValue</key>
@@ -30,7 +30,7 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>COUPON_PUSH_NOTIFICATION</string>
+			<string>receive_coupon_information</string>
 			<key>Key</key>
 			<string>keyCouponPushNotification</string>
 			<key>DefaultValue</key>
@@ -42,7 +42,7 @@
 			<key>IASKViewControllerSelector</key>
 			<string>initWithFile:specifier:</string>
 			<key>Title</key>
-			<string>COMPANY</string>
+			<string>company_info</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
@@ -52,7 +52,7 @@
 			<key>IASKViewControllerSelector</key>
 			<string>initWithFile:specifier:</string>
 			<key>Title</key>
-			<string>USER_PRIVACY</string>
+			<string>user_privacy</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
