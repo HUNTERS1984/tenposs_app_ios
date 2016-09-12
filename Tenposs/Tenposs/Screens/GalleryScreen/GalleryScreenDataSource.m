@@ -97,31 +97,6 @@
 
 #pragma mark - Communicator
 -(void)loadPhotoCategoryList{
-//    NSData *data = [MockupData fetchDataWithResourceName:@"photo_category"];
-//    NSError *error = nil;
-//    PhotoCategoryListModel *cateList = [[PhotoCategoryListModel alloc]initWithData:data error:&error];
-//    
-//    //TODO: Need mockup data
-//    if (!error && cateList && [cateList.items count] > 0) {
-//        for (PhotoCategory *category in cateList.items) {
-//            GalleryScreenDetailDataSource *detailDataSource = [[GalleryScreenDetailDataSource alloc]initWithDelegate:self andPhotoCategory:category];
-//            [self.detailDataSourceList addObject:detailDataSource];
-//        }
-//        if (self.shouldShowLatest) {
-//            NSInteger lastSourceIndex = [self.detailDataSourceList count] -1;
-//            [self updateCurrentDetailDataSource:self.detailDataSourceList[lastSourceIndex]];
-//            self.shouldShowLatest = NO;
-//        }else{
-//            NSInteger rand = arc4random()%[self.detailDataSourceList count];
-//            [self updateCurrentDetailDataSource:self.detailDataSourceList[rand]];
-//        }
-//    }else{
-//        NSError *error = [NSError errorWithDomain:@"Cannot fetch Category List data" code:-9999 userInfo:nil];
-//        if (self.currentCompleteHandler) {
-//            self.currentCompleteHandler(error, @"", NO, NO);
-//            self.currentCompleteHandler = nil;
-//        }
-//    }
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     NSString * store_id = [appConfig getStoreId];
     
@@ -134,7 +109,6 @@
     [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
     [params put:KeyAPI_STORE_ID value:store_id];
     [request execute:params withDelegate:self];
-    
 }
 #pragma mark - Helper Methods
 

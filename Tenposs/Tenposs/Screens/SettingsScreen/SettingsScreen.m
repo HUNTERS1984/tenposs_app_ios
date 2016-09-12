@@ -20,6 +20,7 @@
 #import "NetworkCommunicator.h"
 #import "SettingsTableViewController.h"
 #import "UIUtils.h"
+#import "SettingsProvineScreen.h"
 
 //#import "UserData.h"
 
@@ -27,7 +28,7 @@
 #define USERNAME_TAG 101
 #define USEREMAIL_TAG 102
 
-@interface SettingsScreen () <UITextFieldDelegate>{
+@interface SettingsScreen () <UITextFieldDelegate, UIActionSheetDelegate>{
     NSString *cur_userId;
     NSString *cur_userName;
     NSString *cur_userEmail;
@@ -105,11 +106,6 @@
     return _settingView;
 }
 
-- (void)viewDidDisappear:(BOOL)animated{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kIASKAppSettingChanged object:nil];
-    [super viewDidDisappear:animated];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -131,11 +127,23 @@
         
     }else if ([notification.userInfo.allKeys.firstObject isEqual:SETTINGS_KeyUserAvatar]){
         
+    }else if ([notification.userInfo.allKeys.firstObject isEqualToString:SETTINGS_KeyUserGender]){
+        NSInteger gender = [[[notification.userInfo mutableCopy] objectForKey:SETTINGS_KeyUserGender] integerValue];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[UserData shareInstance] setUserGender:gender];
+            if([self.navigationController.visibleViewController isKindOfClass:[IASKAppSettingsViewController class]]){
+                [((IASKAppSettingsViewController *)self.navigationController.visibleViewController).tableView reloadData];
+            }
+            [self.settingView.tableView reloadData];
+        });
+    }else if([notification.userInfo.allKeys.firstObject isEqualToString:SETTINGS_KeyUserProvine]){
+        NSString *provine = [notification.userInfo objectForKey:SETTINGS_KeyUserProvine];
+        [[UserData shareInstance] setUserProvine:provine];
+        if([self.navigationController.visibleViewController isKindOfClass:[IASKAppSettingsViewController class]]){
+            [((IASKAppSettingsViewController *)self.navigationController.visibleViewController).tableView reloadData];
+        }
     }
-    
-    [self.settingView.tableView reloadData];
 }
-
 
 #pragma mark UITableView cell customization
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier{
@@ -226,7 +234,7 @@
         [((Settings_Expand_Selector *)cell).title setText:specifier.title];
         //TODO: get info from UserData
         [((Settings_Expand_Selector *)cell).text  setText:[userData getUserGenderString]];
-        
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }else if ([specifier.key isEqualToString:@"KeyUserProvine"]) {
         cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([Settings_Expand_Selector class])];
         if (!cell) {
@@ -238,7 +246,8 @@
         //TODO: Get UserData and fill the text
         [((Settings_Expand_Selector *)cell).title setText:specifier.title];
         //TODO: get info from UserData
-        [((Settings_Expand_Selector *)cell).text  setText:@"Nha Trang"];
+        [((Settings_Expand_Selector *)cell).text  setText:[userData getUserProvine]];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }else if ([specifier.key isEqualToString:@"KeyFacebookConnect"]){
         cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([Settings_Social_Connect class])];
         if (!cell) {
@@ -284,6 +293,20 @@
         _imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         _imagePickerController.delegate = self;
         [self presentViewController:_imagePickerController animated:YES completion:nil];
+    }else if ([specifier.key isEqualToString:@"KeyUserGender"]){
+        UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                      //TODO: need localize
+                                      initWithTitle:@"Select gender"
+                                      delegate:self
+                                      cancelButtonTitle:@"Cancel"
+                                      destructiveButtonTitle:nil
+                                      otherButtonTitles:@"Male",@"Female",nil];
+        
+        actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+        [actionSheet showInView:self.view];
+    }else if ([specifier.key isEqualToString:SETTINGS_KeyUserProvine]){
+        SettingsProvineScreen *provineScreen = [[SettingsProvineScreen alloc]initWithStyle:UITableViewStylePlain];
+        [self.navigationController pushViewController:provineScreen animated:YES];
     }
 }
 
@@ -342,6 +365,18 @@
     }
 }
 
+#pragma mark - UI
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        //MALE
+        [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{SETTINGS_KeyUserGender:@"0"}];
+    }else if (buttonIndex == 1){
+        //FEMALE
+        [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{SETTINGS_KeyUserGender:@"1"}];
+    }
+}
+
 #pragma mark - UIImagePickerControllerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
@@ -355,7 +390,7 @@
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

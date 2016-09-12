@@ -1,0 +1,55 @@
+/* 
+  Localizable.strings
+  Tenposs
+
+  Created by Phúc Nguyễn on 9/12/16.
+  Copyright © 2016 Tenposs. All rights reserved.
+*/
+
+"hokkaido"  ="Hokkaidō";
+"aomori"    ="Aomori";
+"iwate"     ="Iwate";
+"miyagi"    ="Miyagi";
+"akita"     ="Akita";
+"yamagata"  ="Yamagata";
+"fukushima" ="Fukushima";
+"ibaraki"   ="Ibaraki";
+"tochigi"   ="Tochigi";
+"gunma"     ="Gunma";
+"saitama"   ="Saitama";
+"chiba"     ="Chiba";
+"tokyo"     ="Tōkyō";
+"kanagawa"  ="Kanagawa";
+"niigata"   ="Niigata";
+"toyama"    ="Toyama";
+"ishikawa"  ="Ishikawa";
+"fukui"     ="Fukui";
+"yamanashi" ="Yamanashi";
+"nagano"    ="Nagano";
+"gifi"      ="Gifu";
+"shizouka"  ="Shizuoka";
+"aichi"     ="Aichi";
+"mie"       ="Mie";
+"shiga"     ="Shiga";
+"kyoto"     ="Kyōto";
+"osaka"     ="Ōsaka";
+"hyogo"     ="Hyōgo";
+"nara"      ="Nara";
+"wakayama"  ="Wakayama";
+"tottori"   ="Tottori";
+"shimane"   ="Shimane";
+"okayama"   ="Okayama";
+"hiroshima" ="Hiroshima";
+"yamaguchi" ="Yamaguchi";
+"tokushima" ="Tokushima";
+"kagawa"    ="Kagawa";
+"ehime"     ="Ehime";
+"kochi"     ="Kōchi";
+"fukuoka"   ="Fukuoka";
+"saga"      ="Saga";
+"nagasaki"  ="Nagasaki";
+"kumamoto"  ="Kumamoto";
+"oita"      ="Ōita";
+"miyazaki"  ="Miyazaki";
+"kogoshima" ="Kagoshima";
+"okinawa"   ="Okinawa";

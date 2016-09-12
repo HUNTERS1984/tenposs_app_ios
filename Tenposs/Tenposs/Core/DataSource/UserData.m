@@ -79,7 +79,6 @@ NSMutableArray *recentSearchList=nil;
     if (!_userDataDictionary) {
         [self getUserData];
     }
-    
     [[_userDataDictionary objectForKey:@"profile" ] setObject:username forKey:@"name"];
     [self saveUserData];
 }
@@ -103,19 +102,19 @@ NSMutableArray *recentSearchList=nil;
     if (!_userDataDictionary) {
         [self getUserData];
     }
-    
-    [[_userDataDictionary objectForKey:@"profile" ] setObject:[@(gender) stringValue] forKey:@"gender"];
+    NSMutableDictionary *profile = [[_userDataDictionary objectForKey:@"profile"] mutableCopy];
+    [profile setObject:[@(gender) stringValue] forKey:@"gender"];
+    [_userDataDictionary setObject:profile forKey:@"profile"] ;
     [self saveUserData];
 }
 
 - (NSString *)getUserGenderString{
     if (_userDataDictionary) {
         NSString *gender = (NSString *)[[_userDataDictionary objectForKey:@"profile"] objectForKey:@"gender"];
-        NSInteger genderInt = [gender integerValue];
-        if (genderInt == GENDER_MALE) {
+        if ([gender isEqualToString:@"0"]) {
             //TODO: need localize
             return @"Male";
-        }else if (genderInt == GENDER_MALE) {
+        }else if ([gender isEqualToString:@"1"]) {
             return @"Female";
         }
     }
@@ -174,6 +173,23 @@ NSMutableArray *recentSearchList=nil;
     }
     [_userDataDictionary setObject:app_user_id forKey:@"app_user_id"];
     [self saveUserData];
+}
+
+- (void)setUserProvine:(NSString *)provine{
+    if (!_userDataDictionary) {
+        [self getUserData];
+    }
+    NSMutableDictionary *profile = [[_userDataDictionary objectForKey:@"profile"] mutableCopy];
+    [profile setObject:provine forKey:@"provine"];
+    [_userDataDictionary setObject:profile forKey:@"profile"] ;
+    [self saveUserData];
+}
+
+- (NSString *)getUserProvine{
+    if (_userDataDictionary) {
+        return [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"provine"];
+    }
+    return [[[self getUserData] objectForKey:@"profile"] objectForKey:@"provine"];
 }
 
 @end

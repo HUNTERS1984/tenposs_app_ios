@@ -147,6 +147,8 @@
 		02F2FDE11D4AF71A006D4C83 /* UIImage+Font.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDDE1D4AF71A006D4C83 /* UIImage+Font.m */; };
 		02F2FDE51D4AF79B006D4C83 /* TopScreenDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDE41D4AF79B006D4C83 /* TopScreenDataSource.m */; };
 		02FDEFEF1D86BF64005AC6E9 /* ChatScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FDEFEE1D86BF64005AC6E9 /* ChatScreen.m */; };
+		02FDEFF41D86DD57005AC6E9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02FDEFF61D86DD57005AC6E9 /* Localizable.strings */; };
+		02FDEFFD1D86E024005AC6E9 /* SettingsProvineScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FDEFFC1D86E024005AC6E9 /* SettingsProvineScreen.m */; };
 		3682129E1D7F0FA500E2DEF0 /* RoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3682129D1D7F0FA500E2DEF0 /* RoundButton.m */; };
 		368212A31D7FBFD800E2DEF0 /* CXAHyperlinkLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 368212A01D7FBFD800E2DEF0 /* CXAHyperlinkLabel.m */; };
 		368212A41D7FBFD800E2DEF0 /* NSAttributedString+CXACoreTextFrameSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 368212A21D7FBFD800E2DEF0 /* NSAttributedString+CXACoreTextFrameSize.m */; };
@@ -429,6 +431,12 @@
 		02F2FDE41D4AF79B006D4C83 /* TopScreenDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopScreenDataSource.m; sourceTree = "<group>"; };
 		02FDEFED1D86BF64005AC6E9 /* ChatScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatScreen.h; sourceTree = "<group>"; };
 		02FDEFEE1D86BF64005AC6E9 /* ChatScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatScreen.m; sourceTree = "<group>"; };
+		02FDEFF21D86DD4A005AC6E9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
+		02FDEFF31D86DD4A005AC6E9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		02FDEFF51D86DD57005AC6E9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		02FDEFF71D86DDBC005AC6E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		02FDEFFB1D86E024005AC6E9 /* SettingsProvineScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsProvineScreen.h; sourceTree = "<group>"; };
+		02FDEFFC1D86E024005AC6E9 /* SettingsProvineScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsProvineScreen.m; sourceTree = "<group>"; };
 		06778181026272EC61BDAD14 /* Pods-Tenposs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenposs.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tenposs/Pods-Tenposs.debug.xcconfig"; sourceTree = "<group>"; };
 		3682129C1D7F0FA500E2DEF0 /* RoundButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundButton.h; path = Customize/RoundButton.h; sourceTree = "<group>"; };
 		3682129D1D7F0FA500E2DEF0 /* RoundButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundButton.m; path = Customize/RoundButton.m; sourceTree = "<group>"; };
@@ -696,6 +704,8 @@
 				0257C2D51D8543F500506F73 /* SettingsScreen.m */,
 				02B8CF841D8696D200FDE695 /* SettingsTableViewController.h */,
 				02B8CF851D8696D200FDE695 /* SettingsTableViewController.m */,
+				02FDEFFB1D86E024005AC6E9 /* SettingsProvineScreen.h */,
+				02FDEFFC1D86E024005AC6E9 /* SettingsProvineScreen.m */,
 			);
 			path = SettingsScreen;
 			sourceTree = "<group>";
@@ -823,6 +833,7 @@
 				02DAF3B61D47CAA70068BB71 /* Info.plist */,
 				02DAF3A51D47CAA70068BB71 /* Supporting Files */,
 				0257C2C31D849E6C00506F73 /* Settings.bundle */,
+				02FDEFF61D86DD57005AC6E9 /* Localizable.strings */,
 			);
 			path = Tenposs;
 			sourceTree = "<group>";
@@ -1279,6 +1290,7 @@
 				02AEEE971D6A73AD0064BB0B /* Item_Cell_Coupon.xib in Resources */,
 				024C4D2F1D5AA58600896EE4 /* menu_items_1.json in Resources */,
 				02CD65B21D47E7DB0015661D /* Item_Cell_ShopInfo.xib in Resources */,
+				02FDEFF41D86DD57005AC6E9 /* Localizable.strings in Resources */,
 				0257C2D21D84AE4600506F73 /* Settings_Avatar.xib in Resources */,
 				02F0972F1D6BD8A400E737C7 /* Item_Detail_TopImage.xib in Resources */,
 				0257C2E01D856A5000506F73 /* Settings_Expand_Selector.xib in Resources */,
@@ -1500,6 +1512,7 @@
 				022F25C21D525F81008AEBA1 /* MFSideMenuContainerViewController.m in Sources */,
 				022F25D01D52B20A008AEBA1 /* SideMenuTableViewController.m in Sources */,
 				02CD659D1D47D4240015661D /* MenuItem_Common.m in Sources */,
+				02FDEFFD1D86E024005AC6E9 /* SettingsProvineScreen.m in Sources */,
 				02F0974C1D7376BA00E737C7 /* LoginScreen.m in Sources */,
 				02F2FDCD1D4A30E3006D4C83 /* JSONValueTransformer.m in Sources */,
 				021AA4BC1D7F0A140042C511 /* ListAppCommunicator.m in Sources */,
@@ -1569,6 +1582,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				02DAF3AF1D47CAA70068BB71 /* Base */,
+				02FDEFF21D86DD4A005AC6E9 /* ja */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1577,8 +1591,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				02DAF3B41D47CAA70068BB71 /* Base */,
+				02FDEFF31D86DD4A005AC6E9 /* ja */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		02FDEFF61D86DD57005AC6E9 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				02FDEFF51D86DD57005AC6E9 /* ja */,
+				02FDEFF71D86DDBC005AC6E9 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

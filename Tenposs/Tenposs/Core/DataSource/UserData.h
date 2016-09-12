@@ -44,4 +44,7 @@
 - (NSString *)getAppUserID;
 - (void)setAppUserID:(NSString *)app_user_id;
 
+- (void)setUserProvine:(NSString *)provine;
+- (NSString *)getUserProvine;
+
 @end
