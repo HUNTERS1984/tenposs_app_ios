@@ -146,6 +146,7 @@
 		02F2FDE01D4AF71A006D4C83 /* UIFont+Themify.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDDC1D4AF71A006D4C83 /* UIFont+Themify.m */; };
 		02F2FDE11D4AF71A006D4C83 /* UIImage+Font.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDDE1D4AF71A006D4C83 /* UIImage+Font.m */; };
 		02F2FDE51D4AF79B006D4C83 /* TopScreenDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDE41D4AF79B006D4C83 /* TopScreenDataSource.m */; };
+		02FDEFEF1D86BF64005AC6E9 /* ChatScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FDEFEE1D86BF64005AC6E9 /* ChatScreen.m */; };
 		3682129E1D7F0FA500E2DEF0 /* RoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3682129D1D7F0FA500E2DEF0 /* RoundButton.m */; };
 		368212A31D7FBFD800E2DEF0 /* CXAHyperlinkLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 368212A01D7FBFD800E2DEF0 /* CXAHyperlinkLabel.m */; };
 		368212A41D7FBFD800E2DEF0 /* NSAttributedString+CXACoreTextFrameSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 368212A21D7FBFD800E2DEF0 /* NSAttributedString+CXACoreTextFrameSize.m */; };
@@ -426,6 +427,8 @@
 		02F2FDDE1D4AF71A006D4C83 /* UIImage+Font.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Font.m"; sourceTree = "<group>"; };
 		02F2FDE31D4AF79B006D4C83 /* TopScreenDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopScreenDataSource.h; sourceTree = "<group>"; };
 		02F2FDE41D4AF79B006D4C83 /* TopScreenDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopScreenDataSource.m; sourceTree = "<group>"; };
+		02FDEFED1D86BF64005AC6E9 /* ChatScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatScreen.h; sourceTree = "<group>"; };
+		02FDEFEE1D86BF64005AC6E9 /* ChatScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatScreen.m; sourceTree = "<group>"; };
 		06778181026272EC61BDAD14 /* Pods-Tenposs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenposs.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tenposs/Pods-Tenposs.debug.xcconfig"; sourceTree = "<group>"; };
 		3682129C1D7F0FA500E2DEF0 /* RoundButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundButton.h; path = Customize/RoundButton.h; sourceTree = "<group>"; };
 		3682129D1D7F0FA500E2DEF0 /* RoundButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundButton.m; path = Customize/RoundButton.m; sourceTree = "<group>"; };
@@ -749,6 +752,7 @@
 		02CD65961D47CDDC0015661D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				02FDEFEC1D86BF0E005AC6E9 /* ChatScreen */,
 				0257C2E71D85864200506F73 /* StaffScreen */,
 				0257C2D31D85438100506F73 /* SettingsScreen */,
 				0257C2C51D84A82700506F73 /* UserPrivacyScreen */,
@@ -1111,6 +1115,15 @@
 				022F25B71D516E4D008AEBA1 /* TopScreen.m */,
 			);
 			path = TopScreen;
+			sourceTree = "<group>";
+		};
+		02FDEFEC1D86BF0E005AC6E9 /* ChatScreen */ = {
+			isa = PBXGroup;
+			children = (
+				02FDEFED1D86BF64005AC6E9 /* ChatScreen.h */,
+				02FDEFEE1D86BF64005AC6E9 /* ChatScreen.m */,
+			);
+			path = ChatScreen;
 			sourceTree = "<group>";
 		};
 		09344413F41F49EA9B95A2DF /* Pods */ = {
@@ -1506,6 +1519,7 @@
 				368212B11D800C2D00E2DEF0 /* NetworkCommunicator.m in Sources */,
 				021AA4CA1D7FD81A0042C511 /* ItemDetailCommunicator.m in Sources */,
 				021AA4D11D7FDAC70042C511 /* Item_Detail_Description.m in Sources */,
+				02FDEFEF1D86BF64005AC6E9 /* ChatScreen.m in Sources */,
 				02AEEE9E1D6A7AF60064BB0B /* CouponDataSource.m in Sources */,
 				368212AB1D80029800E2DEF0 /* UserData.m in Sources */,
 				368212AE1D8002F900E2DEF0 /* EntityBase.m in Sources */,

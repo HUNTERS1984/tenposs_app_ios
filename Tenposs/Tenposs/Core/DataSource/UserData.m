@@ -161,5 +161,19 @@ NSMutableArray *recentSearchList=nil;
 }
 
 
+- (NSString *)getAppUserID{
+    if (_userDataDictionary) {
+        return [_userDataDictionary objectForKey:@"app_user_id"];
+    }
+    return [[self getUserData] objectForKey:@"app_user_id"];
+}
+
+- (void)setAppUserID:(NSString *)app_user_id{
+    if (!_userDataDictionary) {
+        [self getUserData];
+    }
+    [_userDataDictionary setObject:app_user_id forKey:@"app_user_id"];
+    [self saveUserData];
+}
 
 @end

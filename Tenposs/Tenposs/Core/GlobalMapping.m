@@ -17,6 +17,7 @@
 #import "ReserveScreen.h"
 #import "SettingsScreen.h"
 #import "StaffScreen.h"
+#import "ChatScreen.h"
 
 @implementation GlobalMapping
 
@@ -53,6 +54,8 @@
     }else if (viewControlerId == APP_MENU_STAFF){
         viewController = (StaffScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([StaffScreen class])];
         ((StaffScreen *)viewController).mainNavigationController = navigationController;
+    }else if (viewControlerId == APP_MENU_CHAT){
+        viewController = (ChatScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ChatScreen class])];
     }
     
     return viewController;

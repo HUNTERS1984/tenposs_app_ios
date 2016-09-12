@@ -16,6 +16,11 @@
 
 @implementation ReserveScreen
 
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    _webView.scrollView.contentInset = UIEdgeInsetsZero;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

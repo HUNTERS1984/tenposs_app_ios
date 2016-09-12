@@ -52,13 +52,42 @@
     cur_userId = [userData getUserID];
     cur_userName = [userData getUserName];
     cur_userEmail = [userData getUserEmail];
-    self.settingView = [self appSettingsViewController];
     _userProfileChanges = [NSMutableDictionary new];
-    [self.navigationController pushViewController:_settingView animated:NO];
+    
+    self.settingView = [self appSettingsViewController];
+    self.settingView.view.frame = CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height);// self.view.bounds;
+    [self.view addSubview:self.settingView.view];
+    [self addChildViewController:self.settingView];
+    [self.settingView didMoveToParentViewController:self];
+    //[self.navigationController pushViewController:_settingView animated:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    if ([_userProfileChanges count] > 0) {
+        for (NSString *key in _userProfileChanges.allKeys) {
+            if ([key isEqualToString:SETTINGS_KeyUserAvatar]) {
+                UIImage *image = (UIImage *)[_userProfileChanges objectForKey:key];
+                image = [UIUtils scaleImage:image toSize:CGSizeMake(200,200)];
+                NSData *imageData = UIImagePNGRepresentation(image);
+                [_userProfileChanges setObject:imageData forKey:key];
+                break;
+            }
+        }
+        
+        [_userProfileChanges setObject:[[UserData shareInstance] getToken] forKey:KeyAPI_TOKEN];
+        
+        [[NetworkCommunicator shareInstance] POSTWithImage:API_UPDATE_PROFILE parameters:_userProfileChanges onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+            NSLog(@"UPDATE_PROFILE");
+            [_userProfileChanges removeAllObjects];
+        }];
+  
+    }
+
+    [super viewWillDisappear:animated];
 }
 
 - (SettingsTableViewController*)appSettingsViewController {
@@ -94,26 +123,6 @@
 #pragma mark - IASKSettingsDelegate
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender{
-    
-    if ([_userProfileChanges count] > 0) {
-        for (NSString *key in _userProfileChanges.allKeys) {
-            if ([key isEqualToString:SETTINGS_KeyUserAvatar]) {
-                UIImage *image = (UIImage *)[_userProfileChanges objectForKey:key];
-                image = [UIUtils scaleImage:image toSize:CGSizeMake(200,200)];
-                NSData *imageData = UIImagePNGRepresentation(image);
-                [_userProfileChanges setObject:imageData forKey:key];
-                break;
-            }
-        }
-        
-        [_userProfileChanges setObject:[[UserData shareInstance] getToken] forKey:KeyAPI_TOKEN];
-        
-        [[NetworkCommunicator shareInstance] POSTWithImage:API_UPDATE_PROFILE parameters:_userProfileChanges onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
-            NSLog(@"UPDATE_PROFILE");
-            [_userProfileChanges removeAllObjects];
-        }];
-    }
-    
     NSLog(@"Settings did end");
 }
 

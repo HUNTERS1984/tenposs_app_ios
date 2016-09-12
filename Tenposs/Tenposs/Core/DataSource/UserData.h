@@ -41,4 +41,7 @@
 - (NSString *)getUserGenderString;
 - (void)setUserGender:(NSInteger) gender;
 
+- (NSString *)getAppUserID;
+- (void)setAppUserID:(NSString *)app_user_id;
+
 @end

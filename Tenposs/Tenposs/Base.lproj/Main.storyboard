@@ -528,7 +528,7 @@
                             </connections>
                         </barButtonItem>
                         <view key="titleView" contentMode="scaleToFill" id="cTR-SR-Nvd">
-                            <rect key="frame" x="96" y="5.5" width="128" height="33"/>
+                            <rect key="frame" x="96" y="6" width="128" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tok-eQ-tJx">
@@ -561,6 +561,7 @@
                         <segue destination="kTO-QV-DA7" kind="show" identifier="grand_item_detail" id="4bK-Wz-dDJ"/>
                         <segue destination="gsz-U5-Szx" kind="show" id="Atf-3m-cDd"/>
                         <segue destination="X0D-C1-cgW" kind="show" id="ukk-j1-lXP"/>
+                        <segue destination="zMP-J5-QXP" kind="show" id="AbQ-74-9eu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -880,10 +881,43 @@
             </objects>
             <point key="canvasLocation" x="2871" y="1277"/>
         </scene>
+        <!--Chat Screen-->
+        <scene sceneID="vIU-Hm-rod">
+            <objects>
+                <viewController storyboardIdentifier="ChatScreen" automaticallyAdjustsScrollViewInsets="NO" id="zMP-J5-QXP" customClass="ChatScreen" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iPY-kl-Eu6"/>
+                        <viewControllerLayoutGuide type="bottom" id="vuQ-3X-Zwr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="52k-kz-61U">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bg6-B4-jmI">
+                                <rect key="frame" x="0.0" y="20" width="320" height="580"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Bg6-B4-jmI" firstAttribute="leading" secondItem="52k-kz-61U" secondAttribute="leading" id="7uC-1S-3Cr"/>
+                            <constraint firstItem="vuQ-3X-Zwr" firstAttribute="top" secondItem="Bg6-B4-jmI" secondAttribute="bottom" id="LaV-b0-Zj2"/>
+                            <constraint firstItem="Bg6-B4-jmI" firstAttribute="top" secondItem="iPY-kl-Eu6" secondAttribute="bottom" id="MWS-RB-22u"/>
+                            <constraint firstAttribute="trailing" secondItem="Bg6-B4-jmI" secondAttribute="trailing" id="Ps2-7F-xfs"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="Bg6-B4-jmI" id="hyO-Bf-MfL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ghe-cA-JhO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1445" y="616"/>
+        </scene>
         <!--Reserve Screen-->
         <scene sceneID="AmT-ek-wYu">
             <objects>
-                <viewController storyboardIdentifier="ReserveScreen" id="Cxw-96-dIK" customClass="ReserveScreen" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReserveScreen" automaticallyAdjustsScrollViewInsets="NO" id="Cxw-96-dIK" customClass="ReserveScreen" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="N2S-D7-gSt"/>
                         <viewControllerLayoutGuide type="bottom" id="KJy-9K-kwC"/>
@@ -894,7 +928,7 @@
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Gj-bc-FLb">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="backgroundColor" red="0.48860031549999999" green="0.85061553030000003" blue="0.85012264299999996" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

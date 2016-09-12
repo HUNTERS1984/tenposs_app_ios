@@ -298,17 +298,6 @@
 #pragma mark - Communication
 
 - (void)loadTopData{
-//    NSData *data = [MockupData fetchDataWithResourceName:@"top_data"];
-//    NSError *error;
-//    TopResponse *topData = [[TopResponse alloc] initWithData:data error:&error];
-//    [self loadDataIntoSectionArray:topData];
-//    if (!error) {
-//        if (topData) {
-//            if(self.delegate && [self.delegate respondsToSelector:@selector(dataLoadedWithError:)]){
-//                [self.delegate dataLoadedWithError:nil];
-//            }
-//        }
-//    }
     
     TopCommunicator *request = [TopCommunicator new];
     Bundle *params = [Bundle new];
