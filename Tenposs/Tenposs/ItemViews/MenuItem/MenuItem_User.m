@@ -9,6 +9,7 @@
 #import "MenuItem_User.h"
 #import "AppConfiguration.h"
 #import "HexColors.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MenuItem_User()
 
@@ -30,16 +31,36 @@
     // Configure the view for the selected state
 }
 
-- (void)configureCellWithData:(NSObject *)data{
+- (void)configureCellWithData:(UserModel *)data{
+    
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+    AppSettings *settings = [appConfig getAvailableAppSettings];
     
     ///Config user name
-    [self.user_name setFont:[UIFont fontWithName:appConfig.appSettings.menu_font_family size:appConfig.appSettings.menu_font_size]];
-    [self.user_name setTextColor:[UIColor colorWithHexString:appConfig.appSettings.menu_font_color]];
-    
+    [self.user_name setFont:[UIFont fontWithName:settings.menu_font_family size:settings.menu_font_size]];
+    [self.user_name setTextColor:[UIColor colorWithHexString:settings.menu_font_color]];
     
     ///Config Avatar
+    _user_avatar.layer.cornerRadius = _user_avatar.bounds.size.width/2;
+    _user_avatar.layer.borderWidth = 1;
+    _user_avatar.layer.borderColor = [UIColor whiteColor].CGColor;
+    _user_avatar.clipsToBounds = YES;
     
+    if (data == nil) {
+        [_user_avatar setImage:[UIImage imageNamed:@"user_icon"]];
+        return;
+    }
+    if (data.profile.avatar_url == nil || [data.profile.avatar_url isEqualToString:@""]) {
+        [_user_avatar setImage:[UIImage imageNamed:@"user_icon"]];
+    }else{
+        [_user_avatar sd_setImageWithURL:[NSURL URLWithString:(data.profile.avatar_url)] placeholderImage:[UIImage imageNamed:@"user_icon"]];
+        
+    }
+    if (data.profile.name == nil || [data.profile.name isEqualToString:@""]) {
+        
+    } else  {
+        [self.user_name setText:data.profile.name];
+    }
 }
 
 @end

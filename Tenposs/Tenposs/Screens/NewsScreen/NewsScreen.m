@@ -125,6 +125,10 @@
     }
 }
 
+- (NSString *)title{
+    return @"News";
+}
+
 #pragma mark - Communicator
 
 #pragma mark - UICollectionViewDelegate

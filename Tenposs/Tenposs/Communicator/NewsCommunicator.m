@@ -8,7 +8,7 @@
 
 #import "NewsCommunicator.h"
 
-@implementation NewsCategoryListModel
+@implementation NewsCategoryResponse
 + (BOOL)propertyIsOptional:(NSString *)propertyName{
     return YES;
 }

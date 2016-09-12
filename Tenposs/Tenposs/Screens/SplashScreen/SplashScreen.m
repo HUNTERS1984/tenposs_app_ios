@@ -11,8 +11,10 @@
 #import "TopScreen.h"
 #import "SideMenuTableViewController.h"
 #import "MFSideMenu.h"
+#import "TenpossCommunicator.h"
+#import "UIUtils.h"
 
-@interface SplashScreen ()
+@interface SplashScreen ()<TenpossCommunicatorDelegate>
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
 @property (weak, nonatomic) IBOutlet UILabel *errorMessageLabel;
 @property (weak, nonatomic) IBOutlet UIButton *tryAgainButton;
@@ -79,15 +81,20 @@
 
 - (void)buildApp{
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+    AppSettings *appSettings =[appConfig getAvailableAppSettings];
     
-    if (appConfig.appSettings) {
-        MainNavigationController *mainNavigation = [[MainNavigationController alloc]initWithTemplateId:appConfig.appSettings.template_id];
-        SideMenuTableViewController *sideMenu = [[SideMenuTableViewController alloc] init];
-        [sideMenu setData:appConfig.menuData];
+    if ( appSettings != nil && [appConfig getAvailableSideMenu]) {
+        
+        MainNavigationController *mainNavigation = [[MainNavigationController alloc]initWithTemplateId:appSettings.template_id];
+        SideMenuTableViewController *sideMenu = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([SideMenuTableViewController class])]; //[[SideMenuTableViewController alloc] init];
+        sideMenu.shouldSelectIndex = -1;
         MFSideMenuContainerViewController *viewController = [MFSideMenuContainerViewController
                                                              containerWithCenterViewController:mainNavigation
                                                              leftMenuViewController:sideMenu
                                                              rightMenuViewController:nil];
+        
+        sideMenu.delegate = (id<SideMenuDelegate>)mainNavigation.rootViewController;
+        [sideMenu setData:[appConfig getAvailableSideMenu]];
         __weak SplashScreen *weakSelf = self;
         [viewController setModalPresentationStyle:UIModalPresentationCustom];
         viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
@@ -98,5 +105,13 @@
         }];
     }
 }
+
+#pragma mark - TenpossCommunicatorDelegate
+- (void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams{
+    
+}
+- (void)begin:(TenpossCommunicator*)request data:(Bundle*) responseParams{}
+-( void)cancelAllRequest{}
+
 
 @end

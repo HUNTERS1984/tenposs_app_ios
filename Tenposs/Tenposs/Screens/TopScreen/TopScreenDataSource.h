@@ -31,6 +31,8 @@
 
 -(instancetype)initWithDelegate: (id <TopScreenDataSourceDelegate>) delegate;
 
+- (NSObject *)dataAtIndexPath:(NSIndexPath *)indexPath;
+
 - (void)fetchContent;
 
 - (CellSpanType)cellSpanTypeForItemAtIndexPath:(NSIndexPath *)indexPath;

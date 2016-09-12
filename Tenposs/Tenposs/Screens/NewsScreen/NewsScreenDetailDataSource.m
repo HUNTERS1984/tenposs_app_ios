@@ -10,6 +10,8 @@
 #import "DataModel.h"
 #import "MockupData.h"
 #import "Item_Cell_News.h"
+#import "Utils.h"
+#import "AppConfiguration.h"
 
 @implementation NewsScreenDetailDataSource
 
@@ -31,7 +33,7 @@
 }
 
 -(void)reloadDataSource{
-    self.mainData.pageIndex = 0;
+    self.mainData.pageIndex = 1;
     [self.mainData removeAllNews];
     [self loadData];
 }
@@ -43,42 +45,52 @@
 }
 
 - (void)loadData{
-    if (!self.mainData) {
-        self.mainData = [NewsCategoryObject new];
-    }
-    if([self.mainData.news count] == self.mainData.totalnew){
+    if([self.mainData.news count] != 0 && [self.mainData.news count] == self.mainData.totalnew){
         if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
-            NSError *error = [NSError errorWithDomain:NewsScreenDetailError_fullyLoaded code:-9904 userInfo:nil];
+            NSError *error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_CONTENT_FULLY_LOADED]  code:ERROR_CONTENT_FULLY_LOADED userInfo:nil];
             [self.delegate dataLoaded:self withError:error];
         }
         return;
     }
-    ///TODO: real connection to server
+//    ///TODO: real connection to server
+//    
+//    NSData *data = nil;
+//    
+//    if ([self.mainData.news count] <= 0) {
+//        data = [MockupData fetchDataWithResourceName:@"news_items_1"];
+//    }else{
+//        data = [MockupData fetchDataWithResourceName:@"news_items_2"];
+//    }
+//    
+//    NSError *error;
+//    NewsCategoryObject *newsData = [[NewsCategoryObject alloc] initWithData:data error:&error];
+//    
+//    if (error == nil) {
+//        if (newsData && [newsData.news count] > 0) {
+//            NSString *titleFormat = @"%@-%@";
+//            for (NewsObject *item in newsData.news) {
+//                NSString *title = [NSString stringWithFormat:titleFormat,self.mainData.title,item.title];
+//                item.title = title;
+//                [self.mainData addNews:item];
+//            }
+//        }
+//    }
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
+//        [self.delegate dataLoaded:self withError:error];
+//    }
     
-    NSData *data = nil;
-    
-    if ([self.mainData.news count] <= 0) {
-        data = [MockupData fetchDataWithResourceName:@"news_items_1"];
-    }else{
-        data = [MockupData fetchDataWithResourceName:@"news_items_2"];
-    }
-    
-    NSError *error;
-    NewsCategoryObject *newsData = [[NewsCategoryObject alloc] initWithData:data error:&error];
-    
-    if (error == nil) {
-        if (newsData && [newsData.news count] > 0) {
-            NSString *titleFormat = @"%@-%@";
-            for (NewsObject *item in newsData.news) {
-                NSString *title = [NSString stringWithFormat:titleFormat,self.mainData.title,item.title];
-                item.title = title;
-                [self.mainData addNews:item];
-            }
-        }
-    }
-    if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
-        [self.delegate dataLoaded:self withError:error];
-    }
+    NewsItemCommunicator *request = [NewsItemCommunicator new];
+    Bundle *params = [Bundle new];
+    [params put:KeyAPI_APP_ID value:APP_ID];
+    NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
+    [params put:KeyAPI_TIME value:currentTime];
+    NSArray *strings = [NSArray arrayWithObjects:APP_ID,currentTime,[@(_mainData.store_id) stringValue],APP_SECRET,nil];
+    [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
+    [params put:KeyAPI_STORE_ID value:[@(_mainData.store_id) stringValue]];
+    [params put:KeyAPI_PAGE_INDEX value:[@(_mainData.pageIndex) stringValue]];
+    [params put:KeyAPI_PAGE_SIZE value:@"20"];
+    [request execute:params withDelegate:self];
+
 }
 
 - (void)registerClassForCollectionView: (UICollectionView *)collection{
@@ -123,5 +135,32 @@
 - (CGSize)sizeForFooterAtSection:(NSInteger)section inCollectionView:(UICollectionView *)collectionView{
     return CGSizeZero;
 }
+
+#pragma mark - TenpossCommunicatorDelegate
+
+- (void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams{
+    NSInteger errorCode =[responseParams getInt:KeyResponseResult];
+    NSError *error = nil;
+    if (errorCode != ERROR_OK) {
+        NSString *errorDomain = [responseParams get:KeyResponseError];
+        error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:nil];
+    }else{
+        NewsItemResponse *data = (NewsItemResponse *)[responseParams get:KeyResponseObject];
+        if (data.news && [data.news count] > 0) {
+            _mainData.totalnew = data.total_news;
+            for (NewsObject *news in data.news) {
+                [_mainData addNews:news];
+                [_mainData increasePageIndex:1];
+            }
+        }
+    }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
+        [self.delegate dataLoaded:self withError:error];
+    }
+}
+
+- (void)begin:(TenpossCommunicator*)request data:(Bundle*) responseParams{}
+
+-( void)cancelAllRequest{}
 
 @end

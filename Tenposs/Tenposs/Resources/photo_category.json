@@ -1,0 +1,28 @@
+{
+  "code":"ok",		
+"message":"Good!",		
+"data":{		
+	  "photo_categories":[
+        {
+          "id":123,
+          "name":"Category_"
+        },
+        {
+          "id":124,
+          "name":"Category_"
+        },
+        {
+          "id":125,
+          "name":"Category_"
+        },
+        {
+          "id":126,
+          "name":"Category_"
+        },
+        {
+          "id":127,
+          "name":"Category_"
+        }
+	    ]
+}
+}

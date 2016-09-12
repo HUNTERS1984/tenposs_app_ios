@@ -11,6 +11,8 @@
 #import "MenuCommunicator.h"
 #import "UIViewController+LoadingView.h"
 #import "UIView+LoadingView.h"
+#import "ItemDetailScreen.h"
+#import "UIUtils.h"
 
 @interface MenuScreen ()<UICollectionViewDelegateFlowLayout>
 
@@ -19,6 +21,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *previousCategoryButton;
 @property (weak, nonatomic) IBOutlet UILabel *categoryTitle;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
+@property (weak, nonatomic) IBOutlet UIView *detailLoadingView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *detailLoadingIndicator;
+@property (weak, nonatomic) IBOutlet UILabel *detailLoadingMessage;
+
 
 /// Data source
 @property (strong, nonatomic) MenuScreenDataSource *dataSource;
@@ -44,17 +51,15 @@
     
     __weak MenuScreen *weakSelf = self;
     [self.dataSource fetchDataWithCompleteHandler:^(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious) {
-        if (error) {
-            [UIView animateWithDuration:0.5 animations:^{
-                [weakSelf removeLoadingView];
-                [weakSelf showLoadingViewWithMessage:error.domain?:@"Error"];
-            }];
-        }else{
+//        if (error) {
+//            [weakSelf handleDataSourceError:error];
+//        }else{
             [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
             weakSelf.collectionView.dataSource = weakSelf.dataSource.activeDetailDataSource;
             [weakSelf.collectionView reloadData];
             [weakSelf removeLoadingView];
-        }
+            [weakSelf showDetailLoadingView:NO message:nil];
+//        }
     }];
 }
 
@@ -62,50 +67,110 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (NSString *)title{
+    return @"Menu";
+}
+
+- (void)handleDataSourceError:(NSError *)error{
+    [UIView animateWithDuration:0.2 animations:^{
+        [self removeLoadingView];
+        NSString *message = @"Unknow Error";
+        switch (error.code) {
+            case ERROR_NO_CONTENT:
+                message = @"NO CONTENT";
+                break;
+            
+            default:
+                break;
+        }
+        [self showErrorScreen:message];
+    }];
+}
+
+- (void)handleDetailDataSourceError:(NSError *)error{
+    [UIView animateWithDuration:0.2 animations:^{
+        [self removeLoadingView];
+        NSString *message = @"Unknow Error";
+        switch (error.code) {
+            case ERROR_NO_CONTENT:
+                message = @"NO CONTENT";
+                break;
+                
+            default:
+                break;
+        }
+
+        [self showDetailLoadingView:YES message:message];
+    }];
+}
+
+- (void)showDetailLoadingView:(BOOL)show message:(NSString *)message{
+    if (show) {
+        if (message) {
+            [self.detailLoadingView setHidden:NO];
+            [self.detailLoadingIndicator stopAnimating];
+            [self.detailLoadingIndicator setHidden:YES];
+            [self.detailLoadingMessage setHidden:NO];
+            [self.detailLoadingMessage setText:message];
+        }else{
+            [self.detailLoadingView setHidden:NO];
+            [self.detailLoadingIndicator setHidden:NO];
+            [self.detailLoadingIndicator startAnimating];
+        }
+    }else {
+        [self.detailLoadingView setHidden:YES];
+        [self.detailLoadingIndicator stopAnimating];
+    }
+}
+
 #pragma mark - UI methods
 
 - (IBAction)buttonClick:(id)sender {
     if (sender == self.nextCategoryButton) {
+        [self showDetailLoadingView:YES message:nil];
         [self.nextCategoryButton setEnabled:NO];
         [self.previousCategoryButton setEnabled:NO];
-//        [self.collectionView showLoadingView];
         __weak MenuScreen *weakSelf = self;
         [self.dataSource changeToNextDetailDataSourceWithCompleteHandler:^(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious) {
             if (!error) {
                 [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
                 weakSelf.collectionView.dataSource = weakSelf.dataSource.activeDetailDataSource;
                 [weakSelf.collectionView reloadData];
-//                [self.collectionView removeLoadingView];
+                [weakSelf showDetailLoadingView:NO message:nil];
             }else{
-                if([error.domain isEqualToString:MenuScreenError_isLast]){
+                if(error.code == ERROR_DATASOURCE_IS_LAST){
                     [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
                     weakSelf.collectionView.dataSource = weakSelf.dataSource.activeDetailDataSource;
                     [weakSelf.collectionView reloadData];
                     [weakSelf.nextCategoryButton setEnabled:NO];
                 }else{
-                    NSLog(@"MenuScreen - Change dataSource failed - Error :%@", error.domain);
+                    [weakSelf handleDetailDataSourceError:error];
+                    [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
                 }
             }
         }];
     }else if(sender == self.previousCategoryButton){
+        [self showDetailLoadingView:YES message:nil];
         [self.nextCategoryButton setEnabled:NO];
         [self.previousCategoryButton setEnabled:NO];
-//        [self.collectionView showLoadingView];
         __weak MenuScreen *weakSelf = self;
         [self.dataSource changeToPreviousDetailDataSourceWithCompleteHandler:^(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious) {
             if (!error) {
                 [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
                 weakSelf.collectionView.dataSource = weakSelf.dataSource.activeDetailDataSource;
                 [weakSelf.collectionView reloadData];
-//                [self.collectionView removeLoadingView];
+                [weakSelf showDetailLoadingView:NO message:nil];
             }else{
-                if ([error.domain isEqualToString:MenuScreenError_isFirst]) {
+                if (error.code  == ERROR_DATASOURCE_IS_FIRST) {
                     [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
                     weakSelf.collectionView.dataSource = weakSelf.dataSource.activeDetailDataSource;
                     [weakSelf.collectionView reloadData];
                     [weakSelf.previousCategoryButton setEnabled:NO];
                 }else{
-                    NSLog(@"MenuScreen - Change dataSource failed - Error :%@", error.domain);
+                    [weakSelf handleDetailDataSourceError:error];
+                    [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
+
                 }
             }
         }];
@@ -130,6 +195,17 @@
 
 
 #pragma mark - UICollectionViewDelegateFlowLayout
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSObject *item = [self.dataSource itemAtIndexPath:indexPath];
+    if ([item isKindOfClass:[ProductObject class]]) {
+        ProductObject *product = (ProductObject *)item;
+        ItemDetailScreen *controller = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([ItemDetailScreen class])];
+        controller.item = product;
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+}
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     return [self.dataSource.activeDetailDataSource sizeForCellAtIndexPath:indexPath withCollectionWidth:collectionView.bounds.size.width];
 }

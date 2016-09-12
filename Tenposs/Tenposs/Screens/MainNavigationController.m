@@ -8,6 +8,11 @@
 
 #import "MainNavigationController.h"
 #import "TopScreen.h"
+#import "GrandViewController.h"
+#import "MFSideMenuContainerViewController.h"
+#import "SideMenuTableViewController.h"
+#import "UIUtils.h"
+#import "NewsDetailScreen.h"
 
 @interface MainNavigationController ()
 
@@ -16,15 +21,22 @@
 @implementation MainNavigationController
 
 - (instancetype)initWithTemplateId:(NSInteger)templateId{
-    UIViewController *rootViewController = nil;
     if (templateId == TEMPLATE_1) {
-        rootViewController = [[TopScreen alloc]initWithCollectionViewLayout:[UICollectionViewFlowLayout new]];
-        ((TopScreen *)rootViewController).mainNavigationController = self;
+        self.rootViewController = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([GrandViewController class])];
     }
     
-    self = [super initWithRootViewController:rootViewController];
+    self = [super initWithRootViewController:self.rootViewController];
+    
+    if (self) {
+    }
     
     return self;
+}
+
+- (void)toogleMenu{
+    if ([self.parentViewController isKindOfClass:[MFSideMenuContainerViewController class]]) {
+        [((MFSideMenuContainerViewController *)self.parentViewController) toggleLeftSideMenuCompletion:nil];
+    }
 }
 
 - (void)viewDidLoad {
@@ -37,15 +49,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

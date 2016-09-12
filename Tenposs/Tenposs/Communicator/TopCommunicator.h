@@ -10,14 +10,14 @@
 #import "JSONModel.h"
 #import "DataModel.h"
 
-@interface TopDataModel : JSONModel
-@property NSString *code;
+@interface TopResponse : JSONModel
+@property NSInteger code;
 @property NSString *message;
 @property NSArray <ConvertOnDemand,ProductObject> *items;
 @property NSArray <PhotoObject,ConvertOnDemand> *photos;
 @property NSArray <NewsObject,ConvertOnDemand> *news;
 @property NSArray <TopObject,ConvertOnDemand> *images;
-
+@property NSArray <ContactObject,ConvertOnDemand> *contacts;
 @end
 
 @interface TopCommunicator : TenpossCommunicator

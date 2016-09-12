@@ -1,4 +1,7 @@
-platform :ios, '7.0'
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+use_frameworks!
+target "Tenposs" do
 pod 'SDWebImage', "~>3.7"
 pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
@@ -6,3 +9,7 @@ pod 'FBSDKShareKit'
 pod 'SVPullToRefresh'
 pod 'GoogleMaps'
 pod 'GooglePlaces'
+pod 'InAppSettingsKit'
+pod 'TwitterKit', "~>2.2"
+pod 'SVProgressHUD'
+end

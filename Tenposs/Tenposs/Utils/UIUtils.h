@@ -12,4 +12,5 @@
 @interface UIUtils : NSObject
 +(CGFloat)getLabelHeight:(UILabel*)label;
 + (UIStoryboard *)mainStoryboard;
++ (UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)newSize;
 @end

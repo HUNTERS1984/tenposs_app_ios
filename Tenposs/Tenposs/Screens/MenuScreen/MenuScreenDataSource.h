@@ -11,14 +11,11 @@
 #import "MenuScreenDetailDataSource.h"
 #import <UIKit/UIKit.h>
 #import "MockupData.h"
-
-#define MenuScreenError_isLast    @"this is last category"
-#define MenuScreenError_isFirst    @"this is first category"
-#define MenuScreenError_duplicate    @"duplicate category"
+#import "MenuCommunicator.h"
 
 typedef void (^MenuDataCompleteHandler)(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious);
 
-@interface MenuScreenDataSource : NSObject
+@interface MenuScreenDataSource : NSObject <TenpossCommunicatorDelegate>
 
 @property (strong, nonatomic)UICollectionView *collectionView;
 
@@ -30,5 +27,5 @@ typedef void (^MenuDataCompleteHandler)(NSError *error, NSString *detailDataSour
 -(void)changeToNextDetailDataSourceWithCompleteHandler:(MenuDataCompleteHandler)handler;
 -(void)changeToPreviousDetailDataSourceWithCompleteHandler:(MenuDataCompleteHandler)handler;
 -(void)loadMoreDataWithCompleteHandler:(MenuDataCompleteHandler)handler;
-
+- (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath;
 @end

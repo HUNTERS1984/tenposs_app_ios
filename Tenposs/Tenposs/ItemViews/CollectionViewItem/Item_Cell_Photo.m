@@ -24,13 +24,15 @@
 }
 
 - (void)configureCellWithData:(NSObject *)data{
-    PhotoObject *photo = (PhotoObject *)data;
-    
-    if (!photo || ![photo isKindOfClass:[PhotoObject class]]) {
-        return;
+    NSString *imageURL = nil;
+    if (data && [data isKindOfClass:[PhotoObject class]]) {
+        PhotoObject *photo = (PhotoObject *)data;
+        imageURL = photo.image_url;
+    }else if (data && [data isKindOfClass:[NSString class]]){
+        imageURL = (NSString *)data;
     }
     //TODO: load image
-    [self.photo sd_setImageWithURL:[NSURL URLWithString:photo.image_url]];
+    [self.photo sd_setImageWithURL:[NSURL URLWithString:imageURL]];
 }
 
 +(CellSpanType)getCellSpanType{

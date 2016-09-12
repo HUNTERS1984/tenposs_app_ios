@@ -13,4 +13,7 @@
 - (void)showLoadingViewWithMessage:(NSString *)message;
 -(void) removeLoadingView;
 
+- (void)showErrorScreen:(NSString *)message;
+-(void) removeErrorView;
+
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "TopScreen.h"
-
+#import "GrandViewController.h"
 #import "TopScreenDataSource.h"
 #import "UIViewController+LoadingView.h"
 
@@ -16,6 +16,10 @@
 
 #import "MenuScreen.h"
 #import "NewsScreen.h"
+#import "CouponScreen.h"
+
+#import "GlobalMapping.h"
+
 
 @interface TopScreen ()<TopScreenDataSourceDelegate, UICollectionViewDelegateFlowLayout>
 @property TopScreenDataSource *dataSource;
@@ -25,6 +29,7 @@
 
 - (void)loadView{
     [super loadView];
+    [self setTitle:@"Global Work"];
     self.dataSource = [[TopScreenDataSource alloc]initWithDelegate:self];
     [self.dataSource registerClassForCollectionView:self.collectionView];
     self.collectionView.dataSource = self.dataSource;
@@ -37,9 +42,30 @@
     [self.dataSource fetchContent];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSString *)title{
+    return @"Global work";
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    TopScreenDataSource *dataSource = (TopScreenDataSource *)self.collectionView.dataSource;
+    if (dataSource) {
+        NSObject *item = [dataSource dataAtIndexPath:indexPath];
+        if(item){
+            if ([self.parentViewController isKindOfClass:[GrandViewController class]]) {
+                [((GrandViewController *)self.parentViewController) performSegueWithObject:item];
+            }
+        }
+    }
 }
 
 #pragma mark - TopScreenDataSourceDelegate
@@ -91,14 +117,11 @@
 
 #pragma mark - Navigation Methods
 
-- (void)performNavigateToMenuScreen:(Bundle *)extraData{
-    MenuScreen *menuScreen = (MenuScreen *)[[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([MenuScreen class])];
-    [self.mainNavigationController pushViewController:menuScreen animated:YES];
-}
-
-- (void)performNavigateToNewsScreen:(Bundle *)extraData{
-    NewsScreen *newsScreen = (NewsScreen *)[[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([NewsScreen class])];
-    [self.mainNavigationController pushViewController:newsScreen animated:YES];
+- (void)performNavigateToScreenWithId:(NSInteger)screenId{
+    Bundle *extra = [Bundle new];
+    [extra put:VC_EXTRA_NAVIGATION value:self.mainNavigationController];
+    UIViewController *screen = [GlobalMapping getViewControllerWithId:screenId withExtraData:extra];
+    [self.mainNavigationController pushViewController:screen animated:YES];
 }
 
 @end

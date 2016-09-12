@@ -8,29 +8,33 @@
 
 #import <Foundation/Foundation.h>
 #import "Bundle.h"
+#import "RequestBuilder.h"
+#import "NSString.h"
+#import "JSONModel.h"
+#import "CommunicatorConst.h"
 
-
-#define KeyRequestTimeout			@"KeyRequestTimeout"
-#define KeyRequestURL               @"KeyRequestURL"
-#define KeyRequestRetry             @"KeyRequestRetry"
+#define KeyRequestTimeout               @"KeyRequestTimeout"
+#define KeyRequestURL                   @"KeyRequestURL"
+#define KeyRequestRetry                 @"KeyRequestRetry"
+#define KeyRequestCallback              @"KeyRequestCallback"
 /**
  *  Key for upload data
  **/
-#define KeyRequestData              @"KeyRequestData"
+#define KeyRequestData                  @"KeyRequestData"
 /**
  *  Key for request object
  **/
-#define KeyRequestNeedReloadIfError    @"KeyRequestNeedReloadIfError"
-#define KeyRequestObject            @"KeyRequestObject"
-#define KeyRequestExtra             @"KeyRequestExtra"
-#define KeyRequestExtraData         @"KeyRequestExtraData"
+#define KeyRequestNeedReloadIfError     @"KeyRequestNeedReloadIfError"
+#define KeyRequestObject                @"KeyRequestObject"
+#define KeyRequestExtra                 @"KeyRequestExtra"
+#define KeyRequestExtraData             @"KeyRequestExtraData"
 
-#define KeyResponseError            @"KeyResponseError"
-#define KeyResponseData             @"KeyResponseData"
-#define KeyResponseObject           @"KeyResponseObject"
-#define KeyResponseResult           @"KeyResponseResult"
-#define KeyResponseResultFromNetwork @"KeyResponseResultFromNetwork"
-#define KeyResponseResultFromAPI @"KeyResponseResultFromAPI"
+#define KeyResponseError                @"KeyResponseError"
+#define KeyResponseData                 @"KeyResponseData"
+#define KeyResponseObject               @"KeyResponseObject"
+#define KeyResponseResult               @"KeyResponseResult"
+#define KeyResponseResultFromNetwork    @"KeyResponseResultFromNetwork"
+#define KeyResponseResultFromAPI        @"KeyResponseResultFromAPI"
 
 typedef NS_ENUM(NSInteger, TenpossErrorCode){
     //Application Define
@@ -57,9 +61,9 @@ typedef NS_ENUM(NSInteger, TenpossErrorCode){
 @class Bundle;
 @protocol TenpossCommunicatorDelegate <NSObject>
 @required
-- (void)        completed:(TenpossCommunicator*)request data:(Bundle*) responseParams;
-- (void)        begin:(TenpossCommunicator*)request data:(Bundle*) responseParams;
--( void)        cancelAllRequest;
+- (void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams;
+- (void)begin:(TenpossCommunicator*)request data:(Bundle*) responseParams;
+-( void)cancelAllRequest;
 
 @optional
 - (void)        receving:(TenpossCommunicator*)request completed:(NSInteger) completed total:(NSInteger) total;
@@ -84,4 +88,3 @@ typedef NS_ENUM(NSInteger, TenpossErrorCode){
 -(void)     cancelRequest;
 
 @end
-

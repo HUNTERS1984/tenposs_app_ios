@@ -10,22 +10,62 @@
 #import <UIKit/UIKit.h>
 #import "JSONModel.h"
 
-@interface StoreInfo : JSONModel
+@class AppSettings;
+@class TopComponentModel;
+@class MenuModel;
+@class StoreModel;
 
+@protocol TopComponentModel
 @end
+
+@protocol MenuModel
+@end
+
+@protocol StoreModel
+@end
+
+#define APP_MENU_TOP                 6
+#define APP_MENU_MENU                2
+#define APP_MENU_RESERVE             4
+#define APP_MENU_NEWS                3
+#define APP_MENU_PHOTO_GALLERY       5
+#define APP_MENU_STAFF               8
+#define APP_MENU_COUPON              9
+#define APP_MENU_CHAT                7
+#define APP_MENU_SETTING             10
 
 @interface AppInfo : JSONModel
 
-@property (strong, nonatomic) NSString *lat;
-@property (strong, nonatomic) NSString *logn;
-@property (strong, nonatomic) NSString *tel;
-@property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSString *start_time;
-@property (strong, nonatomic) NSString *end_time;
+//@property (strong, nonatomic) NSString *lat;
+//@property (strong, nonatomic) NSString *logn;
+//@property (strong, nonatomic) NSString *tel;
+//@property (strong, nonatomic) NSString *title;
+//@property (strong, nonatomic) NSString *start_time;
+//@property (strong, nonatomic) NSString *end_time;
+
+@property (assign, nonatomic) NSInteger store_id;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *desc;
+@property (strong, nonatomic) NSString *created_at;
+@property (assign, nonatomic) NSInteger status;
+@property (strong, nonatomic) NSString *updated_at;
+
+@property (strong, nonatomic) AppSettings *app_setting;
+
+@property (strong, nonatomic) NSMutableArray <ConvertOnDemand, TopComponentModel> *top_components;
+
+@property (strong, nonatomic)NSMutableArray <ConvertOnDemand, MenuModel> *side_menu;
+
+@property (strong, nonatomic)NSMutableArray <ConvertOnDemand, StoreModel> *stores;
 
 @end
 
 @interface AppSettings : JSONModel
+
+/*
+ * General
+ */
+@property (assign, nonatomic) NSInteger app_id;
 
 /*
  *  Navigation bar properties
@@ -45,14 +85,24 @@
 @property (assign, nonatomic) int menu_font_size;
 @property (strong, nonatomic) NSString *menu_font_family;
 @property (assign, nonatomic) int template_id;
-@property (strong, nonatomic) NSString *top_main_image_url;
 
 @end
 
 @interface MenuModel : JSONModel
 
 @property (assign, nonatomic)NSInteger menu_id;
-@property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *icon;
+@end
+
+@interface TopComponentModel : JSONModel
+@property (assign, nonatomic)NSInteger top_id;
+@property (strong, nonatomic) NSString *name;
+@end
+
+@interface StoreModel : JSONModel
+@property (assign, nonatomic)NSInteger store_id;
+@property (strong, nonatomic) NSString *name;
 @end
 
 typedef void (^AppConfigurationCompleteHandler)(NSError *error);
@@ -61,15 +111,6 @@ typedef void (^AppConfigurationCompleteHandler)(NSError *error);
 /*
  *  CollectionView properties
  */
-@property (assign, nonatomic) CGFloat cellSpacing;
-@property (assign, nonatomic) NSInteger numberOfProductColumn_iphone;
-@property (assign, nonatomic) NSInteger numberOfProductColumn_ipad;
-@property (assign, nonatomic) NSInteger numberOfPhotoColumn_iphone;
-@property (assign, nonatomic) NSInteger numberOfPhotoColumn_ipad;
-
-@property (strong, nonatomic) AppSettings *appSettings;
-@property (strong, nonatomic) AppInfo *appInfo;
-@property (strong, nonatomic) NSMutableArray <MenuModel *> *menuData;
 
 @property (copy) AppConfigurationCompleteHandler completeHandler;
 
@@ -77,5 +118,10 @@ typedef void (^AppConfigurationCompleteHandler)(NSError *error);
 
 - (void)loadAppInfoWithCompletionHandler:(void(^)(NSError *error))handler;
 
+- (NSArray <TopComponentModel *> *) getAvailableTopComponents;
+- (NSArray<MenuModel *> *) getAvailableSideMenu;
+- (AppSettings *)getAvailableAppSettings;
+- (NSString *)getStoreId;
+-(NSArray *)getStoryIdArray;
 
 @end

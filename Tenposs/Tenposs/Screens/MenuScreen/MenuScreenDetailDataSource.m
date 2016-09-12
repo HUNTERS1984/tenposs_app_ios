@@ -10,6 +10,7 @@
 #import "MenuScreenDetailDataSource.h"
 #import "Item_Cell_News.h"
 #import "Item_Cell_Product.h"
+#import "Utils.h"
 
 #define SPACING_ITEM_PRODUCT 8
 
@@ -37,7 +38,7 @@
 }
 
 -(void)reloadDataSource{
-    self.mainData.pageIndex = 0;
+    self.mainData.pageIndex = 1;
     [self.mainData removeAllProduct];
     self.mainData.totalitem = 0;
     [self loadData];
@@ -50,41 +51,24 @@
 }
 
 - (void)loadData{
-    if (!self.mainData) {
-        self.mainData = [MenuCategoryModel new];
-    }
-    if([self.mainData.items count] == self.mainData.totalitem){
+    if([self.mainData.items count] > 0 && [self.mainData.items count] == self.mainData.totalitem){
         if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
             NSError *error = [NSError errorWithDomain:MenuScreenDetailError_fullyLoaded code:-9904 userInfo:nil];
             [self.delegate dataLoaded:self withError:error];
         }
         return;
     }
-    ///TODO: real connection to server
-    
-    NSData *data = nil;
-    
-    if ([self.mainData.items count] <= 0) {
-        data = [MockupData fetchDataWithResourceName:@"menu_items_1"];
-    }else{
-        data = [MockupData fetchDataWithResourceName:@"menu_items_2"];
-    }
-    
-    NSError *error;
-    MenuCategoryModel *menuData = [[MenuCategoryModel alloc] initWithData:data error:&error];
-    
-    if (error == nil) {
-        if (menuData && [menuData.items count] > 0) {
-            for (ProductObject *item in menuData.items) {
-                NSString *title = [NSString stringWithFormat:@"%ld_%@",(long)self.mainData.menu_id,item.title];
-                item.title = title;
-                [self.mainData addProduct:item];
-            }
-        }
-    }
-    if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
-        [self.delegate dataLoaded:self withError:error];
-    }
+    MenuItemCommunicator *request = [MenuItemCommunicator new];
+    Bundle *params = [Bundle new];
+    [params put:KeyAPI_APP_ID value:APP_ID];
+    NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
+    [params put:KeyAPI_TIME value:currentTime];
+    NSArray *strings = [NSArray arrayWithObjects:APP_ID,currentTime,[@(_mainData.menu_id) stringValue],APP_SECRET,nil];
+    [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
+    [params put:KeyAPI_MENU_ID value:[@(_mainData.menu_id) stringValue]];
+    [params put:KeyAPI_PAGE_INDEX value:[@(_mainData.pageIndex) stringValue]];
+    [params put:KeyAPI_PAGE_SIZE value:@"20"];
+    [request execute:params withDelegate:self];
 }
 
 - (void)registerClassForCollectionView:(UICollectionView *)collection{
@@ -130,5 +114,32 @@
     return CGSizeZero;
 }
 
+#pragma mark - TenpossCommunicatorDelegate
+-(void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams{
+    NSInteger errorCode =[responseParams getInt:KeyResponseResult];
+    NSError *error = nil;
+    if (errorCode != ERROR_OK) {
+        NSString *errorDomain = [CommunicatorConst getErrorMessage:errorCode];
+        error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:nil];
+    }else{
+        MenuItemResponse *data = (MenuItemResponse *)[responseParams get:KeyResponseObject];
+        if (data.items && [data.items count] > 0) {
+            _mainData.totalitem = data.total_items;
+            for (ProductObject *item in data.items) {
+                [_mainData addProduct:item];
+                [_mainData increasePageIndex:1];
+            }
+        }else{
+            error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_NO_CONTENT] code:ERROR_NO_CONTENT userInfo:nil];
+        }
+    }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
+        [self.delegate dataLoaded:self withError:error];
+    }
+}
+
+-(void)begin:(TenpossCommunicator*)request data:(Bundle*) responseParams{}
+
+-( void)cancelAllRequest{}
 
 @end

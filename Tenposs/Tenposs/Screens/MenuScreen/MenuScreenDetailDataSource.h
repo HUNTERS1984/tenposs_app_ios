@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "SimpleDataSource.h"
-#import "MenuCommunicator.h"
 #import "MockupData.h"
+#import "MenuItemCommunicator.h"
 
 #define MenuScreenDetailError_fullyLoaded   @"Loaded all records"
 
-@interface MenuScreenDetailDataSource : SimpleDataSource
+@interface MenuScreenDetailDataSource : SimpleDataSource <TenpossCommunicatorDelegate>
 
 @property (strong, nonatomic) MenuCategoryModel *mainData;
 - (instancetype)initWithDelegate:(id<SimpleDataSourceDelegate>)delegate andMenuCategory:(MenuCategoryModel *)menuCategory;

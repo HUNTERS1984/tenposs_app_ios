@@ -8,13 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
+#import "EntityBase.h"
 
 @class ProductObject;
 @class PhotoObject;
 @class NewsObject;
-@class ShopObject;
+@class ContactObject;
 @class ProductCategoryObject;
 @class NewsCategoryObject;
+@class PhotoCategory;
+@class AllPhotoCategory;
 
 @protocol ProductObject
 @end
@@ -22,6 +25,7 @@
 @protocol ProductContainer <NSObject>
 @required
 -(void)addProduct:(ProductObject *)product;
+-(void)increasePageIndex:(NSInteger)count;
 @optional
 -(void)removeAllProduct;
 -(void)removeProduct:(ProductObject *)productToRemove;
@@ -30,9 +34,19 @@
 @protocol NewsContainer <NSObject>
 @required
 -(void)addNews:(NewsObject *)ne;
+-(void)increasePageIndex:(NSInteger)count;
 @optional
 -(void)removeAllNews;
 -(void)removeNews:(NewsObject *)news;
+@end
+
+@protocol PhotoContainer <NSObject>
+@required
+- (void)addPhoto:(PhotoObject *)photo;
+-(void)increasePageIndex:(NSInteger)count;
+@optional
+-(void)removeAllPhotos;
+-(void)removePhoto:(PhotoObject *)photo;
 @end
 
 @protocol PhotoObject
@@ -41,10 +55,13 @@
 @protocol NewsObject
 @end
 
-@protocol ShopObject
+@protocol TopObject
 @end
 
-@protocol TopObject
+@protocol PhotoCategory
+@end
+
+@protocol ContactObject
 @end
 
 #pragma mark - TopItem
@@ -60,9 +77,8 @@
 @property (strong, nonatomic) NSString *price;
 @property (strong, nonatomic) NSString *image_url;
 @property (strong, nonatomic) ProductCategoryObject *parentCategory;
-
+@property(strong, nonatomic) NSMutableArray <ConvertOnDemand, ProductObject> *rel_items;
 - (void)updateItemWithItem:(ProductObject *)item;
-
 @end
 
 @interface ProductCategoryObject : JSONModel{
@@ -86,14 +102,11 @@
 @interface NewsCategoryObject : JSONModel <NewsContainer>{
     @public
 }
-@property (strong, nonatomic) NSString *code;
-@property (strong, nonatomic) NSString *message;
-@property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSString *categoryName;
+@property (assign, nonatomic) NSInteger store_id;
 @property (assign, nonatomic) NSInteger pageIndex;
 @property (assign, nonatomic) NSInteger totalnew;
 @property (strong, nonatomic) NSMutableArray<ConvertOnDemand,NewsObject> *news;
-
+- (NSString *)title;
 @end
 
 
@@ -103,17 +116,25 @@
 @property (assign, nonatomic) NSInteger category_id;
 @property (strong, nonatomic) NSString *category_name;
 @property (strong, nonatomic) NSString *image_url;
+@property (strong, nonatomic) NSString *updated_at;
+@property (strong, nonatomic) NSString *created_at;
 @end
 
-@interface GalleryObject : JSONModel{
-    @public
-    NSMutableArray<PhotoObject *> *photos;
-}
-@property (strong, nonatomic) NSString *galleryName;
-
+@interface PhotoCategory : JSONModel <PhotoContainer>
+@property (strong, nonatomic) NSString *name;
+@property (assign, nonatomic) NSInteger category_id;
+@property (strong, nonatomic) NSMutableArray<ConvertOnDemand, PhotoObject> *photos;
+@property (assign, nonatomic) NSInteger total_photos;
+@property (assign, nonatomic) NSInteger pageindex;
+@property (assign, nonatomic) NSInteger pagesize;
 @end
+
+@interface AllPhotoCategory : JSONModel
+@property (strong, nonatomic) NSMutableArray<ConvertOnDemand, PhotoCategory> *photo_categories;
+@end
+
 #pragma mark - Shop
-@interface ShopObject : JSONModel
+@interface ContactObject : JSONModel
 @property (assign, nonatomic) NSInteger shopId;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *latitude;
@@ -122,6 +143,113 @@
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *start_time;
 @property (strong, nonatomic) NSString *end_time;
+@end
+
+#pragma mark - Coupon
+
+@class CouponObject;
+
+@protocol CouponObject
+@end
+
+@protocol CouponContainer <NSObject>
+
+@required
+- (void)addCoupon:(CouponObject *)coupon;
+- (void)increasePageIndex:(NSInteger) count;
+@optional
+-(void) removeAllCoupons;
+-(void)removeCoupon:(CouponObject *)coupon;
+@end
+
+@interface CouponObject : JSONModel
+
+@property (assign, nonatomic) NSInteger coupon_id;
+@property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *desc;
+@property (strong, nonatomic) NSString *image_url;
+@property (assign, nonatomic) NSInteger type;
+@property (assign, nonatomic) NSInteger status;
+@property (strong, nonatomic) NSString *start_date;
+@property (strong, nonatomic) NSString *end_date;
+@property (strong, nonatomic) NSString *created_at;
+@property (strong, nonatomic) NSString *updated_at;
+@property (assign, nonatomic) NSInteger store_id;
 
 @end
 
+@interface StoreCoupon : JSONModel <CouponContainer>
+@property (strong, nonatomic) NSString *code;
+@property (strong, nonatomic) NSString *message;
+@property (assign, nonatomic) NSInteger pageindex;
+@property (assign, nonatomic) NSInteger pagesize;
+@property (assign, nonatomic) NSInteger store_id;
+@property (assign, nonatomic) NSInteger total_coupons;
+@property (strong, nonatomic) NSMutableArray <CouponObject, ConvertOnDemand> * coupons;
+@end
+
+#pragma mark - User
+@class UserProfile;
+@class UserModel;
+
+@interface UserModel: EntityBase
+@property (strong, nonatomic) NSString *email;
+@property (strong, nonatomic) NSString *social_id;
+@property (assign, nonatomic) NSInteger social_type;
+@property (assign, nonatomic) NSInteger app_id;
+@property (strong, nonatomic) UserProfile *profile;
+@end
+
+@interface UserProfile : EntityBase
+@property (assign, nonatomic) NSInteger user_id;
+@property (strong, nonatomic) NSString *name;
+@property (assign, nonatomic) NSInteger gender;
+@property (strong, nonatomic) NSString *address;
+@property (strong, nonatomic) NSString *avatar_url;
+@property (assign, nonatomic) NSInteger facebook_status;
+@property (assign, nonatomic) NSInteger twitter_status;
+@property (assign, nonatomic) NSInteger instagram_status;
+@end
+
+
+@class StaffObject;
+
+@protocol StaffObject
+@end
+@protocol StaffCategory
+@end
+
+@protocol StaffContainer <NSObject>
+-(void)addStaff:(StaffObject *)staff;
+-(void)increaseIndex:(NSInteger)count;
+-(void)removeAllStaff;
+@end
+
+#pragma mark - Staff
+
+@interface StaffObject : JSONModel
+
+@property (assign, nonatomic) NSInteger staff_id;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *image_url;
+@property (strong, nonatomic) NSString *introduction;
+@property (strong, nonatomic) NSString *gender;
+@property (strong, nonatomic) NSString *birthday;
+@property (strong, nonatomic) NSString *tel;
+@property (strong, nonatomic) NSString *created_at;
+@property (strong, nonatomic) NSString *updated_at;
+@property (strong, nonatomic) NSString *deleted_at;
+@property (assign, nonatomic) NSInteger staff_category_id;
+
+@end
+
+@interface StaffCategory : JSONModel <StaffContainer>
+
+@property (assign, nonatomic)  NSInteger staff_cate_id;
+@property (strong, nonatomic) NSString *name;
+@property (assign, nonatomic) NSInteger pageindex;
+@property (assign, nonatomic) NSInteger pagesize;
+@property (assign, nonatomic) NSInteger total_staffs;
+@property(strong, nonatomic) NSMutableArray <StaffObject, ConvertOnDemand> *staffs;
+
+@end

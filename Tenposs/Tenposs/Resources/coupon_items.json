@@ -1,0 +1,74 @@
+{
+    "code": "1000",
+    "message": "OK",
+    "data": {
+        "coupons":[
+                   {
+                   "id":120,
+                   "type":1,
+                   "title":"Coupon number #1Coupon number #1Coupon number #1Coupon number #1Coupon number #1",
+                   "description":"faswefawkjfhawfk hawfk aehwkfjhCoupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!Coupon description goes here!",
+                   "start_date":"16-08-2016",
+                   "end_date":"30-08-2016",
+                   "status":0,
+                   "image_url":"",
+                   "created_at":"16-08-2016",
+                   "updated_at":"18-08-2016",
+                   "store_id":12
+                   },
+                   {
+                   "id":121,
+                   "type":1,
+                   "title":"Coupon number #1",
+                   "description":"Coupon description goes here!",
+                   "start_date":"16-08-2016",
+                   "end_date":"30-08-2016",
+                   "status":0,
+                   "image_url":"",
+                   "created_at":"16-08-2016",
+                   "updated_at":"18-08-2016",
+                   "store_id":12
+                   },
+                   {
+                   "id":122,
+                   "type":1,
+                   "title":"Coupon number #1",
+                   "description":"Coupon description goes here!",
+                   "start_date":"16-08-2016",
+                   "end_date":"30-08-2016",
+                   "status":0,
+                   "image_url":"",
+                   "created_at":"16-08-2016",
+                   "updated_at":"18-08-2016",
+                   "store_id":12
+                   },
+                   {
+                   "id":123,
+                   "type":1,
+                   "title":"Coupon number #1",
+                   "description":"Coupon description goes here!",
+                   "start_date":"16-08-2016",
+                   "end_date":"30-08-2016",
+                   "status":0,
+                   "image_url":"",
+                   "created_at":"16-08-2016",
+                   "updated_at":"18-08-2016",
+                   "store_id":12
+                   },
+                   {
+                   "id":124,
+                   "type":1,
+                   "title":"Coupon number #1",
+                   "description":"Coupon description goes here!",
+                   "start_date":"16-08-2016",
+                   "end_date":"30-08-2016",
+                   "status":0,
+                   "image_url":"",
+                   "created_at":"16-08-2016",
+                   "updated_at":"18-08-2016",
+                   "store_id":12
+                   }
+                   ],
+        "total_coupons":5
+    }
+}

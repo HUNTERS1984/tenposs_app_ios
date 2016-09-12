@@ -9,6 +9,7 @@
 #import "TenpossCommunicator.h"
 
 @implementation TenpossCommunicator
+
 -(void) prepare:(Bundle*) params
 {
     if(self.cancelled == YES)
@@ -24,6 +25,8 @@
     if([self respondsToSelector:@selector(customProcess:)])
         [self customProcess:params];
 }
+
+
 
 -(void) execute:(Bundle*) params withDelegate:(id) delegate
 {
@@ -67,8 +70,8 @@
     m_pConnection = [[NSURLConnection alloc] initWithRequest:m_pRequest delegate:self];
     [m_pConnection start];
     NSLog(@"Start NSURLConnection: %@ - %@", NSStringFromClass([self class]), m_pRequest.URL);
-    
 }
+
 -(void)     cancelRequest
 {
     NSLog(@"%@ cancel", NSStringFromClass([self class]));
@@ -83,7 +86,7 @@
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     // A response has been received, this is where we initialize the instance var you created
     // so that we can append data to it in the didReceiveData method
-    // Furthermore, this method is called each time there is a redirect so reinitializing it
+    // Furthermore, this method is ≈called each time there is a redirect so reinitializing it
     // also serves to clear it
     
     self.httpCode = ((NSHTTPURLResponse*)response).statusCode;
