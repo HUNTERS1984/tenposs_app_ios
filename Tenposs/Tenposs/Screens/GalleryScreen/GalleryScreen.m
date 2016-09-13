@@ -73,7 +73,7 @@
                 [weakSelf.collectionView reloadData];
                 //                [self.collectionView removeLoadingView];
             }else{
-                if(error.code == ERROR_DATASOURCE_IS_LAST){
+                if(error.code == ERROR_DETAIL_DATASOURCE_IS_LAST){
                     [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
                     weakSelf.collectionView.dataSource = weakSelf.dataSource.activeDetailDataSource;
                     [weakSelf.collectionView reloadData];
@@ -95,7 +95,7 @@
                 [weakSelf.collectionView reloadData];
                 //                [self.collectionView removeLoadingView];
             }else{
-                if (error.code == ERROR_DATASOURCE_IS_FIRST) {
+                if (error.code == ERROR_DETAIL_DATASOURCE_IS_FIRST) {
                     [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
                     weakSelf.collectionView.dataSource = self.dataSource.activeDetailDataSource;
                     [weakSelf.collectionView reloadData];

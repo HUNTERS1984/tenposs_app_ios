@@ -64,7 +64,7 @@
         [self.itemIconFont setTextColor:[UIColor colorWithHexString:settings.menu_icon_color]];
     }
     
-    
+
 }
 
 @end

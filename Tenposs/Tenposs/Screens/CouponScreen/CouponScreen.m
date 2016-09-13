@@ -53,7 +53,7 @@
 - (void)dataLoaded:(SimpleDataSource *)executor withError:(NSError *)error{
     if (error) {
         switch (error.code) {
-            case ERROR_NO_CONTENT:{
+            case ERROR_DATASOURCE_NO_CONTENT:{
                 [self showErrorScreen:@"NO CONTENT"];
             }
                 break;

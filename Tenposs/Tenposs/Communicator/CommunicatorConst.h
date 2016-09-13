@@ -34,12 +34,13 @@
 #define ERROR_SIG_INVALID           1013
 
 //Client error
-#define ERROR_JSON_PARSER               901
-#define ERROR_CONTENT_FULLY_LOADED      902
-#define ERROR_NO_CONTENT                903
-#define ERROR_DATASOURCE_IS_LAST        904
-#define ERROR_DATASOURCE_IS_FIRST       905
-#define ERROR_DATASOURCE_IS_DUBLICATED  906
+#define ERROR_JSON_PARSER                       901
+#define ERROR_CONTENT_FULLY_LOADED              902
+#define ERROR_DATASOURCE_NO_CONTENT             903
+#define ERROR_DETAIL_DATASOURCE_NO_CONTENT      904
+#define ERROR_DETAIL_DATASOURCE_IS_LAST         905
+#define ERROR_DETAIL_DATASOURCE_IS_FIRST        906
+#define ERROR_DETAIL_DATASOURCE_IS_DUBLICATED   907
 
 #define ERROR_NO_CHARACTER_Message          @"No character is registed on server"
 #define ERROR_POINT_Message                 @"Point is not enought"

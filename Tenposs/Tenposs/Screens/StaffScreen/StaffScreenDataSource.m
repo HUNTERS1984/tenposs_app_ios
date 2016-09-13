@@ -52,7 +52,7 @@
 
 - (void)changeToNextDetailDataSourceWithCompleteHandler:(GalleryDataCompleteHandler)handler{
     if (![self detailDataSourceHasNext:self.activeDetailDataSource]) {
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DATASOURCE_IS_LAST userInfo:nil];
+        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_LAST userInfo:nil];
         handler(error, nil, NO,YES);
         return;
     }
@@ -62,14 +62,14 @@
         self.currentCompleteHandler = handler;
         [self updateCurrentDetailDataSource:sourceToChangeTo];
     }else{
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DATASOURCE_IS_DUBLICATED userInfo:nil];
+        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_DUBLICATED userInfo:nil];
         handler(error, nil, [self detailDataSourceHasNext:self.activeDetailDataSource],[self detailDataSourceHasPrevious:self.activeDetailDataSource]);
     }
 }
 
 - (void)changeToPreviousDetailDataSourceWithCompleteHandler:(GalleryDataCompleteHandler)handler{
     if (![self detailDataSourceHasPrevious:self.activeDetailDataSource]) {
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DATASOURCE_IS_FIRST userInfo:nil];
+        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_FIRST userInfo:nil];
         handler(error, nil, YES,NO);
         return;
     }
@@ -79,7 +79,7 @@
         self.currentCompleteHandler = handler;
         [self updateCurrentDetailDataSource:sourceToChangeTo];
     }else{
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DATASOURCE_IS_DUBLICATED userInfo:nil];
+        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_DUBLICATED userInfo:nil];
         handler(error, nil, [self detailDataSourceHasNext:self.activeDetailDataSource],[self detailDataSourceHasPrevious:self.activeDetailDataSource]);
     }
 }
@@ -161,7 +161,7 @@
             }
             return;
         }else{
-            error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_NO_CONTENT] code:ERROR_NO_CONTENT userInfo:nil];
+            error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_DATASOURCE_NO_CONTENT] code:ERROR_DATASOURCE_NO_CONTENT userInfo:nil];
         }
     }
     if (self.currentCompleteHandler) {

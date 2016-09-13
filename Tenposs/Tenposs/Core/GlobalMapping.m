@@ -57,7 +57,6 @@
     }else if (viewControlerId == APP_MENU_CHAT){
         viewController = (ChatScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ChatScreen class])];
     }
-    
     return viewController;
 }
 

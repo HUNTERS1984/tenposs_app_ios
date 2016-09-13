@@ -152,7 +152,7 @@
             }
         }else if(data.total_coupons == 0){
             if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
-                NSError *error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_NO_CONTENT]  code:ERROR_NO_CONTENT userInfo:nil];
+                NSError *error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_DATASOURCE_NO_CONTENT]  code:ERROR_DATASOURCE_NO_CONTENT userInfo:nil];
                 [self.delegate dataLoaded:self withError:error];
                 return;
             }

@@ -116,7 +116,7 @@
                 [_mainData increasePageIndex:1];
             }
         }else{
-            error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_NO_CONTENT] code:ERROR_NO_CONTENT userInfo:nil];
+            error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_DETAIL_DATASOURCE_NO_CONTENT] code:ERROR_DETAIL_DATASOURCE_NO_CONTENT userInfo:nil];
         }
     }
     if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {

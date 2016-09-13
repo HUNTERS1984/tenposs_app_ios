@@ -53,7 +53,7 @@
 - (void)loadData{
     if([self.mainData.items count] > 0 && [self.mainData.items count] == self.mainData.totalitem){
         if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
-            NSError *error = [NSError errorWithDomain:MenuScreenDetailError_fullyLoaded code:-9904 userInfo:nil];
+            NSError *error = [NSError errorWithDomain:@"" code:ERROR_CONTENT_FULLY_LOADED userInfo:nil];
             [self.delegate dataLoaded:self withError:error];
         }
         return;
@@ -130,7 +130,7 @@
                 [_mainData increasePageIndex:1];
             }
         }else{
-            error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_NO_CONTENT] code:ERROR_NO_CONTENT userInfo:nil];
+            error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_DETAIL_DATASOURCE_NO_CONTENT] code:ERROR_DETAIL_DATASOURCE_NO_CONTENT userInfo:nil];
         }
     }
     if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {

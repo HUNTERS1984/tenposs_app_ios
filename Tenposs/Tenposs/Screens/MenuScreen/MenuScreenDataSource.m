@@ -37,6 +37,20 @@
 
 #pragma mark - Public methods
 
+- (void)reloadDataWithCompleteHandler:(MenuDataCompleteHandler)handler{
+    [self resetData];
+    [self fetchDataWithCompleteHandler:handler];
+}
+
+- (void)resetData{
+    [_detailDataSourceList removeAllObjects];
+}
+
+- (void)loadMoreDataWithCompleteHandler:(MenuDataCompleteHandler)handler{
+    self.currentCompleteHandler = handler;
+    [_activeDetailDataSource loadData];
+}
+
 - (void)fetchDataWithCompleteHandler:(MenuDataCompleteHandler)handler{
     self.currentCompleteHandler = handler;
     if ([self.detailDataSourceList count] <= 0) {
@@ -56,7 +70,7 @@
 
 - (void)changeToNextDetailDataSourceWithCompleteHandler:(MenuDataCompleteHandler)handler{
     if (![self detailDataSourceHasNext:self.activeDetailDataSource]) {
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DATASOURCE_IS_LAST userInfo:nil];
+        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_LAST userInfo:nil];
         handler(error, nil, NO,YES);
         return;
     }
@@ -66,14 +80,14 @@
         self.currentCompleteHandler = handler;
         [self updateCurrentDetailDataSource:sourceToChangeTo];
     }else{
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DATASOURCE_IS_DUBLICATED userInfo:nil];
+        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_DUBLICATED userInfo:nil];
         handler(error, nil, [self detailDataSourceHasNext:self.activeDetailDataSource],[self detailDataSourceHasPrevious:self.activeDetailDataSource]);
     }
 }
 
 - (void)changeToPreviousDetailDataSourceWithCompleteHandler:(MenuDataCompleteHandler)handler{
     if (![self detailDataSourceHasPrevious:self.activeDetailDataSource]) {
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DATASOURCE_IS_FIRST userInfo:nil];
+        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_FIRST userInfo:nil];
         handler(error, nil, YES,NO);
         return;
     }
@@ -83,13 +97,9 @@
         self.currentCompleteHandler = handler;
         [self updateCurrentDetailDataSource:sourceToChangeTo];
     }else{
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DATASOURCE_IS_DUBLICATED userInfo:nil];
+        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_DUBLICATED userInfo:nil];
         handler(error, nil, [self detailDataSourceHasNext:self.activeDetailDataSource],[self detailDataSourceHasPrevious:self.activeDetailDataSource]);
     }
-}
-
-- (void)loadMoreDataWithCompleteHandler:(MenuDataCompleteHandler)handler{
-    
 }
 
 - (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath{
@@ -161,13 +171,21 @@
                 MenuScreenDetailDataSource *detailDataSource = [[MenuScreenDetailDataSource alloc]initWithDelegate:self andMenuCategory:menu];
                 [self.detailDataSourceList addObject:detailDataSource];
             }
-            if (self.shouldShowLatest) {
-                [self updateCurrentDetailDataSource:[self.detailDataSourceList objectAtIndex:[self.detailDataSourceList count] -1]];
+            if (_currentDetailDataSourceIndex > 0){
+                if ([self.detailDataSourceList count] <= _currentDetailDataSourceIndex) {
+                    _currentDetailDataSourceIndex = [self.detailDataSourceList count];
+                }
+                [self updateCurrentDetailDataSource:[self.detailDataSourceList objectAtIndex:_currentDetailDataSourceIndex]];
                 self.shouldShowLatest = NO;
+            }else {
+                if(self.shouldShowLatest) {
+                   [self updateCurrentDetailDataSource:[self.detailDataSourceList objectAtIndex:[self.detailDataSourceList count] -1]];
+                   self.shouldShowLatest = NO;
+                }
             }
             return;
         }else{
-            error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_NO_CONTENT] code:ERROR_NO_CONTENT userInfo:nil];
+            error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_DATASOURCE_NO_CONTENT] code:ERROR_DATASOURCE_NO_CONTENT userInfo:nil];
         }
     }
     if (self.currentCompleteHandler) {

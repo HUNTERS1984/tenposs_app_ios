@@ -1062,10 +1062,10 @@
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ld9-Ww-s2e">
                                         <rect key="frame" x="150" y="215" width="20" height="20"/>
                                     </activityIndicatorView>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htO-Kj-KKk">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htO-Kj-KKk">
                                         <rect key="frame" x="93" y="212" width="135" height="26"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <color key="textColor" red="0.67266414141414144" green="0.67266414141414144" blue="0.67266414141414144" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.71198311237373735" green="0.71198311237373735" blue="0.71198311237373735" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>

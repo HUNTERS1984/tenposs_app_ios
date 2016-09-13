@@ -28,4 +28,6 @@ typedef void (^MenuDataCompleteHandler)(NSError *error, NSString *detailDataSour
 -(void)changeToPreviousDetailDataSourceWithCompleteHandler:(MenuDataCompleteHandler)handler;
 -(void)loadMoreDataWithCompleteHandler:(MenuDataCompleteHandler)handler;
 - (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath;
+
+- (void)reloadDataWithCompleteHandler:(MenuDataCompleteHandler)handler;
 @end

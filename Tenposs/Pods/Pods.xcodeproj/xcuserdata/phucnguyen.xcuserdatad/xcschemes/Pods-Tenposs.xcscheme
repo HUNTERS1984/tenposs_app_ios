@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1D3BAC96F830F8F0B7FE669A"
+               BlueprintIdentifier = "5698558A9CFAEA2307A54CF8"
                BuildableName = "Pods_Tenposs.framework"
                BlueprintName = "Pods-Tenposs"
                ReferencedContainer = "container:Pods.xcodeproj">

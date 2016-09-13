@@ -12,4 +12,5 @@ pod 'GooglePlaces'
 pod 'InAppSettingsKit'
 pod 'TwitterKit', "~>2.2"
 pod 'SVProgressHUD'
+pod 'SVPullToRefresh'
 end

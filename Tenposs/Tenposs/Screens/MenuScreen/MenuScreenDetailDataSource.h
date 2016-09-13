@@ -11,8 +11,6 @@
 #import "MockupData.h"
 #import "MenuItemCommunicator.h"
 
-#define MenuScreenDetailError_fullyLoaded   @"Loaded all records"
-
 @interface MenuScreenDetailDataSource : SimpleDataSource <TenpossCommunicatorDelegate>
 
 @property (strong, nonatomic) MenuCategoryModel *mainData;
