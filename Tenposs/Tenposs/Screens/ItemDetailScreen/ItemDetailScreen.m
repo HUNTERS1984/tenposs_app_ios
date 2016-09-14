@@ -78,6 +78,10 @@
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Top_Footer class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass([Top_Footer class])];
 }
 
+- (NSString *)title{
+    return _item.title;
+}
+
 - (void)didPressBackButton
 {
     [self.navigationController popViewControllerAnimated:YES];

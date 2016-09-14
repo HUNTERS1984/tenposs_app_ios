@@ -35,14 +35,14 @@
     if ([data isKindOfClass:[ProductObject class]]) {
         ProductObject *item = (ProductObject *) data;
         
-        [self.categoryTitle setText:item.parentCategory.categoryName];
+        [self.categoryTitle setText:item.menu];
         [self.ItemTitle setText: [item.title uppercaseString]];
         [self.itemPrice setText:[NSString stringWithFormat:@"¥%@",item.price]];
         
     }else if([data isKindOfClass:[StaffObject class]]){
         StaffObject *staff = (StaffObject *)data;
         
-        [self.categoryTitle setText:@"Category"];
+        [self.categoryTitle setText:staff.category];
         [self.itemPrice setHidden:YES];
         [self.ItemTitle setText:staff.name];
     }

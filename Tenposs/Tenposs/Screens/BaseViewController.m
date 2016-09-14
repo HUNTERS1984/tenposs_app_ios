@@ -199,21 +199,22 @@
 
         [[NetworkCommunicator shareInstance] POST:API_LOGOUT parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
             if(isSuccess) {
-                [UserData shareInstance].userDataDictionary = nil;
-                [[UserData shareInstance] clearUserData];
-                [UserData shareInstance].isLogin = NO;
-                //clear avatar img
-                [[UserData shareInstance] setUserAvatarImg:nil];
                 
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-                LoginScreen *nextController = [storyboard instantiateViewControllerWithIdentifier:@"LoginScreen"];
-                UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];
-                [navi.navigationBar setHidden:YES];
-                [self presentViewController:navi animated:YES completion:nil];
                 
             }else{
-                [self showAlertView:@"エラー" message:@"ログアウトすることはできません"];
+                //[self showAlertView:@"エラー" message:@"ログアウトすることはできません"];
             }
+            [UserData shareInstance].userDataDictionary = nil;
+            [[UserData shareInstance] clearUserData];
+            [UserData shareInstance].isLogin = NO;
+            //clear avatar img
+            [[UserData shareInstance] setUserAvatarImg:nil];
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            LoginScreen *nextController = [storyboard instantiateViewControllerWithIdentifier:@"LoginScreen"];
+            UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];
+            [navi.navigationBar setHidden:YES];
+            [self presentViewController:navi animated:YES completion:nil];
         }];
         return YES;
     }

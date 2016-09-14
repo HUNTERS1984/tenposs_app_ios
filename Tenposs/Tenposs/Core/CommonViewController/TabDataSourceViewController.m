@@ -75,7 +75,7 @@
     }else if ([_controllerType isEqualToString:TABVIEWCONTROLLER_News]) {
         return @"ニュース";
     }else if ([_controllerType isEqualToString:TABVIEWCONTROLLER_Gallery]) {
-        return @"フォトギャラリー";
+        return @"ギャラリー";
     }else if ([_controllerType isEqualToString:TABVIEWCONTROLLER_Staff]) {
         return @"スタッフ";
     }else{

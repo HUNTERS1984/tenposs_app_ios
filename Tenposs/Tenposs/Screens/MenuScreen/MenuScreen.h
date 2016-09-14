@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface MenuScreen : UIViewController <UICollectionViewDelegate>
+@interface MenuScreen : BaseViewController <UICollectionViewDelegate>
 @property UINavigationController *mainNavigationController;
 
 @end

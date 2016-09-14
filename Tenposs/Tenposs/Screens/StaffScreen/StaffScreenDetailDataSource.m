@@ -129,6 +129,7 @@
         if (data.staffs && [data.staffs count] > 0) {
             _mainData.total_staffs = data.total_staffs;
             for (StaffObject *staff in data.staffs) {
+                staff.category = _mainData.name;
                 [_mainData addStaff:staff];
                 [_mainData increaseIndex:1];
             }

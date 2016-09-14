@@ -89,6 +89,7 @@
 //TODO: need localize
 "use_coupon"="このクーボンを利用する";
 "unable_use_coupon"="このクーポンは使用できません";
+"copy_hashtag"="ハッシュタグをコピーしました";
 
 //Message
 "msg_input_a_valid_email_address"="入力に有効なメールアドレスを喜ば";

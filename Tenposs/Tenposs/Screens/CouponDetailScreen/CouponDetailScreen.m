@@ -92,6 +92,7 @@
 - (IBAction)copyClipboard:(id)sender {
     UIPasteboard *pb = [UIPasteboard generalPasteboard];
     [pb setString:self.hashTag.text];
+    [self showSuccess:NSLocalizedString(@"copy_hashtag", nil)];
 }
 
 - (void)loadTopPagerContent{

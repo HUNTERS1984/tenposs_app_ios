@@ -343,9 +343,11 @@
     }
     if(topData.contacts && [topData.contacts count] > 0){
         NSMutableArray<ContactObject *> *contactArray = (NSMutableArray<ContactObject *> *)[[NSMutableArray alloc]init];
-        for (ContactObject *contact in topData.contacts) {
-            [contactArray addObject:contact];
-        }
+//        for (ContactObject *contact in topData.contacts) {
+//            [contactArray addObject:contact];
+//        }
+        if ([topData.contacts count] >= 1)
+            [contactArray addObject:[topData.contacts objectAtIndex:0]];
         [self.sectionArray addObject:contactArray];
     }
     topData = nil;

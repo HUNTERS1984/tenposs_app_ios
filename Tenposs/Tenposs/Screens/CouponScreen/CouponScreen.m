@@ -46,7 +46,7 @@
 }
 
 - (NSString *)title{
-    return @"Coupons";
+    return @"クーポン";
 }
 
 #pragma mark - SimpleDataSourceDelegate

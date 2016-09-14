@@ -77,6 +77,7 @@
 @property (strong, nonatomic) NSString *price;
 @property (strong, nonatomic) NSString *image_url;
 @property (strong, nonatomic) NSString *item_link;
+@property (strong, nonatomic) NSString *menu;
 @property (strong, nonatomic) ProductCategoryObject *parentCategory;
 @property(strong, nonatomic) NSMutableArray <ConvertOnDemand, ProductObject> *rel_items;
 - (void)updateItemWithItem:(ProductObject *)item;
@@ -251,6 +252,7 @@
 @property (strong, nonatomic) NSString *gender;
 @property (strong, nonatomic) NSString *birthday;
 @property (strong, nonatomic) NSString *tel;
+@property (strong, nonatomic) NSString *category;
 @property (strong, nonatomic) NSString *created_at;
 @property (strong, nonatomic) NSString *updated_at;
 @property (strong, nonatomic) NSString *deleted_at;

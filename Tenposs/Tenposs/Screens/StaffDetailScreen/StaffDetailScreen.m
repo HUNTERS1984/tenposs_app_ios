@@ -53,6 +53,11 @@
     return self;
 }
 
+- (NSString *)title{
+    return _staff.name;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 

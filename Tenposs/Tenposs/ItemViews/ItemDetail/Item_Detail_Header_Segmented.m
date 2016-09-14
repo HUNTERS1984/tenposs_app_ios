@@ -28,7 +28,7 @@
     _segmentControlWrapper.layer.cornerRadius = 5;
     if ([data isKindOfClass:[StaffObject class]]) {
         StaffObject *staff = (StaffObject *)data;
-        [_segmentControl setItems:[NSMutableArray arrayWithObjects:@"Introduction",@"Profile", nil]];
+        [_segmentControl setItems:[NSMutableArray arrayWithObjects:@"自己紹介",@"プロフィール", nil]];
     }
 }
 

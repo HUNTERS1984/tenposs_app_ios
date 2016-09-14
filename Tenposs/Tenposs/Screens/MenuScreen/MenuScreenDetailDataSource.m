@@ -133,6 +133,7 @@
         if (data.items && [data.items count] > 0) {
             _mainData.totalitem = data.total_items;
             for (ProductObject *item in data.items) {
+                item.menu = _mainData.name;
                 [_mainData addProduct:item];
                 [_mainData increasePageIndex:1];
             }
