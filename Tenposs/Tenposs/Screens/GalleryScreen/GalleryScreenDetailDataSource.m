@@ -18,23 +18,23 @@
 @implementation GalleryScreenDetailDataSource
 
 - (instancetype)initWithDelegate:(id<SimpleDataSourceDelegate>)delegate andPhotoCategory:(PhotoCategory *)photoCategory{
-    self = [super init];
+    self = [super initWithDelegate:delegate];
     if (self) {
-        self.delegate = delegate;
         self.mainData = photoCategory;
     }
     return self;
 }
 
 - (void)reloadDataSource{
-    self.mainData.pageindex = 1;
-    [self.mainData removeAllPhotos];
+    _mainData.pageindex = 1;
+    [_mainData removeAllPhotos];
+    _mainData.total_photos = 0;
     [self loadData];
 }
 
 - (void)loadData{
 
-    if([self.mainData.photos count] > 0 && [self.mainData.photos count] == self.mainData.total_photos){
+    if([_mainData.photos count] > 0 && [_mainData.photos count] == _mainData.total_photos){
         if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
             NSError *error = [NSError errorWithDomain:@"" code:ERROR_CONTENT_FULLY_LOADED userInfo:nil];
             [self.delegate dataLoaded:self withError:error];
@@ -56,16 +56,29 @@
 
 }
 
+- (BOOL)isEqualTo:(SimpleDataSource *)second{
+    if (![second isKindOfClass:[GalleryScreenDetailDataSource class]]) {
+        NSAssert(NO, @"DataSource type is not right!");
+        return NO;
+    }else{
+        if (self.mainData.category_id == ((GalleryScreenDetailDataSource *)second).mainData.category_id) {
+            return YES;
+        }else{
+            return NO;
+        }
+    }
+}
+
 - (void)registerClassForCollectionView:(UICollectionView *)collection{
     [collection registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Cell_Photo class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Cell_Photo class])];
 }
 
 - (NSInteger)numberOfItem{
-    return [self.mainData.photos count];
+    return [_mainData.photos count];
 }
 
 - (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath{
-    return [self.mainData.photos objectAtIndex:indexPath.row];
+    return [_mainData.photos objectAtIndex:indexPath.row];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -73,7 +86,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return [self.mainData.photos count];
+    return [_mainData.photos count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -99,6 +112,10 @@
     return CGSizeZero;
 }
 
+- (UIEdgeInsets)insetForSection{
+    return UIEdgeInsetsMake(8, 8, 8, 8);
+}
+
 #pragma mark - TenpossCommunicatorDelegate
 
 - (void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams{
@@ -116,7 +133,12 @@
                 [_mainData increasePageIndex:1];
             }
         }else{
-            error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_DETAIL_DATASOURCE_NO_CONTENT] code:ERROR_DETAIL_DATASOURCE_NO_CONTENT userInfo:nil];
+            if ([_mainData.photos count] > 0) {
+                error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_CONTENT_FULLY_LOADED] code:ERROR_CONTENT_FULLY_LOADED userInfo:nil];
+                
+            }else{
+                error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_DETAIL_DATASOURCE_NO_CONTENT] code:ERROR_DETAIL_DATASOURCE_NO_CONTENT userInfo:nil];
+            }
         }
     }
     if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {

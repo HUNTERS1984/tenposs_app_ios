@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DataModel.h"
 
-@interface StaffDetailScreen : UIViewController
+@interface StaffDetailScreen : UICollectionViewController
 @property(strong, nonatomic)StaffObject *staff;
+- (instancetype)initWithStaff:(StaffObject *)staff;
 @end

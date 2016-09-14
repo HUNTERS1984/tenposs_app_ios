@@ -164,6 +164,9 @@
 
 @interface CouponObject : JSONModel
 
+#define COUPON_STATUS_AVAILABLE 1
+#define COUPON_STATUS_UNAVAILABLE 0
+
 @property (assign, nonatomic) NSInteger coupon_id;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *desc;

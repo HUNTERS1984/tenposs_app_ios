@@ -194,9 +194,6 @@
     }
 }
 
-#pragma mark - Communicator
-
-
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{

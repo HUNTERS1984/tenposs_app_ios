@@ -13,27 +13,13 @@
 #import "StaffCategoryCommunicator.h"
 
 @interface StaffScreenDataSource() <TenpossCommunicatorDelegate, SimpleDataSourceDelegate>
-@property (strong, nonatomic) NSMutableArray<StaffScreenDetailDataSource *> *detailDataSourceList;
-@property BOOL shouldShowLatest;
-@property NSInteger currentDetailDataSourceIndex;
-@property GalleryDataCompleteHandler currentCompleteHandler;
-
 @end
 
 @implementation StaffScreenDataSource
 
-- (instancetype)initAndShouldShowLatest:(BOOL)shouldShowLatest{
-    self = [super init];
-    if (self) {
-        self.shouldShowLatest = shouldShowLatest;
-        self.detailDataSourceList = (NSMutableArray<StaffScreenDetailDataSource *> *)[[NSMutableArray alloc]init];
-        self.currentDetailDataSourceIndex = -1;
-    }
-    return self;
-}
-
 #pragma mark - Public methods
-- (void)fetchDataWithCompleteHandler:(GalleryDataCompleteHandler)handler{
+
+- (void)fetchDataWithCompleteHandler:(TabDataCompleteHandler)handler{
     self.currentCompleteHandler = handler;
     if ([self.detailDataSourceList count] <= 0) {
         [self loadPhotoCategoryList];
@@ -48,48 +34,6 @@
             }
         }
     }
-}
-
-- (void)changeToNextDetailDataSourceWithCompleteHandler:(GalleryDataCompleteHandler)handler{
-    if (![self detailDataSourceHasNext:self.activeDetailDataSource]) {
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_LAST userInfo:nil];
-        handler(error, nil, NO,YES);
-        return;
-    }
-    NSInteger indexToChangeTo = [self.detailDataSourceList indexOfObject:self.activeDetailDataSource] + 1;
-    StaffScreenDetailDataSource *sourceToChangeTo = self.detailDataSourceList[indexToChangeTo];
-    if (sourceToChangeTo.mainData.staff_cate_id != self.activeDetailDataSource.mainData.staff_cate_id) {
-        self.currentCompleteHandler = handler;
-        [self updateCurrentDetailDataSource:sourceToChangeTo];
-    }else{
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_DUBLICATED userInfo:nil];
-        handler(error, nil, [self detailDataSourceHasNext:self.activeDetailDataSource],[self detailDataSourceHasPrevious:self.activeDetailDataSource]);
-    }
-}
-
-- (void)changeToPreviousDetailDataSourceWithCompleteHandler:(GalleryDataCompleteHandler)handler{
-    if (![self detailDataSourceHasPrevious:self.activeDetailDataSource]) {
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_FIRST userInfo:nil];
-        handler(error, nil, YES,NO);
-        return;
-    }
-    NSInteger indexToChangeTo = [self.detailDataSourceList indexOfObject:self.activeDetailDataSource] -1;
-    StaffScreenDetailDataSource *sourceToChangeTo = self.detailDataSourceList[indexToChangeTo];
-    if (sourceToChangeTo.mainData.staff_cate_id != self.activeDetailDataSource.mainData.staff_cate_id) {
-        self.currentCompleteHandler = handler;
-        [self updateCurrentDetailDataSource:sourceToChangeTo];
-    }else{
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_DUBLICATED userInfo:nil];
-        handler(error, nil, [self detailDataSourceHasNext:self.activeDetailDataSource],[self detailDataSourceHasPrevious:self.activeDetailDataSource]);
-    }
-}
-
-- (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath{
-    return [self.activeDetailDataSource itemAtIndexPath:indexPath];
-}
-
-- (void)loadMoreDataWithCompleteHandler:(GalleryDataCompleteHandler)handler{
-    
 }
 
 #pragma mark - Communicator
@@ -107,33 +51,6 @@
     [params put:KeyAPI_STORE_ID value:store_id];
     [request execute:params withDelegate:self];
     
-}
-#pragma mark - Helper Methods
-
-- (void)updateCurrentDetailDataSource:(StaffScreenDetailDataSource *)detail{
-    self.activeDetailDataSource = detail;
-    [self.activeDetailDataSource registerClassForCollectionView:self.collectionView];
-    self.currentDetailDataSourceIndex = [self.detailDataSourceList indexOfObject:detail];
-    [self.activeDetailDataSource loadData];
-}
-
-- (BOOL)detailDataSourceHasNext:(StaffScreenDetailDataSource *)dataSource {
-    NSInteger detailDataSourceCount = [self.detailDataSourceList count];
-    if ([self.detailDataSourceList count] > 1 &&(self.detailDataSourceList[detailDataSourceCount -1]).mainData.staff_cate_id == dataSource.mainData.staff_cate_id) {
-        return NO;
-    }else if ([self.detailDataSourceList count] == 1){
-        return NO;
-    }
-    return YES;
-}
-
-- (BOOL)detailDataSourceHasPrevious:(StaffScreenDetailDataSource *)dataSource{
-    if ((self.detailDataSourceList[0]).mainData.staff_cate_id != dataSource.mainData.staff_cate_id && [self.detailDataSourceList count] > 1) {
-        return NO;
-    }else if ([self.detailDataSourceList count] == 1){
-        return NO;
-    }
-    return YES;
 }
 
 #pragma mark - TenpossCommunicatorDelegate

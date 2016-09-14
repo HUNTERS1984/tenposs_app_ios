@@ -14,27 +14,13 @@
 
 @interface NewsScreenDataSource()<TenpossCommunicatorDelegate, SimpleDataSourceDelegate>
 
-@property (strong, nonatomic) NSMutableArray<NewsScreenDetailDataSource *> *detailDataSourceList;
-@property (assign, nonatomic)BOOL shouldShowLatest;
-@property (assign, nonatomic)NSInteger currentDetailDataSourceIndex;
-@property (strong, nonatomic)NewsDataCompleteHandler currentCompleteHandler;
-
 @end
 
 @implementation NewsScreenDataSource
 
-- (instancetype)initAndShouldShowLatest:(BOOL)shouldShowLatest{
-    self = [super init];
-    if (self) {
-        self.shouldShowLatest = shouldShowLatest;
-        self.detailDataSourceList = (NSMutableArray<NewsScreenDetailDataSource *> *)[[NSMutableArray alloc]init];
-        self.currentDetailDataSourceIndex = -1;
-    }
-    return self;
-}
-
 #pragma mark - Public methods
-- (void)fetchDataWithCompleteHandler:(NewsDataCompleteHandler)handler{
+
+- (void)fetchDataWithCompleteHandler:(TabDataCompleteHandler)handler{
     self.currentCompleteHandler = handler;
     if ([self.detailDataSourceList count] <= 0) {
         [self loadNewsCategoryList];
@@ -51,60 +37,9 @@
     }
 }
 
-- (void)changeToNextDetailDataSourceWithCompleteHandler:(NewsDataCompleteHandler)handler{
-    if (![self detailDataSourceHasNext:self.activeDetailDataSource]) {
-        NSError *error = [NSError errorWithDomain:NewsScreenError_isLast code:-9900 userInfo:nil];
-        handler(error, nil, NO,YES);
-        return;
-    }
-    NSInteger indexToChangeTo = [self.detailDataSourceList indexOfObject:self.activeDetailDataSource] + 1;
-    NewsScreenDetailDataSource *sourceToChangeTo = self.detailDataSourceList[indexToChangeTo];
-    if (![[sourceToChangeTo.mainData title] isEqualToString:[self.activeDetailDataSource.mainData title]]) {
-        self.currentCompleteHandler = handler;
-        [self updateCurrentDetailDataSource:sourceToChangeTo];
-    }else{
-        NSError *error = [NSError errorWithDomain:NewsScreenError_duplicate code:-9902 userInfo:nil];
-        handler(error, nil, [self detailDataSourceHasNext:self.activeDetailDataSource],[self detailDataSourceHasPrevious:self.activeDetailDataSource]);
-    }
-}
-
-- (void)changeToPreviousDetailDataSourceWithCompleteHandler:(NewsDataCompleteHandler)handler{
-    if (![self detailDataSourceHasPrevious:self.activeDetailDataSource]) {
-        NSError *error = [NSError errorWithDomain:NewsScreenError_isFirst code:-9901 userInfo:nil];
-        handler(error, nil, YES,NO);
-        return;
-    }
-    NSInteger indexToChangeTo = [self.detailDataSourceList indexOfObject:self.activeDetailDataSource] -1;
-    NewsScreenDetailDataSource *sourceToChangeTo = self.detailDataSourceList[indexToChangeTo];
-    if (![sourceToChangeTo.mainData.title isEqualToString:self.activeDetailDataSource.mainData.title]) {
-        self.currentCompleteHandler = handler;
-        [self updateCurrentDetailDataSource:sourceToChangeTo];
-    }else{
-        NSError *error = [NSError errorWithDomain:NewsScreenError_duplicate code:-9902 userInfo:nil];
-        handler(error, nil, [self detailDataSourceHasNext:self.activeDetailDataSource],[self detailDataSourceHasPrevious:self.activeDetailDataSource]);
-    }
-}
-
-- (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath{
-    return [self.activeDetailDataSource itemAtIndexPath:indexPath];
-}
-
-- (void)loadMoreDataWithCompleteHandler:(NewsDataCompleteHandler)handler{
-    
-}
-
 #pragma mark - Communicator
 -(void)loadNewsCategoryList{
-    
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
-//    if ([[appConfig getStoryIdArray] count] > 0) {
-//        for(NSNumber *idNum in [appConfig getStoryIdArray]){
-//            NewsCategoryObject *newsCate = [NewsCategoryObject new];
-//            newsCate.store_id = [idNum integerValue];
-//            NewsScreenDetailDataSource *detailDataSource = [[NewsScreenDetailDataSource alloc]initWithDelegate:self andNewsCategory:newsCate];
-//            [self.detailDataSourceList addObject:detailDataSource];
-//        }
-//    }
     NSString *store_id = [appConfig getStoreId];
     NewsCategoryObject *newsCate = [NewsCategoryObject new];
     newsCate.store_id = [store_id integerValue];
@@ -120,33 +55,6 @@
         [self updateCurrentDetailDataSource:self.detailDataSourceList[rand]];
     }
 
-}
-#pragma mark - Helper Methods
-
-- (void)updateCurrentDetailDataSource:(NewsScreenDetailDataSource *)detail{
-    self.activeDetailDataSource = detail;
-    [self.activeDetailDataSource registerClassForCollectionView:self.collectionView];
-    self.currentDetailDataSourceIndex = [self.detailDataSourceList indexOfObject:detail];
-    [self.activeDetailDataSource loadData];
-}
-
-- (BOOL)detailDataSourceHasNext:(NewsScreenDetailDataSource *)dataSource {
-    NSInteger detailDataSourceCount = [self.detailDataSourceList count];
-    if ([self.detailDataSourceList count] > 1 && [(self.detailDataSourceList[detailDataSourceCount -1]).mainData.title isEqualToString:dataSource.mainData.title] ) {
-        return YES;
-    }else if ([self.detailDataSourceList count] == 1){
-        return NO;
-    }
-    return NO;
-}
-
-- (BOOL)detailDataSourceHasPrevious:(NewsScreenDetailDataSource *)dataSource{
-    if ([(self.detailDataSourceList[0]).mainData.title isEqualToString:dataSource.mainData.title] && [self.detailDataSourceList count] > 1) {
-        return NO;
-    }else if ([self.detailDataSourceList count] == 1){
-        return NO;
-    }
-    return YES;
 }
 
 #pragma mark - TenpossCommunicatorDelegate

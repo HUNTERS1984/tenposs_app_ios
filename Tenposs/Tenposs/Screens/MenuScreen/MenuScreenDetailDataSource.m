@@ -7,7 +7,6 @@
 //
 
 #import "MenuScreenDetailDataSource.h"
-#import "MenuScreenDetailDataSource.h"
 #import "Item_Cell_News.h"
 #import "Item_Cell_Product.h"
 #import "Utils.h"
@@ -20,18 +19,9 @@
 
 @implementation MenuScreenDetailDataSource
 
-- (instancetype)initWithDelegate:(id<SimpleDataSourceDelegate>)delegate{
-    self = [super init];
-    if (self) {
-        self.delegate = delegate;
-    }
-    return self;
-}
-
 - (instancetype)initWithDelegate:(id<SimpleDataSourceDelegate>)delegate andMenuCategory:(MenuCategoryModel *)menuCategory{
-    self = [super init];
+    self = [super initWithDelegate:delegate];
     if (self) {
-        self.delegate = delegate;
         self.mainData = menuCategory;
     }
     return self;
@@ -75,6 +65,19 @@
     [collection registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Cell_Product class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Cell_Product class])];
 }
 
+- (BOOL)isEqualTo:(SimpleDataSource *)second{
+    if (![second isKindOfClass:[MenuScreenDetailDataSource class]]) {
+        NSAssert(NO, @"DataSource type is not right!");
+        return NO;
+    }else{
+        if (self.mainData.menu_id == ((MenuScreenDetailDataSource *)second).mainData.menu_id) {
+            return YES;
+        }else{
+            return NO;
+        }
+    }
+}
+
 - (NSInteger)numberOfItem{
     return [self.mainData.items count];
 }
@@ -114,6 +117,10 @@
     return CGSizeZero;
 }
 
+- (UIEdgeInsets)insetForSection{
+    return UIEdgeInsetsMake(20, 8, 5, 8);
+}
+
 #pragma mark - TenpossCommunicatorDelegate
 -(void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams{
     NSInteger errorCode =[responseParams getInt:KeyResponseResult];
@@ -130,7 +137,12 @@
                 [_mainData increasePageIndex:1];
             }
         }else{
-            error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_DETAIL_DATASOURCE_NO_CONTENT] code:ERROR_DETAIL_DATASOURCE_NO_CONTENT userInfo:nil];
+            if ([_mainData.items count] > 0) {
+                error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_CONTENT_FULLY_LOADED] code:ERROR_CONTENT_FULLY_LOADED userInfo:nil];
+
+            }else{
+                error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_DETAIL_DATASOURCE_NO_CONTENT] code:ERROR_DETAIL_DATASOURCE_NO_CONTENT userInfo:nil];
+            }
         }
     }
     if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {

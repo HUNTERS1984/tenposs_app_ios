@@ -15,18 +15,9 @@
 
 @implementation NewsScreenDetailDataSource
 
-- (instancetype)initWithDelegate:(id<SimpleDataSourceDelegate>)delegate{
-    self = [super init];
-    if (self) {
-        self.delegate = delegate;
-    }
-    return self;
-}
-
 - (instancetype)initWithDelegate:(id<SimpleDataSourceDelegate>)delegate andNewsCategory:(NewsCategoryObject *)newsCategory{
-    self = [super init];
+    self = [super initWithDelegate:delegate];
     if (self) {
-        self.delegate = delegate;
         self.mainData = newsCategory;
     }
     return self;
@@ -35,6 +26,7 @@
 -(void)reloadDataSource{
     self.mainData.pageIndex = 1;
     [self.mainData removeAllNews];
+    self.mainData.totalnew = 0;
     [self loadData];
 }
 
@@ -42,6 +34,20 @@
     self.mainData = nil;
     self.mainData = newMainData;
     [self loadData];
+}
+
+- (BOOL)isEqualTo:(SimpleDataSource *)second{
+//    if (![second isKindOfClass:[NewsScreenDetailDataSource class]]) {
+//        NSAssert(NO, @"DataSource type is not right!");
+//        return NO;
+//    }else{
+//        if (self.mainData.menu_id == ((NewsScreenDetailDataSource *)second).mainData.) {
+//            return YES;
+//        }else{
+//            return NO;
+//        }
+//    }
+    return NO;
 }
 
 - (void)loadData{
@@ -52,33 +58,6 @@
         }
         return;
     }
-//    ///TODO: real connection to server
-//    
-//    NSData *data = nil;
-//    
-//    if ([self.mainData.news count] <= 0) {
-//        data = [MockupData fetchDataWithResourceName:@"news_items_1"];
-//    }else{
-//        data = [MockupData fetchDataWithResourceName:@"news_items_2"];
-//    }
-//    
-//    NSError *error;
-//    NewsCategoryObject *newsData = [[NewsCategoryObject alloc] initWithData:data error:&error];
-//    
-//    if (error == nil) {
-//        if (newsData && [newsData.news count] > 0) {
-//            NSString *titleFormat = @"%@-%@";
-//            for (NewsObject *item in newsData.news) {
-//                NSString *title = [NSString stringWithFormat:titleFormat,self.mainData.title,item.title];
-//                item.title = title;
-//                [self.mainData addNews:item];
-//            }
-//        }
-//    }
-//    if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
-//        [self.delegate dataLoaded:self withError:error];
-//    }
-    
     NewsItemCommunicator *request = [NewsItemCommunicator new];
     Bundle *params = [Bundle new];
     [params put:KeyAPI_APP_ID value:APP_ID];
@@ -136,6 +115,10 @@
     return CGSizeZero;
 }
 
+- (UIEdgeInsets)insetForSection{
+    return UIEdgeInsetsMake(8, 8, 8, 8);
+}
+
 #pragma mark - TenpossCommunicatorDelegate
 
 - (void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams{
@@ -151,6 +134,13 @@
             for (NewsObject *news in data.news) {
                 [_mainData addNews:news];
                 [_mainData increasePageIndex:1];
+            }
+        }else {
+            if ([_mainData.news count] > 0) {
+                error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_CONTENT_FULLY_LOADED] code:ERROR_CONTENT_FULLY_LOADED userInfo:nil];
+                
+            }else{
+                error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_DETAIL_DATASOURCE_NO_CONTENT] code:ERROR_DETAIL_DATASOURCE_NO_CONTENT userInfo:nil];
             }
         }
     }

@@ -15,28 +15,13 @@
 #import "Const.h"
 
 @interface GalleryScreenDataSource() <TenpossCommunicatorDelegate, SimpleDataSourceDelegate>
-@property (strong, nonatomic) NSMutableArray<GalleryScreenDetailDataSource *> *detailDataSourceList;
-@property (assign, nonatomic)BOOL shouldShowLatest;
-@property (assign, nonatomic)NSInteger currentDetailDataSourceIndex;
-@property (strong, nonatomic)GalleryDataCompleteHandler currentCompleteHandler;
-
 @end
 
 @implementation GalleryScreenDataSource
 
-
-- (instancetype)initAndShouldShowLatest:(BOOL)shouldShowLatest{
-    self = [super init];
-    if (self) {
-        self.shouldShowLatest = shouldShowLatest;
-        self.detailDataSourceList = (NSMutableArray<GalleryScreenDetailDataSource *> *)[[NSMutableArray alloc]init];
-        self.currentDetailDataSourceIndex = -1;
-    }
-    return self;
-}
-
 #pragma mark - Public methods
-- (void)fetchDataWithCompleteHandler:(GalleryDataCompleteHandler)handler{
+
+- (void)fetchDataWithCompleteHandler:(TabDataCompleteHandler)handler{
     self.currentCompleteHandler = handler;
     if ([self.detailDataSourceList count] <= 0) {
         [self loadPhotoCategoryList];
@@ -53,48 +38,6 @@
     }
 }
 
-- (void)changeToNextDetailDataSourceWithCompleteHandler:(GalleryDataCompleteHandler)handler{
-    if (![self detailDataSourceHasNext:self.activeDetailDataSource]) {
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_LAST userInfo:nil];
-        handler(error, nil, NO,YES);
-        return;
-    }
-    NSInteger indexToChangeTo = [self.detailDataSourceList indexOfObject:self.activeDetailDataSource] + 1;
-    GalleryScreenDetailDataSource *sourceToChangeTo = self.detailDataSourceList[indexToChangeTo];
-    if (sourceToChangeTo.mainData.category_id != self.activeDetailDataSource.mainData.category_id) {
-        self.currentCompleteHandler = handler;
-        [self updateCurrentDetailDataSource:sourceToChangeTo];
-    }else{
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_DUBLICATED userInfo:nil];
-        handler(error, nil, [self detailDataSourceHasNext:self.activeDetailDataSource],[self detailDataSourceHasPrevious:self.activeDetailDataSource]);
-    }
-}
-
-- (void)changeToPreviousDetailDataSourceWithCompleteHandler:(GalleryDataCompleteHandler)handler{
-    if (![self detailDataSourceHasPrevious:self.activeDetailDataSource]) {
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_FIRST userInfo:nil];
-        handler(error, nil, YES,NO);
-        return;
-    }
-    NSInteger indexToChangeTo = [self.detailDataSourceList indexOfObject:self.activeDetailDataSource] -1;
-    GalleryScreenDetailDataSource *sourceToChangeTo = self.detailDataSourceList[indexToChangeTo];
-    if (sourceToChangeTo.mainData.category_id != self.activeDetailDataSource.mainData.category_id) {
-        self.currentCompleteHandler = handler;
-        [self updateCurrentDetailDataSource:sourceToChangeTo];
-    }else{
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_DUBLICATED userInfo:nil];
-        handler(error, nil, [self detailDataSourceHasNext:self.activeDetailDataSource],[self detailDataSourceHasPrevious:self.activeDetailDataSource]);
-    }
-}
-
-- (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath{
-    return [self.activeDetailDataSource itemAtIndexPath:indexPath];
-}
-
-- (void)loadMoreDataWithCompleteHandler:(GalleryDataCompleteHandler)handler{
-    
-}
-
 #pragma mark - Communicator
 -(void)loadPhotoCategoryList{
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
@@ -109,29 +52,6 @@
     [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
     [params put:KeyAPI_STORE_ID value:store_id];
     [request execute:params withDelegate:self];
-}
-#pragma mark - Helper Methods
-
-- (void)updateCurrentDetailDataSource:(GalleryScreenDetailDataSource *)detail{
-    self.activeDetailDataSource = detail;
-    [self.activeDetailDataSource registerClassForCollectionView:self.collectionView];
-    self.currentDetailDataSourceIndex = [self.detailDataSourceList indexOfObject:detail];
-    [self.activeDetailDataSource loadData];
-}
-
-- (BOOL)detailDataSourceHasNext:(GalleryScreenDetailDataSource *)dataSource {
-    NSInteger detailDataSourceCount = [self.detailDataSourceList count];
-    if ((self.detailDataSourceList[detailDataSourceCount -1]).mainData.category_id == dataSource.mainData.category_id && [self.detailDataSourceList count] > 1) {
-        return NO;
-    }
-    return YES;
-}
-
-- (BOOL)detailDataSourceHasPrevious:(GalleryScreenDetailDataSource *)dataSource{
-    if ((self.detailDataSourceList[0]).mainData.category_id != dataSource.mainData.category_id && [self.detailDataSourceList count] > 1) {
-        return NO;
-    }
-    return YES;
 }
 
 #pragma mark - TenpossCommunicatorDelegate

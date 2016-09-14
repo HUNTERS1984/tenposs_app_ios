@@ -17,6 +17,7 @@
 #define SETTINGS_KeyUserEmail  @"KeyUserEmail"
 #define SETTINGS_KeyUserGender  @"KeyUserGender"
 #define SETTINGS_KeyUserProvine  @"KeyUserProvine"
+#define SETTINGS_KeyUserInstaAccessToken @"Insta_access_token"
 
 #define SETTINGS_keyPushNotification  @"keyPushNotification"
 #define SETTINGS_keyCouponPushNotification  @"keyCouponPushNotification"

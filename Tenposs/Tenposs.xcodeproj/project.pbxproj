@@ -128,6 +128,8 @@
 		02F0975B1D7703EA00E737C7 /* photo_category.json in Resources */ = {isa = PBXBuildFile; fileRef = 02F097591D7703EA00E737C7 /* photo_category.json */; };
 		02F0975E1D77046B00E737C7 /* PhotoCategoryCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F0975D1D77046B00E737C7 /* PhotoCategoryCommunicator.m */; };
 		02F097611D77100E00E737C7 /* PhotoViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F097601D77100E00E737C7 /* PhotoViewer.m */; };
+		02F098B71D890BF400E1D992 /* TabDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F098B61D890BF400E1D992 /* TabDataSource.m */; };
+		02F098BE1D89210A00E1D992 /* TabDataSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F098BD1D89210A00E1D992 /* TabDataSourceViewController.m */; };
 		02F2FDC11D4A30E3006D4C83 /* Bundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FD931D4A30E3006D4C83 /* Bundle.m */; };
 		02F2FDC41D4A30E3006D4C83 /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FD9B1D4A30E3006D4C83 /* JSONModel.m */; };
 		02F2FDC51D4A30E3006D4C83 /* JSONModelArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FD9D1D4A30E3006D4C83 /* JSONModelArray.m */; };
@@ -149,6 +151,8 @@
 		02FDEFEF1D86BF64005AC6E9 /* ChatScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FDEFEE1D86BF64005AC6E9 /* ChatScreen.m */; };
 		02FDEFF41D86DD57005AC6E9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02FDEFF61D86DD57005AC6E9 /* Localizable.strings */; };
 		02FDEFFD1D86E024005AC6E9 /* SettingsProvineScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FDEFFC1D86E024005AC6E9 /* SettingsProvineScreen.m */; };
+		02FDF0151D88104F005AC6E9 /* OAuthScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FDF0141D88104F005AC6E9 /* OAuthScreen.m */; };
+		02FDF0181D88D642005AC6E9 /* QRCodeScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FDF0171D88D642005AC6E9 /* QRCodeScreen.m */; };
 		3682129E1D7F0FA500E2DEF0 /* RoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3682129D1D7F0FA500E2DEF0 /* RoundButton.m */; };
 		368212A31D7FBFD800E2DEF0 /* CXAHyperlinkLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 368212A01D7FBFD800E2DEF0 /* CXAHyperlinkLabel.m */; };
 		368212A41D7FBFD800E2DEF0 /* NSAttributedString+CXACoreTextFrameSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 368212A21D7FBFD800E2DEF0 /* NSAttributedString+CXACoreTextFrameSize.m */; };
@@ -393,6 +397,10 @@
 		02F0975D1D77046B00E737C7 /* PhotoCategoryCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoCategoryCommunicator.m; sourceTree = "<group>"; };
 		02F0975F1D77100E00E737C7 /* PhotoViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewer.h; sourceTree = "<group>"; };
 		02F097601D77100E00E737C7 /* PhotoViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewer.m; sourceTree = "<group>"; };
+		02F098B51D890BF400E1D992 /* TabDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabDataSource.h; sourceTree = "<group>"; };
+		02F098B61D890BF400E1D992 /* TabDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabDataSource.m; sourceTree = "<group>"; };
+		02F098BC1D89210A00E1D992 /* TabDataSourceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabDataSourceViewController.h; sourceTree = "<group>"; };
+		02F098BD1D89210A00E1D992 /* TabDataSourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabDataSourceViewController.m; sourceTree = "<group>"; };
 		02F2FD921D4A30E3006D4C83 /* Bundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bundle.h; sourceTree = "<group>"; };
 		02F2FD931D4A30E3006D4C83 /* Bundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bundle.m; sourceTree = "<group>"; };
 		02F2FD9A1D4A30E3006D4C83 /* JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModel.h; sourceTree = "<group>"; };
@@ -437,6 +445,10 @@
 		02FDEFF71D86DDBC005AC6E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		02FDEFFB1D86E024005AC6E9 /* SettingsProvineScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsProvineScreen.h; sourceTree = "<group>"; };
 		02FDEFFC1D86E024005AC6E9 /* SettingsProvineScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsProvineScreen.m; sourceTree = "<group>"; };
+		02FDF0131D88104F005AC6E9 /* OAuthScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthScreen.h; sourceTree = "<group>"; };
+		02FDF0141D88104F005AC6E9 /* OAuthScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthScreen.m; sourceTree = "<group>"; };
+		02FDF0161D88D642005AC6E9 /* QRCodeScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeScreen.h; sourceTree = "<group>"; };
+		02FDF0171D88D642005AC6E9 /* QRCodeScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeScreen.m; sourceTree = "<group>"; };
 		06778181026272EC61BDAD14 /* Pods-Tenposs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenposs.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tenposs/Pods-Tenposs.debug.xcconfig"; sourceTree = "<group>"; };
 		3682129C1D7F0FA500E2DEF0 /* RoundButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundButton.h; path = Customize/RoundButton.h; sourceTree = "<group>"; };
 		3682129D1D7F0FA500E2DEF0 /* RoundButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundButton.m; path = Customize/RoundButton.m; sourceTree = "<group>"; };
@@ -513,6 +525,8 @@
 				368212AA1D80029800E2DEF0 /* UserData.m */,
 				0211402F1D57D39E00598AD2 /* SimpleDataSource.h */,
 				021140301D57D39E00598AD2 /* SimpleDataSource.m */,
+				02F098B51D890BF400E1D992 /* TabDataSource.h */,
+				02F098B61D890BF400E1D992 /* TabDataSource.m */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -746,6 +760,7 @@
 		02CD65951D47CDDC0015661D /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				02F098B81D8920BC00E1D992 /* CommonViewController */,
 				0211402E1D57D38A00598AD2 /* DataSource */,
 				02CD65971D47CDF50015661D /* AppConfiguration.h */,
 				02CD65981D47CDF50015661D /* AppConfiguration.m */,
@@ -762,6 +777,7 @@
 		02CD65961D47CDDC0015661D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				02FDF0121D881027005AC6E9 /* OAuthScreen */,
 				02FDEFEC1D86BF0E005AC6E9 /* ChatScreen */,
 				0257C2E71D85864200506F73 /* StaffScreen */,
 				0257C2D31D85438100506F73 /* SettingsScreen */,
@@ -926,6 +942,8 @@
 			children = (
 				02F097211D6B13A200E737C7 /* CouponDetailScreen.h */,
 				02F097221D6B13A200E737C7 /* CouponDetailScreen.m */,
+				02FDF0161D88D642005AC6E9 /* QRCodeScreen.h */,
+				02FDF0171D88D642005AC6E9 /* QRCodeScreen.m */,
 			);
 			path = CouponDetailScreen;
 			sourceTree = "<group>";
@@ -969,6 +987,15 @@
 				02F097531D74CAAB00E737C7 /* LoginWithEmailScreen.m */,
 			);
 			path = LoginScreen;
+			sourceTree = "<group>";
+		};
+		02F098B81D8920BC00E1D992 /* CommonViewController */ = {
+			isa = PBXGroup;
+			children = (
+				02F098BC1D89210A00E1D992 /* TabDataSourceViewController.h */,
+				02F098BD1D89210A00E1D992 /* TabDataSourceViewController.m */,
+			);
+			path = CommonViewController;
 			sourceTree = "<group>";
 		};
 		02F2FD911D4A30E3006D4C83 /* Datamodel */ = {
@@ -1135,6 +1162,15 @@
 				02FDEFEE1D86BF64005AC6E9 /* ChatScreen.m */,
 			);
 			path = ChatScreen;
+			sourceTree = "<group>";
+		};
+		02FDF0121D881027005AC6E9 /* OAuthScreen */ = {
+			isa = PBXGroup;
+			children = (
+				02FDF0131D88104F005AC6E9 /* OAuthScreen.h */,
+				02FDF0141D88104F005AC6E9 /* OAuthScreen.m */,
+			);
+			path = OAuthScreen;
 			sourceTree = "<group>";
 		};
 		09344413F41F49EA9B95A2DF /* Pods */ = {
@@ -1441,6 +1477,7 @@
 				021AA4AD1D7ED4750042C511 /* RequestBuilder.m in Sources */,
 				024C4D861D5CA82100896EE4 /* Item_Cell_Top.m in Sources */,
 				021A5EAF1D698F9D001F8F8E /* GalleryScreenDataSource.m in Sources */,
+				02FDF0181D88D642005AC6E9 /* QRCodeScreen.m in Sources */,
 				0257C2E61D857F3B00506F73 /* PhotoCommunicator.m in Sources */,
 				021AA4C61D7F70620042C511 /* Item_Detail_Header_Segmented.m in Sources */,
 				021AA4BF1D7F4B470042C511 /* NewsItemCommunicator.m in Sources */,
@@ -1458,6 +1495,7 @@
 				021140341D58A9C200598AD2 /* MenuCommunicator.m in Sources */,
 				0257C2C91D84A99800506F73 /* CompanyInfoScreen.m in Sources */,
 				0257C2E31D8573E400506F73 /* CouponCommunicator.m in Sources */,
+				02F098BE1D89210A00E1D992 /* TabDataSourceViewController.m in Sources */,
 				02CD65A21D47D6C50015661D /* Item_Cell_Product.m in Sources */,
 				02CD65991D47CDF50015661D /* AppConfiguration.m in Sources */,
 				02CD65B11D47E7DB0015661D /* Item_Cell_ShopInfo.m in Sources */,
@@ -1503,8 +1541,10 @@
 				0231D18A1D6418EF0021E0E0 /* Utils.m in Sources */,
 				0257C2EA1D85867700506F73 /* StaffScreen.m in Sources */,
 				02F2FDC81D4A30E3006D4C83 /* NSArray+JSONModel.m in Sources */,
+				02F098B71D890BF400E1D992 /* TabDataSource.m in Sources */,
 				02F2FDC61D4A30E3006D4C83 /* JSONModelClassProperty.m in Sources */,
 				0257C2CC1D84A9EF00506F73 /* UserPrivacyScreen.m in Sources */,
+				02FDF0151D88104F005AC6E9 /* OAuthScreen.m in Sources */,
 				022F25B81D516E4D008AEBA1 /* TopScreen.m in Sources */,
 				0221142C1D5441E000F44E88 /* Common_Item_Cell.m in Sources */,
 				022F25C91D52605E008AEBA1 /* HexColors.m in Sources */,

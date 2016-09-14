@@ -7,10 +7,13 @@
 //
 
 #import "Item_Detail_Header_Segmented.h"
+#import "DataModel.h"
+#import "TenpossSegmentedControl.h"
 
 @interface Item_Detail_Header_Segmented()
 
 @property (weak, nonatomic) IBOutlet UIView *segmentControlWrapper;
+@property (weak, nonatomic) IBOutlet TenpossSegmentedControl *segmentControl;
 
 @end
 
@@ -23,6 +26,10 @@
 
 - (void)configureCellWithData:(NSObject *)data{
     _segmentControlWrapper.layer.cornerRadius = 5;
+    if ([data isKindOfClass:[StaffObject class]]) {
+        StaffObject *staff = (StaffObject *)data;
+        [_segmentControl setItems:[NSMutableArray arrayWithObjects:@"Introduction",@"Profile", nil]];
+    }
 }
 
 + (CGFloat)getCellHeightWithWidth:(CGFloat)width{

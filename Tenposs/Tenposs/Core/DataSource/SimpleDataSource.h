@@ -22,6 +22,8 @@
 
 @property(weak, nonatomic) id<SimpleDataSourceDelegate> delegate;
 
+//@property (strong, nonatomic) NSObject *mainData;
+
 - (instancetype)initWithDelegate:(id<SimpleDataSourceDelegate>)delegate;
 
 -(void)reloadDataSource;
@@ -34,10 +36,14 @@
 
 - (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath;
 
+- (BOOL)isEqualTo:(SimpleDataSource *)second;
+
 - (CGSize)sizeForCellAtIndexPath:(NSIndexPath *)indexPath withCollectionWidth:(CGFloat)superWidth;
 
 - (CGSize)sizeForHeaderAtSection:(NSInteger)section inCollectionView:(UICollectionView *)collectionView;
 
 - (CGSize)sizeForFooterAtSection:(NSInteger)section inCollectionView:(UICollectionView *)collectionView;
+
+- (UIEdgeInsets)insetForSection;
 
 @end

@@ -76,7 +76,7 @@
                 [weakSelf.collectionView reloadData];
                 //                [self.collectionView removeLoadingView];
             }else{
-                if([error.domain isEqualToString:NewsScreenError_isLast]){
+                if(error.code ==ERROR_DETAIL_DATASOURCE_IS_LAST){
                     [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
                     weakSelf.collectionView.dataSource = weakSelf.dataSource.activeDetailDataSource;
                     [weakSelf.collectionView reloadData];
@@ -98,7 +98,7 @@
                 [weakSelf.collectionView reloadData];
                 //                [self.collectionView removeLoadingView];
             }else{
-                if ([error.domain isEqualToString:NewsScreenError_isFirst]) {
+                if (error.code == ERROR_DETAIL_DATASOURCE_IS_FIRST) {
                     [weakSelf updateCategoryNavigationWithTitle:detailDataSourceTitle showNext:hasNext showPrevious:hasPrevious];
                     weakSelf.collectionView.dataSource = self.dataSource.activeDetailDataSource;
                     [weakSelf.collectionView reloadData];

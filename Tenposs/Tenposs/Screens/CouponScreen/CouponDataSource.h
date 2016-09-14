@@ -8,9 +8,7 @@
 
 #import "SimpleDataSource.h"
 #import "CouponCommunicator.h"
-
-
-#define CouponDetailError_fullyLoaded    @"Loaded all records"
+#import "TabDataSource.h"
 
 @interface CouponDataSource : SimpleDataSource<TenpossCommunicatorDelegate>
 

@@ -21,6 +21,9 @@
 #import "SettingsTableViewController.h"
 #import "UIUtils.h"
 #import "SettingsProvineScreen.h"
+#import "OAuthScreen.h"
+#import "Utils.h"
+#import "UIUtils.h"
 
 //#import "UserData.h"
 
@@ -142,6 +145,10 @@
         if([self.navigationController.visibleViewController isKindOfClass:[IASKAppSettingsViewController class]]){
             [((IASKAppSettingsViewController *)self.navigationController.visibleViewController).tableView reloadData];
         }
+    }else if ([notification.userInfo.allKeys.firstObject isEqualToString:SETTINGS_KeyUserInstaAccessToken]){
+        //TODO: send instagram token
+        NSString *access_token = [notification.userInfo objectForKey:SETTINGS_KeyUserInstaAccessToken];
+        NSLog(@"INSTAGRAM_accessToken = %@", access_token);
     }
 }
 
@@ -281,8 +288,14 @@
         [((Settings_Social_Connect *)cell).socialIcon setImage:[UIImage imageNamed:@"instagram_icon"]];
         [((Settings_Social_Connect *)cell).socialName setText:specifier.title];
         ((Settings_Social_Connect *)cell).socialIcon.clipsToBounds = YES;
+        [((Settings_Social_Connect *)cell).connectButton addTarget:self action:@selector(doInstagramLogin) forControlEvents:UIControlEventTouchUpInside];
     }
     return cell;
+}
+
+- (void)doInstagramLogin{
+    OAuthScreen *oAuth = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([OAuthScreen class])];
+    [self.navigationController pushViewController:oAuth animated:YES];
 }
 
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender tableView:(UITableView *)tableView didSelectCustomViewSpecifier:(IASKSpecifier*)specifier{

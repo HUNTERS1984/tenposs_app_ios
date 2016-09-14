@@ -6,6 +6,94 @@
   Copyright © 2016 Tenposs. All rights reserved.
 */
 
+"home"="ホーム";
+"menu"="メニュー";
+"reserve"="予約";
+"news"="ニュース";
+"photo_gallery"="フォトギャラリー";
+"staff"="スタッフ";
+"coupon"="クーポン";
+"chat"="チャット";
+"setting"="設定";
+"username"="ユーザー名";
+"image_description"="画像記述";
+"more"="もっと見る";
+
+//Settings Screen
+"profile"="プロフィール";
+"edit_profile"="プロフィール編集";
+"receive_push"="お知らせを受け取る";
+"receive_coupon_information"="クーポン情報を受け取る";
+"issue_the_takeover_code_during_the_model_change"="機種変更時引継ぎコード発行";
+"company_info"="逼营会社";
+"user_privacy"="採用情報";
+
+"sign_in"="ログイン";
+"sign_up"="サインアップ";
+"sign_out"="サインアウト";
+"email_address"="メールアドレス";
+"password"="パスワード";
+"password_confirm"="パスワード (確認)";
+
+"change_avatar"="プロフィール写真を変更";
+"user_id"="ユーザーID";
+"user_name"="ユーザー名";
+"gender"="性别";
+"gender_male"="男性";
+"gender_female"="女性";
+"province"="都道府桌";
+
+"sign_in_with_facebook"="Facebook ではじめる";
+"sign_in_with_twitter"="Twitter ではじめる";
+"sign_in_with_email"="メールアドレスではじめる";
+"skip"="スキップ";
+"back"="バック";
+"ok"="OK";
+
+"reserve_by_phone"="電話で予約する";
+"staff_description"="自己韶介";
+"staff_profile"="プロフィール";
+"product_details"="商品詳細";
+"size"="サイズ";
+"purchase"="商品購入ペ一ジへ";
+
+"copy_one"="コピ一";
+"coupon_type"="クーポンタイプ";
+"validity"="有効期間";
+"take_advantage_of_this_coupon"="このクーボンを利用す";
+"this_coupon_cannot_use"="このクーポンは使用できません";
+"staff_unknown_button"="テキストが入ります";
+
+//Button
+"close"="閉じる";
+"cancel"="キャンセル";
+"yes"="はい";
+"no"="否";
+"on"="オン";
+"off"="オフ";
+"link"="連撈";
+
+//Alert title
+"warning"="警告";
+"error"="エラー";
+"info"="インフォ";
+
+//Message
+"msg_input_a_valid_email_address"="入力に有効なメールアドレスを喜ば";
+"msg_input_name"="入力してください名";
+"msg_input_password_confirm"="してください再入力パスワード";
+"msg_input_correct_confirm_password"="確認パスワードが正しくありません";
+"msg_input_password"="パスワード入力してください";
+"msg_exit_confirm"="本当に終了してもよろしいですか？";
+"msg_sign_out_confirm"="あなたがサインアウトしてもよろしいですか？";
+"msg_unable_to_sign_out"="ログアウトすることはできません";
+"msg_unable_to_sign_in"="ログインできません";
+"msg_unable_to_sign_up"="新規会員登録できません";
+"msg_not_sign_in"="まだログインしていません！";
+
+"msg_enter_email_and_name"="メールと名前を入力してください";
+"msg_invalid_response_data"="無効な応答データ！";
+
 "hokkaido"  ="Hokkaidō";
 "aomori"    ="Aomori";
 "iwate"     ="Iwate";

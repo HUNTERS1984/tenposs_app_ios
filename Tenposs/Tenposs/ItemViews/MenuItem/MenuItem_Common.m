@@ -50,10 +50,10 @@
         [self.itemTitle setText:data.name];
         [self.itemIconFont setFont:[UIFont themifyFontOfSize:settings.menu_font_size]];
         if (data.icon != nil) {
-            unsigned c = 0;
-            NSScanner *scanner = [NSScanner scannerWithString:data.icon ];
-            [scanner scanHexInt: &c];
-            NSString* unicodeStr = [NSString stringWithFormat: @"%C", (unsigned short)c];
+//            unsigned c = 0;
+//            NSScanner *scanner = [NSScanner scannerWithString:];
+//            [scanner scanHexInt: &c];
+            NSString* unicodeStr = [UIFont stringForThemifyIdentifier:data.icon];
             
             [self.itemIconFont setText:unicodeStr];
             

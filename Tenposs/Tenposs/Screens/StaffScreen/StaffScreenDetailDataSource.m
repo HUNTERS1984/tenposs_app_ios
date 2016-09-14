@@ -19,9 +19,8 @@
 @implementation StaffScreenDetailDataSource
 
 - (instancetype)initWithDelegate:(id<SimpleDataSourceDelegate>)delegate andStaffCategory:(StaffCategory *)category{
-    self = [super init];
+    self = [super initWithDelegate:delegate];
     if (self) {
-        self.delegate = delegate;
         self.mainData = category;
     }
     return self;
@@ -54,6 +53,19 @@
     [params put:KeyAPI_PAGE_SIZE value:@"20"];
     [request execute:params withDelegate:self];
 
+}
+
+- (BOOL)isEqualTo:(SimpleDataSource *)second{
+    if (![second isKindOfClass:[StaffScreenDetailDataSource class]]) {
+        NSAssert(NO, @"DataSource type is not right!");
+        return NO;
+    }else{
+        if (self.mainData.staff_cate_id == ((StaffScreenDetailDataSource *)second).mainData.staff_cate_id) {
+            return YES;
+        }else{
+            return NO;
+        }
+    }
 }
 
 - (void)registerClassForCollectionView:(UICollectionView *)collection{
@@ -100,6 +112,10 @@
     return CGSizeZero;
 }
 
+- (UIEdgeInsets)insetForSection{
+    return UIEdgeInsetsMake(8, 8, 8, 8);
+}
+
 #pragma mark - TenpossCommunicatorDelegate
 
 - (void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams{
@@ -117,7 +133,12 @@
                 [_mainData increaseIndex:1];
             }
         }else{
-            error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_DETAIL_DATASOURCE_NO_CONTENT] code:ERROR_DETAIL_DATASOURCE_NO_CONTENT userInfo:nil];
+            if ([_mainData.staffs count] > 0) {
+                error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_CONTENT_FULLY_LOADED] code:ERROR_CONTENT_FULLY_LOADED userInfo:nil];
+                
+            }else{
+                error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_DETAIL_DATASOURCE_NO_CONTENT] code:ERROR_DETAIL_DATASOURCE_NO_CONTENT userInfo:nil];
+            }
         }
     }
     if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {

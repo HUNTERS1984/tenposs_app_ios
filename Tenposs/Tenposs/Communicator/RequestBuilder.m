@@ -15,7 +15,7 @@
 
 #pragma mark - URL
 
-NSString * const BASE_ADDRESS  =  @"http://ec2-54-204-210-230.compute-1.amazonaws.com/";
+NSString * const BASE_ADDRESS  =  @"https://api.ten-po.com/";
 NSString * const API_BASE = @"api/v1";
 NSString * const API_LOGIN  = @"/signin?";
 NSString * const API_SLOGIN  = @"/social_login?";
@@ -36,7 +36,7 @@ NSString * const API_COUPON  = @"/coupon?";
 NSString * const API_COUPON_DETAIL = @"/coupon/detail?";
 NSString * const API_APPUSER  = @"/appuser?";
 NSString * const API_SETPUSHKEY = @"/set_push_key?";
-NSString * const API_STAFF = @"/staff?";
+NSString * const API_STAFF = @"/staffs?";
 NSString * const API_STAFF_CAT = @"/staff_categories?";
 NSString *const API_UPDATE_PROFILE = @"/update_profile?";
 

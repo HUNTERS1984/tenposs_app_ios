@@ -19,6 +19,8 @@
 #import "StaffScreen.h"
 #import "ChatScreen.h"
 
+#import "TabDataSourceViewController.h"
+
 @implementation GlobalMapping
 
 +(UIViewController *)getViewControllerWithId:(NSInteger)viewControlerId withExtraData:(Bundle *)extra{
@@ -35,25 +37,39 @@
         viewController = [[TopScreen alloc]initWithCollectionViewLayout:[UICollectionViewFlowLayout new]];
         ((TopScreen *)viewController).mainNavigationController = navigationController;
     }else if (viewControlerId == APP_MENU_NEWS){
-        viewController = (NewsScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([NewsScreen class])];
-        ((NewsScreen *)viewController).mainNavigationController = navigationController;
+//        viewController = (NewsScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([NewsScreen class])];
+//        ((NewsScreen *)viewController).mainNavigationController = navigationController;
+        viewController = (TabDataSourceViewController *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([TabDataSourceViewController class])];
+        [((TabDataSourceViewController *)viewController) setControllerType:TABVIEWCONTROLLER_News];
+        ((TabDataSourceViewController *)viewController).mainNavigationController = navigationController;
     }else if (viewControlerId == APP_MENU_MENU){
-        viewController = (MenuScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([MenuScreen class])];
-        ((MenuScreen *)viewController).mainNavigationController = navigationController;
+//        viewController = (MenuScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([MenuScreen class])];
+//        ((MenuScreen *)viewController).mainNavigationController = navigationController;
+        
+        viewController = (TabDataSourceViewController *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([TabDataSourceViewController class])];
+        [((TabDataSourceViewController *)viewController) setControllerType:TABVIEWCONTROLLER_Menu];
+        ((TabDataSourceViewController *)viewController).mainNavigationController = navigationController;
+        
     }else if (viewControlerId == APP_MENU_COUPON){
         viewController = (CouponScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([CouponScreen class])];
         ((CouponScreen *)viewController).mainNavigationController = navigationController;
         ((CouponScreen *)viewController).store_id = [[appConfig getStoreId] integerValue];
     }else if (viewControlerId == APP_MENU_PHOTO_GALLERY){
-        viewController = (GalleryScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([GalleryScreen class])];
-        ((GalleryScreen *)viewController).mainNavigationController = navigationController;
+//        viewController = (GalleryScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([GalleryScreen class])];
+//        ((GalleryScreen *)viewController).mainNavigationController = navigationController;
+        viewController = (TabDataSourceViewController *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([TabDataSourceViewController class])];
+        [((TabDataSourceViewController *)viewController) setControllerType:TABVIEWCONTROLLER_Gallery];
+        ((TabDataSourceViewController *)viewController).mainNavigationController = navigationController;
     }else if (viewControlerId == APP_MENU_RESERVE){
         viewController = (ReserveScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ReserveScreen class])];
     }else if (viewControlerId == APP_MENU_SETTING){
         viewController = (SettingsScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SettingsScreen class])];
     }else if (viewControlerId == APP_MENU_STAFF){
-        viewController = (StaffScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([StaffScreen class])];
-        ((StaffScreen *)viewController).mainNavigationController = navigationController;
+//        viewController = (StaffScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([StaffScreen class])];
+//        ((StaffScreen *)viewController).mainNavigationController = navigationController;
+        viewController = (TabDataSourceViewController *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([TabDataSourceViewController class])];
+        [((TabDataSourceViewController *)viewController) setControllerType:TABVIEWCONTROLLER_Staff];
+        ((TabDataSourceViewController *)viewController).mainNavigationController = navigationController;
     }else if (viewControlerId == APP_MENU_CHAT){
         viewController = (ChatScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ChatScreen class])];
     }

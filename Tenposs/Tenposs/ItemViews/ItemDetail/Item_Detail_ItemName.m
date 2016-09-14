@@ -39,8 +39,12 @@
         [self.ItemTitle setText: [item.title uppercaseString]];
         [self.itemPrice setText:item.price];
         
-    }else {
-        return;
+    }else if([data isKindOfClass:[StaffObject class]]){
+        StaffObject *staff = (StaffObject *)data;
+        
+        [self.categoryTitle setText:@"Category"];
+        [self.itemPrice setHidden:YES];
+        [self.ItemTitle setText:staff.name];
     }
 }
 + (CGFloat)getCellHeightWithWidth:(CGFloat)width{

@@ -1,43 +1,68 @@
 //
-//  StaffScreen.m
+//  TabDataSourceViewController.m
 //  Tenposs
 //
-//  Created by Phúc Nguyễn on 9/11/16.
+//  Created by Phúc Nguyễn on 9/14/16.
 //  Copyright © 2016 Tenposs. All rights reserved.
 //
 
-#import "StaffScreen.h"
+#import "TabDataSourceViewController.h"
+
+#import "TabDataSource.h"
+#import "MenuScreenDataSource.h"
+#import "NewsScreenDataSource.h"
+#import "GalleryScreenDataSource.h"
 #import "StaffScreenDataSource.h"
-#import "UIViewController+LoadingView.h"
-#import "UIUtils.h"
-#import "CommunicatorConst.h"
+
+#import "CouponDetailScreen.h"
+#import "NewsDetailScreen.h"
+#import "PhotoViewer.h"
+#import "ItemDetailScreen.h"
 #import "StaffDetailScreen.h"
+
+#import "UIViewController+LoadingView.h"
+#import "UIView+LoadingView.h"
+#import "UIUtils.h"
 #import "SVPullToRefresh.h"
 
-@interface StaffScreen ()<UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
-@property (weak, nonatomic) IBOutlet UIButton *previousCategoryButton;
+#import "ItemDetailScreen.h"
+
+#import "GrandViewController.h"
+
+
+@interface TabDataSourceViewController ()
+
+/// UI components
 @property (weak, nonatomic) IBOutlet UIButton *nextCategoryButton;
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIButton *previousCategoryButton;
 @property (weak, nonatomic) IBOutlet UILabel *categoryTitle;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property (weak, nonatomic) IBOutlet UIView *detailLoadingView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *detailLoadingIndicator;
 @property (weak, nonatomic) IBOutlet UILabel *detailLoadingMessage;
 
 /// Data source
-@property (strong, nonatomic) StaffScreenDataSource *dataSource;
+@property (strong, nonatomic) TabDataSource *dataSource;
 
 @end
 
-@implementation StaffScreen
+@implementation TabDataSourceViewController
 
-- (void)loadView{
-    [super loadView];
-    self.dataSource = [[StaffScreenDataSource alloc] initAndShouldShowLatest:YES];
-    self.dataSource.collectionView = self.collectionView;
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    [self.collectionView setCollectionViewLayout:layout];
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+- (void)setControllerType:(NSString *)controllerType{
+    _controllerType = controllerType;
+    if ([_controllerType isEqualToString:TABVIEWCONTROLLER_Menu]) {
+        _dataSource = [[MenuScreenDataSource alloc] initAndShouldShowLatest:YES];
+    }else if ([_controllerType isEqualToString:TABVIEWCONTROLLER_News]) {
+        _dataSource = [[NewsScreenDataSource alloc] initAndShouldShowLatest:YES];
+    }else if ([_controllerType isEqualToString:TABVIEWCONTROLLER_Gallery]) {
+        _dataSource = [[GalleryScreenDataSource alloc] initAndShouldShowLatest:YES];
+    }else if ([_controllerType isEqualToString:TABVIEWCONTROLLER_Staff]) {
+        _dataSource = [[StaffScreenDataSource alloc] initAndShouldShowLatest:YES];
+    }else{
+        //Should never go here
+        NSAssert(NO, @"ViewController type should be defined!");
+    }
 }
 
 - (void)viewDidLoad {
@@ -45,6 +70,11 @@
     self.collectionView.delegate = self;
     
     [self showLoadingViewWithMessage:@""];
+    
+    _dataSource.collectionView = self.collectionView;
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+    [self.collectionView setCollectionViewLayout:layout];
+    self.collectionView.backgroundColor = [UIColor whiteColor];
     
     __weak __typeof__(self) weakSelf = self;
     __weak __typeof__(self.dataSource) wDataSource = self.dataSource;
@@ -74,9 +104,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSString *)title{
-    return @"Menu";
-}
+#pragma mark - Helper Methods
 
 - (void)handleDataSourceCallback:(NSError *)error title:(NSString *)detailDataSourceTitle hasNext:(BOOL)hasNext hasPrevious:(BOOL) hasPrevious{
     
@@ -125,12 +153,6 @@
     }
 }
 
-- (void)handleDetailDataSourceError:(NSError *)error{
-    [UIView animateWithDuration:0.2 animations:^{
-        [self showDetailLoadingView:YES message:error.domain];
-    }];
-}
-
 - (void)showDetailLoadingView:(BOOL)show message:(NSString *)message{
     if (show) {
         if (message) {
@@ -142,12 +164,24 @@
         }else{
             [self.detailLoadingView setHidden:NO];
             [self.detailLoadingIndicator setHidden:NO];
+            [self.detailLoadingMessage setHidden:YES];
             [self.detailLoadingIndicator startAnimating];
         }
     }else {
         [self.detailLoadingView setHidden:YES];
         [self.detailLoadingIndicator stopAnimating];
     }
+}
+
+
+- (void)removeInfiniteLoading{
+    [self.collectionView.infiniteScrollingView stopAnimating];
+    self.collectionView.showsInfiniteScrolling = NO;
+}
+
+- (void)removePullToRefresh{
+    [self.collectionView.pullToRefreshView stopAnimating];
+    self.collectionView.showsPullToRefresh = NO;
 }
 
 #pragma mark - UI methods
@@ -157,7 +191,7 @@
         [self showDetailLoadingView:YES message:nil];
         [self.nextCategoryButton setEnabled:NO];
         [self.previousCategoryButton setEnabled:NO];
-        __weak StaffScreen *weakSelf = self;
+        __weak TabDataSourceViewController *weakSelf = self;
         [self.dataSource changeToNextDetailDataSourceWithCompleteHandler:^(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious) {
             [weakSelf handleDataSourceCallback:error title:detailDataSourceTitle hasNext:hasNext hasPrevious:hasPrevious];
         }];
@@ -165,7 +199,7 @@
         [self showDetailLoadingView:YES message:nil];
         [self.nextCategoryButton setEnabled:NO];
         [self.previousCategoryButton setEnabled:NO];
-        __weak StaffScreen *weakSelf = self;
+        __weak TabDataSourceViewController *weakSelf = self;
         [self.dataSource changeToPreviousDetailDataSourceWithCompleteHandler:^(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious) {
             [weakSelf handleDataSourceCallback:error title:detailDataSourceTitle hasNext:hasNext hasPrevious:hasPrevious];
         }];
@@ -186,15 +220,15 @@
     }
 }
 
-
-- (void)removeInfiniteLoading{
-    [self.collectionView.infiniteScrollingView stopAnimating];
-    self.collectionView.showsInfiniteScrolling = NO;
+- (void)showPhoto:(PhotoObject *)photoObject{
+    [self performSegueWithIdentifier:@"gallery_photo_viewer" sender:photoObject];
 }
 
-- (void)removePullToRefresh{
-    [self.collectionView.pullToRefreshView stopAnimating];
-    self.collectionView.showsPullToRefresh = NO;
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"gallery_photo_viewer"]) {
+        PhotoViewer *viewer = (PhotoViewer *)segue.destinationViewController;
+        [viewer setPhoto:(PhotoObject *)sender];
+    }
 }
 
 
@@ -202,22 +236,43 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSObject *item = [self.dataSource itemAtIndexPath:indexPath];
-    if ([item isKindOfClass:[StaffObject class]]) {
-        StaffObject *staff = (StaffObject *)item;
-//        StaffDetailScreen *controller = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([StaffDetailScreen class])];
-        StaffDetailScreen *controller = [[StaffDetailScreen alloc] initWithStaff:staff];
-//        controller.staff = staff;
-        [self.navigationController pushViewController:controller animated:YES];
+    if ([self.parentViewController isKindOfClass:[GrandViewController class]]) {
+        [((GrandViewController *)self.parentViewController) performSegueWithObject:item];
+    }else{
+        if ([item isKindOfClass:[ProductObject class]]) {
+            ProductObject *product = (ProductObject *)item;
+            ItemDetailScreen *controller = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([ItemDetailScreen class])];
+            controller.item = product;
+            [self.navigationController pushViewController:controller animated:YES];
+        }else if ([item isKindOfClass:[CouponObject class]]) {
+            CouponObject *coupon = (CouponObject *)item;
+            CouponDetailScreen *controller = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([CouponDetailScreen class])];
+            controller.coupon = coupon;
+            [self.navigationController pushViewController:controller animated:YES];
+
+        }else if ([item isKindOfClass:[PhotoObject class]]) {
+            PhotoObject *photo = (PhotoObject *)item;
+            [self showPhoto:photo];
+        }else if ([item isKindOfClass:[NewsObject class]]) {
+            NewsObject *news = (NewsObject *)item;
+            NewsDetailScreen *controller = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([NewsDetailScreen class])];
+            controller.news = news;
+            [self.navigationController pushViewController:controller animated:YES];
+        }else if ([item isKindOfClass:[StaffObject class]]){
+            StaffObject *staff = (StaffObject *)item;
+            StaffDetailScreen *controller = [[StaffDetailScreen alloc] initWithStaff:staff];
+            [self.navigationController pushViewController:controller animated:YES];
+
+        }
     }
 }
 
-#pragma mark - UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     return [self.dataSource.activeDetailDataSource sizeForCellAtIndexPath:indexPath withCollectionWidth:collectionView.bounds.size.width];
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-    return UIEdgeInsetsMake(8, 8, 8, 8);
+    return [self.dataSource.activeDetailDataSource insetForSection];
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
@@ -225,7 +280,7 @@
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-    return 0;
+    return 8;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{

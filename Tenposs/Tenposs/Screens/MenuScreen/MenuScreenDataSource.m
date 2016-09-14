@@ -16,42 +16,13 @@
 
 @interface MenuScreenDataSource()<TenpossCommunicatorDelegate, SimpleDataSourceDelegate>
 
-@property (strong, nonatomic) NSMutableArray<MenuScreenDetailDataSource *> *detailDataSourceList;
-@property (assign, nonatomic) BOOL shouldShowLatest;
-@property (assign, nonatomic) NSInteger currentDetailDataSourceIndex;
-@property (strong, nonatomic) MenuDataCompleteHandler currentCompleteHandler;
-
 @end
 
 @implementation MenuScreenDataSource
 
-- (instancetype)initAndShouldShowLatest:(BOOL)shouldShowLatest{
-    self = [super init];
-    if (self) {
-        self.shouldShowLatest = shouldShowLatest;
-        self.detailDataSourceList = (NSMutableArray<MenuScreenDetailDataSource *> *)[[NSMutableArray alloc]init];
-        self.currentDetailDataSourceIndex = -1;
-    }
-    return self;
-}
-
 #pragma mark - Public methods
 
-- (void)reloadDataWithCompleteHandler:(MenuDataCompleteHandler)handler{
-    [self resetData];
-    [self fetchDataWithCompleteHandler:handler];
-}
-
-- (void)resetData{
-    [_detailDataSourceList removeAllObjects];
-}
-
-- (void)loadMoreDataWithCompleteHandler:(MenuDataCompleteHandler)handler{
-    self.currentCompleteHandler = handler;
-    [_activeDetailDataSource loadData];
-}
-
-- (void)fetchDataWithCompleteHandler:(MenuDataCompleteHandler)handler{
+- (void)fetchDataWithCompleteHandler:(TabDataCompleteHandler)handler{
     self.currentCompleteHandler = handler;
     if ([self.detailDataSourceList count] <= 0) {
         [self loadMenuCategoryList];
@@ -66,49 +37,12 @@
             }
         }
     }
+
 }
 
-- (void)changeToNextDetailDataSourceWithCompleteHandler:(MenuDataCompleteHandler)handler{
-    if (![self detailDataSourceHasNext:self.activeDetailDataSource]) {
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_LAST userInfo:nil];
-        handler(error, nil, NO,YES);
-        return;
-    }
-    NSInteger indexToChangeTo = [self.detailDataSourceList indexOfObject:self.activeDetailDataSource] + 1;
-    MenuScreenDetailDataSource *sourceToChangeTo = self.detailDataSourceList[indexToChangeTo];
-    if (sourceToChangeTo.mainData.menu_id != self.activeDetailDataSource.mainData.menu_id) {
-        self.currentCompleteHandler = handler;
-        [self updateCurrentDetailDataSource:sourceToChangeTo];
-    }else{
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_DUBLICATED userInfo:nil];
-        handler(error, nil, [self detailDataSourceHasNext:self.activeDetailDataSource],[self detailDataSourceHasPrevious:self.activeDetailDataSource]);
-    }
-}
-
-- (void)changeToPreviousDetailDataSourceWithCompleteHandler:(MenuDataCompleteHandler)handler{
-    if (![self detailDataSourceHasPrevious:self.activeDetailDataSource]) {
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_FIRST userInfo:nil];
-        handler(error, nil, YES,NO);
-        return;
-    }
-    NSInteger indexToChangeTo = [self.detailDataSourceList indexOfObject:self.activeDetailDataSource] -1;
-    MenuScreenDetailDataSource *sourceToChangeTo = self.detailDataSourceList[indexToChangeTo];
-    if (sourceToChangeTo.mainData.menu_id != self.activeDetailDataSource.mainData.menu_id) {
-        self.currentCompleteHandler = handler;
-        [self updateCurrentDetailDataSource:sourceToChangeTo];
-    }else{
-        NSError *error = [NSError errorWithDomain:@"" code:ERROR_DETAIL_DATASOURCE_IS_DUBLICATED userInfo:nil];
-        handler(error, nil, [self detailDataSourceHasNext:self.activeDetailDataSource],[self detailDataSourceHasPrevious:self.activeDetailDataSource]);
-    }
-}
-
-- (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath{
-    return [self.activeDetailDataSource itemAtIndexPath:indexPath];
-}
 
 #pragma mark - Communicator
 -(void)loadMenuCategoryList{
-    
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     NSString * store_id = [appConfig getStoreId];
     
@@ -122,34 +56,6 @@
     [params put:KeyAPI_STORE_ID value:store_id];
     [request execute:params withDelegate:self];
     
-}
-
-#pragma mark - Helper Methods
-
-- (void)updateCurrentDetailDataSource:(MenuScreenDetailDataSource *)detail{
-    self.activeDetailDataSource = detail;
-    [self.activeDetailDataSource registerClassForCollectionView:self.collectionView];
-    self.currentDetailDataSourceIndex = [self.detailDataSourceList indexOfObject:detail];
-    [self.activeDetailDataSource loadData];
-}
-
-- (BOOL)detailDataSourceHasNext:(MenuScreenDetailDataSource *)dataSource {
-    NSInteger detailDataSourceCount = [self.detailDataSourceList count];
-    if ((self.detailDataSourceList[detailDataSourceCount -1]).mainData.menu_id == dataSource.mainData.menu_id && [self.detailDataSourceList count] > 1) {
-        return NO;
-    }else if (detailDataSourceCount == 1){
-        return NO;
-    }
-    return YES;
-}
-
-- (BOOL)detailDataSourceHasPrevious:(MenuScreenDetailDataSource *)dataSource{
-    if ((self.detailDataSourceList[0]).mainData.menu_id == dataSource.mainData.menu_id && [self.detailDataSourceList count] > 1) {
-        return NO;
-    }else if ([self.detailDataSourceList count] == 1){
-        return NO;
-    }
-    return YES;
 }
 
 #pragma mark - TenpossCommunicatorDelegate
@@ -171,11 +77,11 @@
                 MenuScreenDetailDataSource *detailDataSource = [[MenuScreenDetailDataSource alloc]initWithDelegate:self andMenuCategory:menu];
                 [self.detailDataSourceList addObject:detailDataSource];
             }
-            if (_currentDetailDataSourceIndex > 0){
-                if ([self.detailDataSourceList count] <= _currentDetailDataSourceIndex) {
-                    _currentDetailDataSourceIndex = [self.detailDataSourceList count];
+            if (self.currentDetailDataSourceIndex > 0){
+                if ([self.detailDataSourceList count] <= self.currentDetailDataSourceIndex) {
+                    self.currentDetailDataSourceIndex = [self.detailDataSourceList count];
                 }
-                [self updateCurrentDetailDataSource:[self.detailDataSourceList objectAtIndex:_currentDetailDataSourceIndex]];
+                [self updateCurrentDetailDataSource:[self.detailDataSourceList objectAtIndex:self.currentDetailDataSourceIndex]];
                 self.shouldShowLatest = NO;
             }else {
                 if(self.shouldShowLatest) {

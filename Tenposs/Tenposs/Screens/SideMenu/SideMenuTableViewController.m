@@ -67,8 +67,18 @@
         MenuModel *signoutMenu = [MenuModel new];
         signoutMenu.name = @"ログアウト";
         signoutMenu.menu_id = -1;
-        signoutMenu.icon = @"e603";
+        signoutMenu.icon = @"ti-unlock";
         [_menuArray addObject:signoutMenu];
+    }else{
+        NSMutableIndexSet *discardedItems = [NSMutableIndexSet indexSet];
+        NSUInteger index = 0;
+        for (MenuModel *menu in _menuArray) {
+            if (menu.menu_id == APP_MENU_CHAT) {
+                [discardedItems addIndex:index];
+            }
+            index ++;
+        }
+        [_menuArray removeObjectsAtIndexes:discardedItems];
     }
     [self.tableView reloadData];
     if (_currentMenuItem == nil) {

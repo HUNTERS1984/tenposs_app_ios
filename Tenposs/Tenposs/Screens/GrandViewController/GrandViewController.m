@@ -26,6 +26,8 @@
 #import "PhotoViewer.h"
 #import "CouponDetailScreen.h"
 #import "ItemDetailScreen.h"
+#import "StaffDetailScreen.h"
+
 #import "UIFont+Themify.h"
 
 #import "UserData.h"
@@ -197,6 +199,10 @@
         [self performSegueWithIdentifier:GRAND_IDENTIFIER_PHOTO_DETAIL sender:object];
     }else if ([object isKindOfClass:[ProductObject class]]){
         [self performSegueWithIdentifier:GRAND_IDENTIFIER_ITEM_DETAIL sender:object];
+    }else if([object isKindOfClass:[StaffObject class]]){
+        StaffObject *staff = (StaffObject *)object;
+        StaffDetailScreen *controller = [[StaffDetailScreen alloc] initWithStaff:staff];
+        [self.navigationController pushViewController:controller animated:YES];
     }
 }
 

@@ -47,34 +47,6 @@
         }
         return;
     }
-//    if (!self.mainData) {
-//        self.mainData = [StoreCoupon new];
-//    }
-//    
-//    if (self.mainData.total_coupons != 0 && [self.mainData.coupons count] == self.mainData.total_coupons ) {
-//        if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
-//            NSError *error = [NSError errorWithDomain:CouponDetailError_fullyLoaded code:-9904 userInfo:nil];
-//            [self.delegate dataLoaded:self withError:error];
-//        }
-//        return;
-//    }
-//    
-//    NSData *data = nil;
-//    
-//    data = [MockupData fetchDataWithResourceName:@"coupon_items"];
-//    NSError *error = nil;
-//    StoreCoupon *couponData = [[StoreCoupon alloc]initWithData:data error:&error];
-//    
-//    if (error == nil) {
-//        if (couponData && [couponData.coupons count] > 0) {
-//            for (CouponObject *coupon in couponData.coupons) {
-//                [self.mainData addCoupon:coupon];
-//            }
-//        }
-//    }
-//    if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
-//        [self.delegate dataLoaded:self withError:error];
-//    }
     
     CouponCommunicator *request = [CouponCommunicator new];
     Bundle *params = [Bundle new];
@@ -88,6 +60,10 @@
     [params put:KeyAPI_PAGE_SIZE value:@"20"];
     [request execute:params withDelegate:self];
 
+}
+
+- (BOOL)isEqualTo:(SimpleDataSource *)second{
+    return NO;
 }
 
 - (void)registerClassForCollectionView:(UICollectionView *)collection{
