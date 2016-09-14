@@ -54,6 +54,27 @@
     [self execute:body withDelegate:delegate];
 }
 
+- (void)GET:(NSString *)API parameters:(id)parameters onCompleted:(void (^)(BOOL isSuccess,NSDictionary *dictionary)) completeBlock
+{
+    _request_url = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddress],API];
+    
+    NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
+    NSArray *sigs = [NSArray arrayWithObjects:APP_ID,currentTime,APP_SECRET,nil];
+    
+    Bundle *body = [Bundle new];
+    
+    [body put:KeyAPI_APP_ID value:APP_ID];
+    [body put:KeyAPI_TIME value:currentTime];
+    [body put:KeyAPI_SIG value:[Utils getSigWithStrings:sigs]];
+
+    for (NSString* key in parameters) {
+        [body put:key value:[parameters objectForKey:key]];
+    }
+    [body put:KeyRequestCallback value:completeBlock];
+    
+    [self execute:body withDelegate:self];
+}
+
 - (void)POST:(NSString *)API parameters:(id)parameters onCompleted:(void (^)(BOOL isSuccess,NSDictionary *dictionary)) completeBlock
 {
     _request_url = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddress],API];

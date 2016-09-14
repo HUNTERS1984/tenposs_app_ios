@@ -14,6 +14,9 @@
 #import "ItemDetailScreen.h"
 #import "UIUtils.h"
 #import "SVPullToRefresh.h"
+#import "UIFont+Themify.h"
+#import "HexColors.h"
+#import "AppConfiguration.h"
 
 @interface MenuScreen ()<UICollectionViewDelegateFlowLayout>
 
@@ -41,6 +44,14 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     [self.collectionView setCollectionViewLayout:layout];
     self.collectionView.backgroundColor = [UIColor whiteColor];
+    
+    AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+    AppSettings *settings = [appConfig getAvailableAppSettings];
+    
+    [_previousCategoryButton setFont:[UIFont themifyFontOfSize:settings.font_size]];
+    [_previousCategoryButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-arrow-left"]] forState:UIControlStateNormal];
+    [_nextCategoryButton setFont:[UIFont themifyFontOfSize:settings.font_size]];
+    [_nextCategoryButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-arrow-right"]] forState:UIControlStateNormal];
 }
 
 - (void)viewDidLoad {

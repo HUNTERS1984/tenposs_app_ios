@@ -64,11 +64,20 @@
 - (void) setData:(NSArray<MenuModel *> *)menuData{
     _menuArray = [menuData mutableCopy];
     if ([[UserData shareInstance] getToken]){
-        MenuModel *signoutMenu = [MenuModel new];
-        signoutMenu.name = @"ログアウト";
-        signoutMenu.menu_id = -1;
-        signoutMenu.icon = @"ti-unlock";
-        [_menuArray addObject:signoutMenu];
+        bool isLogout = false;
+        for (MenuModel * model in _menuArray) {
+            if (model.menu_id == -1) {
+                isLogout = true;
+                break;
+            }
+        }
+        if (!isLogout) {
+            MenuModel *signoutMenu = [MenuModel new];
+            signoutMenu.name = @"ログアウト";
+            signoutMenu.menu_id = -1;
+            signoutMenu.icon = @"ti-unlock";
+            [_menuArray addObject:signoutMenu];
+        }
     }else{
         NSMutableIndexSet *discardedItems = [NSMutableIndexSet indexSet];
         NSUInteger index = 0;
@@ -79,6 +88,7 @@
             index ++;
         }
         [_menuArray removeObjectsAtIndexes:discardedItems];
+
     }
     [self.tableView reloadData];
     if (_currentMenuItem == nil) {

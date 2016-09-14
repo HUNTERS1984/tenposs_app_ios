@@ -12,6 +12,8 @@
 #import "SplashScreen.h"
 #import "SVProgressHUD.h"
 #import "NetworkCommunicator.h"
+#import "UIFont+Themify.h"
+#import "HexColors.h"
 
 @interface BaseViewController () {
     __weak id<NSObject> observer;
@@ -24,6 +26,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+    AppSettings *settings = [appConfig getAvailableAppSettings];
+    if ([[self.navigationController viewControllers] count] > 1) {
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                        style:UIBarButtonItemStylePlain target:self action:@selector(didPressBackButton)];
+        self.navigationItem.leftBarButtonItem = backButton;
+        [self.navigationItem setHidesBackButton:YES animated:YES];
+        [self.navigationItem setBackBarButtonItem:nil];
+        [self.navigationItem.leftBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                   [UIFont themifyFontOfSize:settings.font_size], NSFontAttributeName,
+                                                                   [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
+                                                                   nil]
+                                                         forState:UIControlStateNormal];
+        [self.navigationItem.leftBarButtonItem setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-angle-left"]]];
+    }
+}
+
+- (void)didPressBackButton
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

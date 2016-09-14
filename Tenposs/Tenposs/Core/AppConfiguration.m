@@ -12,6 +12,7 @@
 #import "Const.h"
 #import "Utils.h"
 #import "CommunicatorConst.h"
+#import "UserData.h"
 
 @implementation AppInfo
 
@@ -211,6 +212,7 @@
         error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:nil];
     }else{
         _appInfo = (AppInfo *)[responseParams get:KeyResponseObject];
+        
     }
     [self requestCompleteWithError:error];
     

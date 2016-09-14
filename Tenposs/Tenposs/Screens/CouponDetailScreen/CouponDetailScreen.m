@@ -8,8 +8,12 @@
 
 #import "CouponDetailScreen.h"
 #import "UIViewController+LoadingView.h"
+<<<<<<< Updated upstream
 #import "HexColors.h"
 #import "QRCodeScreen.h"
+=======
+#import <SDWebImage/UIImageView+WebCache.h>
+>>>>>>> Stashed changes
 
 @interface CouponDetailScreen ()
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
@@ -22,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *couponEndDate;
 @property (weak, nonatomic) IBOutlet UIButton *useCouponButton;
 @property (weak, nonatomic) IBOutlet UITextView *couponDesciption;
+@property (weak, nonatomic) IBOutlet UILabel *hashTag;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *descriptionHeightConstraint;
@@ -33,11 +38,24 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self.couponTitle setText:_coupon.title];
-    [self.categoryTitle setText:@"Category"];
-    [self.couponEndDate setText:@"Thursday, August 30, 2016"];
-    [self.couponDesciption setText:_coupon.desc];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _pagerScrollView.frame.size.width/2, _pagerScrollView.frame.size.height)];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    imageView.clipsToBounds = YES;
+    [imageView sd_setImageWithURL:[NSURL URLWithString:self.coupon.image_url]];
+    [_pagerScrollView addSubview:imageView];
+    
+    [self.couponTitle setText:self.coupon.title];
+    [self.categoryTitle setText:self.coupon.coupon_type.name];
+    [self.couponEndDate setText:[NSString stringWithFormat:@"有効期間　%@",self.coupon.end_date]];
+    [self.couponDesciption setText:self.coupon.desc];
     self.couponDesciption.textAlignment = NSTextAlignmentJustified;
+    NSString *tag = @"";
+    if ([self.coupon.taglist count] > 1) {
+        tag = [self.coupon.taglist componentsJoinedByString:@" #"];
+    } else {
+        tag = [NSString stringWithFormat:@"#%@", self.coupon.taglist[0]];
+    }
+    [self.hashTag setText:tag];
     [self showLoadingViewWithMessage:@""];
     
     if (_coupon.status == COUPON_STATUS_AVAILABLE) {
@@ -54,7 +72,7 @@
 }
 
 - (NSString *)title{
-    return @"Coupons Title";
+    return self.coupon.title;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -72,6 +90,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)copyClipboard:(id)sender {
+    UIPasteboard *pb = [UIPasteboard generalPasteboard];
+    [pb setString:self.hashTag.text];
 }
 
 - (void)loadTopPagerContent{

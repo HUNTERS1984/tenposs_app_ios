@@ -18,6 +18,9 @@
 #import "TopScreenDataSource.h"
 #import "Common_Item_Cell.h"
 #import "UIViewController+LoadingView.h"
+#import "UIFont+Themify.h"
+#import "HexColors.h"
+#import "AppConfiguration.h"
 
 @interface ItemDetailScreen ()
 
@@ -41,6 +44,23 @@
     
     [self.collectionView setBackgroundColor:[UIColor whiteColor]];
     
+    if ([[self.navigationController viewControllers] count] > 1) {
+        AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+        AppSettings *settings = [appConfig getAvailableAppSettings];
+        
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                       style:UIBarButtonItemStylePlain target:self action:@selector(didPressBackButton)];
+        self.navigationItem.leftBarButtonItem = backButton;
+        [self.navigationItem setHidesBackButton:YES animated:YES];
+        [self.navigationItem setBackBarButtonItem:nil];
+        [self.navigationItem.leftBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                       [UIFont themifyFontOfSize:settings.font_size], NSFontAttributeName,
+                                                                       [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
+                                                                       nil]
+                                                             forState:UIControlStateNormal];
+        [self.navigationItem.leftBarButtonItem setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-angle-left"]]];
+    }
+    
     [self showLoadingViewWithMessage:@""];
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Detail_TopImage class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Detail_TopImage class])];
@@ -56,6 +76,11 @@
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Top_Header class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([Top_Header class])];
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Top_Footer class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass([Top_Footer class])];
+}
+
+- (void)didPressBackButton
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -117,6 +142,7 @@
             }else if (index == 1){
                 return _item;
             }else{
+                _descriptionData = [[DescriptionCellInfo alloc]initWithFullText:_item.desc];
                 return _descriptionData;//_item.desc;
             }
         }

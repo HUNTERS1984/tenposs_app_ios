@@ -28,6 +28,7 @@
 - (void)configureCellWithData:(NSObject *)data{
     CouponObject *coupon = (CouponObject *)data;
     if (coupon) {
+        [_coupon_store setText:coupon.coupon_type.name];
         [_coupon_title setText:coupon.title];
         [_coupon_description setText:coupon.desc];
         [_coupon_thumbnail sd_setImageWithURL:[NSURL URLWithString:coupon.image_url]];

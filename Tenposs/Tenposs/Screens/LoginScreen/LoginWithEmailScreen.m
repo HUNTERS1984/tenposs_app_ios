@@ -12,6 +12,9 @@
 #import "UserData.h"
 #import "NetworkCommunicator.h"
 #import "AppDelegate.h"
+#import "AppConfiguration.h"
+#import "HexColors.h"
+#import "UIFont+Themify.h"
 
 @interface LoginWithEmailScreen ()<TenpossCommunicatorDelegate>
 
@@ -20,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (weak, nonatomic) IBOutlet UIButton *signupButton;
+@property (weak, nonatomic) IBOutlet UINavigationBar *nav;
+@property (weak, nonatomic) IBOutlet UINavigationItem *navTitle;
 @end
 
 @implementation LoginWithEmailScreen
@@ -30,6 +35,21 @@
     [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:31/255.0 green:192/255.0 blue:186/255.0 alpha:1.0] range:NSMakeRange(0, attributedString.length)];
     
     [self.signupButton setAttributedTitle:attributedString forState:UIControlStateNormal];
+    
+    
+    AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+    AppSettings *settings = [appConfig getAvailableAppSettings];
+    
+    [_doneButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                         [UIFont themifyFontOfSize:settings.font_size], NSFontAttributeName,
+                                         [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
+                                         nil]
+                               forState:UIControlStateNormal];
+    [_doneButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-close"]]];
+    _nav.backgroundColor= [UIColor colorWithHexString:settings.header_color];
+    [_nav setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[UIColor colorWithHexString:settings.title_color]}];
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "DataModel.h"
+#import "BaseViewController.h"
 
-@interface NewsDetailScreen : UIViewController
+@interface NewsDetailScreen : BaseViewController
 
 @property (strong, nonatomic) NewsObject *news;
 

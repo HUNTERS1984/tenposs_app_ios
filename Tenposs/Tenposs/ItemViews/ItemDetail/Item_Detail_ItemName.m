@@ -37,7 +37,7 @@
         
         [self.categoryTitle setText:item.parentCategory.categoryName];
         [self.ItemTitle setText: [item.title uppercaseString]];
-        [self.itemPrice setText:item.price];
+        [self.itemPrice setText:[NSString stringWithFormat:@"¥%@",item.price]];
         
     }else if([data isKindOfClass:[StaffObject class]]){
         StaffObject *staff = (StaffObject *)data;

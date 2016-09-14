@@ -45,6 +45,8 @@
     [[Twitter sharedInstance] startWithConsumerKey:@"qY0dnYDqh99zztg8gBWkLIFrm" consumerSecret:@"Byy6PCW51zvhVrDZayLm8PhenqkHXiRIqLMpK7A5H5XNEzlKYi"];
     [Fabric with:@[[Twitter class]]];
     
+    [self loadAppConfig];
+    
     NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if(userInfo)
     {
@@ -248,6 +250,15 @@
     [self showPushNotification:_userInfo];
 }
 - (void) showPushNotification: (NSDictionary *)userInfo {
+}
+
+- (void)loadAppConfig{
+    
+    AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+    
+    [appConfig loadAppInfoWithCompletionHandler:^(NSError *error) {
+        
+    }];
 }
 
 

@@ -76,6 +76,7 @@
 @property (strong, nonatomic) NSString *desc;
 @property (strong, nonatomic) NSString *price;
 @property (strong, nonatomic) NSString *image_url;
+@property (strong, nonatomic) NSString *item_link;
 @property (strong, nonatomic) ProductCategoryObject *parentCategory;
 @property(strong, nonatomic) NSMutableArray <ConvertOnDemand, ProductObject> *rel_items;
 - (void)updateItemWithItem:(ProductObject *)item;
@@ -162,6 +163,14 @@
 -(void)removeCoupon:(CouponObject *)coupon;
 @end
 
+@interface CouponTypeObject : JSONModel
+
+@property (assign, nonatomic) NSInteger coupon_type_id;
+@property (strong, nonatomic) NSString *name;
+@property (assign, nonatomic) NSInteger store_id;
+
+@end
+
 @interface CouponObject : JSONModel
 
 #define COUPON_STATUS_AVAILABLE 1
@@ -178,6 +187,9 @@
 @property (strong, nonatomic) NSString *created_at;
 @property (strong, nonatomic) NSString *updated_at;
 @property (assign, nonatomic) NSInteger store_id;
+@property (assign, nonatomic) NSInteger can_use;
+@property (strong, nonatomic) NSMutableArray<NSString *>   *taglist;
+@property (strong, nonatomic) CouponTypeObject *coupon_type;
 
 @end
 

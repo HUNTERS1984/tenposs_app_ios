@@ -49,13 +49,8 @@
     if (data != nil) {
         [self.itemTitle setText:data.name];
         [self.itemIconFont setFont:[UIFont themifyFontOfSize:settings.menu_font_size]];
-        if (data.icon != nil) {
-//            unsigned c = 0;
-//            NSScanner *scanner = [NSScanner scannerWithString:];
-//            [scanner scanHexInt: &c];
-            NSString* unicodeStr = [UIFont stringForThemifyIdentifier:data.icon];
-            
-            [self.itemIconFont setText:unicodeStr];
+        if (data.icon != nil) {      
+            [self.itemIconFont setText:[UIFont stringForThemifyIdentifier:data.icon]];
             
             [self.itemIconFont setTextAlignment:NSTextAlignmentCenter];
         }

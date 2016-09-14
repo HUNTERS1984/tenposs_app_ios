@@ -23,6 +23,7 @@
 - (void)POST:(NSString *)API parameters:(id)parameters delegate:(id)delegate;
 - (void)POST:(NSString *)API parameters:(id)parameters onCompleted:(void (^)(BOOL isSuccess,NSDictionary *dictionary)) completeBlock;
 -(void)POSTWithImage:(NSString *)API parameters:(id)parameters onCompleted:(void (^)(BOOL isSuccess,NSDictionary *dictionary)) completeBlock;
+- (void)GET:(NSString *)API parameters:(id)parameters onCompleted:(void (^)(BOOL isSuccess,NSDictionary *dictionary)) completeBlock;
 +(NetworkCommunicator *)shareInstance;
 
 @end

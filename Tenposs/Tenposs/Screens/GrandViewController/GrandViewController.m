@@ -68,10 +68,12 @@
                                         [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
                                         nil] 
                               forState:UIControlStateNormal];
-    [_menuButton setTitle:[NSString stringWithFormat: @"\ue68e"]];
+    [_menuButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-menu"]]];
     self.navigationController.navigationBar.backgroundColor= [UIColor colorWithHexString:settings.header_color];
     [_navigationTitle setTextColor:[UIColor colorWithHexString:settings.title_color]];
+
 }
+
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

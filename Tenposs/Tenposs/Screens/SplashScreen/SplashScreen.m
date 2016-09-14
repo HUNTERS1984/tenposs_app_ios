@@ -40,7 +40,8 @@
     
     [self.loadingIndicator startAnimating];
     
-    [self loadAppConfig];
+    
+    [self buildApp];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -103,6 +104,8 @@
                 [subView setHidden:YES];
             }
         }];
+    } else {
+        [self loadAppConfig];
     }
 }
 

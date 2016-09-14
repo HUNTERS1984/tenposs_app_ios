@@ -163,8 +163,7 @@
 		368212B11D800C2D00E2DEF0 /* NetworkCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 368212B01D800C2D00E2DEF0 /* NetworkCommunicator.m */; };
 		368212B31D808A0200E2DEF0 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 368212B21D808A0200E2DEF0 /* SafariServices.framework */; };
 		368212B61D80F4F800E2DEF0 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 368212B51D80F4F800E2DEF0 /* BaseViewController.m */; };
-		4A14685913A6C6FF9B9CEFD4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E45709DA1613B5F9BED5EB0 /* libPods.a */; };
-		8C3D155AFE7B54219370492A /* Pods_Tenposs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB92766B4AA56A313A9CA1AC /* Pods_Tenposs.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7695D94C1F5BFDEECB6BB460 /* libPods-Tenposs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DFC2D20029DAD2B4B2EF21FE /* libPods-Tenposs.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -467,9 +466,9 @@
 		368212B21D808A0200E2DEF0 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		368212B41D80F4F800E2DEF0 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		368212B51D80F4F800E2DEF0 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
-		798DBAA9EEC4322255E96CC7 /* Pods-Tenposs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenposs.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tenposs/Pods-Tenposs.release.xcconfig"; sourceTree = "<group>"; };
-		8E45709DA1613B5F9BED5EB0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB92766B4AA56A313A9CA1AC /* Pods_Tenposs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tenposs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A13B4D18067A69D40A7EFFC /* Pods-Tenposs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenposs.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tenposs/Pods-Tenposs.release.xcconfig"; sourceTree = "<group>"; };
+		856A6D1DAA944419CB9B4E71 /* Pods-Tenposs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenposs.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tenposs/Pods-Tenposs.debug.xcconfig"; sourceTree = "<group>"; };
+		DFC2D20029DAD2B4B2EF21FE /* libPods-Tenposs.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tenposs.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -481,8 +480,7 @@
 				368212A81D7FC5F400E2DEF0 /* CoreGraphics.framework in Frameworks */,
 				368212A61D7FC29C00E2DEF0 /* CoreText.framework in Frameworks */,
 				022F25C51D525FFD008AEBA1 /* QuartzCore.framework in Frameworks */,
-				4A14685913A6C6FF9B9CEFD4 /* libPods.a in Frameworks */,
-				8C3D155AFE7B54219370492A /* Pods_Tenposs.framework in Frameworks */,
+				7695D94C1F5BFDEECB6BB460 /* libPods-Tenposs.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,7 +814,7 @@
 				02DAF3C91D47CAA70068BB71 /* TenpossUITests */,
 				02DAF3A31D47CAA70068BB71 /* Products */,
 				FA281DF0BAF1146BCCD67689 /* Frameworks */,
-				09344413F41F49EA9B95A2DF /* Pods */,
+				47DCA2566D1FEE0982338DAD /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1195,14 +1193,22 @@
 			name = Customize;
 			sourceTree = "<group>";
 		};
+		47DCA2566D1FEE0982338DAD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				856A6D1DAA944419CB9B4E71 /* Pods-Tenposs.debug.xcconfig */,
+				6A13B4D18067A69D40A7EFFC /* Pods-Tenposs.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		FA281DF0BAF1146BCCD67689 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				368212B21D808A0200E2DEF0 /* SafariServices.framework */,
 				368212A71D7FC5F400E2DEF0 /* CoreGraphics.framework */,
 				368212A51D7FC29C00E2DEF0 /* CoreText.framework */,
-				8E45709DA1613B5F9BED5EB0 /* libPods.a */,
-				DB92766B4AA56A313A9CA1AC /* Pods_Tenposs.framework */,
+				DFC2D20029DAD2B4B2EF21FE /* libPods-Tenposs.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1214,15 +1220,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 02DAF3CF1D47CAA70068BB71 /* Build configuration list for PBXNativeTarget "Tenposs" */;
 			buildPhases = (
-				0178CFD014288C5303F3444A /* Check Pods Manifest.lock */,
 				86D5A158C8151218FA132D48 /* [CP] Check Pods Manifest.lock */,
 				02DAF39E1D47CAA70068BB71 /* Sources */,
 				02DAF39F1D47CAA70068BB71 /* Frameworks */,
 				02DAF3A01D47CAA70068BB71 /* Resources */,
 				FD4C594643872A8ECC91EEB5 /* [CP] Embed Pods Frameworks */,
 				44845D957376C4AE0EB59C77 /* [CP] Copy Pods Resources */,
-				1260D61C09B80A831C22B3D6 /* Copy Pods Resources */,
-				C1677E5EDF01C8DC8CBBF02B /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1371,36 +1374,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0178CFD014288C5303F3444A /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		1260D61C09B80A831C22B3D6 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tenposs/Pods-Tenposs-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		44845D957376C4AE0EB59C77 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1429,21 +1402,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		C1677E5EDF01C8DC8CBBF02B /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tenposs/Pods-Tenposs-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD4C594643872A8ECC91EEB5 /* [CP] Embed Pods Frameworks */ = {
@@ -1734,7 +1692,7 @@
 		};
 		02DAF3D01D47CAA70068BB71 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 06778181026272EC61BDAD14 /* Pods-Tenposs.debug.xcconfig */;
+			baseConfigurationReference = 856A6D1DAA944419CB9B4E71 /* Pods-Tenposs.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: ryo fujiyoshi (K24VZ28973)";
@@ -1750,7 +1708,7 @@
 		};
 		02DAF3D11D47CAA70068BB71 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 798DBAA9EEC4322255E96CC7 /* Pods-Tenposs.release.xcconfig */;
+			baseConfigurationReference = 6A13B4D18067A69D40A7EFFC /* Pods-Tenposs.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: ryo fujiyoshi (K24VZ28973)";

@@ -11,6 +11,9 @@
 #import "NetworkCommunicator.h"
 #import "UserData.h"
 #import "AppDelegate.h"
+#import "AppConfiguration.h"
+#import "HexColors.h"
+#import "UIFont+Themify.h"
 
 @interface SignUpScreen ()
 
@@ -24,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *registerButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *closeButton;
 @property (weak, nonatomic) IBOutlet CXAHyperlinkLabel *loginLabel;
+@property (weak, nonatomic) IBOutlet UINavigationBar *nav;
 
 @end
 
@@ -106,6 +110,19 @@
     // Do any additional setup after loading the view.
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer  alloc] initWithTarget:self action:@selector(tapViewAction:)];
     [self.view addGestureRecognizer:tapGesture];
+    
+    AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+    AppSettings *settings = [appConfig getAvailableAppSettings];
+    
+    [_closeButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                         [UIFont themifyFontOfSize:settings.font_size], NSFontAttributeName,
+                                         [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
+                                         nil]
+                               forState:UIControlStateNormal];
+    [_closeButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-close"]]];
+    _nav.backgroundColor= [UIColor colorWithHexString:settings.header_color];
+    [_nav setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[UIColor colorWithHexString:settings.title_color]}];
 }
 
 -(void)tapViewAction:(UITapGestureRecognizer *)sender{

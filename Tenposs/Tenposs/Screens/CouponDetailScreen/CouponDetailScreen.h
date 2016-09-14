@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "DataModel.h"
+#import "BaseViewController.h"
 
-@interface CouponDetailScreen : UIViewController
+@interface CouponDetailScreen : BaseViewController
 @property(strong, nonatomic) CouponObject *coupon;
 @end

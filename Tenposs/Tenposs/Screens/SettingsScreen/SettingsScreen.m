@@ -24,6 +24,9 @@
 #import "OAuthScreen.h"
 #import "Utils.h"
 #import "UIUtils.h"
+#import "UIFont+Themify.h"
+#import "HexColors.h"
+#import "AppConfiguration.h"
 
 //#import "UserData.h"
 
@@ -63,7 +66,13 @@
     [self.view addSubview:self.settingView.view];
     [self addChildViewController:self.settingView];
     [self.settingView didMoveToParentViewController:self];
+    
     //[self.navigationController pushViewController:_settingView animated:NO];
+}
+
+- (void)didPressBackButton
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -116,7 +125,7 @@
 
 - (NSString *)title{
     //TODO: need localize
-    return @"Settings";
+    return @"設定";
 }
 
 #pragma mark - IASKSettingsDelegate
@@ -196,7 +205,7 @@
         
         //TODO: Get UserData and fill the text
         [((Setting_EditText *)cell).title setText:specifier.title];
-        [((Setting_EditText *)cell).text  setPlaceholder:@"User Id"];
+        [((Setting_EditText *)cell).text  setPlaceholder:NSLocalizedString(@"user_id",nil)];
         [((Setting_EditText *)cell).text  setText:[userData getUserID]];
         ((Setting_EditText *)cell).text.tag = USERID_TAG;
         ((Setting_EditText *)cell).text.delegate = self;
@@ -211,7 +220,7 @@
         
         //TODO: Get UserData and fill the text
         [((Setting_EditText *)cell).title setText:specifier.title];
-        [((Setting_EditText *)cell).text  setPlaceholder:@"Username"];
+        [((Setting_EditText *)cell).text  setPlaceholder:NSLocalizedString(@"user_id",nil)];
         [((Setting_EditText *)cell).text  setText:[userData getUserName]];
         ((Setting_EditText *)cell).text.tag = USERNAME_TAG;
         ((Setting_EditText *)cell).text.delegate = self;
@@ -225,7 +234,7 @@
         }
         //TODO: Get UserData and fill the text
         [((Setting_EditText *)cell).title setText:specifier.title];
-        [((Setting_EditText *)cell).text  setPlaceholder:@"Email address"];
+        [((Setting_EditText *)cell).text  setPlaceholder:NSLocalizedString(@"email_address",nil)];
         [((Setting_EditText *)cell).text  setText:[userData getUserEmail]];
         ((Setting_EditText *)cell).text.delegate = self;
         ((Setting_EditText *)cell).text.tag = USEREMAIL_TAG;

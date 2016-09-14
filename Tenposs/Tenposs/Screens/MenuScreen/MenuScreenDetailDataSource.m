@@ -57,7 +57,7 @@
     [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
     [params put:KeyAPI_MENU_ID value:[@(_mainData.menu_id) stringValue]];
     [params put:KeyAPI_PAGE_INDEX value:[@(_mainData.pageIndex) stringValue]];
-    [params put:KeyAPI_PAGE_SIZE value:@"20"];
+    [params put:KeyAPI_PAGE_SIZE value:@"4"];
     [request execute:params withDelegate:self];
 }
 

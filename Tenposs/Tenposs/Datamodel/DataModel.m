@@ -204,6 +204,19 @@
 
 #pragma mark - Coupon
 
+@implementation CouponTypeObject
++(BOOL)propertyIsOptional:(NSString *)propertyName{
+    return YES;
+}
+
+//TODO: need implementation
+
++(JSONKeyMapper*)keyMapper
+{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{@"id":@"coupon_type_id"}];
+}
+@end
+
 @implementation CouponObject
 +(BOOL)propertyIsOptional:(NSString *)propertyName{
     return YES;

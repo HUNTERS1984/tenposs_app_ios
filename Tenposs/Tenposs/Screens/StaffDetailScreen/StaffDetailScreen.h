@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "DataModel.h"
+#import "BaseViewController.h"
 
+<<<<<<< Updated upstream
 @interface StaffDetailScreen : UICollectionViewController
+=======
+@interface StaffDetailScreen : BaseViewController
+>>>>>>> Stashed changes
 @property(strong, nonatomic)StaffObject *staff;
 - (instancetype)initWithStaff:(StaffObject *)staff;
 @end
