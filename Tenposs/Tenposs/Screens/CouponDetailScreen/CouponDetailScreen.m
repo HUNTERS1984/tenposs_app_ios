@@ -8,12 +8,9 @@
 
 #import "CouponDetailScreen.h"
 #import "UIViewController+LoadingView.h"
-<<<<<<< Updated upstream
 #import "HexColors.h"
 #import "QRCodeScreen.h"
-=======
 #import <SDWebImage/UIImageView+WebCache.h>
->>>>>>> Stashed changes
 
 @interface CouponDetailScreen ()
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
@@ -58,7 +55,7 @@
     [self.hashTag setText:tag];
     [self showLoadingViewWithMessage:@""];
     
-    if (_coupon.status == COUPON_STATUS_AVAILABLE) {
+    if (_coupon.can_use == COUPON_STATUS_AVAILABLE) {
         [_useCouponButton setBackgroundColor:[UIColor colorWithHexString:@"#29c9c8"]];
         [_useCouponButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_useCouponButton setTitle:NSLocalizedString(@"use_coupon", nil) forState:UIControlStateNormal];
@@ -68,6 +65,7 @@
         [_useCouponButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_useCouponButton setTitle:NSLocalizedString(@"unable_use_coupon", nil) forState:UIControlStateNormal];
         [_useCouponButton setTitle:NSLocalizedString(@"unable_use_coupon", nil) forState:UIControlStateSelected];
+        [_useCouponButton setUserInteractionEnabled:NO];
     }
 }
 

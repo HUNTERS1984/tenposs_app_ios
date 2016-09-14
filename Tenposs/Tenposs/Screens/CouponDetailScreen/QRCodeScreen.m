@@ -20,6 +20,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _closeButton.layer.cornerRadius = _closeButton.bounds.size.width/2;
+    _closeButton.clipsToBounds = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated{

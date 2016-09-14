@@ -28,6 +28,9 @@
 #import "ItemDetailScreen.h"
 
 #import "GrandViewController.h"
+#import "UIFont+Themify.h"
+#import "HexColors.h"
+#import "AppConfiguration.h"
 
 
 @interface TabDataSourceViewController ()
@@ -63,6 +66,23 @@
         //Should never go here
         NSAssert(NO, @"ViewController type should be defined!");
     }
+    
+}
+
+- (NSString *)title{
+    if ([_controllerType isEqualToString:TABVIEWCONTROLLER_Menu]) {
+        return @"メニュー";
+    }else if ([_controllerType isEqualToString:TABVIEWCONTROLLER_News]) {
+        return @"ニュース";
+    }else if ([_controllerType isEqualToString:TABVIEWCONTROLLER_Gallery]) {
+        return @"フォトギャラリー";
+    }else if ([_controllerType isEqualToString:TABVIEWCONTROLLER_Staff]) {
+        return @"スタッフ";
+    }else{
+        //Should never go here
+        NSAssert(NO, @"ViewController type should be defined!");
+    }
+    return @"";
 }
 
 - (void)viewDidLoad {
@@ -75,6 +95,14 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     [self.collectionView setCollectionViewLayout:layout];
     self.collectionView.backgroundColor = [UIColor whiteColor];
+    
+    AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+    AppSettings *settings = [appConfig getAvailableAppSettings];
+    
+    [_previousCategoryButton setFont:[UIFont themifyFontOfSize:settings.font_size]];
+    [_previousCategoryButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-arrow-left"]] forState:UIControlStateNormal];
+    [_nextCategoryButton setFont:[UIFont themifyFontOfSize:settings.font_size]];
+    [_nextCategoryButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-arrow-right"]] forState:UIControlStateNormal];
     
     __weak __typeof__(self) weakSelf = self;
     __weak __typeof__(self.dataSource) wDataSource = self.dataSource;
@@ -97,6 +125,7 @@
     [self.dataSource fetchDataWithCompleteHandler:^(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious) {
         [weakSelf handleDataSourceCallback:error title:detailDataSourceTitle hasNext:hasNext hasPrevious:hasPrevious];
     }];
+    
 }
 
 - (void)didReceiveMemoryWarning {

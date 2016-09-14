@@ -33,7 +33,7 @@
 }
 
 - (NSString *)title{
-    return @"Menu";
+    return @"予約";
 }
 
 @end
