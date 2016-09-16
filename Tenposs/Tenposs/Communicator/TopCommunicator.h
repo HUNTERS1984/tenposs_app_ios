@@ -9,6 +9,7 @@
 #import "TenpossCommunicator.h"
 #import "JSONModel.h"
 #import "DataModel.h"
+#import "AppConfiguration.h"
 
 @interface TopResponse : JSONModel
 @property NSInteger code;

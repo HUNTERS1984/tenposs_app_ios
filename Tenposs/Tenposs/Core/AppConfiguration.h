@@ -33,6 +33,7 @@
 #define APP_MENU_COUPON              9
 #define APP_MENU_CHAT                7
 #define APP_MENU_SETTING             10
+#define APP_MENU_IMAGES              1
 
 @interface AppInfo : JSONModel
 
@@ -96,7 +97,7 @@
 @end
 
 @interface TopComponentModel : JSONModel
-@property (assign, nonatomic)NSInteger top_id;
+@property (assign, nonatomic) NSInteger top_id;
 @property (strong, nonatomic) NSString *name;
 @end
 

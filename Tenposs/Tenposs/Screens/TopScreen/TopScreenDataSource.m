@@ -195,7 +195,7 @@
                     }
                 };
             }
-
+            
             [footer configureFooterWithTitle:@"もっと見る" withTouchHandler:handler];
             reuseableView = footer;
         }
@@ -298,7 +298,6 @@
 #pragma mark - Communication
 
 - (void)loadTopData{
-    
     TopCommunicator *request = [TopCommunicator new];
     Bundle *params = [Bundle new];
     [params put:KeyAPI_APP_ID value:APP_ID];
@@ -313,44 +312,100 @@
     if (!self.sectionArray) {
         self.sectionArray = [[NSMutableArray alloc] init];
     }
-    if (topData.images && [topData.images count]>0) {
-        NSMutableArray<TopObject *> *topArray = (NSMutableArray<TopObject *> *)[[NSMutableArray alloc]init];
-        for (TopObject *top in topData.images) {
-            [topArray addObject:top];
+    NSArray *topComponents = [[AppConfiguration sharedInstance] getAvailableTopComponents];
+    
+    if (topComponents && [topComponents count] > 0) {
+        for (TopComponentModel *top in topComponents) {
+            if (top.top_id == APP_MENU_MENU) {
+                if(topData.items && [topData.items count] > 0){
+                    NSMutableArray<ProductObject *> *proArray = (NSMutableArray<ProductObject *> *)[[NSMutableArray alloc]init];
+                    for (ProductObject *pro in topData.items) {
+                        [proArray addObject:pro];
+                    }
+                    [self.sectionArray addObject:proArray];
+                    
+                }
+                continue;
+            }else if(top.top_id == APP_MENU_NEWS){
+                if(topData.news && [topData.news count] > 0){
+                    
+                    NSMutableArray<TopObject *> *topArray = (NSMutableArray<TopObject *> *)[[NSMutableArray alloc]init];
+                    for (TopObject *top in topData.news) {
+                        [topArray addObject:top];
+                    }
+                    [self.sectionArray addObject:topArray];
+                    
+                }
+                continue;
+            }else if (top.top_id == APP_MENU_PHOTO_GALLERY){
+                if(topData.photos && [topData.photos count] > 0){
+                    
+                    NSMutableArray<PhotoObject *> *phoArray = (NSMutableArray<PhotoObject *> *)[[NSMutableArray alloc]init];
+                    for (PhotoObject *pro in topData.photos) {
+                        [phoArray addObject:pro];
+                    }
+                    [self.sectionArray addObject:phoArray];
+                }
+                continue;
+            }else if (top.top_id == APP_MENU_RESERVE){
+                if(topData.contacts && [topData.contacts count] > 0){
+                    NSMutableArray<ContactObject *> *contactArray = (NSMutableArray<ContactObject *> *)[[NSMutableArray alloc]init];
+                    if ([topData.contacts count] >= 1)
+                        [contactArray addObject:[topData.contacts objectAtIndex:0]];
+                    [self.sectionArray addObject:contactArray];
+                }
+                continue;
+            }else if (top.top_id == APP_MENU_IMAGES){
+                if(topData.images && [topData.images count] > 0){
+                    NSMutableArray<TopObject *> *topArray = (NSMutableArray<TopObject *> *)[[NSMutableArray alloc]init];
+                    for (TopObject *top in topData.images) {
+                        [topArray addObject:top];
+                    }
+                    [self.sectionArray addObject:topArray];
+                }
+                continue;
+            }
         }
-        [self.sectionArray addObject:topArray];
     }
-    if(topData.items && [topData.items count] > 0){
-        NSMutableArray<ProductObject *> *proArray = (NSMutableArray<ProductObject *> *)[[NSMutableArray alloc]init];
-        for (ProductObject *pro in topData.items) {
-            [proArray addObject:pro];
-        }
-        [self.sectionArray addObject:proArray];
-    }
-    if(topData.photos && [topData.photos count] > 0){
-        NSMutableArray<PhotoObject *> *phoArray = (NSMutableArray<PhotoObject *> *)[[NSMutableArray alloc]init];
-        for (PhotoObject *pro in topData.photos) {
-            [phoArray addObject:pro];
-        }
-        [self.sectionArray addObject:phoArray];
-    }
-    if(topData.news && [topData.news count] > 0){
-        NSMutableArray<NewsObject *> *newsArray = (NSMutableArray<NewsObject *> *)[[NSMutableArray alloc]init];
-        for (NewsObject *news in topData.news) {
-            [newsArray addObject:news];
-        }
-        [self.sectionArray addObject:newsArray];
-    }
-    if(topData.contacts && [topData.contacts count] > 0){
-        NSMutableArray<ContactObject *> *contactArray = (NSMutableArray<ContactObject *> *)[[NSMutableArray alloc]init];
-//        for (ContactObject *contact in topData.contacts) {
-//            [contactArray addObject:contact];
+    
+//        if (topData.images && [topData.images count]>0) {
+//            NSMutableArray<TopObject *> *topArray = (NSMutableArray<TopObject *> *)[[NSMutableArray alloc]init];
+//            for (TopObject *top in topData.images) {
+//                [topArray addObject:top];
+//            }
+//            [self.sectionArray addObject:topArray];
 //        }
-        if ([topData.contacts count] >= 1)
-            [contactArray addObject:[topData.contacts objectAtIndex:0]];
-        [self.sectionArray addObject:contactArray];
-    }
-    topData = nil;
+//        if(topData.items && [topData.items count] > 0){
+//            NSMutableArray<ProductObject *> *proArray = (NSMutableArray<ProductObject *> *)[[NSMutableArray alloc]init];
+//            for (ProductObject *pro in topData.items) {
+//                [proArray addObject:pro];
+//            }
+//            [self.sectionArray addObject:proArray];
+//        }
+//        if(topData.photos && [topData.photos count] > 0){
+//            NSMutableArray<PhotoObject *> *phoArray = (NSMutableArray<PhotoObject *> *)[[NSMutableArray alloc]init];
+//            for (PhotoObject *pro in topData.photos) {
+//                [phoArray addObject:pro];
+//            }
+//            [self.sectionArray addObject:phoArray];
+//        }
+//        if(topData.news && [topData.news count] > 0){
+//            NSMutableArray<NewsObject *> *newsArray = (NSMutableArray<NewsObject *> *)[[NSMutableArray alloc]init];
+//            for (NewsObject *news in topData.news) {
+//                [newsArray addObject:news];
+//            }
+//            [self.sectionArray addObject:newsArray];
+//        }
+//        if(topData.contacts && [topData.contacts count] > 0){
+//            NSMutableArray<ContactObject *> *contactArray = (NSMutableArray<ContactObject *> *)[[NSMutableArray alloc]init];
+//    //        for (ContactObject *contact in topData.contacts) {
+//    //            [contactArray addObject:contact];
+//    //        }
+//            if ([topData.contacts count] >= 1)
+//                [contactArray addObject:[topData.contacts objectAtIndex:0]];
+//            [self.sectionArray addObject:contactArray];
+//        }
+//        topData = nil;
 }
 
 #pragma mark - TenpossCommunicatorDelegate

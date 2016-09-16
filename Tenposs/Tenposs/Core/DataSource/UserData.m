@@ -67,7 +67,7 @@ NSMutableArray *recentSearchList=nil;
 }
 -(NSString *)getUserID{
     if (_userDataDictionary) {
-        return [_userDataDictionary objectForKey:@"id"];
+        return [[_userDataDictionary objectForKey:@"id"] stringValue];
     }
     return [[self getUserData] objectForKey:@"id"];
 }
@@ -171,16 +171,18 @@ NSMutableArray *recentSearchList=nil;
 
 - (NSString *)getAppUserID{
     if (_userDataDictionary) {
-        return [_userDataDictionary objectForKey:@"app_user_id"];
+        return [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"app_user_id"];
     }
-    return [[self getUserData] objectForKey:@"app_user_id"];
+    return [[[self getUserData] objectForKey:@"profile"] objectForKey:@"app_user_id"];
 }
 
 - (void)setAppUserID:(NSString *)app_user_id{
     if (!_userDataDictionary) {
         [self getUserData];
     }
-    [_userDataDictionary setObject:app_user_id forKey:@"app_user_id"];
+    NSMutableDictionary *profile = [[_userDataDictionary objectForKey:@"profile"] mutableCopy];
+    [profile setObject:app_user_id forKey:@"app_user_id"];
+    [_userDataDictionary setObject:profile forKey:@"profile"] ;
     [self saveUserData];
 }
 
