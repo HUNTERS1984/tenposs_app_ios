@@ -26,6 +26,7 @@
 }
 
 - (void)reloadDataSource{
+    [self cancelOldRequest];
     _mainData.pageindex = 1;
     [_mainData removeAllPhotos];
     _mainData.total_photos = 0;
@@ -78,7 +79,15 @@
 }
 
 - (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath{
-    return [_mainData.photos objectAtIndex:indexPath.row];
+    NSObject *item = nil;
+    @try {
+        item = [self.mainData.photos objectAtIndex:indexPath.row];
+    } @catch (NSException *exception) {
+        NSLog(@"Error %@", exception.description);
+    } @finally {
+        
+    }
+    return item;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -130,7 +139,6 @@
             _mainData.total_photos = data.total_photos;
             for (PhotoObject *item in data.photos) {
                 [_mainData addPhoto:item];
-                [_mainData increasePageIndex:1];
             }
         }else{
             if ([_mainData.photos count] > 0) {
@@ -144,6 +152,7 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
         [self.delegate dataLoaded:self withError:error];
     }
+    [_mainData increasePageIndex:1];
 }
 
 - (void)begin:(TenpossCommunicator*)request data:(Bundle*) responseParams{}

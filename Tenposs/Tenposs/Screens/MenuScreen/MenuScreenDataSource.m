@@ -37,9 +37,7 @@
             }
         }
     }
-
 }
-
 
 #pragma mark - Communicator
 -(void)loadMenuCategoryList{

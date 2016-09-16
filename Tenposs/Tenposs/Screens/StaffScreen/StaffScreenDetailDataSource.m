@@ -27,6 +27,7 @@
 }
 
 - (void)reloadDataSource{
+    [self cancelOldRequest];
     self.mainData.pageindex = 1;
     [self.mainData removeAllStaff];
     [self loadData];
@@ -77,7 +78,15 @@
 }
 
 - (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath{
-    return [self.mainData.staffs objectAtIndex:indexPath.row];
+    NSObject *item = nil;
+    @try {
+        item = [self.mainData.staffs objectAtIndex:indexPath.row];
+    } @catch (NSException *exception) {
+        NSLog(@"Error %@", exception.description);
+    } @finally {
+        
+    }
+    return item;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -129,9 +138,7 @@
         if (data.staffs && [data.staffs count] > 0) {
             _mainData.total_staffs = data.total_staffs;
             for (StaffObject *staff in data.staffs) {
-                staff.category = _mainData.name;
                 [_mainData addStaff:staff];
-                [_mainData increaseIndex:1];
             }
         }else{
             if ([_mainData.staffs count] > 0) {
@@ -145,6 +152,7 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
         [self.delegate dataLoaded:self withError:error];
     }
+    [_mainData increaseIndex:1];
 }
 
 - (void)begin:(TenpossCommunicator*)request data:(Bundle*) responseParams{}

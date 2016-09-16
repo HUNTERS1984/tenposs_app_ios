@@ -112,19 +112,19 @@
 
     
 //    Bundle *body = [Bundle new];
-    NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
-    NSArray *sigs = [NSArray arrayWithObjects:APP_ID,currentTime,APP_SECRET,nil];
+//    NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
+//    NSArray *sigs = [NSArray arrayWithObjects:APP_ID,currentTime,APP_SECRET,nil];
     NSMutableDictionary *dictData = [parameters mutableCopy];
-    [dictData setObject:[APP_ID dataUsingEncoding:NSUTF8StringEncoding] forKey:KeyAPI_APP_ID];
-    [dictData setObject:[currentTime dataUsingEncoding:NSUTF8StringEncoding] forKey:KeyAPI_TIME];
-    [dictData setObject:[[Utils getSigWithStrings:sigs] dataUsingEncoding:NSUTF8StringEncoding] forKey:KeyAPI_SIG];
+//    [dictData setObject:[APP_ID dataUsingEncoding:NSUTF8StringEncoding] forKey:KeyAPI_APP_ID];
+//    [dictData setObject:[currentTime dataUsingEncoding:NSUTF8StringEncoding] forKey:KeyAPI_TIME];
+//    [dictData setObject:[[Utils getSigWithStrings:sigs] dataUsingEncoding:NSUTF8StringEncoding] forKey:KeyAPI_SIG];
     
     // post body
     NSMutableData *body = [NSMutableData data];
     
     NSData *imageData = nil;
     
-    for (NSString *param in dictData) {
+    for (NSString *param in dictData.allKeys) {
         if ([param isEqualToString:SETTINGS_KeyUserAvatar]) {
             imageData = (NSData *)[dictData objectForKey:param];
         }else{
@@ -134,7 +134,7 @@
         }
     }
     
-    NSString *imageName = @"user_avatar";
+    NSString *imageName = @"avatar";
     
     if (imageData) {
         [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];

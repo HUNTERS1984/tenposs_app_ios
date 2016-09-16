@@ -124,7 +124,6 @@
             _mainData.total_coupons = data.total_coupons;
             for (CouponObject *coupon in data.coupons) {
                 [_mainData addCoupon:coupon];
-                [_mainData increasePageIndex:1];
             }
         }else if(data.total_coupons == 0){
             if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
@@ -143,6 +142,7 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
         [self.delegate dataLoaded:self withError:error];
     }
+    [_mainData increasePageIndex:1];
 }
 
 - (void)begin:(TenpossCommunicator*)request data:(Bundle*) responseParams{}

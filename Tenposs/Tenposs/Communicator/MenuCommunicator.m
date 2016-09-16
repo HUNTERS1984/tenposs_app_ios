@@ -56,6 +56,10 @@
     self.pageIndex += count;
 }
 
+- (void)removeAllProduct{
+    [self.items removeAllObjects];
+}
+
 @end
 
 @implementation MenuCommunicator

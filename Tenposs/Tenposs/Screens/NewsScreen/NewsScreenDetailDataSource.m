@@ -24,6 +24,7 @@
 }
 
 -(void)reloadDataSource{
+    [self cancelOldRequest];
     self.mainData.pageIndex = 1;
     [self.mainData removeAllNews];
     self.mainData.totalnew = 0;
@@ -81,7 +82,15 @@
 }
 
 - (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath{
-    return [self.mainData.news objectAtIndex:indexPath.row];
+    NSObject *item = nil;
+    @try {
+        item = [self.mainData.news objectAtIndex:indexPath.row];
+    } @catch (NSException *exception) {
+        NSLog(@"Error %@", exception.description);
+    } @finally {
+        
+    }
+    return item;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -133,13 +142,13 @@
             _mainData.totalnew = data.total_news;
             for (NewsObject *news in data.news) {
                 [_mainData addNews:news];
-                [_mainData increasePageIndex:1];
             }
         }else {
             if ([_mainData.news count] > 0) {
                 error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_CONTENT_FULLY_LOADED] code:ERROR_CONTENT_FULLY_LOADED userInfo:nil];
                 
-            }else{
+            }
+            else{
                 error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_DETAIL_DATASOURCE_NO_CONTENT] code:ERROR_DETAIL_DATASOURCE_NO_CONTENT userInfo:nil];
             }
         }
@@ -147,6 +156,7 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
         [self.delegate dataLoaded:self withError:error];
     }
+    [_mainData increasePageIndex:1];
 }
 
 - (void)begin:(TenpossCommunicator*)request data:(Bundle*) responseParams{}

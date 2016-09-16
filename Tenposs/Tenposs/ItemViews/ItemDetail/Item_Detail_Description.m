@@ -80,7 +80,9 @@
             if(cellInfo.fullSizeHeight <= 0){
                 [cellInfo calculateFullTextHeightWithWidth:width];
             }
-            _heightConstraint.constant = cellInfo.fullSizeHeight;
+            if (cellInfo.fullSizeHeight > 0) {
+                _heightConstraint.constant = cellInfo.fullSizeHeight;
+            }
         }
     }
 }

@@ -34,10 +34,13 @@ extern NSString * const API_COUPON_DETAIL;
 extern NSString * const API_APPUSER;
 extern NSString * const API_SETPUSHKEY;
 extern NSString * const API_UPDATE_PROFILE;
-extern NSString * const KeyAPI_USERNAME_NAME;
+extern NSString * const API_SETPUSHSETTING;
+
+
 /*
  * API request key
  */
+extern NSString * const KeyAPI_USERNAME_NAME;
 extern NSString * const KeyAPI_APP_ID;
 extern NSString * const KeyAPI_TIME;
 extern NSString * const KeyAPI_SIG;

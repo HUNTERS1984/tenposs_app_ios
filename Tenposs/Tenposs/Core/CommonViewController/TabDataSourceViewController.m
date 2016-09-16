@@ -75,7 +75,7 @@
     }else if ([_controllerType isEqualToString:TABVIEWCONTROLLER_News]) {
         return @"ニュース";
     }else if ([_controllerType isEqualToString:TABVIEWCONTROLLER_Gallery]) {
-        return @"ギャラリー";
+        return @"フォトギャラリー";
     }else if ([_controllerType isEqualToString:TABVIEWCONTROLLER_Staff]) {
         return @"スタッフ";
     }else{
@@ -101,12 +101,19 @@
     
     [_previousCategoryButton setFont:[UIFont themifyFontOfSize:settings.font_size]];
     [_previousCategoryButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-arrow-left"]] forState:UIControlStateNormal];
+    [_previousCategoryButton setTitleColor:[UIColor colorWithHexString:@"1FC0BD"] forState:UIControlStateNormal];
+    [_previousCategoryButton setTitleColor:[UIColor colorWithHexString:@"#e2e2e2"] forState:UIControlStateDisabled];
+
     [_nextCategoryButton setFont:[UIFont themifyFontOfSize:settings.font_size]];
     [_nextCategoryButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-arrow-right"]] forState:UIControlStateNormal];
+    [_nextCategoryButton setTitleColor:[UIColor colorWithHexString:@"1FC0BD"] forState:UIControlStateNormal];
+    [_nextCategoryButton setTitleColor:[UIColor colorWithHexString:@"#e2e2e2"] forState:UIControlStateDisabled];
+
     
     __weak __typeof__(self) weakSelf = self;
     __weak __typeof__(self.dataSource) wDataSource = self.dataSource;
     [self.collectionView addInfiniteScrollingWithActionHandler:^{
+//        [weakSelf showDetailLoadingView:YES message:nil];
         [weakSelf.nextCategoryButton setEnabled:NO];
         [weakSelf.previousCategoryButton setEnabled:NO];
         [wDataSource loadMoreDataWithCompleteHandler:^(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious) {
@@ -115,6 +122,7 @@
     }];
     
     [self.collectionView addPullToRefreshWithActionHandler:^{
+        [weakSelf showDetailLoadingView:YES message:nil];
         [weakSelf.nextCategoryButton setEnabled:NO];
         [weakSelf.previousCategoryButton setEnabled:NO];
         [wDataSource reloadDataWithCompleteHandler:^(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious) {

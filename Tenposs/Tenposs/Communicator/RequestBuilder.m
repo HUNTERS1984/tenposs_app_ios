@@ -39,6 +39,7 @@ NSString * const API_SETPUSHKEY = @"/set_push_key?";
 NSString * const API_STAFF = @"/staffs?";
 NSString * const API_STAFF_CAT = @"/staff_categories?";
 NSString *const API_UPDATE_PROFILE = @"/update_profile?";
+NSString * const API_SETPUSHSETTING = @"/set_push_setting?";
 
 #pragma mark - API_KEY
 

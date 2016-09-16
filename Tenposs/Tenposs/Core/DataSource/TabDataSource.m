@@ -26,11 +26,14 @@
 
 - (void)reloadDataWithCompleteHandler:(TabDataCompleteHandler)handler{
     [self resetData];
-    [self fetchDataWithCompleteHandler:handler];
+//    [self fetchDataWithCompleteHandler:handler];
+    self.currentCompleteHandler = handler;
 }
 
 - (void)resetData{
-    [_detailDataSourceList removeAllObjects];
+    //[_detailDataSourceList removeAllObjects];
+    [_activeDetailDataSource reloadDataSource];
+    
 }
 
 - (void)loadMoreDataWithCompleteHandler:(TabDataCompleteHandler)handler{
@@ -89,6 +92,9 @@
 
 - (BOOL)detailDataSourceHasNext:(SimpleDataSource *)dataSource {
     NSInteger detailDataSourceCount = [self.detailDataSourceList count];
+    if (detailDataSourceCount <= 0) {
+        return NO;
+    }
     if ([(self.detailDataSourceList[detailDataSourceCount -1]) isEqualTo:dataSource] && [self.detailDataSourceList count] > 1) {
         return NO;
     }else if (detailDataSourceCount == 1){
@@ -98,6 +104,10 @@
 }
 
 - (BOOL)detailDataSourceHasPrevious:(SimpleDataSource *)dataSource{
+    NSInteger detailDataSourceCount = [self.detailDataSourceList count];
+    if (detailDataSourceCount <= 0) {
+        return NO;
+    }
     if ([(self.detailDataSourceList[0]) isEqualTo:dataSource] && [self.detailDataSourceList count] > 1) {
         return NO;
     }else if ([self.detailDataSourceList count] == 1){

@@ -292,10 +292,9 @@
                 if (_descriptionData.isCollapsed) {
                     height = DETAIL_DESCRIPTION_COLLAPSE;
                 }else{
-                    height = _descriptionData.fullSizeHeight;
+                    height = _descriptionData.fullSizeHeight >= 0?_descriptionData.fullSizeHeight:DETAIL_DESCRIPTION_COLLAPSE;
                 }
             }
-            
         }
             break;
         case 2:{

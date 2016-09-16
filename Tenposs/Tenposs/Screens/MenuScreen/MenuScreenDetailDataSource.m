@@ -28,6 +28,8 @@
 }
 
 -(void)reloadDataSource{
+    [self cancelOldRequest];
+//    self.cache = self.mainData.items;
     self.mainData.pageIndex = 1;
     [self.mainData removeAllProduct];
     self.mainData.totalitem = 0;
@@ -41,6 +43,7 @@
 }
 
 - (void)loadData{
+    
     if([self.mainData.items count] > 0 && [self.mainData.items count] == self.mainData.totalitem){
         if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
             NSError *error = [NSError errorWithDomain:@"" code:ERROR_CONTENT_FULLY_LOADED userInfo:nil];
@@ -58,7 +61,9 @@
     [params put:KeyAPI_MENU_ID value:[@(_mainData.menu_id) stringValue]];
     [params put:KeyAPI_PAGE_INDEX value:[@(_mainData.pageIndex) stringValue]];
     [params put:KeyAPI_PAGE_SIZE value:@"4"];
+    
     [request execute:params withDelegate:self];
+    [self.requestArray addObject:request];
 }
 
 - (void)registerClassForCollectionView:(UICollectionView *)collection{
@@ -83,7 +88,15 @@
 }
 
 - (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath{
-    return [self.mainData.items objectAtIndex:indexPath.row];
+    NSObject *item = nil;
+    @try {
+         item = [self.mainData.items objectAtIndex:indexPath.row];
+    } @catch (NSException *exception) {
+        NSLog(@"Error %@", exception.description);
+    } @finally {
+        
+    }
+    return item;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -133,9 +146,7 @@
         if (data.items && [data.items count] > 0) {
             _mainData.totalitem = data.total_items;
             for (ProductObject *item in data.items) {
-                item.menu = _mainData.name;
                 [_mainData addProduct:item];
-                [_mainData increasePageIndex:1];
             }
         }else{
             if ([_mainData.items count] > 0) {
@@ -149,6 +160,15 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
         [self.delegate dataLoaded:self withError:error];
     }
+    
+    if([self.requestArray count] > 1){
+        NSLog(@"GREATER THAN 2");
+    }
+    
+    [self.requestArray removeObject:request];
+    
+    [_mainData increasePageIndex:1];
+
 }
 
 -(void)begin:(TenpossCommunicator*)request data:(Bundle*) responseParams{}

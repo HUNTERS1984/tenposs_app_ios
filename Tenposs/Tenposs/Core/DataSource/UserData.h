@@ -8,7 +8,7 @@
 
 #import "EntityBase.h"
 #import "UIKit/UIKit.h"
-
+#import "NetworkCommunicator.h"
 
 #define GENDER_MALE     0
 #define GENDER_FEMALE   1
@@ -24,14 +24,20 @@
 -(BOOL)saveUserData;
 -(void)clearUserData;
 -(BOOL)shouldShowLogin;
+
 -(NSDictionary *)getUserData;
+
 -(NSString *)getToken;
+
 -(NSString *) getUserID;
+
 -(NSString *)getUserName;
--(NSString *)getUserAvatarUrl;
 -(void) setUserName:(NSString*)userName;
+
+-(NSString *)getUserAvatarUrl;
 -(UIImage*) getUserAvatarImg;
 -(void) setUserAvatarImg:(UIImage*)avatar;
+
 -(BOOL)setDevToken:(NSString *)devToken;
 -(NSString *)getDevToken;
 
@@ -46,5 +52,10 @@
 
 - (void)setUserProvine:(NSString *)provine;
 - (NSString *)getUserProvine;
+
+///Perform Update methods
+- (void)updateProfile:(NSMutableDictionary *)profileToUpdate;
+- (void)updatePushSetting:(NSMutableDictionary *)infoToUpdate;
+- (void)updateSocialSetting:(NSMutableDictionary *)infoToUpdate;
 
 @end

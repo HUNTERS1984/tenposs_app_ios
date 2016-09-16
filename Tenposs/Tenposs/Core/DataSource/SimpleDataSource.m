@@ -14,8 +14,19 @@
     self = [super init];
     if (self) {
         _delegate = delegate;
+        _requestArray = (NSMutableArray<TenpossCommunicator *> *) [[NSMutableArray alloc] init];
     }
     return self;
+}
+
+- (void) cancelOldRequest{
+    if(self.requestArray != nil){
+        while ([self.requestArray count] > 0) {
+            TenpossCommunicator *request = [self.requestArray objectAtIndex:0];
+            [request cancelRequest];
+            [self.requestArray removeObject:request];
+        }
+    }
 }
 
 -(void)reloadDataSource{

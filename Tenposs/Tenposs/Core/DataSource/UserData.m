@@ -7,6 +7,8 @@
 //
 
 #import "UserData.h"
+#import "Const.h"
+#import "UIUtils.h"
 
 @implementation UserData
 
@@ -108,6 +110,13 @@ NSMutableArray *recentSearchList=nil;
     [self saveUserData];
 }
 
+- (NSInteger)getUserGender{
+    if (_userDataDictionary) {
+        return [[[_userDataDictionary objectForKey:@"profile"] objectForKey:@"gender"] integerValue];
+    }
+    return [[[[self getUserData] objectForKey:@"profile"] objectForKey:@"gender"] integerValue];
+}
+
 - (NSString *)getUserGenderString{
     if (_userDataDictionary) {
         NSString *gender = (NSString *)[[_userDataDictionary objectForKey:@"profile"] objectForKey:@"gender"];
@@ -191,5 +200,67 @@ NSMutableArray *recentSearchList=nil;
     }
     return [[[self getUserData] objectForKey:@"profile"] objectForKey:@"provine"];
 }
+
+- (void)updateProfile:(NSMutableDictionary *)profileToUpdate{
+    if(![self getToken] || [profileToUpdate count] == 0){
+        return;
+    }
+
+    //Build user data to update
+    
+    [profileToUpdate setObject:[[UserData shareInstance] getToken] forKey:KeyAPI_TOKEN];
+   
+    if (![profileToUpdate objectForKey:KeyAPI_USERNAME_NAME]) {
+        if ([self getUserName]) {
+            [profileToUpdate setObject:[self getUserName] forKey:KeyAPI_USERNAME_NAME];
+        }else{
+            [profileToUpdate setObject:@"" forKey:KeyAPI_USERNAME_NAME];
+        }
+    }
+    
+    if (![profileToUpdate objectForKey:KeyAPI_GENDER]) {
+        if ([self getUserGender]) {
+            [profileToUpdate setObject:[@([self getUserGender]) stringValue] forKey:KeyAPI_GENDER];
+        }else{
+            [profileToUpdate setObject:@"1" forKey:KeyAPI_GENDER];
+        }
+    }
+    
+    if(![profileToUpdate objectForKey:KeyAPI_ADDRESS]){
+        if ([self getUserProvine]) {
+            [profileToUpdate setObject:[self getUserProvine] forKey:KeyAPI_ADDRESS];
+        }else{
+            [profileToUpdate setObject:@"" forKey:KeyAPI_ADDRESS];
+        }
+    }
+    
+    if(![profileToUpdate objectForKey:KeyAPI_AVATAR]){
+        [profileToUpdate setObject:[[NSData alloc]init] forKey:KeyAPI_AVATAR];
+    }else{
+        UIImage *image = (UIImage *)[profileToUpdate objectForKey:KeyAPI_AVATAR];
+        image = [UIUtils scaleImage:image toSize:CGSizeMake(200,200)];
+        NSData *imageData = UIImagePNGRepresentation(image);
+        [profileToUpdate setObject:imageData forKey:KeyAPI_AVATAR];
+    }
+    
+    [[NetworkCommunicator shareInstance] POSTWithImage:API_UPDATE_PROFILE parameters:profileToUpdate onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+        NSLog(@"UPDATE_PROFILE");
+        [profileToUpdate removeAllObjects];
+    }];
+
+}
+
+- (void)updatePushSetting:(NSMutableDictionary *)infoToUpdate{
+    if(![self getToken] || [infoToUpdate count] == 0){
+        return;
+    }
+}
+
+- (void)updateSocialSetting:(NSMutableDictionary *)infoToUpdate{
+    if(![self getToken] || [infoToUpdate count] == 0){
+        return;
+    }
+}
+
 
 @end

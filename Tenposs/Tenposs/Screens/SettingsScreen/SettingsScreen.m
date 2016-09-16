@@ -80,28 +80,10 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
-    if ([_userProfileChanges count] > 0) {
-        for (NSString *key in _userProfileChanges.allKeys) {
-            if ([key isEqualToString:SETTINGS_KeyUserAvatar]) {
-                UIImage *image = (UIImage *)[_userProfileChanges objectForKey:key];
-                image = [UIUtils scaleImage:image toSize:CGSizeMake(200,200)];
-                NSData *imageData = UIImagePNGRepresentation(image);
-                [_userProfileChanges setObject:imageData forKey:key];
-                break;
-            }
-        }
-        
-        [_userProfileChanges setObject:[[UserData shareInstance] getToken] forKey:KeyAPI_TOKEN];
-        
-        [[NetworkCommunicator shareInstance] POSTWithImage:API_UPDATE_PROFILE parameters:_userProfileChanges onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
-            NSLog(@"UPDATE_PROFILE");
-            [_userProfileChanges removeAllObjects];
-        }];
-  
-    }
-
     [super viewWillDisappear:animated];
+    
 }
+
 
 - (SettingsTableViewController*)appSettingsViewController {
     if (!_settingView) {
@@ -109,8 +91,6 @@
         _settingView.delegate = self;
         
         ///TODO: open when available
-        //UserData *userData = [Userdata sharedInstance];
-        //BOOL enabled = [userData getToken]==nil;
         BOOL enabled = [[UserData shareInstance] getToken]!=nil;
         _settingView.hiddenKeys = enabled ? nil : [NSSet setWithObjects:@"keyEditProfile", nil];
         self.settingView.showCreditsFooter = NO;
@@ -131,25 +111,64 @@
 #pragma mark - IASKSettingsDelegate
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender{
+    
     NSLog(@"Settings did end");
+    
+    if ([_userProfileChanges count] > 0) {
+        [[UserData shareInstance] updateProfile:[_userProfileChanges mutableCopy]];
+        [_userProfileChanges removeAllObjects];
+    }
+    
+    //TODO: Need update push
+    
+    //TODO: Need update social
+
+    
 }
 
 - (void)settingDidChange:(NSNotification*)notification {
     if ([notification.userInfo.allKeys.firstObject isEqual:SETTINGS_KeyUserAvatar]) {
+        UIImage *chooseImage = (UIImage *)[[notification.userInfo mutableCopy] objectForKey:SETTINGS_KeyUserAvatar];
+        [[UserData shareInstance] setUserAvatarImg:chooseImage];
         
-    }else if ([notification.userInfo.allKeys.firstObject isEqual:SETTINGS_KeyUserAvatar]){
+        ///Add to profile change dict
+        [_userProfileChanges setObject:chooseImage forKey:KeyAPI_AVATAR];
+        
+    }else if ([notification.userInfo.allKeys.firstObject isEqual:SETTINGS_KeyUsername]) {
+        NSString *username = [[notification.userInfo mutableCopy] objectForKey:SETTINGS_KeyUsername];
+    
+        ///Add to profile change dict
+        [_userProfileChanges setObject:username forKey:KeyAPI_USERNAME_NAME];
+    
+    }else if ([notification.userInfo.allKeys.firstObject isEqual:SETTINGS_KeyUserEmail]){
+        NSString *userEmail = [[notification.userInfo mutableCopy] objectForKey:SETTINGS_KeyUserEmail];
+        
+        ///Add to profile change dict
+//        [_userProfileChanges setObject:userEmail forKey:KeyAPI_EMAIL];
+        
+        [[UserData shareInstance] setUserEmail:userEmail];
+        if([self.navigationController.visibleViewController isKindOfClass:[IASKAppSettingsViewController class]]){
+            [((IASKAppSettingsViewController *)self.navigationController.visibleViewController).tableView reloadData];
+        }
+        [self.settingView.tableView reloadData];
         
     }else if ([notification.userInfo.allKeys.firstObject isEqualToString:SETTINGS_KeyUserGender]){
         NSInteger gender = [[[notification.userInfo mutableCopy] objectForKey:SETTINGS_KeyUserGender] integerValue];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        
+        ///Add to profile change dict
+        [_userProfileChanges setObject:@(gender) forKey:KeyAPI_GENDER];
+        
             [[UserData shareInstance] setUserGender:gender];
             if([self.navigationController.visibleViewController isKindOfClass:[IASKAppSettingsViewController class]]){
                 [((IASKAppSettingsViewController *)self.navigationController.visibleViewController).tableView reloadData];
             }
             [self.settingView.tableView reloadData];
-        });
+        
     }else if([notification.userInfo.allKeys.firstObject isEqualToString:SETTINGS_KeyUserProvine]){
         NSString *provine = [notification.userInfo objectForKey:SETTINGS_KeyUserProvine];
+        ///Add to profile change dict
+        [_userProfileChanges setObject:provine forKey:KeyAPI_ADDRESS];
+        
         [[UserData shareInstance] setUserProvine:provine];
         if([self.navigationController.visibleViewController isKindOfClass:[IASKAppSettingsViewController class]]){
             [((IASKAppSettingsViewController *)self.navigationController.visibleViewController).tableView reloadData];
@@ -157,6 +176,10 @@
     }else if ([notification.userInfo.allKeys.firstObject isEqualToString:SETTINGS_KeyUserInstaAccessToken]){
         //TODO: send instagram token
         NSString *access_token = [notification.userInfo objectForKey:SETTINGS_KeyUserInstaAccessToken];
+        
+        ///Add to social change dict
+        
+        
         NSLog(@"INSTAGRAM_accessToken = %@", access_token);
     }
 }
@@ -356,13 +379,11 @@
             NSString *username = textField.text;
             if (!cur_userName) {
                 if (username && ![username isEqualToString:@""]) {
-                    [_userProfileChanges setObject:username forKey:KeyAPI_USERNAME_NAME];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{@"KeyUsername" :username}];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{SETTINGS_KeyUsername :username}];
                 }
             }else{
                 if (username && ![username isEqualToString:cur_userName]) {
-                    [_userProfileChanges setObject:username forKey:KeyAPI_USERNAME_NAME];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{@"KeyUsername" :username}];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{SETTINGS_KeyUsername :username}];
                 }
             }
         }
@@ -371,13 +392,11 @@
             NSString *userEmail = textField.text;
             if (!cur_userEmail) {
                 if (userEmail && ![userEmail isEqualToString:@""]) {
-                    [_userProfileChanges setObject:userEmail forKey:KeyAPI_EMAIL];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{@"KeyUserEmail" :userEmail}];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{SETTINGS_KeyUserEmail:userEmail}];
                 }
             }else{
                 if (userEmail && ![userEmail isEqualToString:cur_userEmail]) {
-                    [_userProfileChanges setObject:userEmail forKey:KeyAPI_EMAIL];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{@"KeyUserEmail" :userEmail}];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{SETTINGS_KeyUserEmail:userEmail}];
                 }
             }
         }
@@ -406,7 +425,6 @@
     UIImage *chooseImage = (UIImage *)[info objectForKey:UIImagePickerControllerOriginalImage];
     if (chooseImage) {
         [_userProfileChanges setObject:chooseImage forKey:SETTINGS_KeyUserAvatar];
-        [[UserData shareInstance] setUserAvatarImg:chooseImage];
         [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{SETTINGS_KeyUserAvatar:chooseImage}];
     }
 }

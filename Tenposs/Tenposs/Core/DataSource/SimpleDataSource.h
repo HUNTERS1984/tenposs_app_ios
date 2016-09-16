@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "TenpossCommunicator.h"
+
 
 @class SimpleDataSource;
 
@@ -20,15 +22,19 @@
 
 @interface SimpleDataSource : NSObject <UICollectionViewDataSource>
 
-@property(weak, nonatomic) id<SimpleDataSourceDelegate> delegate;
+//@property(strong, nonatomic) NSMutableArray *cache;
 
-//@property (strong, nonatomic) NSObject *mainData;
+@property(strong, nonatomic)NSMutableArray<TenpossCommunicator *> *requestArray;
+
+@property(weak, nonatomic) id<SimpleDataSourceDelegate> delegate;
 
 - (instancetype)initWithDelegate:(id<SimpleDataSourceDelegate>)delegate;
 
 -(void)reloadDataSource;
 
 - (void)loadData;
+
+- (void) cancelOldRequest;
 
 - (void)registerClassForCollectionView:(UICollectionView *)collection;
 
