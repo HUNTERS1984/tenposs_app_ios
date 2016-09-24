@@ -139,10 +139,16 @@ NSMutableArray *recentSearchList=nil;
 }
 
 -(NSString *)getUserAvatarUrl{
+    NSString *avatarUrl;
     if (_userDataDictionary) {
-        return [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"avatar_url"];
+        avatarUrl = [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"avatar_url"];
+    }else{
+        avatarUrl = [[[self getUserData] objectForKey:@"profile"] objectForKey:@"avatar_url"];
     }
-    return [[[self getUserData] objectForKey:@"profile"] objectForKey:@"avatar_url"];
+    if (![avatarUrl hasPrefix:@"http"]) {
+        avatarUrl = [NSString stringWithFormat:@"https://api.ten-po.com/%@",avatarUrl];
+    }
+    return avatarUrl;
 }
 
 -(void)setUserAvatarImg:(UIImage*)avatar{
@@ -232,7 +238,7 @@ NSMutableArray *recentSearchList=nil;
         if ([self getUserProvine]) {
             [profileToUpdate setObject:[self getUserProvine] forKey:KeyAPI_ADDRESS];
         }else{
-            [profileToUpdate setObject:@"" forKey:KeyAPI_ADDRESS];
+            [profileToUpdate setObject:@"abc" forKey:KeyAPI_ADDRESS];
         }
     }
     
@@ -256,6 +262,18 @@ NSMutableArray *recentSearchList=nil;
     if(![self getToken] || [infoToUpdate count] == 0){
         return;
     }
+    if ([self getToken]) {
+        NSString *token = [self getToken];
+        [infoToUpdate setObject:token forKey:KeyAPI_TOKEN];
+        [[NetworkCommunicator shareInstance] POSTWithoutAppId:API_SETPUSHSETTING parameters:infoToUpdate onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+            if(isSuccess){
+                NSLog(@"Update push settings SUCCESS!");
+            }else{
+                NSLog(@"Update push settings FAILD!");
+            }
+        }];
+    }
+    
 }
 
 - (void)updateSocialSetting:(NSMutableDictionary *)infoToUpdate{

@@ -32,6 +32,7 @@
     [_productName setText:product.title];
     [_productPrice setText:[NSString stringWithFormat:@"¥%@", product.price]];
     [_productThumbnail sd_setImageWithURL:[NSURL URLWithString:product.image_url]];
+    _productThumbnail.clipsToBounds = YES;
 }
 
 + (CellSpanType)getCellSpanType{

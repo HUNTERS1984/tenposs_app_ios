@@ -12,11 +12,14 @@
 #import "DataModel.h"
 #import "CouponDetailScreen.h"
 #import "UIUtils.h"
+#import "SVPullToRefresh.h"
+
 
 @interface CouponScreen ()<SimpleDataSourceDelegate>
 /// Data source
 @property (strong, nonatomic) CouponDataSource *dataSource;
 
+@property (weak, nonatomic)IBOutlet UICollectionView *collectionView;
 
 @end
 
@@ -37,7 +40,23 @@
     self.collectionView.delegate = self;
     
     [self showLoadingViewWithMessage:@""];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
     [self.dataSource loadData];
+
+    __weak __typeof__(self) weakSelf = self;
+    __weak __typeof__(self.dataSource) wDataSource = self.dataSource;
+    [self.collectionView addPullToRefreshWithActionHandler:^{
+        [weakSelf showLoadingViewWithMessage:@""];
+        [wDataSource reloadDataSource];
+    }];
+    
+    [self.collectionView addInfiniteScrollingWithActionHandler:^{
+        [wDataSource loadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,23 +68,40 @@
     return @"クーポン";
 }
 
+- (void)removeInfiniteLoading{
+    [self.collectionView.infiniteScrollingView stopAnimating];
+    self.collectionView.showsInfiniteScrolling = NO;
+}
+
+- (void)removePullToRefresh{
+    [self.collectionView.pullToRefreshView stopAnimating];
+    self.collectionView.showsPullToRefresh = NO;
+}
+
 #pragma mark - SimpleDataSourceDelegate
 - (void)dataLoaded:(SimpleDataSource *)executor withError:(NSError *)error{
     if (error) {
         switch (error.code) {
             case ERROR_DATASOURCE_NO_CONTENT:{
                 [self showErrorScreen:@"NO CONTENT"];
+                [self removePullToRefresh];
+                [self removeInfiniteLoading];
             }
                 break;
             case ERROR_UNKNOWN:{
                 [self showErrorScreen:error.domain];
+                [self removeInfiniteLoading];
             }
             default:
                 [self showErrorScreen:@"UNKOWN ERROR"];
+                [self removePullToRefresh];
+                [self removeInfiniteLoading];
                 break;
         }
     }else{
         [self.collectionView reloadData];
+        [self.collectionView.infiniteScrollingView stopAnimating];
+        [self.collectionView.pullToRefreshView stopAnimating];
         [self removeLoadingView];
     }
 }

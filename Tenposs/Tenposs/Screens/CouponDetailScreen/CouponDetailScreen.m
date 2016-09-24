@@ -12,7 +12,8 @@
 #import "QRCodeScreen.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface CouponDetailScreen ()
+@interface CouponDetailScreen () <UIScrollViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
@@ -27,19 +28,16 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *descriptionHeightConstraint;
+
+@property (assign, nonatomic)NSInteger currentTopPageIndex;
+@property (strong, nonatomic) NSMutableArray <NSString *> *topArray;
+
 @end
 
 @implementation CouponDetailScreen
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _pagerScrollView.frame.size.width/2, _pagerScrollView.frame.size.height)];
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    imageView.clipsToBounds = YES;
-    [imageView sd_setImageWithURL:[NSURL URLWithString:self.coupon.image_url]];
-    [_pagerScrollView addSubview:imageView];
     
     [self.couponTitle setText:self.coupon.title];
     [self.categoryTitle setText:self.coupon.coupon_type.name];
@@ -67,6 +65,12 @@
         [_useCouponButton setTitle:NSLocalizedString(@"unable_use_coupon", nil) forState:UIControlStateSelected];
         [_useCouponButton setUserInteractionEnabled:NO];
     }
+    
+    if (!_topArray) {
+        _topArray = [NSMutableArray new];
+    }
+    //TODO: need array of images
+    [_topArray addObject:_coupon.image_url];
 }
 
 - (NSString *)title{
@@ -82,6 +86,7 @@
     self.descriptionHeightConstraint.constant = allHeight;
     self.contentViewHeightConstraint.constant = neededHeight + contentBottom;
     [self.view needsUpdateConstraints];
+    [self configureTopScrollView];
     [self removeLoadingView];
 }
 
@@ -100,7 +105,7 @@
 }
 
 - (IBAction)useCouponClicked:(id)sender{
-    //TODO: show QRCode
+    //TODO: show REAL QRCode
     [self performSegueWithIdentifier:@"coupon_qrcode" sender:@"http://google.com"];
 }
 
@@ -109,6 +114,65 @@
         QRCodeScreen *qrScreen = (QRCodeScreen *)segue.destinationViewController;
         qrScreen.QRString = @"http://google.com";
     }
+}
+
+#pragma mark - Configure Top images scrollView
+
+- (void)configureTopScrollView{
+    
+    if (!self.topArray
+        || ![self.topArray isKindOfClass:[NSMutableArray<TopObject *> class]]
+        || [self.topArray count] <= 0) {
+        return;
+    }
+    //Build Top cell
+    CGFloat cellScreenWidth = _pagerScrollView.bounds.size.width;
+    CGFloat cellScreenHeight = _pagerScrollView.bounds.size.height;
+    _pagerScrollView.pagingEnabled = YES;
+    _pagerScrollView.contentSize = CGSizeMake(cellScreenWidth * [self.topArray count], cellScreenHeight);
+    _pagerScrollView.showsHorizontalScrollIndicator = NO;
+    _pagerScrollView.showsVerticalScrollIndicator = NO;
+    _pagerScrollView.delegate = self;
+    
+    self.topPageControl.numberOfPages = [self.topArray count];
+    self.topPageControl.currentPage = 0;
+    
+    if (!self.currentTopPageIndex) {
+        [self loadPageContent:0];
+        if ([_topArray count] > 1) {
+            [self loadPageContent:1];
+        }
+    }else{
+        [self loadPageContent:self.currentTopPageIndex];
+        self.topPageControl.currentPage = self.currentTopPageIndex;
+    }
+}
+
+- (void)loadPageContent:(NSInteger)pageIndex{
+    if (pageIndex > [self.topArray count]) {
+        return;
+    }
+    
+    NSString *image_url = [self.topArray objectAtIndex:pageIndex];
+    
+    CGRect frame = _pagerScrollView.bounds;
+    frame.origin.x = CGRectGetWidth(frame) * pageIndex;
+    frame.origin.y = 0;
+    
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:frame];
+    imageView.backgroundColor = [UIColor lightGrayColor];
+    [imageView setContentMode:UIViewContentModeScaleAspectFill];
+    imageView.clipsToBounds = YES;
+    [imageView sd_setImageWithURL:[NSURL URLWithString:image_url]];
+    
+    [_pagerScrollView addSubview:imageView];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    CGFloat pageWidth = CGRectGetWidth(_pagerScrollView.frame);
+    NSUInteger page = floor((_pagerScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    self.topPageControl.currentPage = page;
+    self.currentTopPageIndex = page;
 }
 
 @end

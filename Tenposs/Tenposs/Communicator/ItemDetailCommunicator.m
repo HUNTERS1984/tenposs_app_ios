@@ -25,7 +25,7 @@
 
 @implementation ItemDetailCommunicator
 - (void)customPrepare:(Bundle *)params{
-    NSString* strUrl = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddress],API_TOP];
+    NSString* strUrl = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddress],API_ITEMS_DETAIL];
     strUrl = [strUrl stringByAppendingFormat:@"%@", [RequestBuilder requestBuilder:params]];
     [params put:KeyRequestURL value:strUrl];
 }

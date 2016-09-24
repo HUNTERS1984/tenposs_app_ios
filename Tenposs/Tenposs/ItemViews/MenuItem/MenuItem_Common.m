@@ -14,9 +14,8 @@
 
 @interface MenuItem_Common()
 
-@property (weak, nonatomic) IBOutlet UIImageView *itemIcon;
 @property (weak, nonatomic) IBOutlet UILabel *itemTitle;
-@property (weak, nonatomic) IBOutlet UILabel *itemIconFont;
+@property (weak, nonatomic) IBOutlet UIImageView *itemIconFont;
 
 @end
 
@@ -48,18 +47,7 @@
     ///Config data
     if (data != nil) {
         [self.itemTitle setText:data.name];
-        [self.itemIconFont setFont:[UIFont themifyFontOfSize:settings.menu_font_size]];
-        if (data.icon != nil) {      
-            [self.itemIconFont setText:[UIFont stringForThemifyIdentifier:data.icon]];
-            
-            [self.itemIconFont setTextAlignment:NSTextAlignmentCenter];
-        }
     }
-    if (settings && settings.menu_icon_color != nil && ![settings.menu_icon_color isEqualToString:@""]) {
-        [self.itemIconFont setTextColor:[UIColor colorWithHexString:settings.menu_icon_color]];
-    }
-    
-
 }
 
 @end

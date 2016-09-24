@@ -8,6 +8,7 @@
 
 #define LOADING_VIEW_TAG 9843
 #define ERROR_VIEW_TAG 9842
+#define ERROR_RETRY_TAG 9841
 
 #import "UIViewController+LoadingView.h"
 #import "HexColors.h"
@@ -83,8 +84,7 @@
     [self.view addConstraints:contraints];
     
     [self.view needsUpdateConstraints];
-    
-    [self removeErrorView];
+    [self removeAllInfoViewExcept:LOADING_VIEW_TAG];
 }
 
 - (void)showErrorScreen:(NSString *)message{
@@ -158,9 +158,111 @@
     NSArray *contraints = [NSArray arrayWithObjects:leading, trailing, bottom,top, nil];
     [self.view addConstraints:contraints];
     [self.view needsUpdateConstraints];
-    
-    [self removeLoadingView];
+    [self removeAllInfoViewExcept:ERROR_VIEW_TAG];
+}
 
+- (void)showErrorScreen:(NSString *)message andRetryButton:(ActionBlock)handler{
+    UIView *errorView = [[UIView alloc]initWithFrame:self.view.bounds];
+    errorView.backgroundColor = [UIColor whiteColor];
+    errorView.tag = ERROR_RETRY_TAG;
+    
+    UILabel *errorMessage = [[UILabel alloc]init];
+    [errorMessage setText:message];
+    [errorMessage setFont:[UIFont systemFontOfSize:30]];
+    [errorMessage setTextColor:[UIColor colorWithHexString:@"#d7d7d7"]];
+    
+    [errorView addSubview:errorMessage];
+    
+    errorMessage.translatesAutoresizingMaskIntoConstraints = NO;
+    NSLayoutConstraint *centerHor = [NSLayoutConstraint
+                                     constraintWithItem:errorMessage
+                                     attribute:NSLayoutAttributeCenterX
+                                     relatedBy:NSLayoutRelationEqual
+                                     toItem:errorView
+                                     attribute:NSLayoutAttributeCenterX
+                                     multiplier:1.0
+                                     constant:0];
+    NSLayoutConstraint *centerVer = [NSLayoutConstraint
+                                     constraintWithItem:errorMessage
+                                     attribute:NSLayoutAttributeCenterY
+                                     relatedBy:NSLayoutRelationEqual
+                                     toItem:errorView
+                                     attribute:NSLayoutAttributeCenterY
+                                     multiplier:1.0
+                                     constant:0];
+    [errorView addConstraint:centerHor];
+    [errorView addConstraint:centerVer];
+    [errorView needsUpdateConstraints];
+    
+    UIButton *retry = [UIButton buttonWithType:UIButtonTypeCustom];
+    [retry setTitle:NSLocalizedString(@"retry_button", nil) forState:UIControlStateNormal];
+    [retry setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    retry.backgroundColor = [UIColor colorWithHexString:@"1FBFBD"];
+    [retry handleControlEvent:UIControlEventTouchUpInside withBlock:handler];
+    
+    [errorView addSubview:retry];
+    
+    retry.translatesAutoresizingMaskIntoConstraints = NO;
+    NSLayoutConstraint *retryHor = [NSLayoutConstraint
+                                     constraintWithItem:retry
+                                     attribute:NSLayoutAttributeCenterX
+                                     relatedBy:NSLayoutRelationEqual
+                                     toItem:errorView
+                                     attribute:NSLayoutAttributeCenterX
+                                     multiplier:1.0
+                                     constant:0];
+    NSLayoutConstraint *centerTop = [NSLayoutConstraint
+                                     constraintWithItem:retry
+                                     attribute:NSLayoutAttributeTop
+                                     relatedBy:NSLayoutRelationEqual
+                                     toItem:errorMessage
+                                     attribute:NSLayoutAttributeBottom
+                                     multiplier:1.0
+                                     constant:8];
+    [errorView addConstraint:retryHor];
+    [errorView addConstraint:centerTop];
+    [errorView needsUpdateConstraints];
+    
+    [self.view addSubview:errorView];
+    errorView.translatesAutoresizingMaskIntoConstraints = NO;
+    NSLayoutConstraint *leading = [NSLayoutConstraint
+                                   constraintWithItem:errorView
+                                   attribute:NSLayoutAttributeLeading
+                                   relatedBy:NSLayoutRelationEqual
+                                   toItem:self.view
+                                   attribute:NSLayoutAttributeLeading
+                                   multiplier:1.0
+                                   constant:0];
+    NSLayoutConstraint *trailing = [NSLayoutConstraint
+                                    constraintWithItem:errorView
+                                    attribute:NSLayoutAttributeTrailing
+                                    relatedBy:NSLayoutRelationEqual
+                                    toItem:self.view
+                                    attribute:NSLayoutAttributeTrailing
+                                    multiplier:1.0
+                                    constant:0];
+    NSLayoutConstraint *bottom = [NSLayoutConstraint
+                                  constraintWithItem:errorView
+                                  attribute:NSLayoutAttributeBottom
+                                  relatedBy:NSLayoutRelationEqual
+                                  toItem:self.view
+                                  attribute:NSLayoutAttributeBottom
+                                  multiplier:1.0
+                                  constant:0];
+    NSLayoutConstraint *top = [NSLayoutConstraint
+                               constraintWithItem:errorView
+                               attribute:NSLayoutAttributeTop
+                               relatedBy:NSLayoutRelationEqual
+                               toItem:self.view
+                               attribute:NSLayoutAttributeTop
+                               multiplier:1.0
+                               constant:0];
+    
+    NSArray *contraints = [NSArray arrayWithObjects:leading, trailing, bottom,top, nil];
+    [self.view addConstraints:contraints];
+    [self.view needsUpdateConstraints];
+    
+    [self removeAllInfoViewExcept:ERROR_RETRY_TAG];
 }
 
 -(void) removeLoadingView{
@@ -181,4 +283,38 @@
     }
 }
 
+-(void) removeErrorRetry{
+    for (UIView *subView in self.view.subviews) {
+        if (subView.tag == ERROR_RETRY_TAG) {
+            [subView removeFromSuperview];
+            return;
+        }
+    }
+}
+
+- (void) removeAllInfoView{
+    for (UIView *subView in self.view.subviews) {
+        if (subView.tag == ERROR_RETRY_TAG
+            || subView.tag == ERROR_VIEW_TAG
+            || subView.tag == LOADING_VIEW_TAG) {
+            [subView removeFromSuperview];
+            return;
+        }
+    }
+}
+
+- (void)removeAllInfoViewExcept:(NSInteger)tag{
+    for (UIView *subView in self.view.subviews) {
+        if (subView.tag == ERROR_RETRY_TAG
+            || subView.tag == ERROR_VIEW_TAG
+            || subView.tag == LOADING_VIEW_TAG) {
+            if (subView.tag == tag) {
+                
+            }else{
+                [subView removeFromSuperview];
+                return;
+            }
+        }
+    }
+}
 @end

@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIButton+HandleBlock.h"
+
 
 @interface UIViewController(LoadingView)
 
@@ -15,5 +17,10 @@
 
 - (void)showErrorScreen:(NSString *)message;
 -(void) removeErrorView;
+
+- (void)showErrorScreen:(NSString *)message andRetryButton:(ActionBlock)handler;
+-(void) removeErrorRetry;
+
+- (void) removeAllInfoView;
 
 @end

@@ -29,17 +29,18 @@
     
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     AppSettings *settings = [appConfig getAvailableAppSettings];
+    
     if ([[self.navigationController viewControllers] count] > 1) {
         UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@""
-                                                                        style:UIBarButtonItemStylePlain target:self action:@selector(didPressBackButton)];
+                                                                       style:UIBarButtonItemStylePlain target:self action:@selector(didPressBackButton)];
         self.navigationItem.leftBarButtonItem = backButton;
         [self.navigationItem setHidesBackButton:YES animated:YES];
         [self.navigationItem setBackBarButtonItem:nil];
         [self.navigationItem.leftBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                   [UIFont themifyFontOfSize:settings.font_size], NSFontAttributeName,
-                                                                   [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
-                                                                   nil]
-                                                         forState:UIControlStateNormal];
+                                                                       [UIFont themifyFontOfSize:settings.font_size], NSFontAttributeName,
+                                                                       [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
+                                                                       nil]
+                                                             forState:UIControlStateNormal];
         [self.navigationItem.leftBarButtonItem setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-angle-left"]]];
     }
 }
@@ -54,6 +55,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+//- (void)viewWillAppear:(BOOL)animated{
+//    [super viewWillAppear:animated];
+//    if ([[self.navigationController viewControllers] count] > 1) {
+//        AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+//        AppSettings *settings = [appConfig getAvailableAppSettings];
+//
+//        UIImage *img = [UIImage imageNamed:@"bar_nav_back"];
+//        UIImage *backImage = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//
+//        UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:backImage style:UIBarButtonItemStylePlain target:self action:@selector(didPressBackButton)];
+//        barButtonItem.tintColor = [UIColor colorWithHexString:settings.title_color];
+//
+//        [self.navigationItem setLeftBarButtonItem:barButtonItem];
+//
+//    }
+//}
 
 #pragma mark - Keyboard Notifications
 - (void) subscribeForKeyboardWillShowNotificationUsingBlock:(void (^)(NSNotification *note))block {
@@ -152,35 +169,35 @@
 -(void)showLogin{
     if (![[UIApplication sharedApplication].keyWindow.rootViewController isKindOfClass:[LoginScreen class]])
     {
-//        if ([[UserData shareInstance] SignOut]) {
-//            
-//            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-//            LoginViewcontroller *nextController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-//            nextController.canShowNavigation = YES;
-//            
-//            UIViewController* topViewController=[Utility topViewController];
-//            if (topViewController.navigationController) {
-//                [topViewController.navigationController pushViewController:nextController animated:YES];
-//            }else{
-//                [topViewController dismissViewControllerAnimated:YES completion:^{
-//                    [topViewController.navigationController pushViewController:nextController animated:YES];
-//                }];
-//            }
-//        }
+        //        if ([[UserData shareInstance] SignOut]) {
+        //
+        //            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        //            LoginViewcontroller *nextController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        //            nextController.canShowNavigation = YES;
+        //
+        //            UIViewController* topViewController=[Utility topViewController];
+        //            if (topViewController.navigationController) {
+        //                [topViewController.navigationController pushViewController:nextController animated:YES];
+        //            }else{
+        //                [topViewController dismissViewControllerAnimated:YES completion:^{
+        //                    [topViewController.navigationController pushViewController:nextController animated:YES];
+        //                }];
+        //            }
+        //        }
     }
-
+    
 }
 
 -(void)logOutBecauseInvalidToken{
-//        if ([[UserData shareInstance] SignOut]) {
-//            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-//            LoginViewcontroller *nextController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-//            UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];
-//            [navi.navigationBar setHidden:YES];
-//            [self presentViewController:navi animated:YES completion:nil];
-//        }else{
-//            [self showAlertView:LZWarning message:LZError];
-//        }
+    //        if ([[UserData shareInstance] SignOut]) {
+    //            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    //            LoginViewcontroller *nextController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    //            UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];
+    //            [navi.navigationBar setHidden:YES];
+    //            [self presentViewController:navi animated:YES completion:nil];
+    //        }else{
+    //            [self showAlertView:LZWarning message:LZError];
+    //        }
     
 }
 
@@ -196,7 +213,7 @@
     if ([[UserData shareInstance]getToken]) {
         NSMutableDictionary *params = [NSMutableDictionary new];
         [params setObject:[[UserData shareInstance]getToken] forKey:KeyAPI_TOKEN];
-
+        
         [[NetworkCommunicator shareInstance] POST:API_LOGOUT parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
             if(isSuccess) {
                 
@@ -218,19 +235,19 @@
         }];
         return YES;
     }
-
+    
     return NO;
 }
 
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

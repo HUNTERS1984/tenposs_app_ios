@@ -75,7 +75,10 @@
 }
 
 - (NSObject *)itemAtIndexPath:(NSIndexPath *)indexPath{
-    return [self.mainData.coupons objectAtIndex:indexPath.row];
+    if (indexPath.row < [self.mainData.coupons count]) {
+        return [self.mainData.coupons objectAtIndex:indexPath.row];
+    }
+    return nil;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{

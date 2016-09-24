@@ -31,7 +31,14 @@
     }else if (data && [data isKindOfClass:[NSString class]]){
         imageURL = (NSString *)data;
     }
-    //TODO: load image
+    self.photo.clipsToBounds = YES;
+    
+    self.layer.masksToBounds = NO;
+    self.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.layer.shadowOffset = CGSizeMake(1, 1);
+    self.layer.shadowOpacity = 0.3;
+    self.layer.shadowRadius = 1;
+
     [self.photo sd_setImageWithURL:[NSURL URLWithString:imageURL]];
 }
 

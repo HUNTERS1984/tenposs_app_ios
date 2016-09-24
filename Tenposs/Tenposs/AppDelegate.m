@@ -112,8 +112,7 @@
     //register to receive notifications
     [application registerForRemoteNotifications];
 }
-- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
     NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
     if ([[UserData shareInstance] getToken]) {
@@ -121,6 +120,7 @@
     }
     NSLog(@"content---%@", token);
 }
+
 -(void) sendPushToken:(NSString*)devtoken{
     NSMutableDictionary *params = [NSMutableDictionary new];
     [params setObject:devtoken forKey:KeyAPI_KEY];

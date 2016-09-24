@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -14,6 +14,10 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="411" height="149"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Ad-5E-eu2">
+                        <rect key="frame" x="6" y="6" width="137" height="137"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="jW6-Qk-qDE" userLabel="news_image">
                         <rect key="frame" x="8" y="8" width="133" height="133"/>
                         <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
@@ -51,9 +55,13 @@
                 <constraint firstItem="l3K-b4-UN8" firstAttribute="top" secondItem="VBS-af-nZ3" secondAttribute="bottom" constant="4" id="JS8-fG-NGE"/>
                 <constraint firstAttribute="trailing" secondItem="VBS-af-nZ3" secondAttribute="trailing" constant="8" id="S6y-MP-yEj"/>
                 <constraint firstItem="VBS-af-nZ3" firstAttribute="top" secondItem="jW6-Qk-qDE" secondAttribute="top" constant="4" id="csh-Ji-gXH"/>
+                <constraint firstItem="jW6-Qk-qDE" firstAttribute="leading" secondItem="0Ad-5E-eu2" secondAttribute="leading" constant="2" id="d5c-zG-WNs"/>
                 <constraint firstItem="VBS-af-nZ3" firstAttribute="leading" secondItem="jW6-Qk-qDE" secondAttribute="trailing" constant="11" id="emF-9d-3vQ"/>
+                <constraint firstItem="0Ad-5E-eu2" firstAttribute="bottom" secondItem="jW6-Qk-qDE" secondAttribute="bottom" constant="2" id="gub-1t-ydY"/>
                 <constraint firstAttribute="bottom" secondItem="iM2-ED-wPT" secondAttribute="bottom" priority="250" constant="8" id="k5J-iv-t4C"/>
                 <constraint firstItem="l3K-b4-UN8" firstAttribute="leading" secondItem="VBS-af-nZ3" secondAttribute="leading" id="kP9-wT-okt"/>
+                <constraint firstItem="0Ad-5E-eu2" firstAttribute="top" secondItem="jW6-Qk-qDE" secondAttribute="top" constant="-2" id="lj8-bo-a6m"/>
+                <constraint firstItem="jW6-Qk-qDE" firstAttribute="trailing" secondItem="0Ad-5E-eu2" secondAttribute="trailing" constant="-2" id="oJg-Km-Ff0"/>
                 <constraint firstItem="jW6-Qk-qDE" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="vvh-FZ-8SU"/>
                 <constraint firstAttribute="trailing" secondItem="l3K-b4-UN8" secondAttribute="trailing" constant="8" id="zQ7-my-NcJ"/>
             </constraints>
@@ -62,6 +70,7 @@
                 <outlet property="newsCategory" destination="VBS-af-nZ3" id="GNe-0c-QLH"/>
                 <outlet property="newsDescription" destination="iM2-ED-wPT" id="YEL-dM-JHy"/>
                 <outlet property="newsImage" destination="jW6-Qk-qDE" id="4GS-zD-ARx"/>
+                <outlet property="newsImageBoundary" destination="0Ad-5E-eu2" id="Yzx-WP-AfW"/>
                 <outlet property="newsTitle" destination="l3K-b4-UN8" id="3XK-GG-7St"/>
             </connections>
             <point key="canvasLocation" x="83.5" y="363.5"/>

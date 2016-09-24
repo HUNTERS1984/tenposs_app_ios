@@ -29,10 +29,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _closeButton.layer.cornerRadius = _closeButton.bounds.size.width/2;
-    _closeButton.clipsToBounds = YES;
-    _imageView.clipsToBounds = YES;
-    
+    _closeButton.hidden = YES;
+
 }
 
 - (void)setPhoto:(PhotoObject *)photo{
@@ -47,6 +45,13 @@
 }
 
 - (void) viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    _closeButton.layer.cornerRadius = _closeButton.frame.size.width/2;
+    _closeButton.clipsToBounds = YES;
+    _closeButton.hidden = NO;
+    
+    _imageView.clipsToBounds = YES;
+    
     if (_photo != nil) {
         [self presentPhoto:_photo];
     }

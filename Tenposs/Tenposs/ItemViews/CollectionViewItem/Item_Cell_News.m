@@ -11,6 +11,7 @@
 
 @interface Item_Cell_News()
 
+@property (weak, nonatomic) IBOutlet UIView *newsImageBoundary;
 @property (weak, nonatomic) IBOutlet UIImageView *newsImage;
 @property (weak, nonatomic) IBOutlet UILabel *newsCategory;
 @property (weak, nonatomic) IBOutlet UILabel *newsTitle;
@@ -33,8 +34,15 @@
 //    [_newsCategory setText:news.parentCategory.categoryName];
     [_newsTitle setText:news.title];
     [_newsDescription setText:news.desc];
+    
+    _newsImageBoundary.layer.masksToBounds = NO;
+    _newsImageBoundary.layer.shadowColor = [UIColor blackColor].CGColor;
+    _newsImageBoundary.layer.shadowOffset = CGSizeMake(1, 1);
+    _newsImageBoundary.layer.shadowOpacity = 0.2;
+    _newsImageBoundary.layer.shadowRadius = 0.7;
+    
     [_newsImage sd_setImageWithURL:[NSURL URLWithString:news.image_url]];
-    _newsImage.layer.masksToBounds = YES;
+    _newsImage.clipsToBounds = YES;
 }
 
 +(CellSpanType)getCellSpanType{

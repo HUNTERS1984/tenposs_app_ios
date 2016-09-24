@@ -35,6 +35,7 @@
 		022114391D565A1000F44E88 /* app_info.json in Resources */ = {isa = PBXBuildFile; fileRef = 022114371D565A1000F44E88 /* app_info.json */; };
 		0221143A1D565A1000F44E88 /* top_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 022114381D565A1000F44E88 /* top_data.json */; };
 		0221143D1D566DD700F44E88 /* UIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0221143C1D566DD700F44E88 /* UIUtils.m */; };
+		0221B1061D946823008F26CA /* UIButton+HandleBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 0221B1051D946823008F26CA /* UIButton+HandleBlock.m */; };
 		022F25B51D50B4C0008AEBA1 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 022F25B41D50B4C0008AEBA1 /* DataModel.m */; };
 		022F25B81D516E4D008AEBA1 /* TopScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 022F25B71D516E4D008AEBA1 /* TopScreen.m */; };
 		022F25BB1D524858008AEBA1 /* AppInfoCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 022F25BA1D524858008AEBA1 /* AppInfoCommunicator.m */; };
@@ -236,6 +237,8 @@
 		022114381D565A1000F44E88 /* top_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = top_data.json; sourceTree = "<group>"; };
 		0221143B1D566DD700F44E88 /* UIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUtils.h; sourceTree = "<group>"; };
 		0221143C1D566DD700F44E88 /* UIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIUtils.m; sourceTree = "<group>"; };
+		0221B1051D946823008F26CA /* UIButton+HandleBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+HandleBlock.m"; sourceTree = "<group>"; };
+		0221B1071D94682D008F26CA /* UIButton+HandleBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+HandleBlock.h"; sourceTree = "<group>"; };
 		022F25B31D50B4C0008AEBA1 /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
 		022F25B41D50B4C0008AEBA1 /* DataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataModel.m; sourceTree = "<group>"; };
 		022F25B61D516E4D008AEBA1 /* TopScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopScreen.h; sourceTree = "<group>"; };
@@ -623,6 +626,8 @@
 		022F25E71D53595F008AEBA1 /* Additional */ = {
 			isa = PBXGroup;
 			children = (
+				0221B1071D94682D008F26CA /* UIButton+HandleBlock.h */,
+				0221B1051D946823008F26CA /* UIButton+HandleBlock.m */,
 				022F25E81D535983008AEBA1 /* UIViewController+LoadingView.h */,
 				022F25E91D535983008AEBA1 /* UIViewController+LoadingView.m */,
 				021140351D58DF5400598AD2 /* UIView+LoadingView.h */,
@@ -1482,6 +1487,7 @@
 				02F2FDD31D4A30E3006D4C83 /* LogoutCommunicator.m in Sources */,
 				368212A31D7FBFD800E2DEF0 /* CXAHyperlinkLabel.m in Sources */,
 				02F2FDC11D4A30E3006D4C83 /* Bundle.m in Sources */,
+				0221B1061D946823008F26CA /* UIButton+HandleBlock.m in Sources */,
 				022F25E61D53563F008AEBA1 /* UIViewController+MFSideMenuAdditions.m in Sources */,
 				022F25B51D50B4C0008AEBA1 /* DataModel.m in Sources */,
 				02F2FDCC1D4A30E3006D4C83 /* JSONKeyMapper.m in Sources */,
@@ -1663,6 +1669,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;

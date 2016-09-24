@@ -11,6 +11,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface Item_Cell_Coupon()
+@property (weak, nonatomic) IBOutlet UIView *coupon_thumbnail_boundary;
 @property (weak, nonatomic) IBOutlet UILabel *coupon_store;
 @property (weak, nonatomic) IBOutlet UILabel *coupon_title;
 @property (weak, nonatomic) IBOutlet UIImageView *coupon_thumbnail;
@@ -33,6 +34,12 @@
         [_coupon_description setText:coupon.desc];
         [_coupon_thumbnail sd_setImageWithURL:[NSURL URLWithString:coupon.image_url]];
         _coupon_thumbnail.layer.masksToBounds = YES;
+        
+        _coupon_thumbnail_boundary.layer.masksToBounds = NO;
+        _coupon_thumbnail_boundary.layer.shadowColor = [UIColor blackColor].CGColor;
+        _coupon_thumbnail_boundary.layer.shadowOffset = CGSizeMake(1, 1);
+        _coupon_thumbnail_boundary.layer.shadowOpacity = 0.2;
+        _coupon_thumbnail_boundary.layer.shadowRadius = 0.7;
 
     }
 }

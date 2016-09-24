@@ -14,7 +14,10 @@
 #import "Item_Detail_Description.h"
 #import "Item_Detail_Header_Segmented.h"
 #import "Top_Header.h"
+#import "AppConfiguration.h"
+#import "UIFont+Themify.h"
 #import "Top_Footer.h"
+#import "HexColors.h"
 
 
 #define COLLAPESED_HEIGHT 120
@@ -65,6 +68,24 @@
     
     [self showLoadingViewWithMessage:@""];
     
+    AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+    AppSettings *settings = [appConfig getAvailableAppSettings];
+    
+    if ([[self.navigationController viewControllers] count] > 1) {
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                       style:UIBarButtonItemStylePlain target:self action:@selector(didPressBackButton)];
+        self.navigationItem.leftBarButtonItem = backButton;
+        [self.navigationItem setHidesBackButton:YES animated:YES];
+        [self.navigationItem setBackBarButtonItem:nil];
+        [self.navigationItem.leftBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                       [UIFont themifyFontOfSize:settings.font_size], NSFontAttributeName,
+                                                                       [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
+                                                                       nil]
+                                                             forState:UIControlStateNormal];
+        [self.navigationItem.leftBarButtonItem setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-angle-left"]]];
+    }
+
+    
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Detail_TopImage class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Detail_TopImage class])];
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Detail_ItemName class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Detail_ItemName class])];
@@ -82,8 +103,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
+
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
     [self previewData];
 }
 
@@ -274,6 +300,11 @@
     }else{
         return CGSizeMake(collectionView.bounds.size.width, [Top_Footer height]);
     }
+}
+
+- (void)didPressBackButton
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

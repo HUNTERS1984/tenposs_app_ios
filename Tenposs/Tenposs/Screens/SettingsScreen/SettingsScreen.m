@@ -60,6 +60,7 @@
     cur_userName = [userData getUserName];
     cur_userEmail = [userData getUserEmail];
     _userProfileChanges = [NSMutableDictionary new];
+    _notificationChanges = [NSMutableDictionary new];
     
     self.settingView = [self appSettingsViewController];
     self.settingView.view.frame = CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height);// self.view.bounds;
@@ -70,8 +71,7 @@
     //[self.navigationController pushViewController:_settingView animated:NO];
 }
 
-- (void)didPressBackButton
-{
+- (void)didPressBackButton{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -81,7 +81,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    
 }
 
 
@@ -118,12 +117,6 @@
         [[UserData shareInstance] updateProfile:[_userProfileChanges mutableCopy]];
         [_userProfileChanges removeAllObjects];
     }
-    
-    //TODO: Need update push
-    
-    //TODO: Need update social
-
-    
 }
 
 - (void)settingDidChange:(NSNotification*)notification {
@@ -131,8 +124,9 @@
         UIImage *chooseImage = (UIImage *)[[notification.userInfo mutableCopy] objectForKey:SETTINGS_KeyUserAvatar];
         [[UserData shareInstance] setUserAvatarImg:chooseImage];
         
+        
         ///Add to profile change dict
-        [_userProfileChanges setObject:chooseImage forKey:KeyAPI_AVATAR];
+       // [_userProfileChanges setObject:chooseImage forKey:KeyAPI_AVATAR];
         
     }else if ([notification.userInfo.allKeys.firstObject isEqual:SETTINGS_KeyUsername]) {
         NSString *username = [[notification.userInfo mutableCopy] objectForKey:SETTINGS_KeyUsername];
@@ -165,7 +159,7 @@
             [self.settingView.tableView reloadData];
         
     }else if([notification.userInfo.allKeys.firstObject isEqualToString:SETTINGS_KeyUserProvine]){
-        NSString *provine = [notification.userInfo objectForKey:SETTINGS_KeyUserProvine];
+        NSString *provine = @"abc";//[notification.userInfo objectForKey:SETTINGS_KeyUserProvine];
         ///Add to profile change dict
         [_userProfileChanges setObject:provine forKey:KeyAPI_ADDRESS];
         
@@ -181,6 +175,33 @@
         
         
         NSLog(@"INSTAGRAM_accessToken = %@", access_token);
+    }else if ([notification.userInfo.allKeys.firstObject isEqualToString:@"keyPushNotification"]){
+        NSLog(@"General Push changed");
+        NSString *pushSet = [[notification.userInfo objectForKey:@"keyPushNotification"] stringValue];
+        if ([pushSet isEqualToString:@"0"]) {
+            [_notificationChanges setObject:@"0" forKey:KeyAPI_RANKING];
+            [_notificationChanges setObject:@"0" forKey:KeyAPI_NEWS];
+            [_notificationChanges setObject:@"0" forKey:KeyAPI_CHAT];
+            [_notificationChanges setObject:@"0" forKey:KeyAPI_COUPON];
+            
+        }else{
+            [_notificationChanges setObject:@"1" forKey:KeyAPI_RANKING];
+            [_notificationChanges setObject:@"1" forKey:KeyAPI_NEWS];
+            [_notificationChanges setObject:@"1" forKey:KeyAPI_CHAT];
+            [_notificationChanges setObject:@"1" forKey:KeyAPI_COUPON];
+        }
+        [[UserData shareInstance] updatePushSetting:[_notificationChanges mutableCopy]];
+        [_notificationChanges removeAllObjects];
+        
+    }else if ([notification.userInfo.allKeys.firstObject isEqualToString:@"keyCouponPushNotification"]){
+        NSLog(@"Coupon Push changed");
+        NSString *pushSet = [[notification.userInfo objectForKey:@"keyCouponPushNotification"]stringValue];
+        [_notificationChanges setObject:@"0" forKey:KeyAPI_RANKING];
+        [_notificationChanges setObject:@"0" forKey:KeyAPI_NEWS];
+        [_notificationChanges setObject:@"0" forKey:KeyAPI_CHAT];
+        [_notificationChanges setObject:pushSet forKey:KeyAPI_COUPON];
+        [[UserData shareInstance] updatePushSetting:[_notificationChanges mutableCopy]];
+        [_notificationChanges removeAllObjects];
     }
 }
 
@@ -424,7 +445,7 @@
     [_imagePickerController dismissViewControllerAnimated:YES completion:nil];
     UIImage *chooseImage = (UIImage *)[info objectForKey:UIImagePickerControllerOriginalImage];
     if (chooseImage) {
-        [_userProfileChanges setObject:chooseImage forKey:SETTINGS_KeyUserAvatar];
+        [_userProfileChanges setObject:chooseImage forKey:KeyAPI_AVATAR];
         [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{SETTINGS_KeyUserAvatar:chooseImage}];
     }
 }

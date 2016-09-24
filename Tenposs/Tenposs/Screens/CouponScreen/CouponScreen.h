@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CouponScreen : UICollectionViewController
+@interface CouponScreen : UIViewController <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 @property UINavigationController *mainNavigationController;
 @property (assign, nonatomic) NSInteger store_id;
 @end

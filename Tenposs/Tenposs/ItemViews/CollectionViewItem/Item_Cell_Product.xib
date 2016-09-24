@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,35 +14,32 @@
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="220" height="288"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QqW-RS-bPy" userLabel="product_name">
-                        <rect key="frame" x="8" y="228" width="212" height="18"/>
-                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                        <color key="textColor" red="0.26844618055555558" green="0.26844618055555558" blue="0.26844618055555558" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                        <color key="textColor" red="0.38039215686274508" green="0.38039215686274508" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KxK-sZ-w9a" userLabel="product_price">
-                        <rect key="frame" x="8" y="251" width="212" height="18"/>
-                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                        <color key="textColor" red="0.26844618055555558" green="0.26844618055555558" blue="0.26844618055555558" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                        <color key="textColor" red="0.38039215686274508" green="0.38039215686274508" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pki-h0-wsF" userLabel="product_image">
-                        <rect key="frame" x="0.0" y="0.0" width="220" height="220"/>
-                        <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="pki-h0-wsF" secondAttribute="height" multiplier="1:1" id="XfF-Rq-6XS"/>
                         </constraints>
                     </imageView>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="QqW-RS-bPy" secondAttribute="trailing" id="3TD-1G-xVB"/>
                 <constraint firstItem="pki-h0-wsF" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ILe-fr-XFk"/>
                 <constraint firstItem="pki-h0-wsF" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="JpJ-fq-bAK"/>
-                <constraint firstItem="QqW-RS-bPy" firstAttribute="leading" secondItem="pki-h0-wsF" secondAttribute="leading" constant="8" id="LWM-z0-kip"/>
-                <constraint firstItem="KxK-sZ-w9a" firstAttribute="leading" secondItem="pki-h0-wsF" secondAttribute="leading" constant="8" id="XT2-fd-ttt"/>
+                <constraint firstItem="QqW-RS-bPy" firstAttribute="leading" secondItem="pki-h0-wsF" secondAttribute="leading" id="LWM-z0-kip"/>
+                <constraint firstItem="KxK-sZ-w9a" firstAttribute="leading" secondItem="pki-h0-wsF" secondAttribute="leading" id="XT2-fd-ttt"/>
                 <constraint firstAttribute="trailing" secondItem="pki-h0-wsF" secondAttribute="trailing" id="ZOa-bu-dk4"/>
                 <constraint firstItem="KxK-sZ-w9a" firstAttribute="top" secondItem="QqW-RS-bPy" secondAttribute="bottom" constant="5" id="fxF-iW-Y1r"/>
                 <constraint firstItem="QqW-RS-bPy" firstAttribute="top" secondItem="pki-h0-wsF" secondAttribute="bottom" constant="8" id="xCr-4L-nFY"/>
