@@ -137,7 +137,6 @@
     // The request has failed for some reason!
     // Check the error var
     
-    
     NSInteger errorCode = [error code];
     NSString* description = @"";
     NSString* str = @"";

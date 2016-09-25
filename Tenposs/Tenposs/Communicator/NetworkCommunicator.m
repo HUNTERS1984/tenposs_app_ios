@@ -17,9 +17,7 @@
     return YES;
 }
 
-
 @end
-
 
 @implementation NetworkCommunicator
 
@@ -34,8 +32,8 @@
     return _sharedInstance;
 }
 
-- (void)POST:(NSString *)API parameters:(id)parameters delegate:(id)delegate
-{
+- (void)POST:(NSString *)API parameters:(id)parameters delegate:(id)delegate{
+    
     _request_url = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddress],API];
 
     NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
@@ -247,8 +245,8 @@
     return stringOfParamters;
 }
 
-- (NSString *)URLEscaped:(NSString *)strIn withEncoding:(NSStringEncoding)encoding
-{
+- (NSString *)URLEscaped:(NSString *)strIn withEncoding:(NSStringEncoding)encoding{
+    
     CFStringRef escaped = CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)strIn, NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]", CFStringConvertNSStringEncodingToEncoding(encoding));
     NSString *strOut = [NSString stringWithString:(__bridge NSString *)escaped];
     CFRelease(escaped);
@@ -263,7 +261,9 @@
 - (void)customProcess:(Bundle *)params{
     
     NSError* error = nil;
+    
     CommonResponse* data = nil;
+    
     @try {
         data = [[CommonResponse alloc] initWithData:self.responseData error:&error];
     }
@@ -273,6 +273,7 @@
     @finally {
         
     }
+
     NSLog(@"ERROR MESSAGE : %@", data.message);
     
     if( error != nil){

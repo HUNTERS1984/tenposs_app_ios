@@ -273,13 +273,23 @@ NSMutableArray *recentSearchList=nil;
             }
         }];
     }
-    
 }
 
 - (void)updateSocialSetting:(NSMutableDictionary *)infoToUpdate{
     if(![self getToken] || [infoToUpdate count] == 0){
         return;
     }
+    
+    [infoToUpdate setObject:[self getToken] forKey:KeyAPI_TOKEN];
+    
+    [[NetworkCommunicator shareInstance] POSTWithoutAppId:API_SOCIALSETTING parameters:infoToUpdate onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+        if(isSuccess){
+            NSLog(@"Update Social Profile settings SUCCESS!");
+        }else{
+            NSLog(@"Update Social Profile FAILD!");
+        }
+    }];
+    
 }
 
 

@@ -9,6 +9,8 @@
 #import "OAuthScreen.h"
 #import <InAppSettingsKit/IASKSettingsReader.h>
 #import "Const.h"
+#import "NetworkCommunicator.h"
+
 
 static NSString *const authUrlString = @"https://api.instagram.com/oauth/authorize/";
 static NSString *const tokenUrlString = @"https://api.instagram.com/oauth/access_token/";
@@ -93,10 +95,54 @@ static NSString *const scope = @"basic";
             NSArray *keyValueArray = [keyValue componentsSeparatedByString:@"="];
             
             if([[keyValueArray objectAtIndex:(0)] isEqualToString:@"access_token"]) {
-
+                
+                NSMutableDictionary *socialProfile = [NSMutableDictionary new];
+                
                 NSString *access_token =[keyValueArray objectAtIndex:(1)];
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{SETTINGS_KeyUserInstaAccessToken:access_token}];
+                [socialProfile setObject:@"3" forKey:KeyAPI_SOCIAL_TYPE];
+                
+                if (access_token && ![access_token isEqualToString:@""]) {
+                    [socialProfile setObject:access_token forKey:KeyAPI_SOCIAL_TOKEN];
+                }
+                
+                NSArray *accessComp = [access_token componentsSeparatedByString:@"."];
+                
+                NSString *userId = [accessComp firstObject];
+                
+                if(userId && ![userId isEqualToString:@""]){
+                    
+                    [socialProfile setObject:userId forKey:KeyAPI_SOCIAL_ID];
+                    
+                    // Send a synchronous request
+                    NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.instagram.com/v1/users/%@/?access_token=%@",userId,access_token]]];
+                    NSURLResponse * response = nil;
+                    NSError * error = nil;
+                    NSData * data = [NSURLConnection sendSynchronousRequest:urlRequest
+                                                          returningResponse:&response
+                                                                      error:&error];
+                    
+                    NSError *jsonError;
+                    if (error == nil){
+                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
+                                                                             options:NSJSONReadingMutableContainers
+                                                                                error:&jsonError];
+                        if (!jsonError) {
+                            NSString *nickname = [[json objectForKey:@"data"] objectForKey:@"username"];
+                            if (nickname) {
+                                [socialProfile setObject:nickname forKey:KeyAPI_NICKNAME];
+                            }
+                        }else{
+                            //TODO: handle json parse error
+                        }
+                    }else{
+                        //TODO: handle request error
+                    }
+                }
+                
+                [socialProfile setObject:@"" forKey:KeyAPI_SOCIAL_SECRET];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{SETTINGS_KeyUserInstaAccessToken:socialProfile}];
                 
                 [self.navigationController popViewControllerAnimated:YES];
             }

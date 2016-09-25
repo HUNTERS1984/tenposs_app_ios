@@ -35,7 +35,7 @@ extern NSString * const API_APPUSER;
 extern NSString * const API_SETPUSHKEY;
 extern NSString * const API_UPDATE_PROFILE;
 extern NSString * const API_SETPUSHSETTING;
-
+extern NSString * const API_SOCIALSETTING;
 
 /*
  * API request key
@@ -53,6 +53,7 @@ extern NSString * const KeyAPI_SOCIAL_TYPE;
 extern NSString * const KeyAPI_SOCIAL_ID;
 extern NSString * const KeyAPI_SOCIAL_TOKEN;
 extern NSString * const KeyAPI_SOCIAL_SECRET;
+extern NSString * const KeyAPI_NICKNAME;
 extern NSString * const KeyAPI_TOKEN;
 extern NSString * const KeyAPI_PAGE_INDEX;
 extern NSString * const KeyAPI_PAGE_SIZE;

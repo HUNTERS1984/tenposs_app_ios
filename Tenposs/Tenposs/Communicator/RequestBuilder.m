@@ -40,6 +40,7 @@ NSString * const API_STAFF = @"/staffs?";
 NSString * const API_STAFF_CAT = @"/staff_categories?";
 NSString *const API_UPDATE_PROFILE = @"/update_profile?";
 NSString * const API_SETPUSHSETTING = @"/set_push_setting?";
+NSString * const API_SOCIALSETTING =@"/social_profile";
 
 #pragma mark - API_KEY
 
@@ -58,7 +59,7 @@ NSString * const KeyAPI_SOCIAL_TYPE = @"social_type";
 NSString * const KeyAPI_SOCIAL_ID = @"social_id";
 NSString * const KeyAPI_SOCIAL_TOKEN = @"social_token";
 NSString * const KeyAPI_SOCIAL_SECRET = @"social_secret";
-
+NSString * const KeyAPI_NICKNAME = @"nickname";
 ///Data Common
 NSString * const KeyAPI_PAGE_INDEX = @"pageindex";
 NSString * const KeyAPI_PAGE_SIZE = @"pagesize";

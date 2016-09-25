@@ -27,6 +27,9 @@
 #import "UIFont+Themify.h"
 #import "HexColors.h"
 #import "AppConfiguration.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <TwitterKit/TwitterKit.h>
 
 //#import "UserData.h"
 
@@ -169,12 +172,14 @@
         }
     }else if ([notification.userInfo.allKeys.firstObject isEqualToString:SETTINGS_KeyUserInstaAccessToken]){
         //TODO: send instagram token
-        NSString *access_token = [notification.userInfo objectForKey:SETTINGS_KeyUserInstaAccessToken];
+        NSMutableDictionary *socialProfile = [notification.userInfo objectForKey:SETTINGS_KeyUserInstaAccessToken];
         
         ///Add to social change dict
         
+        NSLog(@"INSTAGRAM profile = %@", socialProfile);
         
-        NSLog(@"INSTAGRAM_accessToken = %@", access_token);
+        [[UserData shareInstance] updateSocialSetting:socialProfile];
+        
     }else if ([notification.userInfo.allKeys.firstObject isEqualToString:@"keyPushNotification"]){
         NSLog(@"General Push changed");
         NSString *pushSet = [[notification.userInfo objectForKey:@"keyPushNotification"] stringValue];
@@ -319,6 +324,7 @@
         [((Settings_Social_Connect *)cell).socialIcon setImage:[UIImage imageNamed:@"facebook_icon"]];
         [((Settings_Social_Connect *)cell).socialName setText:specifier.title];
         ((Settings_Social_Connect *)cell).socialIcon.clipsToBounds = YES;
+        [((Settings_Social_Connect *)cell).connectButton addTarget:self action:@selector(doFacebookLogin) forControlEvents:UIControlEventTouchUpInside];
     }else if ([specifier.key isEqualToString:@"KeyTwitterConnect"]){
         cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([Settings_Social_Connect class])];
         if (!cell) {
@@ -330,6 +336,7 @@
         [((Settings_Social_Connect *)cell).socialIcon setImage:[UIImage imageNamed:@"twitter_icon"]];
         [((Settings_Social_Connect *)cell).socialName setText:specifier.title];
         ((Settings_Social_Connect *)cell).socialIcon.clipsToBounds = YES;
+        [((Settings_Social_Connect *)cell).connectButton addTarget:self action:@selector(doTwitterLogin) forControlEvents:UIControlEventTouchUpInside];
     }else if ([specifier.key isEqualToString:@"KeyInstagramConnect"]){
         cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([Settings_Social_Connect class])];
         if (!cell) {
@@ -343,7 +350,55 @@
         ((Settings_Social_Connect *)cell).socialIcon.clipsToBounds = YES;
         [((Settings_Social_Connect *)cell).connectButton addTarget:self action:@selector(doInstagramLogin) forControlEvents:UIControlEventTouchUpInside];
     }
+    
     return cell;
+}
+
+- (void)doFacebookLogin{
+    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+    [login logInWithReadPermissions:@[@"email", @"public_profile"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+        if (error) {
+            // Process error
+            NSLog(@"error %@",error);
+        } else if (result.isCancelled) {
+            // Handle cancellations
+            NSLog(@"Cancelled");
+        } else {
+            if ([result.grantedPermissions containsObject:@"email"]) {
+                // Do work
+                NSString *token = result.token.tokenString;
+                [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
+                 startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                     if (!error) {
+                         NSLog(@"fetched user:%@", result);
+                         NSMutableDictionary *params = [NSMutableDictionary new];
+                         [params setObject:@"1" forKey:KeyAPI_SOCIAL_TYPE];
+                         [params setObject:[result objectForKey:@"id"] forKey:KeyAPI_SOCIAL_ID];
+                         [params setObject:token forKey:KeyAPI_SOCIAL_TOKEN];
+                         [params setObject:@"" forKey:KeyAPI_SOCIAL_SECRET];
+                         [params setObject:[result objectForKey:@"name"] forKey:KeyAPI_NICKNAME];
+                         [[UserData shareInstance] updateSocialSetting:params];
+                     }
+                 }];
+            }
+        }
+    }];
+}
+
+- (void)doTwitterLogin{
+    [[Twitter sharedInstance] logInWithViewController:self methods:TWTRLoginMethodAll completion:^(TWTRSession *session, NSError *error) {
+        if (session) {
+            NSMutableDictionary *params = [NSMutableDictionary new];
+            [params setObject:@"2" forKey:KeyAPI_SOCIAL_TYPE];
+            [params setObject:[session userID] forKey:KeyAPI_SOCIAL_ID];
+            [params setObject:[session authToken] forKey:KeyAPI_SOCIAL_TOKEN];
+            [params setObject:[session authTokenSecret] forKey:KeyAPI_SOCIAL_SECRET];
+            [params setObject:[session userName] forKey:KeyAPI_NICKNAME];
+            [[UserData shareInstance] updateSocialSetting:params];
+        } else {
+            NSLog(@"error: %@", [error localizedDescription]);
+        }
+    }];
 }
 
 - (void)doInstagramLogin{
