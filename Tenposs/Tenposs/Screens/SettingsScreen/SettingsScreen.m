@@ -324,7 +324,19 @@
         [((Settings_Social_Connect *)cell).socialIcon setImage:[UIImage imageNamed:@"facebook_icon"]];
         [((Settings_Social_Connect *)cell).socialName setText:specifier.title];
         ((Settings_Social_Connect *)cell).socialIcon.clipsToBounds = YES;
-        [((Settings_Social_Connect *)cell).connectButton addTarget:self action:@selector(doFacebookLogin) forControlEvents:UIControlEventTouchUpInside];
+    
+        NSString *status = [[UserData shareInstance] getFacebookStatus];
+        if ([status isEqualToString:@"1"]) {
+            [((Settings_Social_Connect *)cell).connectButton setBackgroundColor:[UIColor lightGrayColor]];
+            [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor colorWithHexString:@"212121"] forState:UIControlStateNormal];
+            [((Settings_Social_Connect *)cell).connectButton setTitle:NSLocalizedString(@"setting_disconnect", nil) forState:UIControlStateNormal];
+        }else{
+            [((Settings_Social_Connect *)cell).connectButton setBackgroundColor:[UIColor colorWithHexString:@"18C1BF"]];
+            [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [((Settings_Social_Connect *)cell).connectButton setTitle:NSLocalizedString(@"setting_connect", nil) forState:UIControlStateNormal];
+            [((Settings_Social_Connect *)cell).connectButton addTarget:self action:@selector(doFacebookLogin) forControlEvents:UIControlEventTouchUpInside];
+        }
+    
     }else if ([specifier.key isEqualToString:@"KeyTwitterConnect"]){
         cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([Settings_Social_Connect class])];
         if (!cell) {
@@ -336,7 +348,20 @@
         [((Settings_Social_Connect *)cell).socialIcon setImage:[UIImage imageNamed:@"twitter_icon"]];
         [((Settings_Social_Connect *)cell).socialName setText:specifier.title];
         ((Settings_Social_Connect *)cell).socialIcon.clipsToBounds = YES;
-        [((Settings_Social_Connect *)cell).connectButton addTarget:self action:@selector(doTwitterLogin) forControlEvents:UIControlEventTouchUpInside];
+        
+        NSString *status = [[UserData shareInstance] getTwitterStatus];
+        if ([status isEqualToString:@"1"]) {
+            [((Settings_Social_Connect *)cell).connectButton setBackgroundColor:[UIColor lightGrayColor]];
+            [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor colorWithHexString:@"212121"] forState:UIControlStateNormal];
+            [((Settings_Social_Connect *)cell).connectButton setTitle:NSLocalizedString(@"setting_disconnect", nil) forState:UIControlStateNormal];
+            
+        }else{
+            [((Settings_Social_Connect *)cell).connectButton setBackgroundColor:[UIColor colorWithHexString:@"18C1BF"]];
+            [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [((Settings_Social_Connect *)cell).connectButton setTitle:NSLocalizedString(@"setting_connect", nil) forState:UIControlStateNormal];
+            [((Settings_Social_Connect *)cell).connectButton addTarget:self action:@selector(doTwitterLogin) forControlEvents:UIControlEventTouchUpInside];
+
+        }
     }else if ([specifier.key isEqualToString:@"KeyInstagramConnect"]){
         cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([Settings_Social_Connect class])];
         if (!cell) {
@@ -348,7 +373,20 @@
         [((Settings_Social_Connect *)cell).socialIcon setImage:[UIImage imageNamed:@"instagram_icon"]];
         [((Settings_Social_Connect *)cell).socialName setText:specifier.title];
         ((Settings_Social_Connect *)cell).socialIcon.clipsToBounds = YES;
-        [((Settings_Social_Connect *)cell).connectButton addTarget:self action:@selector(doInstagramLogin) forControlEvents:UIControlEventTouchUpInside];
+        
+        NSString *status = [[UserData shareInstance] getInstagramStatus];
+        if ([status isEqualToString:@"1"]) {
+            [((Settings_Social_Connect *)cell).connectButton setBackgroundColor:[UIColor lightGrayColor]];
+            [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor colorWithHexString:@"212121"] forState:UIControlStateNormal];
+            [((Settings_Social_Connect *)cell).connectButton setTitle:NSLocalizedString(@"setting_disconnect", nil) forState:UIControlStateNormal];
+            
+        }else{
+            [((Settings_Social_Connect *)cell).connectButton setBackgroundColor:[UIColor colorWithHexString:@"18C1BF"]];
+            [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [((Settings_Social_Connect *)cell).connectButton setTitle:NSLocalizedString(@"setting_connect", nil) forState:UIControlStateNormal];
+            [((Settings_Social_Connect *)cell).connectButton addTarget:self action:@selector(doTwitterLogin) forControlEvents:UIControlEventTouchUpInside];
+            [((Settings_Social_Connect *)cell).connectButton addTarget:self action:@selector(doInstagramLogin) forControlEvents:UIControlEventTouchUpInside];
+        }
     }
     
     return cell;

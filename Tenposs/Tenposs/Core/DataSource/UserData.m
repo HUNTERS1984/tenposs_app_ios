@@ -209,6 +209,58 @@ NSMutableArray *recentSearchList=nil;
     return [[[self getUserData] objectForKey:@"profile"] objectForKey:@"provine"];
 }
 
+- (void)setFacebookStatus:(NSString *)status{
+    if (!_userDataDictionary) {
+        [self getUserData];
+    }
+    NSMutableDictionary *profile = [[_userDataDictionary objectForKey:@"profile"] mutableCopy];
+    [profile setObject:status forKey:@"facebook_status"];
+    [_userDataDictionary setObject:profile forKey:@"profile"] ;
+    [self saveUserData];
+}
+
+- (NSString *)getFacebookStatus{
+    if (_userDataDictionary) {
+        return [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"facebook_status"];
+    }
+    return [[[self getUserData] objectForKey:@"profile"] objectForKey:@"facebook_status"];
+}
+
+- (void)setTwitterStatus:(NSString *)status{
+    if (!_userDataDictionary) {
+        [self getUserData];
+    }
+    NSMutableDictionary *profile = [[_userDataDictionary objectForKey:@"profile"] mutableCopy];
+    [profile setObject:status forKey:@"twitter_status"];
+    [_userDataDictionary setObject:profile forKey:@"profile"] ;
+    [self saveUserData];
+}
+
+- (NSString *)getTwitterStatus{
+    if (_userDataDictionary) {
+        return [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"twitter_status"];
+    }
+    return [[[self getUserData] objectForKey:@"profile"] objectForKey:@"twitter_status"];
+}
+
+- (void)setInstagramStatus:(NSString *)status{
+    if (!_userDataDictionary) {
+        [self getUserData];
+    }
+    NSMutableDictionary *profile = [[_userDataDictionary objectForKey:@"profile"] mutableCopy];
+    [profile setObject:status forKey:@"instagram_status"];
+    [_userDataDictionary setObject:profile forKey:@"profile"] ;
+    [self saveUserData];
+}
+
+- (NSString *)getInstagramStatus{
+    if (_userDataDictionary) {
+        return [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"instagram_status"];
+    }
+    return [[[self getUserData] objectForKey:@"profile"] objectForKey:@"instagram_status"];
+}
+
+
 - (void)updateProfile:(NSMutableDictionary *)profileToUpdate{
     if(![self getToken] || [profileToUpdate count] == 0){
         return;

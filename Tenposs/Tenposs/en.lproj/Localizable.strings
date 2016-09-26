@@ -57,6 +57,9 @@
 "size"="サイズ";
 "purchase"="商品購入ペ一ジへ";
 
+"setting_connect" = "連携";
+"setting_disconnect" = "disconnect";
+
 "copy_one"="コピ一";
 "coupon_type"="クーポンタイプ";
 "validity"="有効期間";

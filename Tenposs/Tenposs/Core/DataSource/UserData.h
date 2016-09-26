@@ -53,6 +53,15 @@
 - (void)setUserProvine:(NSString *)provine;
 - (NSString *)getUserProvine;
 
+- (void)setFacebookStatus:(NSString *)status;
+- (NSString *)getFacebookStatus;
+
+- (void)setTwitterStatus:(NSString *)status;
+- (NSString *)getTwitterStatus;
+
+- (void)setInstagramStatus:(NSString *)status;
+- (NSString *)getInstagramStatus;
+
 ///Perform Update methods
 - (void)updateProfile:(NSMutableDictionary *)profileToUpdate;
 - (void)updatePushSetting:(NSMutableDictionary *)infoToUpdate;
