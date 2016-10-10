@@ -18,10 +18,6 @@
 #define LARGE_PADDING 16
 
 @interface Item_Detail_ItemName()
-@property (weak, nonatomic) IBOutlet UILabel *categoryTitle;
-@property (weak, nonatomic) IBOutlet UILabel *ItemTitle;
-@property (weak, nonatomic) IBOutlet UILabel *itemPrice;
-@property (weak, nonatomic) IBOutlet UIButton *purchaseButton;
 @end
 
 @implementation Item_Detail_ItemName

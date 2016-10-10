@@ -64,6 +64,14 @@
 @protocol ContactObject
 @end
 
+@protocol ProductSizeObject
+@end
+
+@protocol ReserveObject
+@end
+
+@class ProductSizeObject;
+
 #pragma mark - TopItem
 @interface TopObject: JSONModel
 @property (strong, nonatomic)NSString *image_url;
@@ -78,9 +86,12 @@
 @property (strong, nonatomic) NSString *image_url;
 @property (strong, nonatomic) NSString *item_link;
 @property (strong, nonatomic) NSString *menu;
+@property (strong, nonatomic) NSMutableArray <ConvertOnDemand, ProductSizeObject> *size;
 @property (strong, nonatomic) ProductCategoryObject *parentCategory;
 @property(strong, nonatomic) NSMutableArray <ConvertOnDemand, ProductObject> *rel_items;
+@property (strong, nonatomic) NSMutableArray *sizeArray;
 - (void)updateItemWithItem:(ProductObject *)item;
+- (NSMutableArray *)getSizeArray;
 @end
 
 @interface ProductCategoryObject : JSONModel{
@@ -90,7 +101,20 @@
 @property (strong, nonatomic)NSString *categoryName;
 @end
 
+@interface ProductSizeObject : JSONModel
+
+@property (assign, nonatomic)NSInteger item_size_type_id;
+@property (assign, nonatomic)NSInteger item_size_category_id;
+@property (strong, nonatomic)NSString *item_size_type_name;
+@property (strong, nonatomic)NSString *item_size_category_name;
+@property (strong, nonatomic)NSString *value;
+@end
+
 #pragma mark - News
+
+@protocol NewsCategoryObject
+@end
+
 @interface NewsObject : JSONModel
 @property (assign, nonatomic) NSInteger news_id;
 @property (strong, nonatomic) NSString *title;
@@ -101,12 +125,12 @@
 @property (strong, nonatomic) NewsCategoryObject *parentCategory;
 @end
 
-@interface NewsCategoryObject : JSONModel <NewsContainer>{
-    @public
-}
+@interface NewsCategoryObject : JSONModel <NewsContainer>
+@property (assign, nonatomic) NSInteger category_id;
 @property (assign, nonatomic) NSInteger store_id;
 @property (assign, nonatomic) NSInteger pageIndex;
 @property (assign, nonatomic) NSInteger totalnew;
+@property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSMutableArray<ConvertOnDemand,NewsObject> *news;
 - (NSString *)title;
 @end
@@ -145,6 +169,13 @@
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *start_time;
 @property (strong, nonatomic) NSString *end_time;
+@property (strong, nonatomic) NSString *start_time_string;
+@property (strong, nonatomic) NSString *end_time_string;
+
+- (NSString *)getEndTimeString;
+
+- (NSString *)getStartTimeString;
+
 @end
 
 #pragma mark - Coupon
@@ -268,5 +299,14 @@
 @property (assign, nonatomic) NSInteger pagesize;
 @property (assign, nonatomic) NSInteger total_staffs;
 @property(strong, nonatomic) NSMutableArray <StaffObject, ConvertOnDemand> *staffs;
+
+@end
+
+@interface ReserveObject : JSONModel
+
+@property (assign, nonatomic) NSInteger reserve_id;
+@property (strong, nonatomic) NSString *reserve_url;
+@property (strong, nonatomic) NSString *created_at;
+@property (strong, nonatomic) NSString *updated_at;
 
 @end

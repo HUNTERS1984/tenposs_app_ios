@@ -11,4 +11,9 @@
 
 @interface Item_Detail_ItemName : Item_Detail_Common
 
+@property (weak, nonatomic) IBOutlet UILabel *categoryTitle;
+@property (weak, nonatomic) IBOutlet UILabel *ItemTitle;
+@property (weak, nonatomic) IBOutlet UILabel *itemPrice;
+@property (weak, nonatomic) IBOutlet UIButton *purchaseButton;
+
 @end

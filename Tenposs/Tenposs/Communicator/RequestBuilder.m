@@ -29,6 +29,7 @@ NSString * const API_ITEMS_DETAIL  = @"/items/detail?";
 NSString * const API_ITEMS_RELATE  = @"/items/related?";
 NSString * const API_PHOTO_CAT  = @"/photo_cat?";
 NSString * const API_PHOTO  = @"/photo?";
+NSString * const API_NEWS_CATE = @"/news_cat?";
 NSString * const API_NEWS  = @"/news?";
 NSString * const API_NEWS_DETAIL  = @"/news/detail?";
 NSString * const API_RESERVE = @"/reserve?";
@@ -40,6 +41,7 @@ NSString * const API_STAFF = @"/staffs?";
 NSString * const API_STAFF_CAT = @"/staff_categories?";
 NSString *const API_UPDATE_PROFILE = @"/update_profile?";
 NSString * const API_SETPUSHSETTING = @"/set_push_setting?";
+NSString * const API_GETPUSHSETTING = @"/get_push_setting?";
 NSString * const API_SOCIALSETTING =@"/social_profile";
 
 #pragma mark - API_KEY

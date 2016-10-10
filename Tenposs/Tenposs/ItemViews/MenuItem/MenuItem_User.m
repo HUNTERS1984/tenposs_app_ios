@@ -11,6 +11,7 @@
 #import "HexColors.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "UserData.h"
+#import "UIUtils.h"
 
 @interface MenuItem_User()
 
@@ -38,7 +39,7 @@
     AppSettings *settings = [appConfig getAvailableAppSettings];
     
     ///Config user name
-    [self.user_name setFont:[UIFont fontWithName:settings.menu_font_family size:settings.menu_font_size]];
+    [self.user_name setFont:[UIFont fontWithName:settings.menu_font_family size:[UIUtils getTextSizeWithType:settings.menu_font_size]]];
     [self.user_name setTextColor:[UIColor colorWithHexString:settings.menu_font_color]];
     
     ///Config Avatar
@@ -52,7 +53,7 @@
         return;
     }
     if ([[UserData shareInstance] getUserAvatarUrl] && ![[[UserData shareInstance] getUserAvatarUrl]  isEqualToString:@""]) {
-        [_user_avatar sd_setImageWithURL:[NSURL URLWithString:[[UserData shareInstance] getUserAvatarUrl]]];
+        [_user_avatar sd_setImageWithURL:[NSURL URLWithString:[[UserData shareInstance] getUserAvatarUrl]] placeholderImage:[UIImage imageNamed:@"user_icon"]];
     }else{
         [_user_avatar sd_setImageWithURL:[NSURL URLWithString:(data.profile.avatar_url)] placeholderImage:[UIImage imageNamed:@"user_icon"]];
     }

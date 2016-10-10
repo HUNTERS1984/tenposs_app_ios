@@ -38,9 +38,9 @@
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     AppSettings *settings = [appConfig getAvailableAppSettings];
     
-    [_previousCategoryButton setFont:[UIFont themifyFontOfSize:settings.font_size]];
+    [_previousCategoryButton setFont:[UIFont themifyFontOfSize:[UIUtils getTextSizeWithType:settings.font_size]]];
     [_previousCategoryButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-arrow-left"]] forState:UIControlStateNormal];
-    [_nextCategoryButton setFont:[UIFont themifyFontOfSize:settings.font_size]];
+    [_nextCategoryButton setFont:[UIFont themifyFontOfSize:[UIUtils getTextSizeWithType:settings.font_size]]];
     [_nextCategoryButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-arrow-right"]] forState:UIControlStateNormal];
 
 }

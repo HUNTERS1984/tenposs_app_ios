@@ -43,7 +43,7 @@
     }
     
     [_shopAddressText setText:shopInfo.title];
-    [_shopOpenText setText:[NSString stringWithFormat:@"%@ - %@", shopInfo.start_time, shopInfo.end_time ]];
+    [_shopOpenText setText:[NSString stringWithFormat:@"%@ - %@", [shopInfo getStartTimeString], [shopInfo getEndTimeString]]];
     [_shopPhoneText setText:shopInfo.tel];
     
 //    NSString *mapImageURL = [NSString stringWithFormat:@"https://maps.google.com/maps/api/staticmap?zoom=15&size=500x200&sensor=false&markers=color:red|%@,%@&maptype=roadmap", shopInfo.latitude, shopInfo.longitude];

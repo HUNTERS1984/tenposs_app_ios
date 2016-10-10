@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DataModel.h"
+#import "BaseViewController.h"
 
 @interface StaffDetailScreen : UICollectionViewController
 

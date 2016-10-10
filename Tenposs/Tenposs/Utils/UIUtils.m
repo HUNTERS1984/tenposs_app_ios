@@ -41,7 +41,6 @@
         newSize.width = newSize.height*scale;
     }
     
-    
     UIGraphicsBeginImageContext(newSize);
     [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
     UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -50,5 +49,20 @@
     return newImage;
 }
 
++ (CGFloat)getTextSizeWithType:(NSString *)sizeType{
+    if ([sizeType isEqualToString:SIZE_TYPE_MICRO]) {
+        return 11;
+    }else if ([sizeType isEqualToString:SIZE_TYPE_SMALL]) {
+        return 13;
+    }else if ([sizeType isEqualToString:SIZE_TYPE_MEDIUM]) {
+        return 15;
+    }else if ([sizeType isEqualToString:SIZE_TYPE_LARGE]) {
+        return 17;
+    }else if ([sizeType isEqualToString:SIZE_TYPE_EXTRA_LARGE]) {
+        return 19;
+    }else{
+        return 15;
+    }
+}
 
 @end

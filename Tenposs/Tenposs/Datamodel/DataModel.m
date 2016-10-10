@@ -38,6 +38,53 @@
     self.image_url = item.image_url;
     self.rel_items = item.rel_items;
 }
+
+- (NSMutableArray *)getSizeArray{
+    if (!_size || [_size count] <= 0) {
+        return nil;
+    }
+    if (_sizeArray && [_sizeArray count] > 0) {
+        return _sizeArray;
+    }else{
+        _sizeArray = [NSMutableArray new];
+        NSMutableArray *sizeObjectArray = [NSMutableArray new];
+        NSMutableArray *sizeTypeArray = [NSMutableArray new];
+        NSMutableArray *sizeCategoryArray = [NSMutableArray new];
+        for (ProductSizeObject *size in _size) {
+            if (size.item_size_type_name) {
+                [sizeTypeArray addObject:size.item_size_type_name];
+            }
+            if(size.item_size_category_name){
+                [sizeCategoryArray addObject:size.item_size_category_name];
+            }
+        }
+        
+        for (NSString *cateName in sizeCategoryArray) {
+            [sizeObjectArray addObject:cateName];
+            for (ProductSizeObject *size in _size) {
+                NSMutableArray *s = [NSMutableArray new];
+                if ([size.item_size_category_name isEqualToString:cateName]) {
+                    [s addObject:size];
+                }
+                NSSortDescriptor *sortDescriptor;
+                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"item_size_type_id"
+                                                             ascending:YES];
+                NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+                NSArray *sortedArray = [s sortedArrayUsingDescriptors:sortDescriptors];
+                
+            }
+        }
+        
+        if ([sizeTypeArray count] > 0 && [sizeObjectArray count] > 0) {
+            [_sizeArray addObject:@" "];
+            [_sizeArray addObjectsFromArray:sizeTypeArray];
+            [_sizeArray addObjectsFromArray:sizeObjectArray];
+            return _sizeArray;
+        }
+    }
+    return nil;
+}
+
 @end
 
 @implementation ProductCategoryObject
@@ -59,6 +106,22 @@
 {
     return [[JSONKeyMapper alloc] initWithDictionary:@{}];
 }
+@end
+
+@implementation ProductSizeObject
+
+
++(BOOL)propertyIsOptional:(NSString *)propertyName{
+    return YES;
+}
+
+//TODO: need implementation
+
++(JSONKeyMapper*)keyMapper
+{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{}];
+}
+
 @end
 
 #pragma mark - Gallery
@@ -162,7 +225,7 @@
 //TODO: need implementation
 
 +(JSONKeyMapper*)keyMapper{
-    return [[JSONKeyMapper alloc] initWithDictionary:@{@"data.news":@"news"}];
+    return [[JSONKeyMapper alloc] initWithDictionary:@{@"data.news":@"news", @"id":@"category_id"}];
 }
 
 - (NSString *)title{
@@ -197,6 +260,44 @@
 +(JSONKeyMapper*)keyMapper
 {
     return [[JSONKeyMapper alloc] initWithDictionary:@{}];
+}
+
+- (NSString *)getStartTimeString{
+    if (_start_time_string) {
+        return _start_time_string;
+    }else{
+        _start_time_string = [self convertDataToString:_start_time];
+        if (!_start_time_string) {
+            _start_time_string = @"00:00";
+        }
+        return _start_time_string;
+    }
+}
+
+- (NSString *)getEndTimeString{
+    if (_end_time_string) {
+        return _end_time_string;
+    }else{
+        _end_time_string = [self convertDataToString:_end_time];
+        if (!_end_time_string) {
+            _end_time_string = @"00:00";
+        }
+        return _end_time_string;
+    }
+}
+
+- (NSString *)convertDataToString:(NSString *)dateString{
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *date = [dateFormat dateFromString:dateString];
+    if (date) {
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:date];
+        NSInteger hour = [components hour];
+        NSInteger minute = [components minute];
+        return [NSString stringWithFormat:@"%ld:%ld", (long)hour, (long)minute];
+    }
+    return nil;
 }
 
 @end
@@ -367,6 +468,21 @@
 - (void)removeAllStaff{
     [_staffs removeAllObjects];
     _pageindex = 1;
+}
+
+@end
+
+@implementation ReserveObject
+
++(BOOL)propertyIsOptional:(NSString *)propertyName{
+    return YES;
+}
+
++(JSONKeyMapper*)keyMapper{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{
+                                                       @"id":@"reserve_id"
+                                                       }];
+    
 }
 
 @end

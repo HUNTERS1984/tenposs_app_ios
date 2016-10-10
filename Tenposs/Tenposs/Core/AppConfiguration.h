@@ -34,6 +34,7 @@
 #define APP_MENU_CHAT                7
 #define APP_MENU_SETTING             10
 #define APP_MENU_IMAGES              1
+#define APP_MENU_LOGOUT             -1
 
 @interface AppInfo : JSONModel
 
@@ -73,7 +74,7 @@
  */
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *title_color;
-@property (assign, nonatomic) int font_size;
+@property (strong, nonatomic) NSString *font_size;
 @property (strong, nonatomic) NSString *font_family;
 @property (strong, nonatomic) NSString *header_color;
 
@@ -83,9 +84,12 @@
 @property (strong, nonatomic) NSString *menu_icon_color;
 @property (strong, nonatomic) NSString *menu_background_color;
 @property (strong, nonatomic) NSString *menu_font_color;
-@property (assign, nonatomic) int menu_font_size;
+@property (strong, nonatomic) NSString *menu_font_size;
 @property (strong, nonatomic) NSString *menu_font_family;
 @property (assign, nonatomic) int template_id;
+
+@property (strong, nonatomic) NSString *company_info;
+@property (strong, nonatomic) NSString *user_privacy;
 
 @end
 

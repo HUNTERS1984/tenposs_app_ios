@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DataModel.h"
+@import SafariServices;
 
 @interface ItemDetailScreen : UICollectionViewController <UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) ProductObject *item;

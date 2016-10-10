@@ -82,7 +82,7 @@
         NSMutableIndexSet *discardedItems = [NSMutableIndexSet indexSet];
         NSUInteger index = 0;
         for (MenuModel *menu in _menuArray) {
-            if (menu.menu_id == APP_MENU_CHAT) {
+            if (menu.menu_id == APP_MENU_CHAT || menu.menu_id == -1) {
                 [discardedItems addIndex:index];
             }
             index ++;
@@ -92,7 +92,7 @@
     }
     [self.tableView reloadData];
     if (_currentMenuItem == nil) {
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:_shouldSelectIndex inSection:1] animated:YES scrollPosition:UITableViewScrollPositionNone];
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:3/*_shouldSelectIndex*/ inSection:1] animated:YES scrollPosition:UITableViewScrollPositionNone];
         [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:_shouldSelectIndex inSection:1]];
     }
 }

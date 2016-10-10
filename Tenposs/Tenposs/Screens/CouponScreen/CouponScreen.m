@@ -91,7 +91,11 @@
             case ERROR_UNKNOWN:{
                 [self showErrorScreen:error.domain];
                 [self removeInfiniteLoading];
-            }
+            }break;
+            case ERROR_CONTENT_FULLY_LOADED:{
+                [self removeAllInfoView];
+                [self removeInfiniteLoading];
+            }break;
             default:
                 [self showErrorScreen:@"UNKOWN ERROR"];
                 [self removePullToRefresh];
@@ -113,7 +117,6 @@
 - (void)needRefreshSectionAtIndexPath:(NSIndexPath *)indexPath{
 
 }
-
 
 #pragma mark - UICollectionViewDelegate
 

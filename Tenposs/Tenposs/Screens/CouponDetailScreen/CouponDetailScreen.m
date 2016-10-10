@@ -56,13 +56,13 @@
     if (_coupon.can_use == COUPON_STATUS_AVAILABLE) {
         [_useCouponButton setBackgroundColor:[UIColor colorWithHexString:@"#29c9c8"]];
         [_useCouponButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_useCouponButton setTitle:NSLocalizedString(@"use_coupon", nil) forState:UIControlStateNormal];
-        [_useCouponButton setTitle:NSLocalizedString(@"use_coupon", nil) forState:UIControlStateSelected];
+        [_useCouponButton setTitle:NSLocalizedString(@"take_advantage_of_this_coupon", nil) forState:UIControlStateNormal];
+        [_useCouponButton setTitle:NSLocalizedString(@"take_advantage_of_this_coupon", nil) forState:UIControlStateSelected];
     }else{
         [_useCouponButton setBackgroundColor:[UIColor colorWithHexString:@"#97a1a4"]];
         [_useCouponButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_useCouponButton setTitle:NSLocalizedString(@"unable_use_coupon", nil) forState:UIControlStateNormal];
-        [_useCouponButton setTitle:NSLocalizedString(@"unable_use_coupon", nil) forState:UIControlStateSelected];
+        [_useCouponButton setTitle:NSLocalizedString(@"this_coupon_cannot_use", nil) forState:UIControlStateNormal];
+        [_useCouponButton setTitle:NSLocalizedString(@"this_coupon_cannot_use", nil) forState:UIControlStateSelected];
         [_useCouponButton setUserInteractionEnabled:NO];
     }
     
@@ -97,7 +97,104 @@
 - (IBAction)copyClipboard:(id)sender {
     UIPasteboard *pb = [UIPasteboard generalPasteboard];
     [pb setString:self.hashTag.text];
-    [self showSuccess:NSLocalizedString(@"copy_hashtag", nil)];
+    
+    [self showCopiedScreen:YES];
+    //[self showSuccess:NSLocalizedString(@"copy_hashtag", nil)];
+}
+
+- (void)showCopiedScreen:(BOOL)show{
+    if (show) {
+        UIView *bg = [[UIView alloc] initWithFrame:self.view.bounds];
+        bg.tag = 1997;
+        
+        [bg setBackgroundColor:[UIColor colorWithHexString:@"263543" alpha:0.75f]];
+        
+        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [img setContentMode:UIViewContentModeScaleAspectFill];
+        [img setImage:[UIImage imageNamed:@"icon_copied"]];
+        
+        [bg addSubview:img];
+        
+        img.translatesAutoresizingMaskIntoConstraints = NO;
+        NSLayoutConstraint *centerHor = [NSLayoutConstraint
+                                         constraintWithItem:img
+                                         attribute:NSLayoutAttributeCenterX
+                                         relatedBy:NSLayoutRelationEqual
+                                         toItem:bg
+                                         attribute:NSLayoutAttributeCenterX
+                                         multiplier:1.0
+                                         constant:0];
+        NSLayoutConstraint *centerVer = [NSLayoutConstraint
+                                         constraintWithItem:img
+                                         attribute:NSLayoutAttributeCenterY
+                                         relatedBy:NSLayoutRelationEqual
+                                         toItem:bg
+                                         attribute:NSLayoutAttributeCenterY
+                                         multiplier:1.0
+                                         constant:0];
+        NSLayoutConstraint *w = [NSLayoutConstraint
+                                 constraintWithItem:img
+                                 attribute:NSLayoutAttributeWidth
+                                 relatedBy:NSLayoutRelationEqual
+                                 toItem:nil
+                                 attribute:NSLayoutAttributeWidth
+                                 multiplier:1.0
+                                 constant:50];
+        NSLayoutConstraint *h = [NSLayoutConstraint
+                                 constraintWithItem:img
+                                 attribute:NSLayoutAttributeHeight
+                                 relatedBy:NSLayoutRelationEqual
+                                 toItem:nil
+                                 attribute:NSLayoutAttributeHeight multiplier:1.0 constant:50];
+        [img addConstraint:w];
+        [img addConstraint:h];
+        
+        [bg addConstraint:centerHor];
+        [bg addConstraint:centerVer];
+        [bg needsUpdateConstraints];
+        UILabel *message = [[UILabel alloc] init];
+        [message setText:NSLocalizedString(@"hash_tag_copied", nil)];
+        [message setTextColor:[UIColor whiteColor]];
+        message.backgroundColor = [UIColor clearColor];
+        [bg addSubview:message];
+        message.translatesAutoresizingMaskIntoConstraints = NO;
+        NSLayoutConstraint *retryHor = [NSLayoutConstraint
+                                        constraintWithItem:message
+                                        attribute:NSLayoutAttributeCenterX
+                                        relatedBy:NSLayoutRelationEqual
+                                        toItem:bg
+                                        attribute:NSLayoutAttributeCenterX
+                                        multiplier:1.0
+                                        constant:0];
+        NSLayoutConstraint *centerTop = [NSLayoutConstraint
+                                         constraintWithItem:message
+                                         attribute:NSLayoutAttributeTop
+                                         relatedBy:NSLayoutRelationEqual
+                                         toItem:img
+                                         attribute:NSLayoutAttributeBottom
+                                         multiplier:1.0
+                                         constant:16];
+        [bg addConstraint:retryHor];
+        [bg addConstraint:centerTop];
+        [bg needsUpdateConstraints];
+        [self.view addSubview:bg];
+        
+        UITapGestureRecognizer *singleFingerTap =
+        [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                action:@selector(handleSingleTap:)];
+        [self.view addGestureRecognizer:singleFingerTap];
+    }else{
+        for (UIView *subView in self.view.subviews) {
+            if (subView.tag == 1997) {
+                [subView removeFromSuperview];
+                return;
+            }
+        }
+    }
+}
+
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer{
+    [self showCopiedScreen:NO];
 }
 
 - (void)loadTopPagerContent{

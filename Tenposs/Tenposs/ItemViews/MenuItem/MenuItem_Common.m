@@ -11,6 +11,8 @@
 #import "HexColors.h"
 #import "UIFont+Themify.h"
 #import "Utils.h"
+#import "UIUtils.h"
+#import "SideMenuIcon.h"
 
 @interface MenuItem_Common()
 
@@ -37,16 +39,22 @@
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     AppSettings *settings = [appConfig getAvailableAppSettings];
     if (settings.menu_font_family != nil && ![settings.menu_font_family isEqualToString:@""]) {
-        [self.itemTitle setFont:[UIFont fontWithName:settings.menu_font_family size:settings.menu_font_size]];
+        [self.itemTitle setFont:[UIFont fontWithName:settings.menu_font_family size:[UIUtils getTextSizeWithType:settings.font_size]]];
     }else{
         //TODO: need default value
     }
     [self.itemTitle setTextColor:[UIColor colorWithHexString:settings.menu_font_color]];
-    if (settings.menu_font_size < 20)
-        settings.menu_font_size = 20;
+    
+    if ([UIUtils getTextSizeWithType:settings.font_size] < 19)
+        settings.menu_font_size = SIZE_TYPE_LARGE;
     ///Config data
     if (data != nil) {
         [self.itemTitle setText:data.name];
+    }
+    
+    UIImage *icon = [SideMenuIcon sideMenuImageWithMenuId:data.menu_id];
+    if (icon) {
+        [_itemIconFont setImage:icon];
     }
 }
 

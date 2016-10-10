@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol TenpossSegmentControlDelegate <NSObject>
+
+- (void)onChangedToIndex:(NSInteger)index;
+
+@end
+
 IB_DESIGNABLE
 @interface TenpossSegmentedControl : UIControl
-
+@property (weak, nonatomic) id<TenpossSegmentControlDelegate> delegate;
+@property (assign, nonatomic) NSInteger needUpdateIndex;
 - (void)setItems:(NSMutableArray<NSString *> *)items;
 - (void)setSelectedIndex:(NSInteger)selectedIndex;
 

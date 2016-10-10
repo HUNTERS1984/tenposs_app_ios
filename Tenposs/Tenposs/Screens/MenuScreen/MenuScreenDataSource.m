@@ -34,6 +34,9 @@
                 NSInteger lastSourceIndex = [self.detailDataSourceList count] -1;
                 [self updateCurrentDetailDataSource:self.detailDataSourceList[lastSourceIndex]];
                 self.shouldShowLatest = NO;
+            }else{
+                [self updateCurrentDetailDataSource:[self.detailDataSourceList objectAtIndex:0]];
+                self.shouldShowLatest = NO;
             }
         }
     }
@@ -85,6 +88,9 @@
                 if(self.shouldShowLatest) {
                    [self updateCurrentDetailDataSource:[self.detailDataSourceList objectAtIndex:[self.detailDataSourceList count] -1]];
                    self.shouldShowLatest = NO;
+                }else{
+                    [self updateCurrentDetailDataSource:[self.detailDataSourceList objectAtIndex:0]];
+                    self.shouldShowLatest = NO;
                 }
             }
             return;

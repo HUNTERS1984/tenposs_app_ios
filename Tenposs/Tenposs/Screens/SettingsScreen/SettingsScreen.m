@@ -30,6 +30,8 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <TwitterKit/TwitterKit.h>
+#import "GetPushSettingsCommunicator.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 //#import "UserData.h"
 
@@ -37,7 +39,7 @@
 #define USERNAME_TAG 101
 #define USEREMAIL_TAG 102
 
-@interface SettingsScreen () <UITextFieldDelegate, UIActionSheetDelegate>{
+@interface SettingsScreen () <UITextFieldDelegate, UIActionSheetDelegate, TenpossCommunicatorDelegate>{
     NSString *cur_userId;
     NSString *cur_userName;
     NSString *cur_userEmail;
@@ -53,11 +55,15 @@
 @implementation SettingsScreen
 
 - (void)awakeFromNib{
+    [super awakeFromNib];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self showLoadingViewWithMessage:@""];
+    
     UserData *userData = [UserData shareInstance];
     cur_userId = [userData getUserID];
     cur_userName = [userData getUserName];
@@ -72,20 +78,34 @@
     [self.settingView didMoveToParentViewController:self];
     
     //[self.navigationController pushViewController:_settingView animated:NO];
+    
+    if ([[UserData shareInstance] getToken]) {
+        GetPushSettingsCommunicator *request = [GetPushSettingsCommunicator new];
+        Bundle *params = [Bundle new];
+        [params put:KeyAPI_TOKEN value:[[UserData shareInstance] getToken]];
+        NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
+        [params put:KeyAPI_TIME value:currentTime];
+        NSString *store_id = [[AppConfiguration sharedInstance] getStoreId];
+        NSArray *strings = [NSArray arrayWithObjects:APP_ID,currentTime,store_id,APP_SECRET,nil];
+        [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
+        [request execute:params withDelegate:self];
+    }    
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+    
+    [self removeLoadingView];
 }
 
 - (void)didPressBackButton{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-}
-
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 }
-
 
 - (SettingsTableViewController*)appSettingsViewController {
     if (!_settingView) {
@@ -126,7 +146,6 @@
     if ([notification.userInfo.allKeys.firstObject isEqual:SETTINGS_KeyUserAvatar]) {
         UIImage *chooseImage = (UIImage *)[[notification.userInfo mutableCopy] objectForKey:SETTINGS_KeyUserAvatar];
         [[UserData shareInstance] setUserAvatarImg:chooseImage];
-        
         
         ///Add to profile change dict
        // [_userProfileChanges setObject:chooseImage forKey:KeyAPI_AVATAR];
@@ -235,9 +254,9 @@
         ((Settings_Avatar *)cell).avatar.layer.borderWidth = 1;
         ((Settings_Avatar *)cell).avatar.layer.borderColor = [UIColor lightGrayColor].CGColor;
         ((Settings_Avatar *)cell).avatar.clipsToBounds = YES;
-        UIImage *ava = [userData getUserAvatarImg];
-        if (ava) {
-            [((Settings_Avatar *)cell).avatar setImage:ava];
+        NSString *avaURL = [userData getUserAvatarUrl];
+        if (avaURL && ![avaURL isKindOfClass:[NSNull class]]) {
+            [((Settings_Avatar *)cell).avatar sd_setImageWithURL:[NSURL URLWithString:avaURL] ];
         }else{
             [((Settings_Avatar *)cell).avatar setImage:[UIImage imageNamed:@"user_icon"]];
         }
@@ -284,7 +303,8 @@
         //TODO: Get UserData and fill the text
         [((Setting_EditText *)cell).title setText:specifier.title];
         [((Setting_EditText *)cell).text  setPlaceholder:NSLocalizedString(@"email_address",nil)];
-        [((Setting_EditText *)cell).text  setText:[userData getUserEmail]];
+        NSString *email = [userData getUserEmail];
+        [((Setting_EditText *)cell).text setText:email];
         ((Setting_EditText *)cell).text.delegate = self;
         ((Setting_EditText *)cell).text.tag = USEREMAIL_TAG;
     }else if ([specifier.key isEqualToString:@"KeyUserGender"]) {
@@ -354,7 +374,6 @@
             [((Settings_Social_Connect *)cell).connectButton setBackgroundColor:[UIColor lightGrayColor]];
             [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor colorWithHexString:@"212121"] forState:UIControlStateNormal];
             [((Settings_Social_Connect *)cell).connectButton setTitle:NSLocalizedString(@"setting_disconnect", nil) forState:UIControlStateNormal];
-            
         }else{
             [((Settings_Social_Connect *)cell).connectButton setBackgroundColor:[UIColor colorWithHexString:@"18C1BF"]];
             [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -388,6 +407,8 @@
             [((Settings_Social_Connect *)cell).connectButton addTarget:self action:@selector(doInstagramLogin) forControlEvents:UIControlEventTouchUpInside];
         }
     }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
@@ -445,6 +466,7 @@
 }
 
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender tableView:(UITableView *)tableView didSelectCustomViewSpecifier:(IASKSpecifier*)specifier{
+    
     if ([specifier.key isEqualToString:@"KeyUserAvatar"]) {
         if (!_imagePickerController) {
             _imagePickerController = [[UIImagePickerController alloc] init];
@@ -546,5 +568,30 @@
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark - TenpossCommunicatorDelegate
+
+- (void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams{
+    NSInteger errorCode =[responseParams getInt:KeyResponseResult];
+    NSError *error = nil;
+    if (errorCode != ERROR_OK) {
+        NSString *errorDomain = [CommunicatorConst getErrorMessage:errorCode];
+        error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:nil];
+    }else{
+        NSDictionary *data = (NSDictionary *) [responseParams get:KeyResponseObject];
+        if (data) {
+            if ([[data objectForKey:@"data"] objectForKey:@"push_setting"]) {
+                if([[[data objectForKey:@"data"] objectForKey:@"push_setting"] objectForKey:@"coupon"]){
+                    
+                }
+            }
+        }
+    }
+}
+
+- (void)begin:(TenpossCommunicator*)request data:(Bundle*) responseParams{}
+
+-( void)cancelAllRequest{}
+
 
 @end

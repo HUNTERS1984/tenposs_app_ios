@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIUtils.h"
+#import "UIButton+HandleBlock.h"
 
 @interface BaseViewController : UIViewController
 
@@ -34,4 +36,8 @@
 -(void)showLogin;
 -(void)showTop;
 -(BOOL)signOut;
+
+- (BOOL)checkForInternetConnectionWithRetryHandler:(ActionBlock)handler;
+- (BOOL)checkForInternetConnection;
+
 @end

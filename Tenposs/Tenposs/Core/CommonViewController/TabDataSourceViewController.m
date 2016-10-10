@@ -55,13 +55,13 @@
 - (void)setControllerType:(NSString *)controllerType{
     _controllerType = controllerType;
     if ([_controllerType isEqualToString:TABVIEWCONTROLLER_Menu]) {
-        _dataSource = [[MenuScreenDataSource alloc] initAndShouldShowLatest:YES];
+        _dataSource = [[MenuScreenDataSource alloc] initAndShouldShowLatest:NO];
     }else if ([_controllerType isEqualToString:TABVIEWCONTROLLER_News]) {
-        _dataSource = [[NewsScreenDataSource alloc] initAndShouldShowLatest:YES];
+        _dataSource = [[NewsScreenDataSource alloc] initAndShouldShowLatest:NO];
     }else if ([_controllerType isEqualToString:TABVIEWCONTROLLER_Gallery]) {
-        _dataSource = [[GalleryScreenDataSource alloc] initAndShouldShowLatest:YES];
+        _dataSource = [[GalleryScreenDataSource alloc] initAndShouldShowLatest:NO];
     }else if ([_controllerType isEqualToString:TABVIEWCONTROLLER_Staff]) {
-        _dataSource = [[StaffScreenDataSource alloc] initAndShouldShowLatest:YES];
+        _dataSource = [[StaffScreenDataSource alloc] initAndShouldShowLatest:NO];
     }else{
         //Should never go here
         NSAssert(NO, @"ViewController type should be defined!");
@@ -87,7 +87,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setUp];
+}
+
+- (void)setUp{
+    
     self.collectionView.delegate = self;
+    
+    if([self checkForInternetConnection]){
+        
+    }else{
+        __weak TabDataSourceViewController *weakSelf = self;
+        [self showErrorScreen:NSLocalizedString(@"no_internet_connection", nil) andRetryButton:^{
+            [weakSelf setUp];
+        }];
+        return;
+    }
     
     [self showLoadingViewWithMessage:@""];
     
@@ -99,21 +114,21 @@
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     AppSettings *settings = [appConfig getAvailableAppSettings];
     
-    [_previousCategoryButton setFont:[UIFont themifyFontOfSize:settings.font_size]];
+    [_previousCategoryButton setFont:[UIFont themifyFontOfSize:20/*[UIUtils getTextSizeWithType:settings.font_size]*/]];
     [_previousCategoryButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-arrow-left"]] forState:UIControlStateNormal];
     [_previousCategoryButton setTitleColor:[UIColor colorWithHexString:@"1FC0BD"] forState:UIControlStateNormal];
     [_previousCategoryButton setTitleColor:[UIColor colorWithHexString:@"#e2e2e2"] forState:UIControlStateDisabled];
-
-    [_nextCategoryButton setFont:[UIFont themifyFontOfSize:settings.font_size]];
+    
+    [_nextCategoryButton setFont:[UIFont themifyFontOfSize:20/*[UIUtils getTextSizeWithType:settings.font_size]*/]];
     [_nextCategoryButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-arrow-right"]] forState:UIControlStateNormal];
     [_nextCategoryButton setTitleColor:[UIColor colorWithHexString:@"1FC0BD"] forState:UIControlStateNormal];
     [_nextCategoryButton setTitleColor:[UIColor colorWithHexString:@"#e2e2e2"] forState:UIControlStateDisabled];
-
+    
     
     __weak __typeof__(self) weakSelf = self;
     __weak __typeof__(self.dataSource) wDataSource = self.dataSource;
     [self.collectionView addInfiniteScrollingWithActionHandler:^{
-//        [weakSelf showDetailLoadingView:YES message:nil];
+        //        [weakSelf showDetailLoadingView:YES message:nil];
         [weakSelf.nextCategoryButton setEnabled:NO];
         [weakSelf.previousCategoryButton setEnabled:NO];
         [wDataSource loadMoreDataWithCompleteHandler:^(NSError *error, NSString *detailDataSourceTitle, BOOL hasNext, BOOL hasPrevious) {

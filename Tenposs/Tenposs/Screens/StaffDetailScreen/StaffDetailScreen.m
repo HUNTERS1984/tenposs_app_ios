@@ -18,6 +18,7 @@
 #import "UIFont+Themify.h"
 #import "Top_Footer.h"
 #import "HexColors.h"
+#import "UIUtils.h"
 
 
 #define COLLAPESED_HEIGHT 120
@@ -78,13 +79,12 @@
         [self.navigationItem setHidesBackButton:YES animated:YES];
         [self.navigationItem setBackBarButtonItem:nil];
         [self.navigationItem.leftBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                       [UIFont themifyFontOfSize:settings.font_size], NSFontAttributeName,
+                                                                       [UIFont themifyFontOfSize:20/*[UIUtils getTextSizeWithType:settings.font_size]*/], NSFontAttributeName,
                                                                        [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
                                                                        nil]
                                                              forState:UIControlStateNormal];
         [self.navigationItem.leftBarButtonItem setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-angle-left"]]];
     }
-
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Detail_TopImage class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Detail_TopImage class])];
     

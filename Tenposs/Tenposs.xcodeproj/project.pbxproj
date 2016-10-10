@@ -28,6 +28,8 @@
 		021AA4D11D7FDAC70042C511 /* Item_Detail_Description.m in Sources */ = {isa = PBXBuildFile; fileRef = 021AA4CF1D7FDAC70042C511 /* Item_Detail_Description.m */; };
 		021AA4D21D7FDAC70042C511 /* Item_Detail_Description.xib in Resources */ = {isa = PBXBuildFile; fileRef = 021AA4D01D7FDAC70042C511 /* Item_Detail_Description.xib */; };
 		021AA4D61D80262F0042C511 /* StaffDetailScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 021AA4D51D80262F0042C511 /* StaffDetailScreen.m */; };
+		021C81A41DA4CA66000FF5A7 /* Item_Detail_Item_Size.m in Sources */ = {isa = PBXBuildFile; fileRef = 021C81A21DA4CA66000FF5A7 /* Item_Detail_Item_Size.m */; };
+		021C81A51DA4CA66000FF5A7 /* Item_Detail_Item_Size.xib in Resources */ = {isa = PBXBuildFile; fileRef = 021C81A31DA4CA66000FF5A7 /* Item_Detail_Item_Size.xib */; };
 		0221142C1D5441E000F44E88 /* Common_Item_Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0221142B1D5441E000F44E88 /* Common_Item_Cell.m */; };
 		0221142F1D54426000F44E88 /* ReserveScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 0221142E1D54426000F44E88 /* ReserveScreen.m */; };
 		022114321D56494300F44E88 /* TopCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 022114311D56494300F44E88 /* TopCommunicator.m */; };
@@ -87,13 +89,18 @@
 		0257C2F01D85872800506F73 /* StaffScreenDetailDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0257C2EF1D85872800506F73 /* StaffScreenDetailDataSource.m */; };
 		0257C2F31D85880F00506F73 /* StaffCategoryCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0257C2F21D85880F00506F73 /* StaffCategoryCommunicator.m */; };
 		0257C2F61D858A2600506F73 /* StaffCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0257C2F51D858A2600506F73 /* StaffCommunicator.m */; };
+		026409DA1DABD00800B2F5DA /* ShareAppScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 026409D91DABD00800B2F5DA /* ShareAppScreen.m */; };
 		028A09871D77DBC1000BDD41 /* SignUpScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 028A09861D77DBC1000BDD41 /* SignUpScreen.m */; };
+		0299E6F91DA4F71300C0A755 /* GetPushSettingsCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299E6F81DA4F71300C0A755 /* GetPushSettingsCommunicator.m */; };
+		0299E6FC1DA5165500C0A755 /* ReserveCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299E6FB1DA5165500C0A755 /* ReserveCommunicator.m */; };
 		02A900F21D86639000AE0560 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02DAF3AE1D47CAA70068BB71 /* Main.storyboard */; };
 		02AEEE961D6A73AD0064BB0B /* Item_Cell_Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AEEE941D6A73AD0064BB0B /* Item_Cell_Coupon.m */; };
 		02AEEE971D6A73AD0064BB0B /* Item_Cell_Coupon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02AEEE951D6A73AD0064BB0B /* Item_Cell_Coupon.xib */; };
 		02AEEE9B1D6A7AD70064BB0B /* CouponScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AEEE9A1D6A7AD70064BB0B /* CouponScreen.m */; };
 		02AEEE9E1D6A7AF60064BB0B /* CouponDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AEEE9D1D6A7AF60064BB0B /* CouponDataSource.m */; };
 		02B8CF861D8696D200FDE695 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B8CF851D8696D200FDE695 /* SettingsTableViewController.m */; };
+		02C982741D9A6FE500EEAAA1 /* SideMenuIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C982731D9A6FE500EEAAA1 /* SideMenuIcon.m */; };
+		02C982771DA1E50000EEAAA1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C982761DA1E50000EEAAA1 /* Reachability.m */; };
 		02CD65931D47CD130015661D /* MenuItem_User.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CD65911D47CD130015661D /* MenuItem_User.m */; };
 		02CD65941D47CD130015661D /* MenuItem_User.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02CD65921D47CD130015661D /* MenuItem_User.xib */; };
 		02CD65991D47CDF50015661D /* AppConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CD65981D47CDF50015661D /* AppConfiguration.m */; };
@@ -225,6 +232,9 @@
 		021AA4D01D7FDAC70042C511 /* Item_Detail_Description.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Item_Detail_Description.xib; sourceTree = "<group>"; };
 		021AA4D41D80262F0042C511 /* StaffDetailScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffDetailScreen.h; sourceTree = "<group>"; };
 		021AA4D51D80262F0042C511 /* StaffDetailScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffDetailScreen.m; sourceTree = "<group>"; };
+		021C81A11DA4CA66000FF5A7 /* Item_Detail_Item_Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item_Detail_Item_Size.h; sourceTree = "<group>"; };
+		021C81A21DA4CA66000FF5A7 /* Item_Detail_Item_Size.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item_Detail_Item_Size.m; sourceTree = "<group>"; };
+		021C81A31DA4CA66000FF5A7 /* Item_Detail_Item_Size.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Item_Detail_Item_Size.xib; sourceTree = "<group>"; };
 		0221142A1D5441E000F44E88 /* Common_Item_Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common_Item_Cell.h; sourceTree = "<group>"; };
 		0221142B1D5441E000F44E88 /* Common_Item_Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common_Item_Cell.m; sourceTree = "<group>"; };
 		0221142D1D54426000F44E88 /* ReserveScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReserveScreen.h; sourceTree = "<group>"; };
@@ -239,6 +249,7 @@
 		0221143C1D566DD700F44E88 /* UIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIUtils.m; sourceTree = "<group>"; };
 		0221B1051D946823008F26CA /* UIButton+HandleBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+HandleBlock.m"; sourceTree = "<group>"; };
 		0221B1071D94682D008F26CA /* UIButton+HandleBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+HandleBlock.h"; sourceTree = "<group>"; };
+		0221B10C1D9A192D008F26CA /* Tenposs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tenposs.entitlements; sourceTree = "<group>"; };
 		022F25B31D50B4C0008AEBA1 /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
 		022F25B41D50B4C0008AEBA1 /* DataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataModel.m; sourceTree = "<group>"; };
 		022F25B61D516E4D008AEBA1 /* TopScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopScreen.h; sourceTree = "<group>"; };
@@ -328,8 +339,14 @@
 		0257C2F21D85880F00506F73 /* StaffCategoryCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffCategoryCommunicator.m; sourceTree = "<group>"; };
 		0257C2F41D858A2600506F73 /* StaffCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffCommunicator.h; sourceTree = "<group>"; };
 		0257C2F51D858A2600506F73 /* StaffCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffCommunicator.m; sourceTree = "<group>"; };
+		026409D81DABD00800B2F5DA /* ShareAppScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareAppScreen.h; sourceTree = "<group>"; };
+		026409D91DABD00800B2F5DA /* ShareAppScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareAppScreen.m; sourceTree = "<group>"; };
 		028A09851D77DBC1000BDD41 /* SignUpScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpScreen.h; sourceTree = "<group>"; };
 		028A09861D77DBC1000BDD41 /* SignUpScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpScreen.m; sourceTree = "<group>"; };
+		0299E6F71DA4F71300C0A755 /* GetPushSettingsCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPushSettingsCommunicator.h; sourceTree = "<group>"; };
+		0299E6F81DA4F71300C0A755 /* GetPushSettingsCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetPushSettingsCommunicator.m; sourceTree = "<group>"; };
+		0299E6FA1DA5165500C0A755 /* ReserveCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReserveCommunicator.h; sourceTree = "<group>"; };
+		0299E6FB1DA5165500C0A755 /* ReserveCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReserveCommunicator.m; sourceTree = "<group>"; };
 		02AEEE931D6A73AD0064BB0B /* Item_Cell_Coupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item_Cell_Coupon.h; sourceTree = "<group>"; };
 		02AEEE941D6A73AD0064BB0B /* Item_Cell_Coupon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item_Cell_Coupon.m; sourceTree = "<group>"; };
 		02AEEE951D6A73AD0064BB0B /* Item_Cell_Coupon.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Item_Cell_Coupon.xib; sourceTree = "<group>"; };
@@ -339,6 +356,10 @@
 		02AEEE9D1D6A7AF60064BB0B /* CouponDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponDataSource.m; sourceTree = "<group>"; };
 		02B8CF841D8696D200FDE695 /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
 		02B8CF851D8696D200FDE695 /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
+		02C982721D9A6FE500EEAAA1 /* SideMenuIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideMenuIcon.h; sourceTree = "<group>"; };
+		02C982731D9A6FE500EEAAA1 /* SideMenuIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideMenuIcon.m; sourceTree = "<group>"; };
+		02C982751DA1E50000EEAAA1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		02C982761DA1E50000EEAAA1 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		02CD65901D47CD130015661D /* MenuItem_User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuItem_User.h; sourceTree = "<group>"; };
 		02CD65911D47CD130015661D /* MenuItem_User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItem_User.m; sourceTree = "<group>"; };
 		02CD65921D47CD130015661D /* MenuItem_User.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuItem_User.xib; sourceTree = "<group>"; };
@@ -739,6 +760,15 @@
 			path = StaffScreen;
 			sourceTree = "<group>";
 		};
+		026409D71DABCFF000B2F5DA /* ShareAppScreen */ = {
+			isa = PBXGroup;
+			children = (
+				026409D81DABD00800B2F5DA /* ShareAppScreen.h */,
+				026409D91DABD00800B2F5DA /* ShareAppScreen.m */,
+			);
+			path = ShareAppScreen;
+			sourceTree = "<group>";
+		};
 		028A09841D77DBAC000BDD41 /* SignUpScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -779,6 +809,7 @@
 		02CD65961D47CDDC0015661D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				026409D71DABCFF000B2F5DA /* ShareAppScreen */,
 				02FDF0121D881027005AC6E9 /* OAuthScreen */,
 				02FDEFEC1D86BF0E005AC6E9 /* ChatScreen */,
 				0257C2E71D85864200506F73 /* StaffScreen */,
@@ -835,6 +866,7 @@
 		02DAF3A41D47CAA70068BB71 /* Tenposs */ = {
 			isa = PBXGroup;
 			children = (
+				0221B10C1D9A192D008F26CA /* Tenposs.entitlements */,
 				3682129B1D7F0F7600E2DEF0 /* Customize */,
 				022114361D565A1000F44E88 /* Resources */,
 				02F2FDD51D4A32B1006D4C83 /* Utils */,
@@ -976,6 +1008,9 @@
 				021AA4CE1D7FDAC70042C511 /* Item_Detail_Description.h */,
 				021AA4CF1D7FDAC70042C511 /* Item_Detail_Description.m */,
 				021AA4D01D7FDAC70042C511 /* Item_Detail_Description.xib */,
+				021C81A11DA4CA66000FF5A7 /* Item_Detail_Item_Size.h */,
+				021C81A21DA4CA66000FF5A7 /* Item_Detail_Item_Size.m */,
+				021C81A31DA4CA66000FF5A7 /* Item_Detail_Item_Size.xib */,
 			);
 			path = ItemDetail;
 			sourceTree = "<group>";
@@ -1111,6 +1146,10 @@
 				0257C2F51D858A2600506F73 /* StaffCommunicator.m */,
 				368212AF1D800C2D00E2DEF0 /* NetworkCommunicator.h */,
 				368212B01D800C2D00E2DEF0 /* NetworkCommunicator.m */,
+				0299E6F71DA4F71300C0A755 /* GetPushSettingsCommunicator.h */,
+				0299E6F81DA4F71300C0A755 /* GetPushSettingsCommunicator.m */,
+				0299E6FA1DA5165500C0A755 /* ReserveCommunicator.h */,
+				0299E6FB1DA5165500C0A755 /* ReserveCommunicator.m */,
 			);
 			path = Communicator;
 			sourceTree = "<group>";
@@ -1118,6 +1157,8 @@
 		02F2FDD51D4A32B1006D4C83 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				02C982751DA1E50000EEAAA1 /* Reachability.h */,
+				02C982761DA1E50000EEAAA1 /* Reachability.m */,
 				021AA4AE1D7EDB8A0042C511 /* NSString.h */,
 				021AA4AF1D7EDB8A0042C511 /* NSString.m */,
 				022F25E71D53595F008AEBA1 /* Additional */,
@@ -1130,6 +1171,8 @@
 				0221143C1D566DD700F44E88 /* UIUtils.m */,
 				0231D1881D6418EF0021E0E0 /* Utils.h */,
 				0231D1891D6418EF0021E0E0 /* Utils.m */,
+				02C982721D9A6FE500EEAAA1 /* SideMenuIcon.h */,
+				02C982731D9A6FE500EEAAA1 /* SideMenuIcon.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1282,6 +1325,14 @@
 					02DAF3A11D47CAA70068BB71 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = JQ8B5GA2WL;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					02DAF3BA1D47CAA70068BB71 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1349,6 +1400,7 @@
 				0257C2C41D849E6C00506F73 /* Settings.bundle in Resources */,
 				024C4DB31D5D85CA00896EE4 /* news_items_1.json in Resources */,
 				024C4DB21D5D85CA00896EE4 /* news_items_2.json in Resources */,
+				021C81A51DA4CA66000FF5A7 /* Item_Detail_Item_Size.xib in Resources */,
 				02F097341D6BD8C300E737C7 /* Item_Detail_ItemName.xib in Resources */,
 				02DAF3B21D47CAA70068BB71 /* Assets.xcassets in Resources */,
 				021AA4C71D7F70620042C511 /* Item_Detail_Header_Segmented.xib in Resources */,
@@ -1490,6 +1542,7 @@
 				0221B1061D946823008F26CA /* UIButton+HandleBlock.m in Sources */,
 				022F25E61D53563F008AEBA1 /* UIViewController+MFSideMenuAdditions.m in Sources */,
 				022F25B51D50B4C0008AEBA1 /* DataModel.m in Sources */,
+				02C982771DA1E50000EEAAA1 /* Reachability.m in Sources */,
 				02F2FDCC1D4A30E3006D4C83 /* JSONKeyMapper.m in Sources */,
 				022F25CC1D52617D008AEBA1 /* MainNavigationController.m in Sources */,
 				022F25BB1D524858008AEBA1 /* AppInfoCommunicator.m in Sources */,
@@ -1530,9 +1583,11 @@
 				0257C2DA1D855E9C00506F73 /* Setting_EditText.m in Sources */,
 				02F2FDC41D4A30E3006D4C83 /* JSONModel.m in Sources */,
 				02F2FDC71D4A30E3006D4C83 /* JSONModelError.m in Sources */,
+				026409DA1DABD00800B2F5DA /* ShareAppScreen.m in Sources */,
 				0257C2D11D84AE4600506F73 /* Settings_Avatar.m in Sources */,
 				021AA4B31D7EDD0A0042C511 /* CommunicatorConst.m in Sources */,
 				0257C2F31D85880F00506F73 /* StaffCategoryCommunicator.m in Sources */,
+				0299E6FC1DA5165500C0A755 /* ReserveCommunicator.m in Sources */,
 				0211402A1D57C99900598AD2 /* MenuScreen.m in Sources */,
 				022F25EA1D535983008AEBA1 /* UIViewController+LoadingView.m in Sources */,
 				3682129E1D7F0FA500E2DEF0 /* RoundButton.m in Sources */,
@@ -1545,6 +1600,7 @@
 				0257C2EA1D85867700506F73 /* StaffScreen.m in Sources */,
 				02F2FDC81D4A30E3006D4C83 /* NSArray+JSONModel.m in Sources */,
 				02F098B71D890BF400E1D992 /* TabDataSource.m in Sources */,
+				02C982741D9A6FE500EEAAA1 /* SideMenuIcon.m in Sources */,
 				02F2FDC61D4A30E3006D4C83 /* JSONModelClassProperty.m in Sources */,
 				0257C2CC1D84A9EF00506F73 /* UserPrivacyScreen.m in Sources */,
 				02FDF0151D88104F005AC6E9 /* OAuthScreen.m in Sources */,
@@ -1558,6 +1614,7 @@
 				02FDEFFD1D86E024005AC6E9 /* SettingsProvineScreen.m in Sources */,
 				02F0974C1D7376BA00E737C7 /* LoginScreen.m in Sources */,
 				02F2FDCD1D4A30E3006D4C83 /* JSONValueTransformer.m in Sources */,
+				0299E6F91DA4F71300C0A755 /* GetPushSettingsCommunicator.m in Sources */,
 				021AA4BC1D7F0A140042C511 /* ListAppCommunicator.m in Sources */,
 				02F097331D6BD8C300E737C7 /* Item_Detail_ItemName.m in Sources */,
 				02F2FDE51D4AF79B006D4C83 /* TopScreenDataSource.m in Sources */,
@@ -1566,6 +1623,7 @@
 				02B8CF861D8696D200FDE695 /* SettingsTableViewController.m in Sources */,
 				022F25E01D52C8DA008AEBA1 /* Top_Footer.m in Sources */,
 				02AEEE9B1D6A7AD70064BB0B /* CouponScreen.m in Sources */,
+				021C81A41DA4CA66000FF5A7 /* Item_Detail_Item_Size.m in Sources */,
 				02AEEE961D6A73AD0064BB0B /* Item_Cell_Coupon.m in Sources */,
 				024C4D9F1D5D71CB00896EE4 /* NewsScreenDetailDataSource.m in Sources */,
 				368212B61D80F4F800E2DEF0 /* BaseViewController.m in Sources */,
@@ -1689,7 +1747,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1728,7 +1786,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1741,8 +1799,10 @@
 			baseConfigurationReference = 856A6D1DAA944419CB9B4E71 /* Pods-Tenposs.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Tenposs/Tenposs.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = JQ8B5GA2WL;
 				INFOPLIST_FILE = Tenposs/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1758,8 +1818,10 @@
 			baseConfigurationReference = 6A13B4D18067A69D40A7EFFC /* Pods-Tenposs.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Tenposs/Tenposs.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = JQ8B5GA2WL;
 				INFOPLIST_FILE = Tenposs/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

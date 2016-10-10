@@ -94,10 +94,18 @@ NSMutableArray *recentSearchList=nil;
 }
 
 -(NSString *)getUserEmail{
+    NSString *email;
     if (_userDataDictionary) {
-        return [_userDataDictionary objectForKey:@"email"];
+        email = [_userDataDictionary objectForKey:@"email"];
+    }else{
+        email = [[self getUserData] objectForKey:@"email"];
     }
-    return [[self getUserData] objectForKey:@"email"];
+    
+    if(!email || [email isKindOfClass:[NSNull class]]){
+        return @"";
+    }else{
+        return email;
+    }
 }
 
 - (void)setUserGender:(NSInteger) gender{
@@ -145,6 +153,9 @@ NSMutableArray *recentSearchList=nil;
     }else{
         avatarUrl = [[[self getUserData] objectForKey:@"profile"] objectForKey:@"avatar_url"];
     }
+    if (!avatarUrl || [avatarUrl isKindOfClass:[NSNull class]]) {
+        return nil;
+    }
     if (![avatarUrl hasPrefix:@"http"]) {
         avatarUrl = [NSString stringWithFormat:@"https://api.ten-po.com/%@",avatarUrl];
     }
@@ -177,9 +188,10 @@ NSMutableArray *recentSearchList=nil;
 
 - (NSString *)getAppUserID{
     if (_userDataDictionary) {
-        return [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"app_user_id"];
+        return [_userDataDictionary objectForKey:@"id"];
+        //return [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"id"];
     }
-    return [[[self getUserData] objectForKey:@"profile"] objectForKey:@"app_user_id"];
+    return [[self getUserData] objectForKey:@"id"];
 }
 
 - (void)setAppUserID:(NSString *)app_user_id{
@@ -203,10 +215,17 @@ NSMutableArray *recentSearchList=nil;
 }
 
 - (NSString *)getUserProvine{
+    NSString *province;
     if (_userDataDictionary) {
-        return [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"provine"];
+        province = [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"provine"];
+    }else{
+        province = [[[self getUserData] objectForKey:@"profile"] objectForKey:@"provine"];
     }
-    return [[[self getUserData] objectForKey:@"profile"] objectForKey:@"provine"];
+    if (!province || [province isKindOfClass:[NSNull class]]) {
+        return @"";
+    }else{
+        return province;
+    }
 }
 
 - (void)setFacebookStatus:(NSString *)status{

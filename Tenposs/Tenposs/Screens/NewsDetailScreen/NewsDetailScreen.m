@@ -29,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.newsTitle setText:_news.title];
-    [self.categoryTitle setText:@"August"];
+    [self.categoryTitle setText:_news.parentCategory.name];
     [self.date setText:@"2016-08-14"];
     [self.newsContent setText:_news.desc];
     self.newsContent.textAlignment = NSTextAlignmentJustified;
@@ -37,7 +37,7 @@
     [self.thumbnail sd_setImageWithURL:[NSURL URLWithString:self.news.image_url]];
     self.thumbnail.clipsToBounds = YES;
     [self showLoadingViewWithMessage:@""];
-    
+    [self setTitle:_news.title];
 }
 
 - (void)viewDidAppear:(BOOL)animated{

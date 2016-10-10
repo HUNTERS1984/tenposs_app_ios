@@ -8,14 +8,12 @@
 
 #import "TenpossCommunicator.h"
 #import "JSONModel.h"
-
-@protocol NewsCategoryObject
-@end
+#import "DataModel.h"
 
 @interface NewsCategoryResponse : JSONModel
-@property (strong, nonatomic) NSString *code;
+@property (assign, nonatomic) NSInteger code;
 @property (strong, nonatomic) NSString *message;
-@property (strong, nonatomic) NSMutableArray<ConvertOnDemand,NewsCategoryObject> *items;
+@property (strong, nonatomic) NSMutableArray<ConvertOnDemand,NewsCategoryObject> *news_categories;
 @end
 
 @interface NewsCommunicator : TenpossCommunicator

@@ -38,16 +38,16 @@
 }
 
 - (BOOL)isEqualTo:(SimpleDataSource *)second{
-//    if (![second isKindOfClass:[NewsScreenDetailDataSource class]]) {
-//        NSAssert(NO, @"DataSource type is not right!");
-//        return NO;
-//    }else{
-//        if (self.mainData.menu_id == ((NewsScreenDetailDataSource *)second).mainData.) {
-//            return YES;
-//        }else{
-//            return NO;
-//        }
-//    }
+    if (![second isKindOfClass:[NewsScreenDetailDataSource class]]) {
+        NSAssert(NO, @"DataSource type is not right!");
+        return NO;
+    }else{
+        if (self.mainData.category_id == ((NewsScreenDetailDataSource *)second).mainData.category_id) {
+            return YES;
+        }else{
+            return NO;
+        }
+    }
     return NO;
 }
 
@@ -66,7 +66,8 @@
     [params put:KeyAPI_TIME value:currentTime];
     NSArray *strings = [NSArray arrayWithObjects:APP_ID,currentTime,[@(_mainData.store_id) stringValue],APP_SECRET,nil];
     [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
-    [params put:KeyAPI_STORE_ID value:[@(_mainData.store_id) stringValue]];
+    [params put:KeyAPI_CATEGORY_ID value:[@(_mainData.category_id) stringValue]];
+//    [params put:KeyAPI_STORE_ID value:[@(_mainData.store_id) stringValue]];
     [params put:KeyAPI_PAGE_INDEX value:[@(_mainData.pageIndex) stringValue]];
     [params put:KeyAPI_PAGE_SIZE value:@"20"];
     [request execute:params withDelegate:self];
@@ -141,6 +142,7 @@
         if (data.news && [data.news count] > 0) {
             _mainData.totalnew = data.total_news;
             for (NewsObject *news in data.news) {
+                news.parentCategory = _mainData;
                 [_mainData addNews:news];
             }
         }else {

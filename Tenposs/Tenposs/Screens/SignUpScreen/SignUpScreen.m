@@ -14,6 +14,7 @@
 #import "AppConfiguration.h"
 #import "HexColors.h"
 #import "UIFont+Themify.h"
+#import "UIUtils.h"
 
 @interface SignUpScreen ()
 
@@ -115,7 +116,7 @@
     AppSettings *settings = [appConfig getAvailableAppSettings];
     
     [_closeButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                         [UIFont themifyFontOfSize:settings.font_size], NSFontAttributeName,
+                                         [UIFont themifyFontOfSize:[UIUtils getTextSizeWithType:settings.font_size]], NSFontAttributeName,
                                          [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
                                          nil]
                                forState:UIControlStateNormal];

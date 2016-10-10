@@ -14,6 +14,8 @@
 #import "NetworkCommunicator.h"
 #import "UIFont+Themify.h"
 #import "HexColors.h"
+#import "Reachability.h"
+#import "UIViewController+LoadingView.h"
 
 @interface BaseViewController () {
     __weak id<NSObject> observer;
@@ -37,7 +39,7 @@
         [self.navigationItem setHidesBackButton:YES animated:YES];
         [self.navigationItem setBackBarButtonItem:nil];
         [self.navigationItem.leftBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                       [UIFont themifyFontOfSize:settings.font_size], NSFontAttributeName,
+                                                                       [UIFont themifyFontOfSize:20/*[UIUtils getTextSizeWithType:settings.font_size]*/], NSFontAttributeName,
                                                                        [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
                                                                        nil]
                                                              forState:UIControlStateNormal];
@@ -167,24 +169,13 @@
 
 
 -(void)showLogin{
-    if (![[UIApplication sharedApplication].keyWindow.rootViewController isKindOfClass:[LoginScreen class]])
-    {
-        //        if ([[UserData shareInstance] SignOut]) {
-        //
-        //            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        //            LoginViewcontroller *nextController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        //            nextController.canShowNavigation = YES;
-        //
-        //            UIViewController* topViewController=[Utility topViewController];
-        //            if (topViewController.navigationController) {
-        //                [topViewController.navigationController pushViewController:nextController animated:YES];
-        //            }else{
-        //                [topViewController dismissViewControllerAnimated:YES completion:^{
-        //                    [topViewController.navigationController pushViewController:nextController animated:YES];
-        //                }];
-        //            }
-        //        }
-    }
+//    if (![[UIApplication sharedApplication].keyWindow.rootViewController isKindOfClass:[LoginScreen class]]){
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        LoginScreen *nextController = [storyboard instantiateViewControllerWithIdentifier:@"LoginScreen"];
+        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];
+        [navi.navigationBar setHidden:YES];
+        [self presentViewController:navi animated:YES completion:nil];
+//    }
     
 }
 
@@ -239,6 +230,26 @@
     return NO;
 }
 
+- (BOOL)checkForInternetConnectionWithRetryHandler:(ActionBlock)handler{
+    if ([[Reachability reachabilityForInternetConnection]currentReachabilityStatus]==NotReachable){
+        //connection unavailable
+        [self showErrorScreen:NSLocalizedString(@"no_internet_connection", nil) andRetryButton:handler];
+        return NO;
+    }else{
+        //connection available
+        return YES;
+    }
+}
+
+- (BOOL)checkForInternetConnection{
+    if ([[Reachability reachabilityForInternetConnection]currentReachabilityStatus]==NotReachable){
+        //connection unavailable
+        return NO;
+    }else{
+        //connection available
+        return YES;
+    }
+}
 
 /*
  #pragma mark - Navigation

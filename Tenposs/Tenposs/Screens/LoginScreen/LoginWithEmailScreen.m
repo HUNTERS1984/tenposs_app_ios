@@ -41,7 +41,7 @@
     AppSettings *settings = [appConfig getAvailableAppSettings];
     
     [_doneButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                         [UIFont themifyFontOfSize:settings.font_size], NSFontAttributeName,
+                                         [UIFont themifyFontOfSize:[UIUtils getTextSizeWithType:settings.font_size]], NSFontAttributeName,
                                          [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
                                          nil]
                                forState:UIControlStateNormal];

@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSMutableArray<UILabel *> *labels;
 @property (strong, nonatomic) NSMutableArray<NSString *> *items;
 @property (assign, nonatomic) NSInteger selectedIndex;
+
 @property UIView *thumbView;
 @end
 
@@ -24,6 +25,7 @@
     if (self) {
         self.labels = [NSMutableArray new];
         self.thumbView = [UIView new];
+        _needUpdateIndex = -1;
         [self setItems:[NSMutableArray arrayWithObjects:@"商品詳細",@"サイズ",nil]];
         [self setupView];
     }
@@ -35,6 +37,7 @@
     if (self) {
         self.labels = [NSMutableArray new];
         self.thumbView = [UIView new];
+        _needUpdateIndex = -1;
         [self setItems:[NSMutableArray arrayWithObjects:@"商品詳細",@"サイズ",nil]];
         [self setupView];
     }
@@ -80,7 +83,7 @@
 }
 
 - (void)displayNewSelectedIndex{
-    UILabel *label = _labels[_selectedIndex];
+    UILabel *labelMain = _labels[_selectedIndex];
     for(int i = 0 ; i < [_labels count]; i++){
         UILabel *label = _labels[i];
         if (i == _selectedIndex) {
@@ -89,7 +92,7 @@
             [label setTextColor:[UIColor colorWithHexString:@"#b8b8b8"]];
         }
     }
-    self.thumbView.frame = label.frame;
+    self.thumbView.frame = labelMain.frame;
 }
 
 /*
@@ -109,6 +112,12 @@
     
     selectFrame.size.width = newWidth;
     
+    
+    if (_needUpdateIndex != -1 && _needUpdateIndex != _selectedIndex) {
+        _selectedIndex = _needUpdateIndex;
+        selectFrame.origin.x = newWidth;
+        _needUpdateIndex = -1;
+    }
     _thumbView.frame = selectFrame;
     _thumbView.backgroundColor = [UIColor whiteColor];
     _thumbView.layer.cornerRadius = 5;

@@ -20,6 +20,8 @@
 
 #import "GlobalMapping.h"
 
+#import "ShareAppScreen.h"
+
 
 @interface TopScreen ()<TopScreenDataSourceDelegate, UICollectionViewDelegateFlowLayout>
 @property TopScreenDataSource *dataSource;
@@ -73,6 +75,8 @@
 - (void)dataLoadedWithError:(NSError *)error{
     [self.collectionView reloadData];
     [self removeLoadingView];
+    ShareAppScreen *app = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([ShareAppScreen class])];
+    [self presentViewController:app animated:YES completion:nil];
 }
 
 - (void)needRefreshItemAtIndexPath:(NSIndexPath *)indexPath{

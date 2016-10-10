@@ -46,6 +46,7 @@
 @end
 
 @implementation GrandViewController
+
 -(IBAction)buttonClick:(id)sender{
     if (sender == _menuButton) {
         if ([self.navigationController isKindOfClass:[MainNavigationController class]]) {
@@ -53,6 +54,7 @@
         }
     }
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -64,19 +66,24 @@
     AppSettings *settings = [appConfig getAvailableAppSettings];
     
     [_menuButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                        [UIFont themifyFontOfSize:settings.font_size], NSFontAttributeName,
+                                        [UIFont themifyFontOfSize:20/*[UIUtils getTextSizeWithType:settings.font_size]*/], NSFontAttributeName,
                                         [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
                                         nil] 
                               forState:UIControlStateNormal];
     [_menuButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-menu"]]];
     self.navigationController.navigationBar.backgroundColor= [UIColor colorWithHexString:settings.header_color];
+    
+    _navigationTitle.numberOfLines = 1;
+    _navigationTitle.minimumFontSize = 10;
+    _navigationTitle.adjustsFontSizeToFitWidth = YES;
     [_navigationTitle setTextColor:[UIColor colorWithHexString:settings.title_color]];
-
+    
 }
 
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
     if(_currentChildController == nil){
         [self showLoadingViewWithMessage:@""];
     }
@@ -104,6 +111,8 @@
         UserData *userData = [UserData shareInstance];
         if ([userData getToken] != nil) {
             [self showChildViewControllerWithId:APP_MENU_SETTING];
+        }else{
+            [self showLogin];
         }
     }
 }

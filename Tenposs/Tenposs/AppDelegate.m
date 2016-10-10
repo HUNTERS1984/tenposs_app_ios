@@ -48,8 +48,7 @@
     [self loadAppConfig];
     
     NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if(userInfo)
-    {
+    if(userInfo){
         [self application:[UIApplication sharedApplication] didReceiveRemoteNotification:userInfo];
     }
     
@@ -63,7 +62,7 @@
         UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];
         [navi.navigationBar setHidden:YES];
         [self.window setRootViewController:navi];
-    }else {
+    }else{
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         LoginScreen *nextController = [storyboard instantiateViewControllerWithIdentifier:@"LoginScreen"];
         [self.window setRootViewController:nextController];
@@ -107,8 +106,7 @@
     }
 }
 
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
-{
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings{
     //register to receive notifications
     [application registerForRemoteNotifications];
 }
@@ -128,7 +126,7 @@
     [params setObject:[[UserData shareInstance] getToken] forKey:KeyAPI_TOKEN];
     [[NetworkCommunicator shareInstance] POST:API_SETPUSHKEY parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
         if(isSuccess) {
-            
+
         }else{
             
         }
@@ -144,19 +142,23 @@
                                                         sourceApplication:sourceApplication
                                                                annotation:annotation
                     ];
-//    if ([[Twitter sharedInstance] application:application openURL:url options:options]) {
-//        return YES;
-//    }
-//    
     return handled;
 }
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options
-{
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options{
+    
     if ([[Twitter sharedInstance] application:app openURL:url options:options]) {
         return YES;
     }
-    
-    // If you handle other (non Twitter Kit) URLs elsewhere in your app, return YES. Otherwise
+    if([url absoluteString]){
+        if ([[url absoluteString] hasPrefix:@"fb"]) {
+            BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:app
+                                                                          openURL:url
+                                                                sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+                                                                       annotation:options[UIApplicationOpenURLOptionsAnnotationKey]
+                            ];
+            return handled;
+        }
+    }
     return NO;
 }
 
@@ -166,8 +168,7 @@
     return YES;
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
     @try {
         
         // case: push comes after user logs out
@@ -246,9 +247,99 @@
         // do nothing
     }
 }
--(void)handleTapNotificationView:(UITapGestureRecognizer*)customTap{
-    [self showPushNotification:_userInfo];
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
+    @try {
+        
+        // case: push comes after user logs out
+        if([[UserData shareInstance] getToken].length == 0)
+            return;
+        _userInfo = userInfo;
+        if (application.applicationState == UIApplicationStateActive) {
+            
+            if (!self.smallNofiticationView) {
+                self.smallNofiticationView = [[UIView alloc] initWithFrame:CGRectMake(0, -64, self.window.bounds.size.width, 64)];
+                self.smallNofiticationView.backgroundColor = HEXCOLOR(0x3498db);
+                self.smallNofiticationView.opaque = TRUE;
+                self.infor = [[UILabel alloc] initWithFrame:CGRectMake(43, 7, self.window.bounds.size.width - 46, 64)];
+                self.infor.text = [[[_userInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"body"];
+                self.infor.textColor = [UIColor whiteColor];
+                self.infor.font = [UIFont systemFontOfSize:12];
+                self.infor.textAlignment = NSTextAlignmentLeft;
+                self.infor.numberOfLines = 0;
+                self.infor.lineBreakMode = YES;
+                [self.smallNofiticationView addSubview:self.infor];
+                
+                self.avatarIcon = [[UIImageView alloc]initWithFrame:CGRectMake(7, 25, 30, 30)];
+                self.avatarIcon.layer.cornerRadius = self.avatarIcon.bounds.size.width/2;
+                self.avatarIcon.layer.borderWidth = 1;
+                self.avatarIcon.layer.borderColor = [UIColor whiteColor].CGColor;
+                self.avatarIcon.clipsToBounds = YES;
+                
+                NSString *image_url = [[[_userInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"image_url"];
+                if (image_url != nil )
+                    [self.avatarIcon sd_setImageWithURL:[NSURL URLWithString:image_url]];
+                else
+                    [self.avatarIcon setImage:[UIImage imageNamed:@"user_icon"]];
+                [self.smallNofiticationView addSubview:self.avatarIcon];
+                
+                _customTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapNotificationView:)];
+                _customTap.numberOfTapsRequired = 1;
+                [self.smallNofiticationView addGestureRecognizer:_customTap];
+                
+                [self.window addSubview:self.smallNofiticationView];
+                self.infor.userInteractionEnabled = YES;
+            } else {
+                self.infor.text = [[[_userInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"body"];
+                NSString *image_url = [[[_userInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"image_url"];
+                if (image_url != nil )
+                    [self.avatarIcon sd_setImageWithURL:[NSURL URLWithString:image_url]];
+                else
+                    [self.avatarIcon setImage:[UIImage imageNamed:@"user_icon"]];
+            }
+            
+            
+            [UIView animateWithDuration:1 animations:^{
+                [self.smallNofiticationView setFrame:CGRectMake(0, 20, self.window.bounds.size.width, 64)];
+                [self.window bringSubviewToFront:self.smallNofiticationView];
+                
+            }];
+            
+            double delayInSeconds = 7.0;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [UIView animateWithDuration:1 animations:^{
+                    [self.smallNofiticationView setFrame:CGRectMake(0, -64, self.window.bounds.size.width, 64)];
+                    [self.window bringSubviewToFront:self.smallNofiticationView];
+                }];
+            });
+            
+        } else if (application.applicationState == UIApplicationStateInactive) {
+            [self showPushNotification:_userInfo];
+        } else if (application.applicationState == UIApplicationStateBackground) {
+            [self showPushNotification:_userInfo];
+        }
+    }
+    @catch (NSException *exception) {
+        // do nothing
+    }
+    @finally {
+        // do nothing
+    }
 }
+
+-(void)handleTapNotificationView:(UITapGestureRecognizer*)customTap{
+    if (!_userInfo) {
+        return;
+    }else{
+        
+    }
+}
+
+- (void)showScreenWithType:(NSString *)noti_type{
+    
+}
+
 - (void) showPushNotification: (NSDictionary *)userInfo {
 }
 

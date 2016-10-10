@@ -12,6 +12,7 @@
 #import "UIFont+Themify.h"
 #import "HexColors.h"
 #import "AppConfiguration.h"
+#import "UIUtils.h"
 
 @interface SettingsProvineScreen ()
 @property NSMutableArray *provines;
@@ -83,7 +84,7 @@
         [self.navigationItem setHidesBackButton:YES animated:YES];
         [self.navigationItem setBackBarButtonItem:nil];
         [self.navigationItem.leftBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                       [UIFont themifyFontOfSize:settings.font_size], NSFontAttributeName,
+                                                                       [UIFont themifyFontOfSize:20], NSFontAttributeName,
                                                                        [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
                                                                        nil]
                                                              forState:UIControlStateNormal];

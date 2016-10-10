@@ -21,10 +21,17 @@
 #import "UIFont+Themify.h"
 #import "HexColors.h"
 #import "AppConfiguration.h"
+#import "UIUtils.h"
+#import "UIButton+HandleBlock.h"
+#import "Item_Detail_Item_Size.h"
 
-@interface ItemDetailScreen ()
+@interface ItemDetailScreen ()<SFSafariViewControllerDelegate>{
+    Item_Detail_Header_Segmented *segmentCell;
+}
 
 @property DescriptionCellInfo *descriptionData;
+
+@property NSInteger currentSwitchIndex;
 
 @end
 
@@ -35,6 +42,7 @@
     self = [super initWithCollectionViewLayout:layout];
     if (self) {
         _item = item;
+        _currentSwitchIndex = 0;
     }
     return self;
 }
@@ -54,7 +62,7 @@
         [self.navigationItem setHidesBackButton:YES animated:YES];
         [self.navigationItem setBackBarButtonItem:nil];
         [self.navigationItem.leftBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                       [UIFont themifyFontOfSize:settings.font_size], NSFontAttributeName,
+                                                                       [UIFont themifyFontOfSize:20/*[UIUtils getTextSizeWithType:settings.font_size]*/], NSFontAttributeName,
                                                                        [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
                                                                        nil]
                                                              forState:UIControlStateNormal];
@@ -72,6 +80,8 @@
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Detail_Description class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Detail_Description class])];
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Cell_Product class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Cell_Product class])];
+    
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Detail_Item_Size class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Detail_Item_Size class])];
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Top_Header class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([Top_Header class])];
     
@@ -104,7 +114,7 @@
 - (void)previewData{
     if(!_descriptionData){
         //TODO: Clear mockup
-        _descriptionData = [[DescriptionCellInfo alloc]initWithFullText:@"Lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. In diam ante, tempus ullamcorper erat at, placerat dictum diam. Suspendisse potenti. Fusce interdum, augue non interdum pellentesque, velit velit interdum ex, at sagittis sem nulla at ipsum. Proin posuere ex vitae odio cursus placerat. Nunc felis turpis, fringilla ut ultricies sed, sodales non elit. Phasellus sit amet lacus quis felis commodo sagittis. In eu ornare elit, venenatis hendrerit lorem. Donec elementum mollis elementum. Integer tempus sem non pellentesque lacinia. Etiam dapibus dictum sapien non convallis.\n\nCras id tincidunt diam. Nunc nibh metus, ultricies eu gravida elementum, feugiat in justo. Sed sed vestibulum velit. Sed et sapien eget elit sodales porttitor. In sed nisi dignissim, ultricies enim non, auctor purus. Sed consequat tellus quam, id consequat turpis vestibulum eget. Curabitur gravida nisl id vestibulum ultrices. Nulla ut nisi fermentum, consectetur ex id, dapibus nunc. Etiam tristique molestie posuere.\n\n\nSed blandit ligula sit amet finibus finibus. Suspendisse ornare diam non elit luctus varius. Morbi in erat vehicula, semper dolor eu, pellentesque eros. Cras consectetur scelerisque blandit. Nunc sit amet lobortis ante. Donec urna velit, lacinia ut tristique eu, ullamcorper nec lacus. Donec aliquet rutrum leo sit amet ultrices. Mauris tincidunt semper felis ut accumsan. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut non elit eget dui vulputate molestie. Etiam lobortis lacinia feugiat. Nullam convallis nibh ante, a laoreet mauris tempus ut. Donec id sapien quis lectus facilisis ullamcorper. Nulla egestas sit amet ex vitae ultrices.\n\nClass aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras imperdiet nibh id nisl euismod, id scelerisque dui hendrerit. Suspendisse diam sem, elementum sit amet lorem quis, porta molestie velit. Quisque sollicitudin erat et lectus molestie volutpat. Curabitur pharetra nulla a velit placerat convallis. Aliquam neque libero, feugiat a malesuada et, commodo at eros. Cras augue magna, tristique ut sem eu, egestas elementum ipsum. Vivamus sodales rhoncus nibh sit amet hendrerit. Integer fringilla eleifend blandit. Cras mattis ligula eu eros sodales, et dapibus lectus fermentum.\n\nQuisque arcu eros, interdum sit amet ipsum a, efficitur condimentum libero. Aliquam sed consequat ipsum, et commodo nibh. Duis vulputate elit imperdiet, pharetra velit maximus, pellentesque justo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque placerat aliquet nisl, quis vestibulum quam tristique ac. Aenean maximus felis eu mauris eleifend egestas id sed eros. Vivamus a nisi venenatis, luctus sem quis, mattis tellus."];
+        _descriptionData = [[DescriptionCellInfo alloc] initWithFullText:@"Lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. In diam ante, tempus ullamcorper erat at, placerat dictum diam. Suspendisse potenti. Fusce interdum, augue non interdum pellentesque, velit velit interdum ex, at sagittis sem nulla at ipsum. Proin posuere ex vitae odio cursus placerat. Nunc felis turpis, fringilla ut ultricies sed, sodales non elit. Phasellus sit amet lacus quis felis commodo sagittis. In eu ornare elit, venenatis hendrerit lorem. Donec elementum mollis elementum. Integer tempus sem non pellentesque lacinia. Etiam dapibus dictum sapien non convallis.\n\nCras id tincidunt diam. Nunc nibh metus, ultricies eu gravida elementum, feugiat in justo. Sed sed vestibulum velit. Sed et sapien eget elit sodales porttitor. In sed nisi dignissim, ultricies enim non, auctor purus. Sed consequat tellus quam, id consequat turpis vestibulum eget. Curabitur gravida nisl id vestibulum ultrices. Nulla ut nisi fermentum, consectetur ex id, dapibus nunc. Etiam tristique molestie posuere.\n\n\nSed blandit ligula sit amet finibus finibus. Suspendisse ornare diam non elit luctus varius. Morbi in erat vehicula, semper dolor eu, pellentesque eros. Cras consectetur scelerisque blandit. Nunc sit amet lobortis ante. Donec urna velit, lacinia ut tristique eu, ullamcorper nec lacus. Donec aliquet rutrum leo sit amet ultrices. Mauris tincidunt semper felis ut accumsan. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut non elit eget dui vulputate molestie. Etiam lobortis lacinia feugiat. Nullam convallis nibh ante, a laoreet mauris tempus ut. Donec id sapien quis lectus facilisis ullamcorper. Nulla egestas sit amet ex vitae ultrices.\n\nClass aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras imperdiet nibh id nisl euismod, id scelerisque dui hendrerit. Suspendisse diam sem, elementum sit amet lorem quis, porta molestie velit. Quisque sollicitudin erat et lectus molestie volutpat. Curabitur pharetra nulla a velit placerat convallis. Aliquam neque libero, feugiat a malesuada et, commodo at eros. Cras augue magna, tristique ut sem eu, egestas elementum ipsum. Vivamus sodales rhoncus nibh sit amet hendrerit. Integer fringilla eleifend blandit. Cras mattis ligula eu eros sodales, et dapibus lectus fermentum.\n\nQuisque arcu eros, interdum sit amet ipsum a, efficitur condimentum libero. Aliquam sed consequat ipsum, et commodo nibh. Duis vulputate elit imperdiet, pharetra velit maximus, pellentesque justo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque placerat aliquet nisl, quis vestibulum quam tristique ac. Aenean maximus felis eu mauris eleifend egestas id sed eros. Vivamus a nisi venenatis, luctus sem quis, mattis tellus."];
         [_descriptionData calculateFullTextHeightWithWidth:(self.collectionView.bounds.size.width - 16)];
     }
     [self.collectionView reloadData];
@@ -146,8 +156,23 @@
             }else if (index == 1){
                 return _item;
             }else{
-                _descriptionData = [[DescriptionCellInfo alloc]initWithFullText:_item.desc];
-                return _descriptionData;//_item.desc;
+                if (_currentSwitchIndex == 0) {
+                    _descriptionData = [[DescriptionCellInfo alloc]initWithFullText:_item.desc];
+                    return _descriptionData;//_item.desc;
+                }else{
+                    if (!_item.size || [_item.size count] <= 0) {
+                        _descriptionData = [[DescriptionCellInfo alloc]initWithFullText:_item.desc];
+                        return _descriptionData;//_item.desc;
+                    }else{
+                        NSMutableArray *sizes = [_item getSizeArray];
+                        if (sizes) {
+                            return [sizes objectAtIndex:index];
+                        }else{
+                            _descriptionData = [[DescriptionCellInfo alloc]initWithFullText:_item.desc];
+                            return _descriptionData;//_item.desc;
+                        }
+                    }
+                }
             }
         }
             break;
@@ -162,6 +187,7 @@
             return nil;
             break;
     }
+    return nil;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -174,7 +200,15 @@
             return 1;
             break;
         case 1:
-            return 3;
+            if (_currentSwitchIndex == 0) {
+                return 3;
+            }else{
+                if (!_item.size || [_item.size count] <= 0) {
+                    return 3;
+                }else{
+                    return 2 + [_item.size count];
+                }
+            }
             break;
         case 2:{
             if ([self hasRelatedItems]) {
@@ -202,8 +236,30 @@
             NSInteger index = indexPath.row;
             if (index == 0) {
                 cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Detail_ItemName class]) forIndexPath:indexPath];
+                if ([data isKindOfClass:[ProductObject class]]) {
+                    ProductObject *p = (ProductObject *)data;
+                    
+                    if (p.item_link && ![p.item_link isEqualToString:@""]) {
+                        NSURL *url = [NSURL URLWithString:p.item_link];
+                        [((Item_Detail_ItemName *)cell).purchaseButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+                            if ([SFSafariViewController class] != nil) {
+                                SFSafariViewController *sfvc = [[SFSafariViewController alloc] initWithURL:url];
+                                sfvc.delegate = self;
+                                [self presentViewController:sfvc animated:YES completion:nil];
+                            } else {
+                                if (![[UIApplication sharedApplication] openURL:url]) {
+                                    NSLog(@"Failed to open url: %@",[url description]);
+                                }
+                            }
+                        }];
+                    }
+                }
             }else if (index == 1){
                 cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Detail_Header_Segmented class]) forIndexPath:indexPath];
+                [cell configureCellWithData:data];
+                ((Item_Detail_Header_Segmented *)cell).segmentControl.needUpdateIndex = _currentSwitchIndex;
+                [((Item_Detail_Header_Segmented *)cell).segmentControl addTarget:self action:@selector(onHeaderSegmentedChange) forControlEvents:UIControlEventValueChanged];
+                return cell;
             }else{
                 cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Detail_Description class]) forIndexPath:indexPath];
                 [((Item_Detail_Description *)cell) configureCellWithData:data WithWidth:self.collectionView.bounds.size.width - 16];
@@ -220,6 +276,14 @@
     }
     [cell configureCellWithData:data];
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+//    if([indexPath isEqual:[NSIndexPath indexPathForRow:1 inSection:1]]){
+//        if ([[self.collectionView cellForItemAtIndexPath:indexPath] isKindOfClass:[Item_Detail_Header_Segmented class]]) {
+//            [((Item_Detail_Header_Segmented *)cell).segmentControl setSelectedIndex:_currentSwitchIndex];
+//        }
+//    }
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
@@ -289,10 +353,14 @@
             }else if (index == 1){
                 height = [Item_Detail_Header_Segmented getCellHeightWithWidth:width];
             }else{
-                if (_descriptionData.isCollapsed) {
-                    height = DETAIL_DESCRIPTION_COLLAPSE;
+                if (_currentSwitchIndex == 0) {
+                    if (_descriptionData.isCollapsed) {
+                        height = DETAIL_DESCRIPTION_COLLAPSE;
+                    }else{
+                        height = _descriptionData.fullSizeHeight >= 0?_descriptionData.fullSizeHeight:DETAIL_DESCRIPTION_COLLAPSE;
+                    }
                 }else{
-                    height = _descriptionData.fullSizeHeight >= 0?_descriptionData.fullSizeHeight:DETAIL_DESCRIPTION_COLLAPSE;
+                    [Item_Detail_Item_Size getCellHeightWithWidth:0];
                 }
             }
         }
@@ -345,6 +413,16 @@
     }
 }
 
+- (void)onHeaderSegmentedChange{
+    NSLog(@"Value Changed!!!");
+    if (_currentSwitchIndex == 0) {
+        _currentSwitchIndex = 1;
+    }else if(_currentSwitchIndex == 1){
+        _currentSwitchIndex = 0;
+    }
+    [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
+}
+
 //#pragma mark - TenpossCommunicatorDelegate
 //
 //- (void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams{
@@ -366,6 +444,19 @@
 //-( void)cancelAllRequest{
 //
 //}
+
+#pragma mark - SFSafariViewControllerDelegate
+
+/*! @abstract Delegate callback called when the user taps the Done button. Upon this call, the view controller is dismissed modally. */
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller{}
+
+/*! @abstract Invoked when the initial URL load is complete.
+ @param success YES if loading completed successfully, NO if loading failed.
+ @discussion This method is invoked when SFSafariViewController completes the loading of the URL that you pass
+ to its initializer. It is not invoked for any subsequent page loads in the same SFSafariViewController instance.
+ */
+- (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully{}
+
 
 
 @end

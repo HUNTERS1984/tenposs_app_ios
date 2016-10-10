@@ -8,12 +8,10 @@
 
 #import "Item_Detail_Header_Segmented.h"
 #import "DataModel.h"
-#import "TenpossSegmentedControl.h"
+
 
 @interface Item_Detail_Header_Segmented()
 
-@property (weak, nonatomic) IBOutlet UIView *segmentControlWrapper;
-@property (weak, nonatomic) IBOutlet TenpossSegmentedControl *segmentControl;
 
 @end
 

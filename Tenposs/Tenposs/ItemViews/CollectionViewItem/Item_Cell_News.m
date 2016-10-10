@@ -34,7 +34,7 @@
 //    [_newsCategory setText:news.parentCategory.categoryName];
     [_newsTitle setText:news.title];
     [_newsDescription setText:news.desc];
-    
+    [_newsCategory setText:news.parentCategory.name];
     _newsImageBoundary.layer.masksToBounds = NO;
     _newsImageBoundary.layer.shadowColor = [UIColor blackColor].CGColor;
     _newsImageBoundary.layer.shadowOffset = CGSizeMake(1, 1);

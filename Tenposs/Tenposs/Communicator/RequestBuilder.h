@@ -26,6 +26,7 @@ extern NSString * const API_ITEMS_DETAIL;
 extern NSString * const API_ITEMS_RELATE;
 extern NSString * const API_PHOTO_CAT;
 extern NSString * const API_PHOTO;
+extern NSString * const API_NEWS_CATE;
 extern NSString * const API_NEWS;
 extern NSString * const API_NEWS_DETAIL;
 extern NSString * const API_RESERVE;
@@ -35,6 +36,7 @@ extern NSString * const API_APPUSER;
 extern NSString * const API_SETPUSHKEY;
 extern NSString * const API_UPDATE_PROFILE;
 extern NSString * const API_SETPUSHSETTING;
+extern NSString * const API_GETPUSHSETTING;
 extern NSString * const API_SOCIALSETTING;
 
 /*
