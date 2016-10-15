@@ -18,6 +18,7 @@
 #import "SettingsScreen.h"
 #import "StaffScreen.h"
 #import "ChatScreen.h"
+#import "UserHomeScreen.h"
 
 #import "TabDataSourceViewController.h"
 
@@ -72,6 +73,8 @@
         ((TabDataSourceViewController *)viewController).mainNavigationController = navigationController;
     }else if (viewControlerId == APP_MENU_CHAT){
         viewController = (ChatScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ChatScreen class])];
+    }else if(viewControlerId == APP_MENU_USER_HOME){
+        viewController = (UserHomeScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([UserHomeScreen class])];
     }
     return viewController;
 }

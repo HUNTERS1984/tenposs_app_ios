@@ -35,6 +35,7 @@
 #define APP_MENU_SETTING             10
 #define APP_MENU_IMAGES              1
 #define APP_MENU_LOGOUT             -1
+#define APP_MENU_USER_HOME           11
 
 @interface AppInfo : JSONModel
 

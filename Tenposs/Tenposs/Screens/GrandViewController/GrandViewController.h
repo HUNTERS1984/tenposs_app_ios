@@ -10,6 +10,15 @@
 #import "SideMenuTableViewController.h"
 #import "BaseViewController.h"
 
+typedef NS_ENUM(NSInteger, NavigationBarStyle) {
+    NavigationBarStyleDefault,
+    NavigationBarStyleLight,
+    NavigationBarStyleDark
+};
+
 @interface GrandViewController : BaseViewController<SideMenuDelegate>
+
 - (void)performSegueWithObject:(NSObject *)object;
+- (void)setNavigationBarStyle:(NavigationBarStyle)style;
+
 @end

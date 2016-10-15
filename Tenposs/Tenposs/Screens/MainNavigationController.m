@@ -14,7 +14,7 @@
 #import "UIUtils.h"
 #import "NewsDetailScreen.h"
 
-@interface MainNavigationController ()
+@interface MainNavigationController () <UINavigationControllerDelegate>
 
 @end
 
@@ -28,6 +28,7 @@
     self = [super initWithRootViewController:self.rootViewController];
     
     if (self) {
+        self.delegate = self;
     }
     
     return self;
@@ -49,5 +50,20 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
+    if([self.viewControllers count] > 1){
+        [((MFSideMenuContainerViewController *)self.parentViewController) setPanMode:MFSideMenuPanModeNone];
+    }else{
+        [((MFSideMenuContainerViewController *)self.parentViewController) setPanMode:MFSideMenuPanModeDefault];
+    }
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
+    
+}
+
 
 @end

@@ -53,7 +53,11 @@
     [self.hashTag setText:tag];
     [self showLoadingViewWithMessage:@""];
     
-    if (_coupon.can_use == COUPON_STATUS_AVAILABLE) {
+    //TODO: clear test
+    
+    _coupon.can_use = YES;
+    
+    if (_coupon.can_use) {
         [_useCouponButton setBackgroundColor:[UIColor colorWithHexString:@"#29c9c8"]];
         [_useCouponButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_useCouponButton setTitle:NSLocalizedString(@"take_advantage_of_this_coupon", nil) forState:UIControlStateNormal];

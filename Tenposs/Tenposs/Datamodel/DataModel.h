@@ -219,7 +219,7 @@
 @property (strong, nonatomic) NSString *created_at;
 @property (strong, nonatomic) NSString *updated_at;
 @property (assign, nonatomic) NSInteger store_id;
-@property (assign, nonatomic) NSInteger can_use;
+@property (assign, nonatomic) bool can_use;
 @property (strong, nonatomic) NSMutableArray<NSString *>   *taglist;
 @property (strong, nonatomic) CouponTypeObject *coupon_type;
 

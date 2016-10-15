@@ -25,6 +25,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    [self layoutIfNeeded];
+    _user_avatar.clipsToBounds = YES;
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -46,7 +49,6 @@
     _user_avatar.layer.cornerRadius = _user_avatar.bounds.size.width/2;
     _user_avatar.layer.borderWidth = 1;
     _user_avatar.layer.borderColor = [UIColor whiteColor].CGColor;
-    _user_avatar.clipsToBounds = YES;
     
     if (data == nil) {
         [_user_avatar setImage:[UIImage imageNamed:@"user_icon"]];

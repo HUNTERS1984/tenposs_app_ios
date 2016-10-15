@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface QRCodeScreen : UIViewController
+@interface QRCodeScreen : BaseViewController
+
 @property (strong, nonatomic) NSString * QRString;
+
 @end

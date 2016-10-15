@@ -62,22 +62,60 @@
         _cachedChildController = [NSMutableDictionary new];
     }
     
+    [self setNavigationBarStyle:NavigationBarStyleDefault];
+    
+}
+
+- (void)setNavigationBarStyle:(NavigationBarStyle)style{
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     AppSettings *settings = [appConfig getAvailableAppSettings];
-    
-    [_menuButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                        [UIFont themifyFontOfSize:20/*[UIUtils getTextSizeWithType:settings.font_size]*/], NSFontAttributeName,
-                                        [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
-                                        nil] 
-                              forState:UIControlStateNormal];
-    [_menuButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-menu"]]];
-    self.navigationController.navigationBar.backgroundColor= [UIColor colorWithHexString:settings.header_color];
-    
-    _navigationTitle.numberOfLines = 1;
-    _navigationTitle.minimumFontSize = 10;
-    _navigationTitle.adjustsFontSizeToFitWidth = YES;
-    [_navigationTitle setTextColor:[UIColor colorWithHexString:settings.title_color]];
-    
+
+    switch (style) {
+        case NavigationBarStyleDefault:{
+            [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+            [self.navigationController.navigationBar setShadowImage:nil];
+            [_menuButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                 [UIFont themifyFontOfSize:20/*[UIUtils getTextSizeWithType:settings.font_size]*/], NSFontAttributeName,
+                                                 [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
+                                                 nil]
+                                       forState:UIControlStateNormal];
+            [_menuButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-menu"]]];
+            self.navigationController.navigationBar.backgroundColor= [UIColor colorWithHexString:settings.header_color];
+            
+            _navigationTitle.numberOfLines = 1;
+            _navigationTitle.minimumFontSize = 10;
+            _navigationTitle.adjustsFontSizeToFitWidth = YES;
+            [_navigationTitle setTextColor:[UIColor colorWithHexString:settings.title_color]];
+        }
+            break;
+        case NavigationBarStyleLight:{
+            
+            [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+            self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+            [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+            self.navigationController.navigationBar.translucent = YES;
+            
+            [_menuButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                 [UIFont themifyFontOfSize:20/*[UIUtils getTextSizeWithType:settings.font_size]*/], NSFontAttributeName,
+                                                 [UIColor colorWithHexString:@"FFFFFF"], NSForegroundColorAttributeName,
+                                                 nil]
+                                       forState:UIControlStateNormal];
+            [_menuButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-menu"]]];
+            self.navigationController.navigationBar.backgroundColor= [UIColor clearColor];
+            
+            _navigationTitle.numberOfLines = 1;
+            _navigationTitle.minimumFontSize = 10;
+            _navigationTitle.adjustsFontSizeToFitWidth = YES;
+            [_navigationTitle setTextColor:[UIColor colorWithHexString:@"FFFFFF"]];
+        }
+            break;
+        case NavigationBarStyleDark:{
+            
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 
@@ -110,7 +148,8 @@
     }else if ([item isKindOfClass:[UserModel class]]){
         UserData *userData = [UserData shareInstance];
         if ([userData getToken] != nil) {
-            [self showChildViewControllerWithId:APP_MENU_SETTING];
+            [self showChildViewControllerWithId:APP_MENU_USER_HOME];
+            //[self showChildViewControllerWithId:APP_MENU_SETTING];
         }else{
             [self showLogin];
         }
@@ -174,8 +213,7 @@
         [theAlert show];
     }
 }
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     switch(buttonIndex) {
         case 0: //"No" pressed
             //do something?

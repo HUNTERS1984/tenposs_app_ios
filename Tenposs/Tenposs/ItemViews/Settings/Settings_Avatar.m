@@ -18,6 +18,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    [self layoutIfNeeded];
+    _avatar.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -253,8 +253,9 @@
         ((Settings_Avatar *)cell).avatar.layer.cornerRadius = ((Settings_Avatar *)cell).avatar.bounds.size.width/2;
         ((Settings_Avatar *)cell).avatar.layer.borderWidth = 1;
         ((Settings_Avatar *)cell).avatar.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        ((Settings_Avatar *)cell).avatar.clipsToBounds = YES;
+
         NSString *avaURL = [userData getUserAvatarUrl];
+        
         if (avaURL && ![avaURL isKindOfClass:[NSNull class]]) {
             [((Settings_Avatar *)cell).avatar sd_setImageWithURL:[NSURL URLWithString:avaURL] ];
         }else{

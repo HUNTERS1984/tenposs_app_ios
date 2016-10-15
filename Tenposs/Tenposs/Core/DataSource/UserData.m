@@ -24,11 +24,13 @@ NSMutableArray *recentSearchList=nil;
 }
 
 #pragma mark - save and load user data
+
 -(void)clearUserData {
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     [userDef setObject:nil forKey:@"userData"];
     [userDef synchronize];
 }
+
 -(BOOL)saveUserData{
     NSError *error;
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];

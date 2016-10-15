@@ -90,6 +90,11 @@
 		0257C2F31D85880F00506F73 /* StaffCategoryCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0257C2F21D85880F00506F73 /* StaffCategoryCommunicator.m */; };
 		0257C2F61D858A2600506F73 /* StaffCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0257C2F51D858A2600506F73 /* StaffCommunicator.m */; };
 		026409DA1DABD00800B2F5DA /* ShareAppScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 026409D91DABD00800B2F5DA /* ShareAppScreen.m */; };
+		026409DE1DAC9D0E00B2F5DA /* UserHomeScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 026409DD1DAC9D0E00B2F5DA /* UserHomeScreen.m */; };
+		026409E41DACC0A800B2F5DA /* MBCircularProgressBarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 026409E11DACC0A800B2F5DA /* MBCircularProgressBarLayer.m */; };
+		026409E51DACC0A800B2F5DA /* MBCircularProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 026409E31DACC0A800B2F5DA /* MBCircularProgressBarView.m */; };
+		026409E91DAD028100B2F5DA /* DashedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 026409E81DAD028100B2F5DA /* DashedLineView.m */; };
+		026409ED1DADE1E300B2F5DA /* CouponAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 026409EC1DADE1E300B2F5DA /* CouponAlertView.m */; };
 		028A09871D77DBC1000BDD41 /* SignUpScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 028A09861D77DBC1000BDD41 /* SignUpScreen.m */; };
 		0299E6F91DA4F71300C0A755 /* GetPushSettingsCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299E6F81DA4F71300C0A755 /* GetPushSettingsCommunicator.m */; };
 		0299E6FC1DA5165500C0A755 /* ReserveCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299E6FB1DA5165500C0A755 /* ReserveCommunicator.m */; };
@@ -341,6 +346,16 @@
 		0257C2F51D858A2600506F73 /* StaffCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffCommunicator.m; sourceTree = "<group>"; };
 		026409D81DABD00800B2F5DA /* ShareAppScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareAppScreen.h; sourceTree = "<group>"; };
 		026409D91DABD00800B2F5DA /* ShareAppScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareAppScreen.m; sourceTree = "<group>"; };
+		026409DC1DAC9D0E00B2F5DA /* UserHomeScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHomeScreen.h; sourceTree = "<group>"; };
+		026409DD1DAC9D0E00B2F5DA /* UserHomeScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHomeScreen.m; sourceTree = "<group>"; };
+		026409E01DACC0A800B2F5DA /* MBCircularProgressBarLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBCircularProgressBarLayer.h; sourceTree = "<group>"; };
+		026409E11DACC0A800B2F5DA /* MBCircularProgressBarLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCircularProgressBarLayer.m; sourceTree = "<group>"; };
+		026409E21DACC0A800B2F5DA /* MBCircularProgressBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBCircularProgressBarView.h; sourceTree = "<group>"; };
+		026409E31DACC0A800B2F5DA /* MBCircularProgressBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCircularProgressBarView.m; sourceTree = "<group>"; };
+		026409E71DAD028100B2F5DA /* DashedLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashedLineView.h; sourceTree = "<group>"; };
+		026409E81DAD028100B2F5DA /* DashedLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashedLineView.m; sourceTree = "<group>"; };
+		026409EB1DADE1E300B2F5DA /* CouponAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponAlertView.h; sourceTree = "<group>"; };
+		026409EC1DADE1E300B2F5DA /* CouponAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponAlertView.m; sourceTree = "<group>"; };
 		028A09851D77DBC1000BDD41 /* SignUpScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpScreen.h; sourceTree = "<group>"; };
 		028A09861D77DBC1000BDD41 /* SignUpScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpScreen.m; sourceTree = "<group>"; };
 		0299E6F71DA4F71300C0A755 /* GetPushSettingsCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPushSettingsCommunicator.h; sourceTree = "<group>"; };
@@ -769,6 +784,44 @@
 			path = ShareAppScreen;
 			sourceTree = "<group>";
 		};
+		026409DB1DAC9CF100B2F5DA /* UserHomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				026409DC1DAC9D0E00B2F5DA /* UserHomeScreen.h */,
+				026409DD1DAC9D0E00B2F5DA /* UserHomeScreen.m */,
+			);
+			path = UserHomeScreen;
+			sourceTree = "<group>";
+		};
+		026409DF1DACC08100B2F5DA /* MBCircularProgressBar */ = {
+			isa = PBXGroup;
+			children = (
+				026409E01DACC0A800B2F5DA /* MBCircularProgressBarLayer.h */,
+				026409E11DACC0A800B2F5DA /* MBCircularProgressBarLayer.m */,
+				026409E21DACC0A800B2F5DA /* MBCircularProgressBarView.h */,
+				026409E31DACC0A800B2F5DA /* MBCircularProgressBarView.m */,
+			);
+			path = MBCircularProgressBar;
+			sourceTree = "<group>";
+		};
+		026409E61DAD026900B2F5DA /* DashedLineView */ = {
+			isa = PBXGroup;
+			children = (
+				026409E71DAD028100B2F5DA /* DashedLineView.h */,
+				026409E81DAD028100B2F5DA /* DashedLineView.m */,
+			);
+			path = DashedLineView;
+			sourceTree = "<group>";
+		};
+		026409EA1DADE1CB00B2F5DA /* CouponAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				026409EB1DADE1E300B2F5DA /* CouponAlertView.h */,
+				026409EC1DADE1E300B2F5DA /* CouponAlertView.m */,
+			);
+			path = CouponAlertView;
+			sourceTree = "<group>";
+		};
 		028A09841D77DBAC000BDD41 /* SignUpScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -809,6 +862,8 @@
 		02CD65961D47CDDC0015661D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				026409EA1DADE1CB00B2F5DA /* CouponAlertView */,
+				026409DB1DAC9CF100B2F5DA /* UserHomeScreen */,
 				026409D71DABCFF000B2F5DA /* ShareAppScreen */,
 				02FDF0121D881027005AC6E9 /* OAuthScreen */,
 				02FDEFEC1D86BF0E005AC6E9 /* ChatScreen */,
@@ -1157,6 +1212,8 @@
 		02F2FDD51D4A32B1006D4C83 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				026409E61DAD026900B2F5DA /* DashedLineView */,
+				026409DF1DACC08100B2F5DA /* MBCircularProgressBar */,
 				02C982751DA1E50000EEAAA1 /* Reachability.h */,
 				02C982761DA1E50000EEAAA1 /* Reachability.m */,
 				021AA4AE1D7EDB8A0042C511 /* NSString.h */,
@@ -1552,6 +1609,7 @@
 				0257C2C91D84A99800506F73 /* CompanyInfoScreen.m in Sources */,
 				0257C2E31D8573E400506F73 /* CouponCommunicator.m in Sources */,
 				02F098BE1D89210A00E1D992 /* TabDataSourceViewController.m in Sources */,
+				026409E41DACC0A800B2F5DA /* MBCircularProgressBarLayer.m in Sources */,
 				02CD65A21D47D6C50015661D /* Item_Cell_Product.m in Sources */,
 				02CD65991D47CDF50015661D /* AppConfiguration.m in Sources */,
 				02CD65B11D47E7DB0015661D /* Item_Cell_ShopInfo.m in Sources */,
@@ -1570,9 +1628,11 @@
 				024C4DB81D5DB7DC00896EE4 /* NewsDetailScreen.m in Sources */,
 				0257C2D61D8543F500506F73 /* SettingsScreen.m in Sources */,
 				368212A41D7FBFD800E2DEF0 /* NSAttributedString+CXACoreTextFrameSize.m in Sources */,
+				026409E51DACC0A800B2F5DA /* MBCircularProgressBarView.m in Sources */,
 				02F2FDD81D4A32CC006D4C83 /* Const.m in Sources */,
 				02CD65A71D47D8EB0015661D /* Item_Cell_Photo.m in Sources */,
 				022114351D564FFC00F44E88 /* MockupData.m in Sources */,
+				026409DE1DAC9D0E00B2F5DA /* UserHomeScreen.m in Sources */,
 				02F097571D7502A200E737C7 /* GlobalMapping.m in Sources */,
 				022F25D41D52B78C008AEBA1 /* SplashScreen.m in Sources */,
 				021A5EB21D698FD7001F8F8E /* GalleryScreenDetailDataSource.m in Sources */,
@@ -1586,6 +1646,7 @@
 				026409DA1DABD00800B2F5DA /* ShareAppScreen.m in Sources */,
 				0257C2D11D84AE4600506F73 /* Settings_Avatar.m in Sources */,
 				021AA4B31D7EDD0A0042C511 /* CommunicatorConst.m in Sources */,
+				026409E91DAD028100B2F5DA /* DashedLineView.m in Sources */,
 				0257C2F31D85880F00506F73 /* StaffCategoryCommunicator.m in Sources */,
 				0299E6FC1DA5165500C0A755 /* ReserveCommunicator.m in Sources */,
 				0211402A1D57C99900598AD2 /* MenuScreen.m in Sources */,
@@ -1621,6 +1682,7 @@
 				02F097541D74CAAB00E737C7 /* LoginWithEmailScreen.m in Sources */,
 				02F2FDC91D4A30E3006D4C83 /* JSONAPI.m in Sources */,
 				02B8CF861D8696D200FDE695 /* SettingsTableViewController.m in Sources */,
+				026409ED1DADE1E300B2F5DA /* CouponAlertView.m in Sources */,
 				022F25E01D52C8DA008AEBA1 /* Top_Footer.m in Sources */,
 				02AEEE9B1D6A7AD70064BB0B /* CouponScreen.m in Sources */,
 				021C81A41DA4CA66000FF5A7 /* Item_Detail_Item_Size.m in Sources */,
