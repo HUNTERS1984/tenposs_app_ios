@@ -13,6 +13,8 @@
 #import "HexColors.h"
 #import "AppConfiguration.h"
 #import "UIUtils.h"
+#import "SettingsEditProfileScreen.h"
+#import "UIFont+Themify.h"
 
 @interface SettingsProvineScreen ()
 @property NSMutableArray *provines;
@@ -21,7 +23,24 @@
 @implementation SettingsProvineScreen
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
+    AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+    AppSettings *settings = [appConfig getAvailableAppSettings];
+    if ([[self.navigationController viewControllers] count] > 1) {
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                       style:UIBarButtonItemStylePlain target:self action:@selector(didPressBackButton)];
+        self.navigationItem.leftBarButtonItem = backButton;
+        [self.navigationItem setHidesBackButton:YES animated:YES];
+        [self.navigationItem setBackBarButtonItem:nil];
+        [self.navigationItem.leftBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                       [UIFont themifyFontOfSize:20/*[UIUtils getTextSizeWithType:settings.font_size]*/], NSFontAttributeName,
+                                                                       [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
+                                                                       nil]
+                                                             forState:UIControlStateNormal];
+        [self.navigationItem.leftBarButtonItem setTitle:[NSString stringWithFormat: @"%@", [UIFont stringForThemifyIdentifier:@"ti-angle-left"]]];
+    }
     
     _provines = [NSMutableArray arrayWithObjects:
     @"hokkaido",
@@ -75,8 +94,6 @@
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"reuseIdentifier"];
     
-    AppConfiguration *appConfig = [AppConfiguration sharedInstance];
-    AppSettings *settings = [appConfig getAvailableAppSettings];
     if ([[self.navigationController viewControllers] count] > 1) {
         UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@""
                                                                        style:UIBarButtonItemStylePlain target:self action:@selector(didPressBackButton)];
@@ -122,7 +139,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{SETTINGS_KeyUserProvine:_provines[indexPath.row]}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_SET_EDIT_CHANGED object:self userInfo:@{SET_EDIT_PROVINCE:_provines[indexPath.row]}];
     //[self dismissViewControllerAnimated:YES completion:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }

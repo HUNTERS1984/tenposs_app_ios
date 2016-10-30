@@ -12,7 +12,7 @@
 @interface TenpossSegmentedControl()
 
 @property (strong, nonatomic) NSMutableArray<UILabel *> *labels;
-@property (strong, nonatomic) NSMutableArray<NSString *> *items;
+
 @property (assign, nonatomic) NSInteger selectedIndex;
 
 @property UIView *thumbView;
@@ -42,6 +42,10 @@
         [self setupView];
     }
     return self;
+}
+
+- (NSInteger)getSelectedIndex{
+    return _selectedIndex;
 }
 
 - (void)setupView{
@@ -118,6 +122,11 @@
         selectFrame.origin.x = newWidth;
         _needUpdateIndex = -1;
     }
+    
+    if (_selectedIndex != 0) {
+        selectFrame.origin.x = _selectedIndex * newWidth;
+    }
+    
     _thumbView.frame = selectFrame;
     _thumbView.backgroundColor = [UIColor whiteColor];
     _thumbView.layer.cornerRadius = 5;

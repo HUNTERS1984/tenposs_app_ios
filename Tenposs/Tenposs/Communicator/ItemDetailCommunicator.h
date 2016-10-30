@@ -13,7 +13,8 @@
 @property (assign, nonatomic) NSInteger code;
 @property (strong, nonatomic) NSString *message;
 @property (strong, nonatomic) ProductObject *detail;
-@property (strong, nonatomic) NSMutableArray<ConvertOnDemand,ProductObject> *items;
+@property (strong, nonatomic) NSMutableArray<ConvertOnDemand,ProductObject> *items_related;
+@property (assign, nonatomic) NSInteger total_items_related;
 
 @end
 

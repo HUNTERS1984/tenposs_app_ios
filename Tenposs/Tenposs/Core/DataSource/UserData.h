@@ -13,6 +13,10 @@
 #define GENDER_MALE     0
 #define GENDER_FEMALE   1
 
+#define NOTI_USER_PROFILE_UPDATED   @"notificationuserprofileupdated"
+#define NOTI_USER_PROFILE_REQUEST   @"notificationuserprofilerequest"
+
+
 @interface UserData : EntityBase
 
 
@@ -44,6 +48,7 @@
 -(void)setUserEmail:(NSString *)email;
 -(NSString *)getUserEmail;
 
+- (NSInteger)getUserGender;
 - (NSString *)getUserGenderString;
 - (void)setUserGender:(NSInteger) gender;
 
@@ -66,5 +71,6 @@
 - (void)updateProfile:(NSMutableDictionary *)profileToUpdate;
 - (void)updatePushSetting:(NSMutableDictionary *)infoToUpdate;
 - (void)updateSocialSetting:(NSMutableDictionary *)infoToUpdate;
+- (void)cancelSocial:(NSString *)type;
 
 @end

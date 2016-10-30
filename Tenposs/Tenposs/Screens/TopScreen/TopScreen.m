@@ -75,6 +75,7 @@
 - (void)dataLoadedWithError:(NSError *)error{
     [self.collectionView reloadData];
     [self removeLoadingView];
+    
     ShareAppScreen *app = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([ShareAppScreen class])];
     [self presentViewController:app animated:YES completion:nil];
 }

@@ -17,32 +17,48 @@
 
 NSString * const BASE_ADDRESS  =  @"https://api.ten-po.com/";
 NSString * const API_BASE = @"api/v1";
+
 NSString * const API_LOGIN  = @"/signin?";
 NSString * const API_SLOGIN  = @"/social_login?";
 NSString * const API_SIGNUP = @"/signup?";
 NSString * const API_LOGOUT  =   @"/signout?";
+
 NSString * const API_TOP  =  @"/top?";
+
 NSString * const API_MENU  = @"/menu?";
+
 NSString * const API_APPINFO  =  @"/appinfo?";
+
 NSString * const API_ITEMS  = @"/items?";
-NSString * const API_ITEMS_DETAIL  = @"/items/detail?";
-NSString * const API_ITEMS_RELATE  = @"/items/related?";
+NSString * const API_ITEMS_DETAIL  = @"/item_detail?";
+NSString * const API_ITEMS_RELATE  = @"/item_related?";
 NSString * const API_PHOTO_CAT  = @"/photo_cat?";
 NSString * const API_PHOTO  = @"/photo?";
+
 NSString * const API_NEWS_CATE = @"/news_cat?";
 NSString * const API_NEWS  = @"/news?";
 NSString * const API_NEWS_DETAIL  = @"/news/detail?";
+
 NSString * const API_RESERVE = @"/reserve?";
+
 NSString * const API_COUPON  = @"/coupon?";
 NSString * const API_COUPON_DETAIL = @"/coupon/detail?";
+
 NSString * const API_APPUSER  = @"/appuser?";
+
 NSString * const API_SETPUSHKEY = @"/set_push_key?";
+
 NSString * const API_STAFF = @"/staffs?";
 NSString * const API_STAFF_CAT = @"/staff_categories?";
-NSString *const API_UPDATE_PROFILE = @"/update_profile?";
+
+NSString * const API_PROFILE = @"/profile?";
+NSString * const API_UPDATE_PROFILE = @"/update_profile?";
 NSString * const API_SETPUSHSETTING = @"/set_push_setting?";
 NSString * const API_GETPUSHSETTING = @"/get_push_setting?";
-NSString * const API_SOCIALSETTING =@"/social_profile";
+NSString * const API_SOCIALSETTING =@"/social_profile?";
+NSString * const API_COUPON_USE = @"/coupon_use?";
+
+NSString * const API_SOCIAL_CANCEL = @"/social_profile_cancel?";
 
 #pragma mark - API_KEY
 
@@ -90,6 +106,10 @@ NSString * const KeyAPI_RANKING = @"ranking";
 NSString * const KeyAPI_NEWS = @"news";
 NSString * const KeyAPI_COUPON = @"coupon";
 NSString * const KeyAPI_CHAT = @"chat";
+
+NSString * const KeyAPI_STAFF_ID = @"staff_id";
+
+NSString * const KeyAPI_APP_USER_ID = @"app_user_id";
 
 
 

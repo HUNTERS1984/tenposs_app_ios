@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
+#import "DataModel.h"
 
-@interface QRCodeScreen : BaseViewController
+@interface QRCodeScreen : BaseViewController<UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic) NSString * QRString;
-
+@property (strong, nonatomic) CouponObject *coupon;
 @end

@@ -82,7 +82,6 @@
     
     NSArray *contraints = [NSArray arrayWithObjects:leading, trailing, bottom,top, nil];
     [self.view addConstraints:contraints];
-    
     [self.view needsUpdateConstraints];
     [self removeAllInfoViewExcept:LOADING_VIEW_TAG];
 }
@@ -309,12 +308,42 @@
             || subView.tag == ERROR_VIEW_TAG
             || subView.tag == LOADING_VIEW_TAG) {
             if (subView.tag == tag) {
-                
+                return;
             }else{
                 [subView removeFromSuperview];
                 return;
             }
         }
     }
+}
+
+-(BOOL)signOut{
+    if ([[UserData shareInstance]getToken]) {
+        NSMutableDictionary *params = [NSMutableDictionary new];
+        [params setObject:[[UserData shareInstance]getToken] forKey:KeyAPI_TOKEN];
+        
+        [[NetworkCommunicator shareInstance] POST:API_LOGOUT parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+            if(isSuccess) {
+                
+                
+            }else{
+                //[self showAlertView:@"エラー" message:@"ログアウトすることはできません"];
+            }
+            [UserData shareInstance].userDataDictionary = nil;
+            [[UserData shareInstance] clearUserData];
+            [UserData shareInstance].isLogin = NO;
+            //clear avatar img
+            [[UserData shareInstance] setUserAvatarImg:nil];
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            LoginScreen *nextController = [storyboard instantiateViewControllerWithIdentifier:@"LoginScreen"];
+            UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];
+            [navi.navigationBar setHidden:YES];
+            [self presentViewController:navi animated:YES completion:nil];
+        }];
+        return YES;
+    }
+    
+    return NO;
 }
 @end

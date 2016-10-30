@@ -1,38 +1,21 @@
 //
-//  TenpossCommunicator.m
+//  UpdateProfileCommunicator.m
 //  Tenposs
 //
-//  Created by Phúc Nguyễn on 7/28/16.
+//  Created by Phúc Nguyễn on 10/28/16.
 //  Copyright © 2016 Tenposs. All rights reserved.
 //
 
-#import "TenpossCommunicator.h"
-#import "Utils.h"
+#import "UpdateProfileCommunicator.h"
 #import "Const.h"
+#import "Utils.h"
+#import "NetworkCommunicator.h"
 
-@implementation TenpossCommunicator
+@implementation UpdateProfileCommunicator
 
--(void) prepare:(Bundle*) params
-{
-    if(self.cancelled == YES)
-        return;
-    //g_strCookie = @"";
-    if([self respondsToSelector:@selector(customPrepare:)])
-        [self customPrepare:params];
-}
--(void) process:(Bundle*) params
-{
-    if(self.cancelled == YES)
-        return;
-    if([self respondsToSelector:@selector(customProcess:)])
-        [self customProcess:params];
-}
-
--(void) executeUpdateProfile:(Bundle*) params withDelegate:(id) delegate{
-    self.delegate = delegate;
-    m_pParams = params;
+-(void)execute:(id)parameters{
     
-    NSString *request_url = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddress],API_UPDATE_PROFILE];
+    _request_url = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddress],API_UPDATE_PROFILE];
     
     m_pRequest = [[NSMutableURLRequest alloc] init];
     [m_pRequest setHTTPShouldHandleCookies:NO];
@@ -46,12 +29,7 @@
     //    Bundle *body = [Bundle new];
     NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
     NSArray *sigs = [NSArray arrayWithObjects:APP_ID,currentTime,APP_SECRET,nil];
-    
-    NSMutableDictionary *dataDict = (NSMutableDictionary *)[params get:KeyRequestData];
-    if (!dataDict || [dataDict count] <= 0) {
-        return;
-    }
-    NSMutableDictionary *dictData = [dataDict mutableCopy];
+    NSMutableDictionary *dictData = [parameters mutableCopy];
     [dictData setObject:[APP_ID dataUsingEncoding:NSUTF8StringEncoding] forKey:KeyAPI_APP_ID];
     [dictData setObject:[currentTime dataUsingEncoding:NSUTF8StringEncoding] forKey:KeyAPI_TIME];
     [dictData setObject:[[Utils getSigWithStrings:sigs] dataUsingEncoding:NSUTF8StringEncoding] forKey:KeyAPI_SIG];
@@ -109,63 +87,12 @@
     [m_pRequest setHTTPBody:body];
     
     // set URL
-    [m_pRequest setURL:[NSURL URLWithString:request_url]];
+    NSLog(@"UPDATE PROFILE - %@", body);
+    [m_pRequest setURL:[NSURL URLWithString:_request_url]];
     m_pConnection = [[NSURLConnection alloc] initWithRequest:m_pRequest delegate:self];
     [m_pConnection start];
     NSLog(@"Start NSURLConnection: %@ - %@", NSStringFromClass([self class]), m_pRequest.URL);
-}
-
--(void) execute:(Bundle*) params withDelegate:(id) delegate
-{
-    self.delegate = delegate;
-    m_pParams = params;
-    [self prepare:params];
-    NSString* url = [m_pParams get:KeyRequestURL];
     
-    NSData* requestData = [params get:KeyRequestData];
-    if(requestData == nil) {
-        m_pRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-        //TODO: support Cookie???
-        /*
-         if([g_strCookie length] > 0)
-         [m_pRequest addValue:g_strCookie forHTTPHeaderField:@"Cookie"];
-         */
-    }else{
-        NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[requestData length]];
-        m_pRequest = [[NSMutableURLRequest alloc] init];
-        [m_pRequest setURL:[NSURL URLWithString:url]];
-        [m_pRequest setHTTPMethod:@"POST"];
-        
-        [m_pRequest setValue:@"application/json, text/javascript, */*; q=0.01" forHTTPHeaderField:@"Accept"];
-        [m_pRequest setValue:@"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.154 Safari/537.36" forHTTPHeaderField:@"User-Agent"];
-        [m_pRequest setValue:@"en-US,en;q=0.8,vi;q=0.6" forHTTPHeaderField:@"Accept-Language"];
-        [m_pRequest setValue:@"Keep-Alive" forHTTPHeaderField:@"Connection"];
-        [m_pRequest setValue:@"no-cache" forHTTPHeaderField:@"Pragma"];
-        [m_pRequest setValue:@"no-cache" forHTTPHeaderField:@"Cache-Control"];
-        [m_pRequest setValue:@"gzip,deflate" forHTTPHeaderField:@"Accept-Encoding"];
-        [m_pRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
-        [m_pRequest setValue:@"application/x-www-form-urlencoded; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
-        [m_pRequest setHTTPBody:requestData];
-    }
-    
-    // Create url connection and fire request
-    NSInteger timeout = [params getInt:KeyRequestTimeout];
-    if(timeout <= 0)
-        timeout = 15;
-    [m_pRequest setTimeoutInterval:timeout];
-    
-    m_pConnection = [[NSURLConnection alloc] initWithRequest:m_pRequest delegate:self];
-    [m_pConnection start];
-    NSLog(@"Start NSURLConnection: %@ - %@", NSStringFromClass([self class]), m_pRequest.URL);
-}
-
--(void)     cancelRequest
-{
-    NSLog(@"%@ cancel", NSStringFromClass([self class]));
-    if(m_pConnection != nil){
-        [m_pConnection cancel];
-    }
-    self.cancelled = YES;
 }
 
 #pragma mark NSURLConnection Delegate Methods
@@ -200,11 +127,37 @@
     @try {
         //TODO: return data to delegate
         if( self.httpCode == 200 ){
-            [self process:m_pParams];
+            NSError* error = nil;
+            
+            CommonResponse* data = nil;
+            
+            @try {
+                data = [[CommonResponse alloc] initWithData:self.responseData error:&error];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"%@", exception);
+            }
+            @finally {
+                
+            }
+            
+            NSLog(@"ERROR MESSAGE : %@", data.message);
+            
+            if(error != nil){
+                NSLog(@"%@", error);
+                //TODO: real error code
+                
+            }else{
+                if(data.code != ERROR_OK){
+                    NSString* description = [CommunicatorConst getErrorMessage:data.code];
+                    
+                }else{
+             
+                }
+            }
+            
         }else{
-            NSString* description = [NSString stringWithFormat:@"Server error: %ld - %@", (long)self.httpCode, [NSHTTPURLResponse localizedStringForStatusCode:self.httpCode]];
-            [m_pParams put:KeyResponseResult value:@(ResultErrorUnknown)];
-            [m_pParams put:KeyResponseError value:description];
+        
         }
     }
     @catch (NSException *exception) {
@@ -214,10 +167,6 @@
         
     }
     NSLog(@"End NSURLConnection : %@ - cancel : %d", NSStringFromClass([self class]), self.cancelled);
-    if(self.delegate != nil && [self.delegate respondsToSelector:@selector(completed:data:)] && self.cancelled == NO)
-    {
-        [self.delegate completed:self data:m_pParams];
-    }
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
@@ -379,16 +328,9 @@
             
             break;
     }
-    description = NSLocalizedString(str, [error localizedDescription]);
-    [m_pParams put:KeyResponseResult value:@(ResultErrorConnection)];
-    [m_pParams put:KeyResponseResultFromNetwork value:@(errorCode)];
-    //[m_pParams put:KeyResponseError value:[error localizedDescription]];
-    [m_pParams put:KeyResponseError value:description];
     
-    if(self.delegate != nil && [self.delegate respondsToSelector:@selector(completed:data:)] && self.cancelled == NO)
-    {
-        [self.delegate completed:self data:m_pParams];
-    }
+    //TODO: error request update profile
+    
 }
 
 
@@ -411,4 +353,5 @@
     
     // Provide your regular login credential if needed...
 }
+
 @end

@@ -24,6 +24,9 @@
 #import "UIUtils.h"
 #import "UIButton+HandleBlock.h"
 #import "Item_Detail_Item_Size.h"
+#import "ItemDetailCommunicator.h"
+#import "Utils.h"
+#import "ItemRelatedCommunicator.h"
 
 @interface ItemDetailScreen ()<SFSafariViewControllerDelegate>{
     Item_Detail_Header_Segmented *segmentCell;
@@ -49,6 +52,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self getItemDetail];
     
     [self.collectionView setBackgroundColor:[UIColor whiteColor]];
     
@@ -86,6 +91,8 @@
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Top_Header class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([Top_Header class])];
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Top_Footer class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass([Top_Footer class])];
+    
+    
 }
 
 - (NSString *)title{
@@ -104,8 +111,36 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self previewData];
 }
+
+- (void)getItemDetail{
+    
+    ItemDetailCommunicator *request = [ItemDetailCommunicator new];
+    Bundle *params = [Bundle new];
+    [params put:KeyAPI_APP_ID value:APP_ID];
+    [params put:KeyAPI_ITEM_ID value:[@(_item.product_id) stringValue]];
+    NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
+    [params put:KeyAPI_TIME value:currentTime];
+    NSArray *strings = [NSArray arrayWithObjects:APP_ID,currentTime,[@(_item.product_id) stringValue],APP_SECRET,nil];
+    [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
+    [request execute:params withDelegate:self];
+}
+
+- (void)getItemRelated{
+    ///TODO: clean mockup
+    ItemRelatedCommunicator *request = [ItemRelatedCommunicator new];
+    Bundle *params = [Bundle new];
+    [params put:KeyAPI_APP_ID value:APP_ID];
+    [params put:KeyAPI_ITEM_ID value:@"2"];
+    NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
+    [params put:KeyAPI_TIME value:currentTime];
+    [params put:KeyAPI_PAGE_INDEX value:[@(_item.rel_pageindex) stringValue]];
+    [params put:KeyAPI_PAGE_SIZE value:@"4"];
+    NSArray *strings = [NSArray arrayWithObjects:APP_ID,currentTime,@"2",APP_SECRET,nil];
+    [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
+    [request execute:params withDelegate:self];
+}
+
 
 - (void)handleRequestError:(NSError *)error{
     //TODO: show Error screen
@@ -113,8 +148,7 @@
 
 - (void)previewData{
     if(!_descriptionData){
-        //TODO: Clear mockup
-        _descriptionData = [[DescriptionCellInfo alloc] initWithFullText:@"Lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. In diam ante, tempus ullamcorper erat at, placerat dictum diam. Suspendisse potenti. Fusce interdum, augue non interdum pellentesque, velit velit interdum ex, at sagittis sem nulla at ipsum. Proin posuere ex vitae odio cursus placerat. Nunc felis turpis, fringilla ut ultricies sed, sodales non elit. Phasellus sit amet lacus quis felis commodo sagittis. In eu ornare elit, venenatis hendrerit lorem. Donec elementum mollis elementum. Integer tempus sem non pellentesque lacinia. Etiam dapibus dictum sapien non convallis.\n\nCras id tincidunt diam. Nunc nibh metus, ultricies eu gravida elementum, feugiat in justo. Sed sed vestibulum velit. Sed et sapien eget elit sodales porttitor. In sed nisi dignissim, ultricies enim non, auctor purus. Sed consequat tellus quam, id consequat turpis vestibulum eget. Curabitur gravida nisl id vestibulum ultrices. Nulla ut nisi fermentum, consectetur ex id, dapibus nunc. Etiam tristique molestie posuere.\n\n\nSed blandit ligula sit amet finibus finibus. Suspendisse ornare diam non elit luctus varius. Morbi in erat vehicula, semper dolor eu, pellentesque eros. Cras consectetur scelerisque blandit. Nunc sit amet lobortis ante. Donec urna velit, lacinia ut tristique eu, ullamcorper nec lacus. Donec aliquet rutrum leo sit amet ultrices. Mauris tincidunt semper felis ut accumsan. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut non elit eget dui vulputate molestie. Etiam lobortis lacinia feugiat. Nullam convallis nibh ante, a laoreet mauris tempus ut. Donec id sapien quis lectus facilisis ullamcorper. Nulla egestas sit amet ex vitae ultrices.\n\nClass aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras imperdiet nibh id nisl euismod, id scelerisque dui hendrerit. Suspendisse diam sem, elementum sit amet lorem quis, porta molestie velit. Quisque sollicitudin erat et lectus molestie volutpat. Curabitur pharetra nulla a velit placerat convallis. Aliquam neque libero, feugiat a malesuada et, commodo at eros. Cras augue magna, tristique ut sem eu, egestas elementum ipsum. Vivamus sodales rhoncus nibh sit amet hendrerit. Integer fringilla eleifend blandit. Cras mattis ligula eu eros sodales, et dapibus lectus fermentum.\n\nQuisque arcu eros, interdum sit amet ipsum a, efficitur condimentum libero. Aliquam sed consequat ipsum, et commodo nibh. Duis vulputate elit imperdiet, pharetra velit maximus, pellentesque justo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque placerat aliquet nisl, quis vestibulum quam tristique ac. Aenean maximus felis eu mauris eleifend egestas id sed eros. Vivamus a nisi venenatis, luctus sem quis, mattis tellus."];
+        _descriptionData = [[DescriptionCellInfo alloc] initWithFullText:_item.desc];
         [_descriptionData calculateFullTextHeightWithWidth:(self.collectionView.bounds.size.width - 16)];
     }
     [self.collectionView reloadData];
@@ -124,6 +158,7 @@
 
 #pragma mark - UICollectionViewDataSource
 
+
 -(BOOL)sectionShouldHaveHeader:(NSInteger)section{
     if (section == 2) {
         return YES;
@@ -132,8 +167,21 @@
 }
 
 -(BOOL)sectionShouldHaveFooter:(NSInteger)section{
-    if (section == 2 || section == 1) {
-        return YES;
+    if (section == 2){
+        if (_item.rel_items && [_item.rel_items count] > 0 && [_item.rel_items count] < _item.total_items_related) {
+            return YES;
+        }else{
+            return NO;
+        }
+    }else if (section == 1) {
+        if (_currentSwitchIndex == 0) {
+            if (_descriptionData.fullSizeHeight <= DETAIL_DESCRIPTION_COLLAPSE) {
+                return NO;
+            }
+            return YES;
+        }else{
+            return NO;
+        }
     }
     return NO;
 }
@@ -157,20 +205,25 @@
                 return _item;
             }else{
                 if (_currentSwitchIndex == 0) {
-                    _descriptionData = [[DescriptionCellInfo alloc]initWithFullText:_item.desc];
+                    if (!_descriptionData) {
+                        _descriptionData = [[DescriptionCellInfo alloc]initWithFullText:_item.desc];
+                    }
                     return _descriptionData;//_item.desc;
                 }else{
                     if (!_item.size || [_item.size count] <= 0) {
-                        _descriptionData = [[DescriptionCellInfo alloc]initWithFullText:_item.desc];
-                        return _descriptionData;//_item.desc;
+                        DescriptionCellInfo *noSize = [[DescriptionCellInfo alloc]initWithFullText:@"データなし"];
+                        [noSize calculateFullTextHeightWithWidth:self.view.bounds.size.width];
+                        return noSize;
                     }else{
+                        NSInteger realIndex = index - 2;
                         NSMutableArray *sizes = [_item getSizeArray];
-                        if (sizes) {
-                            return [sizes objectAtIndex:index];
-                        }else{
-                            _descriptionData = [[DescriptionCellInfo alloc]initWithFullText:_item.desc];
-                            return _descriptionData;//_item.desc;
+                        if (sizes && [sizes count] > realIndex) {
+                            return [sizes objectAtIndex:realIndex];
                         }
+//                        else{
+//                            _descriptionData = [[DescriptionCellInfo alloc]initWithFullText:_item.desc];
+//                            return _descriptionData;//_item.desc;
+//                        }
                     }
                 }
             }
@@ -206,7 +259,8 @@
                 if (!_item.size || [_item.size count] <= 0) {
                     return 3;
                 }else{
-                    return 2 + [_item.size count];
+                    NSMutableArray *sizes = [_item getSizeArray];
+                    return 2 + [sizes count];
                 }
             }
             break;
@@ -257,13 +311,16 @@
             }else if (index == 1){
                 cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Detail_Header_Segmented class]) forIndexPath:indexPath];
                 [cell configureCellWithData:data];
-                ((Item_Detail_Header_Segmented *)cell).segmentControl.needUpdateIndex = _currentSwitchIndex;
-                [((Item_Detail_Header_Segmented *)cell).segmentControl addTarget:self action:@selector(onHeaderSegmentedChange) forControlEvents:UIControlEventValueChanged];
+                [((Item_Detail_Header_Segmented *)cell).segmentControl addTarget:self action:@selector(onHeaderSegmentedChange:) forControlEvents:UIControlEventValueChanged];
+                [((Item_Detail_Header_Segmented *)cell).segmentControl setSelectedIndex:_currentSwitchIndex];
                 return cell;
-            }else{
+            }else if([data isKindOfClass:[DescriptionCellInfo class]]){
                 cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Detail_Description class]) forIndexPath:indexPath];
                 [((Item_Detail_Description *)cell) configureCellWithData:data WithWidth:self.collectionView.bounds.size.width - 16];
                 return cell;
+            }else if ([data isKindOfClass:[NSString class]] || [data isKindOfClass:[ProductSizeObject class]]){
+                cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Detail_Item_Size class]) forIndexPath:indexPath];
+                [((Item_Detail_Item_Size *)cell) configureCellWithData:data];
             }
         }
             break;
@@ -278,14 +335,6 @@
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
-//    if([indexPath isEqual:[NSIndexPath indexPathForRow:1 inSection:1]]){
-//        if ([[self.collectionView cellForItemAtIndexPath:indexPath] isKindOfClass:[Item_Detail_Header_Segmented class]]) {
-//            [((Item_Detail_Header_Segmented *)cell).segmentControl setSelectedIndex:_currentSwitchIndex];
-//        }
-//    }
-}
-
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     UICollectionReusableView *reuseableView = nil;
     NSInteger section = indexPath.section;
@@ -295,35 +344,49 @@
             return nil;
         }else{
             Top_Header *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([Top_Header class]) forIndexPath:indexPath];
-            [header configureHeaderWithTitle:@"Related"];
+            [header configureHeaderWithTitle:@"関連"];
             reuseableView = header;
         }
     }else if(kind == UICollectionElementKindSectionFooter){
         if (![self sectionShouldHaveFooter:section]) {
             return nil;
         }else{
-            Top_Footer *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass([Top_Footer class]) forIndexPath:indexPath];
-
-            TopFooterTouchHandler handler = nil;
-            __weak ItemDetailScreen *weakSelf = self;
-            __weak DescriptionCellInfo *weakCellInfo = _descriptionData;
             if (section == 1) {
+                Top_Footer *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass([Top_Footer class]) forIndexPath:indexPath];
+                
+                TopFooterTouchHandler handler = nil;
+                __weak ItemDetailScreen *weakSelf = self;
+                __weak DescriptionCellInfo *weakCellInfo = _descriptionData;
+                if (section == 1) {
+                    //Show More Description
+                    handler = ^{
+                        NSLog(@"Show More Description");
+                        weakCellInfo.isCollapsed = !weakCellInfo.isCollapsed;
+                        //[weakSelf.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:([NSIndexPath indexPathForRow:2 inSection:section]) ]];
+                        [weakSelf.collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
+                    };
+                }
+                if(_descriptionData.isCollapsed){
+                    [footer configureFooterWithTitle:@"もっと見る" withTouchHandler:handler];
+                }else{
+                    //TODO: need localize
+                    [footer configureFooterWithTitle:@"show less" withTouchHandler:handler];
+                }
+                
+                reuseableView = footer;
+            }else if (section == 2){
+                Top_Footer *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass([Top_Footer class]) forIndexPath:indexPath];
+                
+                TopFooterTouchHandler handler = nil;
+                __weak ItemDetailScreen *weakSelf = self;
                 //Show More Description
                 handler = ^{
                     NSLog(@"Show More Description");
-                    weakCellInfo.isCollapsed = !weakCellInfo.isCollapsed;
-                    //[weakSelf.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:([NSIndexPath indexPathForRow:2 inSection:section]) ]];
-                    [weakSelf.collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
+                    [weakSelf getItemRelated];
                 };
-            }
-            if(_descriptionData.isCollapsed){
                 [footer configureFooterWithTitle:@"もっと見る" withTouchHandler:handler];
-            }else{
-                //TODO: need localize
-                [footer configureFooterWithTitle:@"show less" withTouchHandler:handler];
+                reuseableView = footer;
             }
-            
-            reuseableView = footer;
         }
     }
     
@@ -360,7 +423,19 @@
                         height = _descriptionData.fullSizeHeight >= 0?_descriptionData.fullSizeHeight:DETAIL_DESCRIPTION_COLLAPSE;
                     }
                 }else{
-                    [Item_Detail_Item_Size getCellHeightWithWidth:0];
+                    NSObject *item = [self dataForIndexPath:indexPath];
+                    if ([item isKindOfClass:[DescriptionCellInfo class]]) {
+                        DescriptionCellInfo *info = (DescriptionCellInfo *)item;
+                        return CGSizeMake(superWidth,DETAIL_DESCRIPTION_COLLAPSE);
+                    }else{
+                        NSInteger column = [_item getNumberOfSizeColumn];
+                        if (column <= 0) {
+                            return CGSizeMake(superWidth, 30);
+                        }else{
+                            height = [Item_Detail_Item_Size getCellHeightWithWidth:0];
+                            width = (superWidth)/column;
+                        }
+                    }
                 }
             }
         }
@@ -413,37 +488,85 @@
     }
 }
 
-- (void)onHeaderSegmentedChange{
-    NSLog(@"Value Changed!!!");
-    if (_currentSwitchIndex == 0) {
-        _currentSwitchIndex = 1;
-    }else if(_currentSwitchIndex == 1){
-        _currentSwitchIndex = 0;
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSObject *data = [self dataForIndexPath:indexPath];
+    if ([data isKindOfClass:[ProductObject class]]) {
+        ProductObject *product = (ProductObject *)data;
+        ItemDetailScreen *controller = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([ItemDetailScreen class])];
+        controller.item = product;
+        [self.navigationController pushViewController:controller animated:YES];
     }
-    [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
 }
 
-//#pragma mark - TenpossCommunicatorDelegate
-//
-//- (void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams{
-//    NSInteger errorCode =[responseParams getInt:KeyResponseResult];
-//    NSError *error = nil;
-//    if (errorCode != ERROR_OK) {
-//        NSString *errorDomain = [responseParams get:KeyResponseError];
-//        error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:nil];
-//    }else{
-//        _itemDetail = (ItemDetailResponse *)[responseParams get:KeyResponseObject];
-//        [self previewData];
-//    }
-//}
-//
-//- (void)begin:(TenpossCommunicator*)request data:(Bundle*) responseParams{
-//
-//}
-//
-//-( void)cancelAllRequest{
-//
-//}
+- (void)onHeaderSegmentedChange:(id)sender{
+    if ([sender isKindOfClass:[TenpossSegmentedControl class]]) {
+        _currentSwitchIndex = [((TenpossSegmentedControl *)sender) getSelectedIndex];
+        NSLog(@"Value Changed to %ld", (long)_currentSwitchIndex);
+
+        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
+    }
+}
+
+#pragma mark - TenpossCommunicatorDelegate
+
+- (void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams{
+    NSInteger errorCode =[responseParams getInt:KeyResponseResult];
+    NSError *error = nil;
+    if (errorCode != ERROR_OK) {
+        NSString *errorDomain = [responseParams get:KeyResponseError];
+        error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:nil];
+        
+        if ([request isKindOfClass:[ItemDetailCommunicator class]]) {
+            [self showErrorScreen:@"Error, something went wrong! Please try again." andRetryButton:^{
+                [self getItemDetail];
+            }];
+            return;
+        }else if ([request isKindOfClass:[ItemRelatedCommunicator class]]){
+            [self previewData];
+        }
+        
+        
+    }else{
+        if ([request isKindOfClass:[ItemDetailCommunicator class]]) {
+            ItemDetailResponse *itemDetail = (ItemDetailResponse *)[responseParams get:KeyResponseObject];
+            if (itemDetail) {
+                if (itemDetail.detail) {
+                    [_item updateItemWithItem:itemDetail.detail];
+                }
+                if (itemDetail.items_related && [itemDetail.items_related count] > 0) {
+                    [_item.rel_items removeAllObjects];
+                    [_item.rel_items addObjectsFromArray:itemDetail.items_related];
+                }
+                if (itemDetail.total_items_related) {
+                    _item.total_items_related = itemDetail.total_items_related;
+                }
+            }
+            [self getItemRelated];
+        }else if ([request isKindOfClass:[ItemRelatedCommunicator class]]){
+            ItemRelatedResponse *itemRelated = (ItemRelatedResponse *)[responseParams get:KeyResponseObject];
+            if (itemRelated) {
+                if (itemRelated.items && [itemRelated.items count] > 0) {
+                    for(ProductObject *item in itemRelated.items){
+                        [_item addRelatedItem:item];
+                    }
+                    _item.rel_pageindex += 1;
+                }
+                if (itemRelated.total_items) {
+                    _item.total_items_related = itemRelated.total_items;
+                }
+            }
+            [self previewData];
+        }
+    }
+}
+
+- (void)begin:(TenpossCommunicator*)request data:(Bundle*) responseParams{
+
+}
+
+-( void)cancelAllRequest{
+
+}
 
 #pragma mark - SFSafariViewControllerDelegate
 

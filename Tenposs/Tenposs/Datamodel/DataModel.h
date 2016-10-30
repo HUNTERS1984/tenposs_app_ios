@@ -85,13 +85,25 @@
 @property (strong, nonatomic) NSString *price;
 @property (strong, nonatomic) NSString *image_url;
 @property (strong, nonatomic) NSString *item_link;
-@property (strong, nonatomic) NSString *menu;
+
+@property (assign, nonatomic) NSInteger menu_id;
+@property (strong, nonatomic) NSString *menu_name;
+
 @property (strong, nonatomic) NSMutableArray <ConvertOnDemand, ProductSizeObject> *size;
 @property (strong, nonatomic) ProductCategoryObject *parentCategory;
-@property(strong, nonatomic) NSMutableArray <ConvertOnDemand, ProductObject> *rel_items;
+
 @property (strong, nonatomic) NSMutableArray *sizeArray;
+@property (assign, nonatomic) NSInteger numberOfSizeColumn;
+
+@property(strong, nonatomic) NSMutableArray <ConvertOnDemand, ProductObject> *rel_items;
+@property(assign, nonatomic) NSInteger rel_pageindex;
+@property (assign, nonatomic) NSInteger total_items_related;
+
 - (void)updateItemWithItem:(ProductObject *)item;
 - (NSMutableArray *)getSizeArray;
+- (NSInteger)getNumberOfSizeColumn;
+- (void)addRelatedItem:(ProductObject *)rel;
+
 @end
 
 @interface ProductCategoryObject : JSONModel{
@@ -127,6 +139,7 @@
 
 @interface NewsCategoryObject : JSONModel <NewsContainer>
 @property (assign, nonatomic) NSInteger category_id;
+@property (strong, nonatomic) NSString *title;
 @property (assign, nonatomic) NSInteger store_id;
 @property (assign, nonatomic) NSInteger pageIndex;
 @property (assign, nonatomic) NSInteger totalnew;
@@ -278,6 +291,7 @@
 
 @property (assign, nonatomic) NSInteger staff_id;
 @property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *price;
 @property (strong, nonatomic) NSString *image_url;
 @property (strong, nonatomic) NSString *introduction;
 @property (strong, nonatomic) NSString *gender;

@@ -18,6 +18,17 @@
 #pragma mark - Product
 @implementation ProductObject
 
+- (instancetype)init{
+    self = [super init];
+    
+    if (self) {
+        _numberOfSizeColumn = -1;
+        _rel_pageindex = 1;
+        _rel_items = (NSMutableArray <ProductObject> *)[NSMutableArray new];
+    }
+    return self;
+}
+
 +(BOOL)propertyIsOptional:(NSString *)propertyName{
     return YES;
 }
@@ -25,7 +36,8 @@
 
 +(JSONKeyMapper*)keyMapper
 {
-    return [[JSONKeyMapper alloc] initWithDictionary:@{@"id":@"product_id",@"description":@"desc"}];
+    return [[JSONKeyMapper alloc] initWithDictionary:@{@"id":@"product_id"
+                                                       ,@"description":@"desc"}];
 }
 
 - (void)updateItemWithItem:(ProductObject *)item{
@@ -36,7 +48,6 @@
     self.desc = item.desc;
     self.price = item.price;
     self.image_url = item.image_url;
-    self.rel_items = item.rel_items;
 }
 
 - (NSMutableArray *)getSizeArray{
@@ -51,19 +62,21 @@
         NSMutableArray *sizeTypeArray = [NSMutableArray new];
         NSMutableArray *sizeCategoryArray = [NSMutableArray new];
         for (ProductSizeObject *size in _size) {
-            if (size.item_size_type_name) {
+            if (size.item_size_type_name && ![sizeTypeArray containsObject:size.item_size_type_name]) {
                 [sizeTypeArray addObject:size.item_size_type_name];
             }
-            if(size.item_size_category_name){
+            if(size.item_size_category_name && ![sizeCategoryArray containsObject:size.item_size_category_name]){
                 [sizeCategoryArray addObject:size.item_size_category_name];
             }
         }
+        
+        _numberOfSizeColumn = [sizeTypeArray count] + 1;
         
         for (NSString *cateName in sizeCategoryArray) {
             [sizeObjectArray addObject:cateName];
             for (ProductSizeObject *size in _size) {
                 NSMutableArray *s = [NSMutableArray new];
-                if ([size.item_size_category_name isEqualToString:cateName]) {
+                if ([size.item_size_category_name isEqualToString:cateName] && ![s containsObject:size]) {
                     [s addObject:size];
                 }
                 NSSortDescriptor *sortDescriptor;
@@ -71,7 +84,7 @@
                                                              ascending:YES];
                 NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
                 NSArray *sortedArray = [s sortedArrayUsingDescriptors:sortDescriptors];
-                
+                [sizeObjectArray addObjectsFromArray:sortedArray];
             }
         }
         
@@ -83,6 +96,19 @@
         }
     }
     return nil;
+}
+
+-(NSInteger)getNumberOfSizeColumn{
+    if (_numberOfSizeColumn == -1) {
+        [self getSizeArray];
+    }
+    return _numberOfSizeColumn;
+}
+
+- (void)addRelatedItem:(ProductObject *)rel{
+    if (![_rel_items containsObject:rel]) {
+        [_rel_items addObject:rel];
+    }
 }
 
 @end
@@ -229,10 +255,7 @@
 }
 
 - (NSString *)title{
-    if (_store_id != 0) {
-        return [NSString stringWithFormat:@"%@ - %ld",@"Store",(long)_store_id];
-    }
-    return @"";
+    return _name;
 }
 
 - (void)addNews:(NewsObject *)new{

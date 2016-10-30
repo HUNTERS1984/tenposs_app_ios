@@ -68,6 +68,7 @@
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:frame];
     imageView.backgroundColor = [UIColor lightGrayColor];
     [imageView setContentMode:UIViewContentModeScaleAspectFill];
+    imageView.clipsToBounds = YES;
     [imageView sd_setImageWithURL:[NSURL URLWithString:top.image_url]];
     
     [self.scrollView addSubview:imageView];

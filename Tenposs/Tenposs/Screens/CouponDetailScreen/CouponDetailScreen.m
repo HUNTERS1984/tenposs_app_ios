@@ -208,12 +208,18 @@
 - (IBAction)useCouponClicked:(id)sender{
     //TODO: show REAL QRCode
     [self performSegueWithIdentifier:@"coupon_qrcode" sender:@"http://google.com"];
+    
+//    QRCodeScreen *qrScreen = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([QRCodeScreen class])];
+//    qrScreen.QRString = @"http://google.com";
+//    
+//    [self presentViewController:qrScreen animated:YES completion:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"coupon_qrcode"]) {
         QRCodeScreen *qrScreen = (QRCodeScreen *)segue.destinationViewController;
         qrScreen.QRString = @"http://google.com";
+        qrScreen.coupon = _coupon;
     }
 }
 

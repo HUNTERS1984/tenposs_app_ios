@@ -1,14 +1,14 @@
 //
-//  ItemDetailCommunicator.m
+//  ItemRelatedCommunicator.m
 //  Tenposs
 //
-//  Created by Phúc Nguyễn on 9/7/16.
+//  Created by Phúc Nguyễn on 10/27/16.
 //  Copyright © 2016 Tenposs. All rights reserved.
 //
 
-#import "ItemDetailCommunicator.h"
+#import "ItemRelatedCommunicator.h"
 
-@implementation ItemDetailResponse
+@implementation ItemRelatedResponse
 
 + (BOOL)propertyIsOptional:(NSString *)propertyName{
     return YES;
@@ -16,26 +16,26 @@
 
 +(JSONKeyMapper*)keyMapper{
     return [[JSONKeyMapper alloc] initWithDictionary:@{
-                                                       @"data.detail":@"detail",
-                                                       @"data.items_related":@"items_related",
-                                                       @"data.total_items_related":@"total_items_related"
-                                                        }];
+                                                       @"data.items":@"items",
+                                                       @"data.total_items":@"total_items"
+                                                       }];
 }
 
 @end
 
-@implementation ItemDetailCommunicator
+@implementation ItemRelatedCommunicator
+
 - (void)customPrepare:(Bundle *)params{
-    NSString* strUrl = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddress],API_ITEMS_DETAIL];
+    NSString* strUrl = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddress],API_ITEMS_RELATE];
     strUrl = [strUrl stringByAppendingFormat:@"%@", [RequestBuilder requestBuilder:params]];
     [params put:KeyRequestURL value:strUrl];
 }
 
 - (void)customProcess:(Bundle *)params{
     NSError* error = nil;
-    ItemDetailResponse* data = nil;
+    ItemRelatedResponse* data = nil;
     @try {
-        data = [[ItemDetailResponse alloc] initWithData:self.responseData error:&error];
+        data = [[ItemRelatedResponse alloc] initWithData:self.responseData error:&error];
     }
     @catch (NSException *exception) {
         NSLog(@"%@", exception);
@@ -59,4 +59,5 @@
         }
     }
 }
+
 @end

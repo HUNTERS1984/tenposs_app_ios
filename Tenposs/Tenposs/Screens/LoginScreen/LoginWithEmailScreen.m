@@ -104,9 +104,9 @@
             [UserData shareInstance].userDataDictionary = [dictionary mutableCopy];
             [[UserData shareInstance] saveUserData];
 
-            if ([[UserData shareInstance] getUserEmail] == nil) {
-                [[UserData shareInstance] setUserEmail:_emailText.text];
-            }
+//            if ([[UserData shareInstance] getUserEmail] == nil) {
+//                [[UserData shareInstance] setUserEmail:_emailText.text];
+//            }
 
             AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
             [delegate registerPushNotification];

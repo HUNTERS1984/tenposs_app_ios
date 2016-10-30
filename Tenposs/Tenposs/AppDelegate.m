@@ -70,7 +70,19 @@
     
     [self.window makeKeyAndVisible];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProfile:) name:NOTI_USER_PROFILE_REQUEST object:nil];
+    
     return YES;
+}
+
+- (void)updateProfile:(NSNotification *)notification{
+    if([notification.userInfo objectForKey:@"status"]){
+        NSString *status = [notification.userInfo objectForKey:@"status"];
+        if ([status isEqualToString:@"failed"]) {
+            UIAlertView *failAlert = [[UIAlertView alloc] initWithTitle:@"Something went wrong!" message:@"We cannot update your profile at the meantime, please try again!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [failAlert show];
+        }
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -123,12 +135,11 @@
     NSMutableDictionary *params = [NSMutableDictionary new];
     [params setObject:devtoken forKey:KeyAPI_KEY];
     [params setObject:@"1" forKey:KeyAPI_CLIENT];
-    [params setObject:[[UserData shareInstance] getToken] forKey:KeyAPI_TOKEN];
     [[NetworkCommunicator shareInstance] POST:API_SETPUSHKEY parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
         if(isSuccess) {
-
+            //TODO: Successfully send Push key
         }else{
-            
+            //TODO: Failed send Push key
         }
     }];
 }
@@ -297,7 +308,6 @@
                 else
                     [self.avatarIcon setImage:[UIImage imageNamed:@"user_icon"]];
             }
-            
             
             [UIView animateWithDuration:1 animations:^{
                 [self.smallNofiticationView setFrame:CGRectMake(0, 20, self.window.bounds.size.width, 64)];

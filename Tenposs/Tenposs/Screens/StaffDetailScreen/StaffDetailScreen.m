@@ -43,6 +43,9 @@
 //
 
 @property DescriptionCellInfo *introductionData;
+@property DescriptionCellInfo *informationData;
+
+@property NSInteger currentSwitchIndex;
 
 @end
 
@@ -116,8 +119,35 @@
 -(void)previewData{
     if(!_introductionData){
         //TODO: Clear mockup
-        _introductionData = [[DescriptionCellInfo alloc]initWithFullText:@"Lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. In diam ante, tempus ullamcorper erat at, placerat dictum diam. Suspendisse potenti. Fusce interdum, augue non interdum pellentesque, velit velit interdum ex, at sagittis sem nulla at ipsum. Proin posuere ex vitae odio cursus placerat. Nunc felis turpis, fringilla ut ultricies sed, sodales non elit. Phasellus sit amet lacus quis felis commodo sagittis. In eu ornare elit, venenatis hendrerit lorem. Donec elementum mollis elementum. Integer tempus sem non pellentesque lacinia. Etiam dapibus dictum sapien non convallis.\n\nCras id tincidunt diam. Nunc nibh metus, ultricies eu gravida elementum, feugiat in justo. Sed sed vestibulum velit. Sed et sapien eget elit sodales porttitor. In sed nisi dignissim, ultricies enim non, auctor purus. Sed consequat tellus quam, id consequat turpis vestibulum eget. Curabitur gravida nisl id vestibulum ultrices. Nulla ut nisi fermentum, consectetur ex id, dapibus nunc. Etiam tristique molestie posuere.\n\n\nSed blandit ligula sit amet finibus finibus. Suspendisse ornare diam non elit luctus varius. Morbi in erat vehicula."];
+        _introductionData = [[DescriptionCellInfo alloc]initWithFullText:_staff.introduction];
         [_introductionData calculateFullTextHeightWithWidth:(self.collectionView.bounds.size.width - 16)];
+    }
+    if (!_informationData) {
+        NSString *infoString = @"";
+        
+        if (_staff.name && ![_staff.name isEqualToString:@""]) {
+            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"Name: %@", _staff.name]];
+            infoString = [infoString stringByAppendingString:@"\n\n"];
+        }
+        if (_staff.price && ![_staff.price isEqualToString:@""]) {
+            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"Price: %@", _staff.price]];
+            infoString = [infoString stringByAppendingString:@"\n\n"];
+        }
+        if (_staff.birthday && ![_staff.birthday isEqualToString:@""]) {
+            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"Birthday: %@", _staff.birthday]];
+            infoString = [infoString stringByAppendingString:@"\n\n"];
+        }
+        if (_staff.gender && ![_staff.gender isEqualToString:@""]) {
+            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"Gender: %@", _staff.gender]];
+            infoString = [infoString stringByAppendingString:@"\n\n"];
+        }
+        if (_staff.tel && ![_staff.tel isEqualToString:@""]) {
+            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"Tel: %@", _staff.tel]];
+            infoString = [infoString stringByAppendingString:@"\n\n"];
+        }
+        
+        _informationData = [[DescriptionCellInfo alloc]initWithFullText:infoString];
+        [_informationData calculateFullTextHeightWithWidth:(self.collectionView.bounds.size.width - 16)];
     }
     [self.collectionView reloadData];
     [self removeLoadingView];
@@ -127,7 +157,19 @@
 
 -(BOOL)sectionShouldHaveFooter:(NSInteger)section{
     if (section == 1) {
-        return YES;
+        if (_currentSwitchIndex == 0) {
+            if (_introductionData.fullSizeHeight <= DETAIL_DESCRIPTION_COLLAPSE) {
+                return NO;
+            }else{
+                return YES;
+            }
+        }else if (_currentSwitchIndex == 1){
+            if (_informationData.fullSizeHeight <= DETAIL_DESCRIPTION_COLLAPSE) {
+                return NO;
+            }else{
+                return YES;
+            }
+        }
     }
     return NO;
 }
@@ -142,11 +184,17 @@
         case 1:{
             NSInteger index = indexPath.row;
             if (index == 0) {
+                //Staff name
                 return _staff;
             }else if (index == 1){
+                //segmented header
                 return _staff;
             }else{
-                return _introductionData;
+                if (_currentSwitchIndex == 0) {
+                    return _introductionData;
+                }else if (_currentSwitchIndex == 1){
+                    return _informationData;
+                }
             }
         }
             break;
@@ -154,6 +202,7 @@
             return nil;
             break;
     }
+    return nil;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -190,6 +239,10 @@
                 cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Detail_ItemName class]) forIndexPath:indexPath];
             }else if (index == 1){
                 cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Detail_Header_Segmented class]) forIndexPath:indexPath];
+                [((Item_Detail_Header_Segmented *)cell).segmentControl setItems:[NSMutableArray arrayWithObjects:NSLocalizedString(@"staff_description", nil),NSLocalizedString(@"staff_profile", nil), nil]];
+                [((Item_Detail_Header_Segmented *)cell).segmentControl addTarget:self action:@selector(onHeaderSegmentedChange:) forControlEvents:UIControlEventValueChanged];
+                [((Item_Detail_Header_Segmented *)cell).segmentControl setSelectedIndex:_currentSwitchIndex];
+                [((Item_Detail_Header_Segmented *)cell).segmentControl setSelectedIndex:_currentSwitchIndex];
             }else{
                 cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Detail_Description class]) forIndexPath:indexPath];
                 [((Item_Detail_Description *)cell) configureCellWithData:data WithWidth:self.collectionView.bounds.size.width - 16];
@@ -216,13 +269,20 @@
             
             TopFooterTouchHandler handler = nil;
             __weak StaffDetailScreen *weakSelf = self;
-            __weak DescriptionCellInfo *weakCellInfo = _introductionData;
+            
+            __weak DescriptionCellInfo *weakCellInfo = nil;
+            if (_currentSwitchIndex == 0) {
+                weakCellInfo = _introductionData;
+            }else if (_currentSwitchIndex == 1){
+                weakCellInfo = _informationData;
+            }
             if (section == 1) {
                 //Show More Description
                 handler = ^{
                     NSLog(@"Show More Description");
-                    weakCellInfo.isCollapsed = !weakCellInfo.isCollapsed;
-                    //[weakSelf.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:([NSIndexPath indexPathForRow:2 inSection:section]) ]];
+                    if (weakCellInfo) {
+                        weakCellInfo.isCollapsed = !weakCellInfo.isCollapsed;
+                    }
                     [weakSelf.collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
                 };
             }
@@ -299,6 +359,17 @@
         return CGSizeZero;
     }else{
         return CGSizeMake(collectionView.bounds.size.width, [Top_Footer height]);
+    }
+}
+
+#pragma mark - Private Methods
+
+- (void)onHeaderSegmentedChange:(id)sender{
+    if ([sender isKindOfClass:[TenpossSegmentedControl class]]) {
+        _currentSwitchIndex = [((TenpossSegmentedControl *)sender) getSelectedIndex];
+        NSLog(@"Value Changed to %ld", (long)_currentSwitchIndex);
+        
+        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
     }
 }
 

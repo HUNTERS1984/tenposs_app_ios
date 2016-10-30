@@ -15,13 +15,6 @@
 
 @implementation UserPrivacyScreen
 
-- (id)initWithFile:(NSString*)file specifier:(IASKSpecifier*)specifier {
-    if ((self = [super init])) {
-        
-    }
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     

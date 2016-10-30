@@ -87,6 +87,7 @@
     
     //Show alert
     self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [parentViewController presentViewController:self animated:YES completion:nil];
     
 }

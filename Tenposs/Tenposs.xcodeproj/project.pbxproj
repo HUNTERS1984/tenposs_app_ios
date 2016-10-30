@@ -55,6 +55,9 @@
 		022F25E61D53563F008AEBA1 /* UIViewController+MFSideMenuAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 022F25E51D53563F008AEBA1 /* UIViewController+MFSideMenuAdditions.m */; };
 		022F25EA1D535983008AEBA1 /* UIViewController+LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 022F25E91D535983008AEBA1 /* UIViewController+LoadingView.m */; };
 		0231D18A1D6418EF0021E0E0 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0231D1891D6418EF0021E0E0 /* Utils.m */; };
+		023D51541DC1BB4900B83ACA /* StaffListPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 023D51521DC1BB4900B83ACA /* StaffListPopup.m */; };
+		023D51551DC1BB4900B83ACA /* StaffListPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 023D51531DC1BB4900B83ACA /* StaffListPopup.xib */; };
+		023D515E1DC23A6300B83ACA /* ItemRelatedCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 023D515D1DC23A6300B83ACA /* ItemRelatedCommunicator.m */; };
 		024C4D241D59E89100896EE4 /* GrandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 024C4D231D59E89100896EE4 /* GrandViewController.m */; };
 		024C4D271D59F3D900896EE4 /* MenuScreenDetailDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 024C4D261D59F3D900896EE4 /* MenuScreenDetailDataSource.m */; };
 		024C4D2A1D59F4D200896EE4 /* MenuScreenDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 024C4D291D59F4D200896EE4 /* MenuScreenDataSource.m */; };
@@ -89,12 +92,19 @@
 		0257C2F01D85872800506F73 /* StaffScreenDetailDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0257C2EF1D85872800506F73 /* StaffScreenDetailDataSource.m */; };
 		0257C2F31D85880F00506F73 /* StaffCategoryCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0257C2F21D85880F00506F73 /* StaffCategoryCommunicator.m */; };
 		0257C2F61D858A2600506F73 /* StaffCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0257C2F51D858A2600506F73 /* StaffCommunicator.m */; };
+		025E89F81DC5DB2B009680D4 /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 025E89F71DC5DB2B009680D4 /* UIImage+fixOrientation.m */; };
 		026409DA1DABD00800B2F5DA /* ShareAppScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 026409D91DABD00800B2F5DA /* ShareAppScreen.m */; };
 		026409DE1DAC9D0E00B2F5DA /* UserHomeScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 026409DD1DAC9D0E00B2F5DA /* UserHomeScreen.m */; };
 		026409E41DACC0A800B2F5DA /* MBCircularProgressBarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 026409E11DACC0A800B2F5DA /* MBCircularProgressBarLayer.m */; };
 		026409E51DACC0A800B2F5DA /* MBCircularProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 026409E31DACC0A800B2F5DA /* MBCircularProgressBarView.m */; };
 		026409E91DAD028100B2F5DA /* DashedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 026409E81DAD028100B2F5DA /* DashedLineView.m */; };
 		026409ED1DADE1E300B2F5DA /* CouponAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 026409EC1DADE1E300B2F5DA /* CouponAlertView.m */; };
+		02640ADA1DBF47E200B2F5DA /* SettingHomeScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02640AD91DBF47E200B2F5DA /* SettingHomeScreen.m */; };
+		02640ADE1DC017E900B2F5DA /* Settings_Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 02640ADC1DC017E900B2F5DA /* Settings_Text.m */; };
+		02640ADF1DC017E900B2F5DA /* Settings_Text.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02640ADD1DC017E900B2F5DA /* Settings_Text.xib */; };
+		02640AE31DC01E6900B2F5DA /* Settings_Text_Switch.m in Sources */ = {isa = PBXBuildFile; fileRef = 02640AE11DC01E6900B2F5DA /* Settings_Text_Switch.m */; };
+		02640AE41DC01E6900B2F5DA /* Settings_Text_Switch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02640AE21DC01E6900B2F5DA /* Settings_Text_Switch.xib */; };
+		02640AEA1DC0C1CA00B2F5DA /* SettingsEditProfileScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02640AE91DC0C1CA00B2F5DA /* SettingsEditProfileScreen.m */; };
 		028A09871D77DBC1000BDD41 /* SignUpScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 028A09861D77DBC1000BDD41 /* SignUpScreen.m */; };
 		0299E6F91DA4F71300C0A755 /* GetPushSettingsCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299E6F81DA4F71300C0A755 /* GetPushSettingsCommunicator.m */; };
 		0299E6FC1DA5165500C0A755 /* ReserveCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299E6FB1DA5165500C0A755 /* ReserveCommunicator.m */; };
@@ -103,7 +113,7 @@
 		02AEEE971D6A73AD0064BB0B /* Item_Cell_Coupon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02AEEE951D6A73AD0064BB0B /* Item_Cell_Coupon.xib */; };
 		02AEEE9B1D6A7AD70064BB0B /* CouponScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AEEE9A1D6A7AD70064BB0B /* CouponScreen.m */; };
 		02AEEE9E1D6A7AF60064BB0B /* CouponDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AEEE9D1D6A7AF60064BB0B /* CouponDataSource.m */; };
-		02B8CF861D8696D200FDE695 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B8CF851D8696D200FDE695 /* SettingsTableViewController.m */; };
+		02B2ABF11DC30D4B00074B65 /* UpdateProfileCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B2ABF01DC30D4B00074B65 /* UpdateProfileCommunicator.m */; };
 		02C982741D9A6FE500EEAAA1 /* SideMenuIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C982731D9A6FE500EEAAA1 /* SideMenuIcon.m */; };
 		02C982771DA1E50000EEAAA1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C982761DA1E50000EEAAA1 /* Reachability.m */; };
 		02CD65931D47CD130015661D /* MenuItem_User.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CD65911D47CD130015661D /* MenuItem_User.m */; };
@@ -287,6 +297,11 @@
 		022F25E91D535983008AEBA1 /* UIViewController+LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LoadingView.m"; sourceTree = "<group>"; };
 		0231D1881D6418EF0021E0E0 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		0231D1891D6418EF0021E0E0 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		023D51511DC1BB4900B83ACA /* StaffListPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffListPopup.h; sourceTree = "<group>"; };
+		023D51521DC1BB4900B83ACA /* StaffListPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffListPopup.m; sourceTree = "<group>"; };
+		023D51531DC1BB4900B83ACA /* StaffListPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StaffListPopup.xib; sourceTree = "<group>"; };
+		023D515C1DC23A6300B83ACA /* ItemRelatedCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemRelatedCommunicator.h; sourceTree = "<group>"; };
+		023D515D1DC23A6300B83ACA /* ItemRelatedCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemRelatedCommunicator.m; sourceTree = "<group>"; };
 		024C4D221D59E89100896EE4 /* GrandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrandViewController.h; sourceTree = "<group>"; };
 		024C4D231D59E89100896EE4 /* GrandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrandViewController.m; sourceTree = "<group>"; };
 		024C4D251D59F3D900896EE4 /* MenuScreenDetailDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScreenDetailDataSource.h; sourceTree = "<group>"; };
@@ -344,6 +359,8 @@
 		0257C2F21D85880F00506F73 /* StaffCategoryCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffCategoryCommunicator.m; sourceTree = "<group>"; };
 		0257C2F41D858A2600506F73 /* StaffCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffCommunicator.h; sourceTree = "<group>"; };
 		0257C2F51D858A2600506F73 /* StaffCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffCommunicator.m; sourceTree = "<group>"; };
+		025E89F61DC5DB2B009680D4 /* UIImage+fixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+fixOrientation.h"; sourceTree = "<group>"; };
+		025E89F71DC5DB2B009680D4 /* UIImage+fixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+fixOrientation.m"; sourceTree = "<group>"; };
 		026409D81DABD00800B2F5DA /* ShareAppScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareAppScreen.h; sourceTree = "<group>"; };
 		026409D91DABD00800B2F5DA /* ShareAppScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareAppScreen.m; sourceTree = "<group>"; };
 		026409DC1DAC9D0E00B2F5DA /* UserHomeScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHomeScreen.h; sourceTree = "<group>"; };
@@ -356,6 +373,16 @@
 		026409E81DAD028100B2F5DA /* DashedLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashedLineView.m; sourceTree = "<group>"; };
 		026409EB1DADE1E300B2F5DA /* CouponAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponAlertView.h; sourceTree = "<group>"; };
 		026409EC1DADE1E300B2F5DA /* CouponAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponAlertView.m; sourceTree = "<group>"; };
+		02640AD81DBF47E200B2F5DA /* SettingHomeScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingHomeScreen.h; sourceTree = "<group>"; };
+		02640AD91DBF47E200B2F5DA /* SettingHomeScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingHomeScreen.m; sourceTree = "<group>"; };
+		02640ADB1DC017E900B2F5DA /* Settings_Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings_Text.h; sourceTree = "<group>"; };
+		02640ADC1DC017E900B2F5DA /* Settings_Text.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings_Text.m; sourceTree = "<group>"; };
+		02640ADD1DC017E900B2F5DA /* Settings_Text.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Settings_Text.xib; sourceTree = "<group>"; };
+		02640AE01DC01E6900B2F5DA /* Settings_Text_Switch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings_Text_Switch.h; sourceTree = "<group>"; };
+		02640AE11DC01E6900B2F5DA /* Settings_Text_Switch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings_Text_Switch.m; sourceTree = "<group>"; };
+		02640AE21DC01E6900B2F5DA /* Settings_Text_Switch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Settings_Text_Switch.xib; sourceTree = "<group>"; };
+		02640AE81DC0C1CA00B2F5DA /* SettingsEditProfileScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsEditProfileScreen.h; sourceTree = "<group>"; };
+		02640AE91DC0C1CA00B2F5DA /* SettingsEditProfileScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsEditProfileScreen.m; sourceTree = "<group>"; };
 		028A09851D77DBC1000BDD41 /* SignUpScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpScreen.h; sourceTree = "<group>"; };
 		028A09861D77DBC1000BDD41 /* SignUpScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpScreen.m; sourceTree = "<group>"; };
 		0299E6F71DA4F71300C0A755 /* GetPushSettingsCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPushSettingsCommunicator.h; sourceTree = "<group>"; };
@@ -369,8 +396,8 @@
 		02AEEE9A1D6A7AD70064BB0B /* CouponScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponScreen.m; sourceTree = "<group>"; };
 		02AEEE9C1D6A7AF60064BB0B /* CouponDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponDataSource.h; sourceTree = "<group>"; };
 		02AEEE9D1D6A7AF60064BB0B /* CouponDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponDataSource.m; sourceTree = "<group>"; };
-		02B8CF841D8696D200FDE695 /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
-		02B8CF851D8696D200FDE695 /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
+		02B2ABEF1DC30D4B00074B65 /* UpdateProfileCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateProfileCommunicator.h; sourceTree = "<group>"; };
+		02B2ABF01DC30D4B00074B65 /* UpdateProfileCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateProfileCommunicator.m; sourceTree = "<group>"; };
 		02C982721D9A6FE500EEAAA1 /* SideMenuIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideMenuIcon.h; sourceTree = "<group>"; };
 		02C982731D9A6FE500EEAAA1 /* SideMenuIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideMenuIcon.m; sourceTree = "<group>"; };
 		02C982751DA1E50000EEAAA1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -745,6 +772,12 @@
 				02F0293F1D866BD1002EF7E8 /* Settings_Social_Connect.h */,
 				02F029401D866BD1002EF7E8 /* Settings_Social_Connect.m */,
 				02F029411D866BD1002EF7E8 /* Settings_Social_Connect.xib */,
+				02640ADB1DC017E900B2F5DA /* Settings_Text.h */,
+				02640ADC1DC017E900B2F5DA /* Settings_Text.m */,
+				02640ADD1DC017E900B2F5DA /* Settings_Text.xib */,
+				02640AE01DC01E6900B2F5DA /* Settings_Text_Switch.h */,
+				02640AE11DC01E6900B2F5DA /* Settings_Text_Switch.m */,
+				02640AE21DC01E6900B2F5DA /* Settings_Text_Switch.xib */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -754,10 +787,12 @@
 			children = (
 				0257C2D41D8543F500506F73 /* SettingsScreen.h */,
 				0257C2D51D8543F500506F73 /* SettingsScreen.m */,
-				02B8CF841D8696D200FDE695 /* SettingsTableViewController.h */,
-				02B8CF851D8696D200FDE695 /* SettingsTableViewController.m */,
 				02FDEFFB1D86E024005AC6E9 /* SettingsProvineScreen.h */,
 				02FDEFFC1D86E024005AC6E9 /* SettingsProvineScreen.m */,
+				02640AD81DBF47E200B2F5DA /* SettingHomeScreen.h */,
+				02640AD91DBF47E200B2F5DA /* SettingHomeScreen.m */,
+				02640AE81DC0C1CA00B2F5DA /* SettingsEditProfileScreen.h */,
+				02640AE91DC0C1CA00B2F5DA /* SettingsEditProfileScreen.m */,
 			);
 			path = SettingsScreen;
 			sourceTree = "<group>";
@@ -1033,6 +1068,9 @@
 				02F097221D6B13A200E737C7 /* CouponDetailScreen.m */,
 				02FDF0161D88D642005AC6E9 /* QRCodeScreen.h */,
 				02FDF0171D88D642005AC6E9 /* QRCodeScreen.m */,
+				023D51511DC1BB4900B83ACA /* StaffListPopup.h */,
+				023D51521DC1BB4900B83ACA /* StaffListPopup.m */,
+				023D51531DC1BB4900B83ACA /* StaffListPopup.xib */,
 			);
 			path = CouponDetailScreen;
 			sourceTree = "<group>";
@@ -1205,6 +1243,10 @@
 				0299E6F81DA4F71300C0A755 /* GetPushSettingsCommunicator.m */,
 				0299E6FA1DA5165500C0A755 /* ReserveCommunicator.h */,
 				0299E6FB1DA5165500C0A755 /* ReserveCommunicator.m */,
+				023D515C1DC23A6300B83ACA /* ItemRelatedCommunicator.h */,
+				023D515D1DC23A6300B83ACA /* ItemRelatedCommunicator.m */,
+				02B2ABEF1DC30D4B00074B65 /* UpdateProfileCommunicator.h */,
+				02B2ABF01DC30D4B00074B65 /* UpdateProfileCommunicator.m */,
 			);
 			path = Communicator;
 			sourceTree = "<group>";
@@ -1230,6 +1272,8 @@
 				0231D1891D6418EF0021E0E0 /* Utils.m */,
 				02C982721D9A6FE500EEAAA1 /* SideMenuIcon.h */,
 				02C982731D9A6FE500EEAAA1 /* SideMenuIcon.m */,
+				025E89F61DC5DB2B009680D4 /* UIImage+fixOrientation.h */,
+				025E89F71DC5DB2B009680D4 /* UIImage+fixOrientation.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1449,10 +1493,13 @@
 				022F25E11D52C8DA008AEBA1 /* Top_Footer.xib in Resources */,
 				02CD65941D47CD130015661D /* MenuItem_User.xib in Resources */,
 				024C4DB41D5D85CA00896EE4 /* news_list.json in Resources */,
+				02640AE41DC01E6900B2F5DA /* Settings_Text_Switch.xib in Resources */,
 				022114391D565A1000F44E88 /* app_info.json in Resources */,
 				02DAF3B51D47CAA70068BB71 /* LaunchScreen.storyboard in Resources */,
 				02CD65AD1D47D9AC0015661D /* Item_Cell_News.xib in Resources */,
+				023D51551DC1BB4900B83ACA /* StaffListPopup.xib in Resources */,
 				022F25DC1D52C7D3008AEBA1 /* Top_Header.xib in Resources */,
+				02640ADF1DC017E900B2F5DA /* Settings_Text.xib in Resources */,
 				024C4D871D5CA82100896EE4 /* Item_Cell_Top.xib in Resources */,
 				0257C2C41D849E6C00506F73 /* Settings.bundle in Resources */,
 				024C4DB31D5D85CA00896EE4 /* news_items_1.json in Resources */,
@@ -1594,11 +1641,13 @@
 				021AA4BF1D7F4B470042C511 /* NewsItemCommunicator.m in Sources */,
 				02F2FDC51D4A30E3006D4C83 /* JSONModelArray.m in Sources */,
 				02F2FDD31D4A30E3006D4C83 /* LogoutCommunicator.m in Sources */,
+				02640ADE1DC017E900B2F5DA /* Settings_Text.m in Sources */,
 				368212A31D7FBFD800E2DEF0 /* CXAHyperlinkLabel.m in Sources */,
 				02F2FDC11D4A30E3006D4C83 /* Bundle.m in Sources */,
 				0221B1061D946823008F26CA /* UIButton+HandleBlock.m in Sources */,
 				022F25E61D53563F008AEBA1 /* UIViewController+MFSideMenuAdditions.m in Sources */,
 				022F25B51D50B4C0008AEBA1 /* DataModel.m in Sources */,
+				023D515E1DC23A6300B83ACA /* ItemRelatedCommunicator.m in Sources */,
 				02C982771DA1E50000EEAAA1 /* Reachability.m in Sources */,
 				02F2FDCC1D4A30E3006D4C83 /* JSONKeyMapper.m in Sources */,
 				022F25CC1D52617D008AEBA1 /* MainNavigationController.m in Sources */,
@@ -1660,10 +1709,12 @@
 				0231D18A1D6418EF0021E0E0 /* Utils.m in Sources */,
 				0257C2EA1D85867700506F73 /* StaffScreen.m in Sources */,
 				02F2FDC81D4A30E3006D4C83 /* NSArray+JSONModel.m in Sources */,
+				023D51541DC1BB4900B83ACA /* StaffListPopup.m in Sources */,
 				02F098B71D890BF400E1D992 /* TabDataSource.m in Sources */,
 				02C982741D9A6FE500EEAAA1 /* SideMenuIcon.m in Sources */,
 				02F2FDC61D4A30E3006D4C83 /* JSONModelClassProperty.m in Sources */,
 				0257C2CC1D84A9EF00506F73 /* UserPrivacyScreen.m in Sources */,
+				02640AEA1DC0C1CA00B2F5DA /* SettingsEditProfileScreen.m in Sources */,
 				02FDF0151D88104F005AC6E9 /* OAuthScreen.m in Sources */,
 				022F25B81D516E4D008AEBA1 /* TopScreen.m in Sources */,
 				0221142C1D5441E000F44E88 /* Common_Item_Cell.m in Sources */,
@@ -1681,8 +1732,8 @@
 				02F2FDE51D4AF79B006D4C83 /* TopScreenDataSource.m in Sources */,
 				02F097541D74CAAB00E737C7 /* LoginWithEmailScreen.m in Sources */,
 				02F2FDC91D4A30E3006D4C83 /* JSONAPI.m in Sources */,
-				02B8CF861D8696D200FDE695 /* SettingsTableViewController.m in Sources */,
 				026409ED1DADE1E300B2F5DA /* CouponAlertView.m in Sources */,
+				02640AE31DC01E6900B2F5DA /* Settings_Text_Switch.m in Sources */,
 				022F25E01D52C8DA008AEBA1 /* Top_Footer.m in Sources */,
 				02AEEE9B1D6A7AD70064BB0B /* CouponScreen.m in Sources */,
 				021C81A41DA4CA66000FF5A7 /* Item_Detail_Item_Size.m in Sources */,
@@ -1696,6 +1747,7 @@
 				021AA4CA1D7FD81A0042C511 /* ItemDetailCommunicator.m in Sources */,
 				021AA4D11D7FDAC70042C511 /* Item_Detail_Description.m in Sources */,
 				02FDEFEF1D86BF64005AC6E9 /* ChatScreen.m in Sources */,
+				02640ADA1DBF47E200B2F5DA /* SettingHomeScreen.m in Sources */,
 				02AEEE9E1D6A7AF60064BB0B /* CouponDataSource.m in Sources */,
 				368212AB1D80029800E2DEF0 /* UserData.m in Sources */,
 				368212AE1D8002F900E2DEF0 /* EntityBase.m in Sources */,
@@ -1703,8 +1755,10 @@
 				021AA4C21D7F67FC0042C511 /* TenpossSegmentedControl.m in Sources */,
 				0257C2DF1D856A5000506F73 /* Settings_Expand_Selector.m in Sources */,
 				0257C2ED1D8586B000506F73 /* StaffScreenDataSource.m in Sources */,
+				02B2ABF11DC30D4B00074B65 /* UpdateProfileCommunicator.m in Sources */,
 				022F25DB1D52C7D3008AEBA1 /* Top_Header.m in Sources */,
 				02DAF3A71D47CAA70068BB71 /* main.m in Sources */,
+				025E89F81DC5DB2B009680D4 /* UIImage+fixOrientation.m in Sources */,
 				0257C2F01D85872800506F73 /* StaffScreenDetailDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

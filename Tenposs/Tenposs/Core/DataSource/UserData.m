@@ -9,6 +9,8 @@
 #import "UserData.h"
 #import "Const.h"
 #import "UIUtils.h"
+#import "SettingsEditProfileScreen.h"
+#import "Utils.h"
 
 @implementation UserData
 
@@ -46,6 +48,34 @@ NSMutableArray *recentSearchList=nil;
     }
     return NO;
 }
+
+- (BOOL)updateNewProfile:(NSDictionary *)newProfile{
+    NSDictionary * toUpdate = nil;
+    if ([newProfile objectForKey:@"user"]) {
+        toUpdate = [[newProfile objectForKey:@"user"] copy];
+    }else{
+        toUpdate = [newProfile copy];
+    }
+    [self setUserEmail:[toUpdate objectForKey:@"email"]];
+    if ([toUpdate objectForKey:@"profile"]) {
+        NSDictionary *profile = [toUpdate objectForKey:@"profile"];
+        [self setUserName:[profile objectForKey:@"name"]];
+        [self setUserProvine:[profile objectForKey:@"address"]];
+        NSString *gen = [profile objectForKey:@"gender"];
+        if (gen && ![gen isEqualToString:@""]) {
+            [self setUserGender:[gen integerValue]];
+        }
+        [self setUserAvatarUrl:[profile objectForKey:@"avatar_url"]];
+        [self setFacebookStatus:[profile objectForKey:@"facebook_status"]];
+        [self setTwitterStatus:[profile objectForKey:@"twitter_status"]];
+        [self setInstagramStatus:[profile objectForKey:@"instagram_status"]];
+    }
+    
+    [self saveUserData];
+    
+    return YES;
+}
+
 -(NSDictionary *)getUserData{
     NSError *error;
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -80,14 +110,22 @@ NSMutableArray *recentSearchList=nil;
     return [[[self getUserData] objectForKey:@"profile"] objectForKey:@"name"];
 }
 -(void)setUserName:(NSString *)username{
+    if (!username) {
+        return;
+    }
     if (!_userDataDictionary) {
         [self getUserData];
     }
-    [[_userDataDictionary objectForKey:@"profile" ] setObject:username forKey:@"name"];
+    NSMutableDictionary *profile = [[_userDataDictionary objectForKey:@"profile"] mutableCopy];
+    [profile setObject:username forKey:@"name"];
+    [_userDataDictionary setObject:profile forKey:@"profile"] ;
     [self saveUserData];
 }
 
 -(void)setUserEmail:(NSString *)email{
+    if (!email) {
+        return;
+    }
     if (!_userDataDictionary) {
         [self getUserData];
     }
@@ -148,6 +186,16 @@ NSMutableArray *recentSearchList=nil;
     return @"";
 }
 
+- (void)setUserAvatarUrl:(NSString *)url{
+    if (!url) {
+        return;
+    }
+    NSMutableDictionary *profile = [[_userDataDictionary objectForKey:@"profile"] mutableCopy];
+    [profile setObject:url forKey:@"avatar_url"];
+    [_userDataDictionary setObject:profile forKey:@"profile"] ;
+    [self saveUserData];
+}
+
 -(NSString *)getUserAvatarUrl{
     NSString *avatarUrl;
     if (_userDataDictionary) {
@@ -165,17 +213,24 @@ NSMutableArray *recentSearchList=nil;
 }
 
 -(void)setUserAvatarImg:(UIImage*)avatar{
-    NSData * data=UIImagePNGRepresentation(avatar);
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:data forKey:@"avatar_url"];
+    if (!avatar) {
+        [userDefaults setObject:[[NSData alloc]init] forKey:@"avatar_image"];
+        return;
+    }
+    NSData * data=UIImagePNGRepresentation(avatar);
+    [userDefaults setObject:data forKey:@"avatar_image"];
     [userDefaults synchronize];
 }
 -(UIImage*)getUserAvatarImg{
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-    return [UIImage imageWithData:[userDefaults objectForKey:@"avatar_url"]];
+    return [UIImage imageWithData:[userDefaults objectForKey:@"avatar_image"]];
 }
 
 -(BOOL)setDevToken:(NSString *)devToken{
+    if (!devToken) {
+        return NO;
+    }
     NSUserDefaults *userdef = [NSUserDefaults standardUserDefaults];
     [userdef setObject:devToken forKey:@"deviceToken"];
     [userdef synchronize];
@@ -187,7 +242,6 @@ NSMutableArray *recentSearchList=nil;
     return temp;
 }
 
-
 - (NSString *)getAppUserID{
     if (_userDataDictionary) {
         return [_userDataDictionary objectForKey:@"id"];
@@ -197,6 +251,9 @@ NSMutableArray *recentSearchList=nil;
 }
 
 - (void)setAppUserID:(NSString *)app_user_id{
+    if (!app_user_id) {
+        return;
+    }
     if (!_userDataDictionary) {
         [self getUserData];
     }
@@ -207,11 +264,14 @@ NSMutableArray *recentSearchList=nil;
 }
 
 - (void)setUserProvine:(NSString *)provine{
+    if(!provine){
+        return;
+    }
     if (!_userDataDictionary) {
         [self getUserData];
     }
     NSMutableDictionary *profile = [[_userDataDictionary objectForKey:@"profile"] mutableCopy];
-    [profile setObject:provine forKey:@"provine"];
+    [profile setObject:provine forKey:@"address"];
     [_userDataDictionary setObject:profile forKey:@"profile"] ;
     [self saveUserData];
 }
@@ -219,9 +279,9 @@ NSMutableArray *recentSearchList=nil;
 - (NSString *)getUserProvine{
     NSString *province;
     if (_userDataDictionary) {
-        province = [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"provine"];
+        province = [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"address"];
     }else{
-        province = [[[self getUserData] objectForKey:@"profile"] objectForKey:@"provine"];
+        province = [[[self getUserData] objectForKey:@"profile"] objectForKey:@"address"];
     }
     if (!province || [province isKindOfClass:[NSNull class]]) {
         return @"";
@@ -231,6 +291,9 @@ NSMutableArray *recentSearchList=nil;
 }
 
 - (void)setFacebookStatus:(NSString *)status{
+    if(!status){
+        return;
+    }
     if (!_userDataDictionary) {
         [self getUserData];
     }
@@ -248,6 +311,9 @@ NSMutableArray *recentSearchList=nil;
 }
 
 - (void)setTwitterStatus:(NSString *)status{
+    if(!status){
+        return;
+    }
     if (!_userDataDictionary) {
         [self getUserData];
     }
@@ -265,6 +331,9 @@ NSMutableArray *recentSearchList=nil;
 }
 
 - (void)setInstagramStatus:(NSString *)status{
+    if(!status){
+        return;
+    }
     if (!_userDataDictionary) {
         [self getUserData];
     }
@@ -316,7 +385,7 @@ NSMutableArray *recentSearchList=nil;
     }
     
     if(![profileToUpdate objectForKey:KeyAPI_AVATAR]){
-        [profileToUpdate setObject:[[NSData alloc]init] forKey:KeyAPI_AVATAR];
+//        [profileToUpdate setObject:[[NSData alloc]init] forKey:KeyAPI_AVATAR];
     }else{
         UIImage *image = (UIImage *)[profileToUpdate objectForKey:KeyAPI_AVATAR];
         image = [UIUtils scaleImage:image toSize:CGSizeMake(200,200)];
@@ -327,6 +396,37 @@ NSMutableArray *recentSearchList=nil;
     [[NetworkCommunicator shareInstance] POSTWithImage:API_UPDATE_PROFILE parameters:profileToUpdate onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
         NSLog(@"UPDATE_PROFILE");
         [profileToUpdate removeAllObjects];
+        if (isSuccess) {
+            
+            [[NSNotificationCenter defaultCenter]postNotificationName:NOTI_USER_PROFILE_REQUEST object:nil userInfo:@{@"status":@"success"}];
+            
+            if (![self getToken]) {
+                return;
+            }else{
+                
+                //Update profile from server
+                
+                Bundle *params = [Bundle new];
+                [params put:KeyAPI_TOKEN value:[self getToken]];
+                NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
+                [params put:KeyAPI_TIME value:currentTime];
+                NSArray *strings = [NSArray arrayWithObjects:[self getToken],currentTime,APP_SECRET,nil];
+                [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
+                
+                [[NetworkCommunicator shareInstance] GETWithoutPreDefined:API_PROFILE parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+                    if (isSuccess) {
+                        if([self updateNewProfile:dictionary]){
+                            [[NSNotificationCenter defaultCenter]postNotificationName:NOTI_USER_PROFILE_UPDATED object:nil userInfo:@{@"status":@"success"}];
+                        }
+                    }else{
+                        [self setUserAvatarImg:nil];
+                    }
+                }];
+            }
+        }else{
+            NSLog(@"%@", dictionary);
+            [[NSNotificationCenter defaultCenter]postNotificationName:NOTI_USER_PROFILE_REQUEST object:nil userInfo:@{@"status":@"failed"}];
+        }
     }];
 
 }
@@ -349,20 +449,61 @@ NSMutableArray *recentSearchList=nil;
 }
 
 - (void)updateSocialSetting:(NSMutableDictionary *)infoToUpdate{
+    
     if(![self getToken] || [infoToUpdate count] == 0){
         return;
     }
+    
+    __weak NSNumber *socialType = [infoToUpdate objectForKey:KeyAPI_SOCIAL_TYPE];
     
     [infoToUpdate setObject:[self getToken] forKey:KeyAPI_TOKEN];
     
     [[NetworkCommunicator shareInstance] POSTWithoutAppId:API_SOCIALSETTING parameters:infoToUpdate onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
         if(isSuccess){
-            NSLog(@"Update Social Profile settings SUCCESS!");
+            if ([socialType integerValue] == 1) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_SET_EDIT_CHANGED object:self userInfo:@{SET_EDIT_FACEBOOK:@"1"}];
+            }else if ([socialType integerValue] == 2){
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_SET_EDIT_CHANGED object:self userInfo:@{SET_EDIT_TWITTER:@"1"}];
+            }else if ([socialType integerValue] == 3){
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_SET_EDIT_CHANGED object:self userInfo:@{SET_EDIT_INSTAGRAM:@"1"}];
+            }
+            
         }else{
-            NSLog(@"Update Social Profile FAILD!");
+            if ([socialType integerValue] == 1) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_SET_EDIT_CHANGED object:self userInfo:@{SET_EDIT_FACEBOOK:@"0"}];
+            }else if ([socialType integerValue] == 2){
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_SET_EDIT_CHANGED object:self userInfo:@{SET_EDIT_TWITTER:@"0"}];
+            }else if ([socialType integerValue] == 3){
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_SET_EDIT_CHANGED object:self userInfo:@{SET_EDIT_INSTAGRAM:@"0"}];
+            }
         }
     }];
+}
+
+- (void)cancelSocial:(NSString *)type{
     
+    NSMutableDictionary *infoToUpdate = [NSMutableDictionary new];
+    
+    NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
+    [infoToUpdate setObject:[[UserData shareInstance] getToken] forKey:KeyAPI_TOKEN];
+    [infoToUpdate setObject:currentTime forKey:KeyAPI_TIME];
+    [infoToUpdate setObject:type forKey:KeyAPI_SOCIAL_TYPE];
+    NSArray *sigs = [NSArray arrayWithObjects:[[UserData shareInstance] getToken],currentTime,type,APP_SECRET,nil];
+    [infoToUpdate setObject:[Utils getSigWithStrings:sigs] forKey:KeyAPI_SIG];
+    
+    [[NetworkCommunicator shareInstance] POSTNoParams:API_SOCIAL_CANCEL parameters:infoToUpdate onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+        if(isSuccess){
+            if ([type integerValue] == 1) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_SET_EDIT_CHANGED object:self userInfo:@{SET_EDIT_FACEBOOK:@"0"}];
+            }else if ([type integerValue] == 2){
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_SET_EDIT_CHANGED object:self userInfo:@{SET_EDIT_TWITTER:@"0"}];
+            }else if ([type integerValue] == 3){
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_SET_EDIT_CHANGED object:self userInfo:@{SET_EDIT_INSTAGRAM:@"0"}];
+            }
+        }else{
+            [[NSNotificationCenter defaultCenter]postNotificationName:NOTI_USER_PROFILE_REQUEST object:nil userInfo:@{@"status":@"failed"}];
+        }
+    }];
 }
 
 

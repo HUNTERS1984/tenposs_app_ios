@@ -16,9 +16,13 @@
 
 IB_DESIGNABLE
 @interface TenpossSegmentedControl : UIControl
+
 @property (weak, nonatomic) id<TenpossSegmentControlDelegate> delegate;
 @property (assign, nonatomic) NSInteger needUpdateIndex;
+@property (strong, nonatomic) NSMutableArray<NSString *> *items;
+
 - (void)setItems:(NSMutableArray<NSString *> *)items;
 - (void)setSelectedIndex:(NSInteger)selectedIndex;
+- (NSInteger)getSelectedIndex;
 
 @end

@@ -32,6 +32,8 @@
 
 #import "UserData.h"
 
+#import "SettingsEditProfileScreen.h"
+
 #define GRAND_IDENTIFIER_NEWS_DETAIL    @"grand_news_detail"
 #define GRAND_IDENTIFIER_PHOTO_DETAIL    @"grand_photo_detail"
 #define GRAND_IDENTIFIER_COUPON_DETAIL    @"grand_coupon_detail"
@@ -101,6 +103,16 @@
                                                  nil]
                                        forState:UIControlStateNormal];
             [_menuButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-menu"]]];
+            
+            UIBarButtonItem *settingProfile = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(showUserEditProfile)];
+            self.navigationItem.rightBarButtonItem = settingProfile;
+            [settingProfile setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                 [UIFont themifyFontOfSize:20], NSFontAttributeName,
+                                                 [UIColor colorWithHexString:@"FFFFFF"], NSForegroundColorAttributeName,
+                                                 nil]
+                                       forState:UIControlStateNormal];
+            [settingProfile setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-settings"]]];
+            
             self.navigationController.navigationBar.backgroundColor= [UIColor clearColor];
             
             _navigationTitle.numberOfLines = 1;
@@ -116,6 +128,12 @@
         default:
             break;
     }
+}
+
+- (void)showUserEditProfile{
+    SettingsEditProfileScreen *screen = [SettingsEditProfileScreen new];
+    
+    [self.navigationController pushViewController:screen animated:YES];
 }
 
 

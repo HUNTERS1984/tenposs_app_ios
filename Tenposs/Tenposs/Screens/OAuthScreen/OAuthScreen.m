@@ -142,13 +142,13 @@ static NSString *const scope = @"basic";
                 
                 [socialProfile setObject:@"" forKey:KeyAPI_SOCIAL_SECRET];
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{SETTINGS_KeyUserInstaAccessToken:socialProfile}];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_SET_EDIT_CHANGED object:self userInfo:@{SETTINGS_KeyUserInstaAccessToken:socialProfile}];
                 
                 [self.navigationController popViewControllerAnimated:YES];
             }
         } else {
             // THERE WAS AN ERROR
-            [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{SETTINGS_KeyUserInstaAccessToken:@""}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_SET_EDIT_CHANGED object:self userInfo:@{SETTINGS_KeyUserInstaAccessToken:@""}];
             [self.navigationController popViewControllerAnimated:YES];
         }
         return NO;

@@ -19,6 +19,7 @@
 #import "StaffScreen.h"
 #import "ChatScreen.h"
 #import "UserHomeScreen.h"
+#import "SettingHomeScreen.h"
 
 #import "TabDataSourceViewController.h"
 
@@ -64,7 +65,10 @@
     }else if (viewControlerId == APP_MENU_RESERVE){
         viewController = (ReserveScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ReserveScreen class])];
     }else if (viewControlerId == APP_MENU_SETTING){
-        viewController = (SettingsScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SettingsScreen class])];
+        //viewController = (SettingsScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SettingsScreen class])];
+        
+        viewController = [SettingHomeScreen new];
+        
     }else if (viewControlerId == APP_MENU_STAFF){
 //        viewController = (StaffScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([StaffScreen class])];
 //        ((StaffScreen *)viewController).mainNavigationController = navigationController;

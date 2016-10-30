@@ -31,7 +31,7 @@
     if ([data isKindOfClass:[ProductObject class]]) {
         ProductObject *item = (ProductObject *) data;
         
-        [self.categoryTitle setText:item.menu];
+        [self.categoryTitle setText:item.menu_name];
         [self.ItemTitle setText: [item.title uppercaseString]];
         [self.itemPrice setText:[NSString stringWithFormat:@"¥%@",item.price]];
         

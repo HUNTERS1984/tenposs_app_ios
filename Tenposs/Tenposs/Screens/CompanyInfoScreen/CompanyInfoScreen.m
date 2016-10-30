@@ -7,7 +7,6 @@
 //
 
 #import "CompanyInfoScreen.h"
-#import <InAppSettingsKit/IASKSpecifier.h>
 #import "AppConfiguration.h"
 #import "UIViewController+LoadingView.h"
 
@@ -17,13 +16,6 @@
 @end
 
 @implementation CompanyInfoScreen
-
-- (id)initWithFile:(NSString*)file specifier:(IASKSpecifier*)specifier {
-    if ((self = [super init])) {
-        
-    }
-    return self;
-}
 
 - (void)viewDidLoad {
     

@@ -47,13 +47,19 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(profileUpdated:) name:NOTI_USER_PROFILE_UPDATED object:nil];
+
     GrandViewController *parent = (GrandViewController *)self.parentViewController;
     
     if(parent){
         [parent setNavigationBarStyle:NavigationBarStyleLight];
     }
     
+    [self displayDetail];
+}
+
+- (void)displayDetail{
     UserData *user = [UserData shareInstance];
     
     [_avatar sd_setImageWithURL:[NSURL URLWithString:[user getUserAvatarUrl] ]];
@@ -75,9 +81,8 @@
     });
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -87,7 +92,20 @@
     if(parent){
         [parent setNavigationBarStyle:NavigationBarStyleDefault];
     }
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTI_USER_PROFILE_UPDATED object:nil];
 }
+
+- (void)profileUpdated:(NSNotification *) notification{
+    [self showLoadingViewWithMessage:@""];
+    [self displayDetail];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 
 - (NSString *)title{
     return @"私のページ";

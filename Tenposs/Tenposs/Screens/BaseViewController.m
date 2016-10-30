@@ -43,7 +43,7 @@
                                                                        [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
                                                                        nil]
                                                              forState:UIControlStateNormal];
-        [self.navigationItem.leftBarButtonItem setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-angle-left"]]];
+        [self.navigationItem.leftBarButtonItem setTitle:[NSString stringWithFormat: @"%@", [UIFont stringForThemifyIdentifier:@"ti-angle-left"]]];
     }
 }
 

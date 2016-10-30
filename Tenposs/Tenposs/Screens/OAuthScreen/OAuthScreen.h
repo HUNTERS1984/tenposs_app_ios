@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SettingsEditProfileScreen.h"
 
 @interface OAuthScreen : UIViewController
 

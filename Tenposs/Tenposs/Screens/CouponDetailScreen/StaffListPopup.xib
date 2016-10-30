@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StaffListPopup">
+            <connections>
+                <outlet property="navTitle" destination="jHd-YH-aX7" id="dy9-qB-JhF"/>
+                <outlet property="tableView" destination="LW9-ZE-IuG" id="tLC-CW-aDS"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MQS-BK-fc5">
+                    <items>
+                        <navigationItem id="nit-y0-8pM">
+                            <nil key="title"/>
+                            <barButtonItem key="leftBarButtonItem" title="i" systemItem="cancel" id="E95-H9-Qxs">
+                                <connections>
+                                    <action selector="cancelTapped:" destination="-1" id="tu2-AG-Wp1"/>
+                                </connections>
+                            </barButtonItem>
+                            <view key="titleView" contentMode="scaleToFill" id="C0a-Tn-VPA">
+                                <rect key="frame" x="81" y="6" width="213" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHd-YH-aX7">
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="jHd-YH-aX7" firstAttribute="centerY" secondItem="C0a-Tn-VPA" secondAttribute="centerY" id="YUV-rp-1UJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="jHd-YH-aX7" secondAttribute="trailing" constant="10" id="kqe-9p-FJH"/>
+                                    <constraint firstItem="jHd-YH-aX7" firstAttribute="centerX" secondItem="C0a-Tn-VPA" secondAttribute="centerX" id="ore-ry-Pw2"/>
+                                    <constraint firstItem="jHd-YH-aX7" firstAttribute="leading" secondItem="C0a-Tn-VPA" secondAttribute="leading" constant="10" id="xkt-Pc-SKw"/>
+                                </constraints>
+                            </view>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LW9-ZE-IuG">
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="zza-CX-sAb"/>
+                        <outlet property="delegate" destination="-1" id="3XL-C9-mig"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="MQS-BK-fc5" secondAttribute="trailing" id="2Bi-r7-0jv"/>
+                <constraint firstAttribute="trailing" secondItem="LW9-ZE-IuG" secondAttribute="trailing" id="3mY-oQ-8ig"/>
+                <constraint firstItem="MQS-BK-fc5" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="MET-Wn-bhU"/>
+                <constraint firstAttribute="bottom" secondItem="LW9-ZE-IuG" secondAttribute="bottom" id="WTk-HS-qdc"/>
+                <constraint firstItem="MQS-BK-fc5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="n5b-Dg-upP"/>
+                <constraint firstItem="LW9-ZE-IuG" firstAttribute="top" secondItem="MQS-BK-fc5" secondAttribute="bottom" id="o4z-Yf-Ttu"/>
+                <constraint firstItem="LW9-ZE-IuG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="uM7-Jb-8Va"/>
+                <constraint firstItem="MQS-BK-fc5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="vGn-Zj-F3H"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <point key="canvasLocation" x="-89.5" y="93.5"/>
+        </view>
+    </objects>
+</document>

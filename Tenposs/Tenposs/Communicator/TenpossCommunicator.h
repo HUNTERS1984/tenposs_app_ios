@@ -85,6 +85,8 @@ typedef NS_ENUM(NSInteger, TenpossErrorCode){
 -(void)     customProcess:(Bundle*) params;
 
 -(void)     execute:(Bundle*) params withDelegate:(id) delegate;
+-(void) executeUpdateProfile:(Bundle*) params withDelegate:(id) delegate;
+
 -(void)     cancelRequest;
 
 @end

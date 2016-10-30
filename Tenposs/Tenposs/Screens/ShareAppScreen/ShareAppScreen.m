@@ -12,7 +12,7 @@
 #import <FBSDKShareKit/FBSDKShareDialog.h>
 #import <TwitterKit/TwitterKit.h>
 
-@interface ShareAppScreen ()
+@interface ShareAppScreen () <UIDocumentInteractionControllerDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UILabel *appId;
@@ -25,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
+
+@property (strong, nonatomic) UIDocumentInteractionController *documentController;
 
 @end
 
@@ -51,6 +53,57 @@
                 NSLog(@"Sending Tweet!");
             }
         }];
+    }else if(sender == _instagramShare){
+        NSURL *instagramURL = [NSURL URLWithString:@"instagram://app"];
+        
+        if ([[UIApplication sharedApplication] canOpenURL:instagramURL]) {
+            
+//            //convert image into .png format.
+//            NSData *imageData = UIImagePNGRepresentation(image);
+//            
+//            //create instance of NSFileManager
+//            NSFileManager *fileManager = [NSFileManager defaultManager];
+//            
+//            //create an array and store result of our search for the documents directory in it
+//            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//            
+//            //create NSString object, that holds our exact path to the documents directory
+//            NSString *documentsDirectory = [paths objectAtIndex:0];
+//            
+//            //add our image to the path
+//            NSString *fullPath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"insta.igo"]];
+//            
+//            //finally save the path (image)
+//            [fileManager createFileAtPath:fullPath contents:imageData attributes:nil];
+            
+            //CGRect rect = CGRectMake(0 ,0 , 0, 0);
+
+            //            UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, self.view.opaque, 0.0);
+//            [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+//            UIGraphicsEndImageContext();
+//            
+//            NSString *fileNameToSave = [NSString stringWithFormat:@"Documents/insta.igo"];
+//            NSString *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fileNameToSave];
+//            NSLog(@"jpg path %@",jpgPath);
+//            
+//            NSString *newJpgPath = [NSString stringWithFormat:@"file://%@",jpgPath];
+//            NSLog(@"with File path %@",newJpgPath);
+//            
+//            NSURL *igImageHookFile = [[NSURL alloc]initFileURLWithPath:newJpgPath];
+//            NSLog(@"url Path %@",igImageHookFile);
+//            
+
+            
+//            self.documentController = [UIDocumentInteractionController interactionControllerWithURL:[NSURL URLWithString:@"http://google.com"]];
+//            [self.documentController setDelegate:self];
+//            [self.documentController setUTI:@"com.instagram.exclusivegram"];
+//            [self.documentController presentOpenInMenuFromRect:rect inView:self.view animated:YES];
+            
+            [[UIApplication sharedApplication] openURL:instagramURL];
+            
+        } else {
+            NSLog (@"Instagram not found");
+        }
     }
 }
 

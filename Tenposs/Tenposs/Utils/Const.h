@@ -17,10 +17,14 @@
 #define SETTINGS_KeyUserEmail  @"KeyUserEmail"
 #define SETTINGS_KeyUserGender  @"KeyUserGender"
 #define SETTINGS_KeyUserProvine  @"KeyUserProvine"
-#define SETTINGS_KeyUserInstaAccessToken @"Insta_access_token"
+#define SETTINGS_KeyUserInstaAccessToken @100
 
 #define SETTINGS_keyPushNotification  @"keyPushNotification"
 #define SETTINGS_keyCouponPushNotification  @"keyCouponPushNotification"
+
+#define NOTI_COUPON_REQUEST             @"notification_coupon_user_request"
+#define NOTI_COUPON_REQUEST_SUCCESS     @"success"
+#define NOTI_COUPON_REQUEST_FAILED      @"failed"
 
 ///CellSpanType to define how much space a cell should takes
 typedef NS_ENUM(NSInteger, CellSpanType) {

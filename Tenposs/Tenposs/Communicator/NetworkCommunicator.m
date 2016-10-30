@@ -74,6 +74,18 @@
     [self execute:body withDelegate:self];
 }
 
+- (void)GETWithoutPreDefined:(NSString *)API parameters:(id)parameters onCompleted:(void (^)(BOOL isSuccess,NSDictionary *dictionary)) completeBlock{
+    _request_url = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddress],API];
+    
+    if ([parameters isKindOfClass:[Bundle class]]) {
+        Bundle *body = ((Bundle *)parameters);
+        
+        [body put:KeyRequestCallback value:completeBlock];
+        
+        [self execute:body withDelegate:self];
+    }
+}
+
 - (void)POST:(NSString *)API parameters:(id)parameters onCompleted:(void (^)(BOOL isSuccess,NSDictionary *dictionary)) completeBlock
 {
     _request_url = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddress],API];
@@ -96,8 +108,7 @@
     [self execute:body withDelegate:self];
 }
 
-- (void)POSTWithoutAppId:(NSString *)API parameters:(id)parameters onCompleted:(void (^)(BOOL isSuccess,NSDictionary *dictionary)) completeBlock
-{
+- (void)POSTWithoutAppId:(NSString *)API parameters:(id)parameters onCompleted:(void (^)(BOOL isSuccess,NSDictionary *dictionary)) completeBlock{
     _request_url = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddress],API];
     
     NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
@@ -134,83 +145,11 @@
 
 -(void)POSTWithImage:(NSString *)API parameters:(id)parameters onCompleted:(void (^)(BOOL isSuccess,NSDictionary *dictionary)) completeBlock{
     
-    _request_url = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddress],API_UPDATE_PROFILE];
+    Bundle *params = [Bundle new];
+    [params put:KeyRequestData value:parameters];
+    [params put:KeyRequestCallback value:completeBlock];
     
-    m_pRequest = [[NSMutableURLRequest alloc] init];
-    [m_pRequest setHTTPShouldHandleCookies:NO];
-    [m_pRequest setTimeoutInterval:60];
-    [m_pRequest setHTTPMethod:@"POST"];
-
-    NSString *boundary = @"------TenpossIOSAPP_BOUND";
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
-    [m_pRequest setValue:contentType forHTTPHeaderField: @"Content-Type"];
-    
-//    Bundle *body = [Bundle new];
-    NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
-    NSArray *sigs = [NSArray arrayWithObjects:APP_ID,currentTime,APP_SECRET,nil];
-    NSMutableDictionary *dictData = [parameters mutableCopy];
-    [dictData setObject:[APP_ID dataUsingEncoding:NSUTF8StringEncoding] forKey:KeyAPI_APP_ID];
-    [dictData setObject:[currentTime dataUsingEncoding:NSUTF8StringEncoding] forKey:KeyAPI_TIME];
-    [dictData setObject:[[Utils getSigWithStrings:sigs] dataUsingEncoding:NSUTF8StringEncoding] forKey:KeyAPI_SIG];
-    
-    // post body
-    NSMutableData *body = [NSMutableData data];
-    
-    NSData *imageData = nil;
-    
-    for (NSString *param in dictData.allKeys) {
-        if ([param isEqualToString:KeyAPI_AVATAR]) {
-            
-            imageData = (NSData *)[dictData objectForKey:KeyAPI_AVATAR];
-        
-        }else{
-            NSString *key = param;
-            if ([param isEqualToString:@"avatar"]) {
-                continue;
-            }else if([param isEqualToString:@"\"app_id\""]){
-                key = @"app_id";
-            }
-            
-            [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", key] dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[[NSString stringWithFormat:@"%@\r\n", [dictData objectForKey:param]] dataUsingEncoding:NSUTF8StringEncoding]];
-
-//            [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-//            [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"n", param] dataUsingEncoding:NSUTF8StringEncoding]];
-//            [body appendData:[[NSString stringWithFormat:@"%@\n", [parameters objectForKey:param]] dataUsingEncoding:NSUTF8StringEncoding]];
-        }
-    }
-    
-    NSString *imageName = @"avatar";
-    
-    if (imageData) {
-//        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-//        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"image.jpg\"\r\n", imageName] dataUsingEncoding:NSUTF8StringEncoding]];
-//        [body appendData:[@"Content-Type:image/png\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-//        [body appendData:imageData];
-//        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-
-        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"avatar\"; filename=\"image.png\"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[@"Content-Type: image/png\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[NSData dataWithData:imageData]];
-        [body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    }
-    
-    
-    //Close off the request with the boundary
-    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-//    NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[body length]];
-//    [m_pRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [m_pRequest setHTTPBody:body];
-    
-    // set URL
-    NSLog(@"UPDATE PROFILE - %@", body);
-    [m_pRequest setURL:[NSURL URLWithString:_request_url]];
-    m_pConnection = [[NSURLConnection alloc] initWithRequest:m_pRequest delegate:self];
-    [m_pConnection start];
-    NSLog(@"Start NSURLConnection: %@ - %@", NSStringFromClass([self class]), m_pRequest.URL);
+    [self executeUpdateProfile:params withDelegate:self];
 }
 
 - (void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams{
@@ -307,5 +246,6 @@
         }
     }
 }
+
 
 @end
