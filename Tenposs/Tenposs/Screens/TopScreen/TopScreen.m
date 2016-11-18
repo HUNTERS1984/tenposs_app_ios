@@ -8,11 +8,16 @@
 
 #import "TopScreen.h"
 #import "GrandViewController.h"
+
 #import "TopScreenDataSource.h"
+#import "TopScreenDataSource_t2.h"
+#import "TopDataSource.h"
+
 #import "UIViewController+LoadingView.h"
 
 #import "Const.h"
 #import "UIUtils.h"
+#import "HexColors.h"
 
 #import "MenuScreen.h"
 #import "NewsScreen.h"
@@ -24,7 +29,7 @@
 
 
 @interface TopScreen ()<TopScreenDataSourceDelegate, UICollectionViewDelegateFlowLayout>
-@property TopScreenDataSource *dataSource;
+@property TopDataSource *dataSource;
 @end
 
 @implementation TopScreen
@@ -32,10 +37,18 @@
 - (void)loadView{
     [super loadView];
     [self setTitle:@"Global Work"];
-    self.dataSource = [[TopScreenDataSource alloc]initWithDelegate:self];
-    [self.dataSource registerClassForCollectionView:self.collectionView];
+    AppSettings *settings = [[AppConfiguration sharedInstance] getAvailableAppSettings];
+    if (settings.template_id == 1) {
+        self.dataSource = [[TopScreenDataSource alloc]initWithDelegate:self];
+        [self.dataSource registerClassForCollectionView:self.collectionView];
+        self.collectionView.backgroundColor = [UIColor whiteColor];
+    }else if (settings.template_id == 2){
+        self.dataSource = [[TopScreenDataSource_t2 alloc]initWithDelegate:self];
+        [self.dataSource registerClassForCollectionView:self.collectionView];
+        [self.collectionView setBackgroundColor:[UIColor colorWithHexString:@"#F3F3F3"]];
+    }
+    
     self.collectionView.dataSource = self.dataSource;
-    self.collectionView.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)viewDidLoad {
@@ -55,17 +68,22 @@
 }
 
 - (NSString *)title{
-    return @"Global work";
+    return @"ホーム";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    TopScreenDataSource *dataSource = (TopScreenDataSource *)self.collectionView.dataSource;
+    TopDataSource *dataSource = nil;
+    if ([self.collectionView.dataSource isKindOfClass:[TopScreenDataSource class]]) {
+        dataSource = (TopScreenDataSource *)self.collectionView.dataSource;
+    }else if([self.collectionView.dataSource isKindOfClass:[TopScreenDataSource_t2 class]]){
+        dataSource = (TopScreenDataSource_t2 *)self.collectionView.dataSource;
+    }
     if (dataSource) {
         NSObject *item = [dataSource dataAtIndexPath:indexPath];
         if(item){
-            if ([self.parentViewController isKindOfClass:[GrandViewController class]]) {
-                [((GrandViewController *)self.parentViewController) performSegueWithObject:item];
-            }
+                if ([self.parentViewController isKindOfClass:[GrandViewController class]]) {
+                    [((GrandViewController *)self.parentViewController) performSegueWithObject:item];
+                }
         }
     }
 }
@@ -76,8 +94,15 @@
     [self.collectionView reloadData];
     [self removeLoadingView];
     
-    ShareAppScreen *app = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([ShareAppScreen class])];
-    [self presentViewController:app animated:YES completion:nil];
+    if ([[UserData shareInstance] getToken]) {
+        AppSettings *settings = [[AppConfiguration sharedInstance] getAvailableAppSettings];
+        UIViewController *shareApp = [GlobalMapping getShareAppScreen:settings.template_id andExtra:nil];
+        [self presentViewController:shareApp animated:YES completion:nil];
+//        ShareAppScreen *app = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([ShareAppScreen class])];
+//        app.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+//        app.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//        [self presentViewController:app animated:YES completion:nil];
+    }
 }
 
 - (void)needRefreshItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -91,36 +116,87 @@
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    TopScreenDataSource *dataSource = (TopScreenDataSource *)self.collectionView.dataSource;
-    return [dataSource sizeForCellAtIndexPath:indexPath withCollectionWidth:collectionView.bounds.size.width];
+    CGFloat superWidth = self.collectionView.frame.size.width;
+    CGSize cellSize = CGSizeZero;
+    if ([self.collectionView.dataSource isKindOfClass:[TopScreenDataSource class]]) {
+        TopScreenDataSource *dataSource = (TopScreenDataSource *)self.collectionView.dataSource;
+        cellSize = [dataSource sizeForCellAtIndexPath:indexPath withCollectionWidth:superWidth];
+    }else if ([self.collectionView.dataSource isKindOfClass:[TopScreenDataSource_t2 class]]) {
+        TopScreenDataSource_t2 *dataSource = (TopScreenDataSource_t2 *)self.collectionView.dataSource;
+        cellSize = [dataSource sizeForCellAtIndexPath:indexPath withCollectionWidth:superWidth];
+    }
+    return cellSize;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-    TopScreenDataSource *dataSource = (TopScreenDataSource *)self.collectionView.dataSource;
-    return [dataSource insetForSectionAtIndex:section];
+    UIEdgeInsets edge = UIEdgeInsetsZero;
+    if ([self.collectionView.dataSource isKindOfClass:[TopScreenDataSource class]]) {
+        TopScreenDataSource *dataSource = (TopScreenDataSource *)self.collectionView.dataSource;
+        edge = [dataSource insetForSectionAtIndex:section];
+    }else if ([self.collectionView.dataSource isKindOfClass:[TopScreenDataSource_t2 class]]) {
+        TopScreenDataSource_t2 *dataSource = (TopScreenDataSource_t2 *)self.collectionView.dataSource;
+        edge = [dataSource insetForSectionAtIndex:section];
+    }
+    return edge;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
-    TopScreenDataSource *dataSource = (TopScreenDataSource *)self.collectionView.dataSource;
-    return [dataSource minimumLineSpacingForSection:section];
+    CGFloat lineSpacing = 0;
+    if ([self.collectionView.dataSource isKindOfClass:[TopScreenDataSource class]]) {
+        TopScreenDataSource *dataSource = (TopScreenDataSource *)self.collectionView.dataSource;
+        lineSpacing = [dataSource minimumLineSpacingForSection:section];
+    }else if ([self.collectionView.dataSource isKindOfClass:[TopScreenDataSource_t2 class]]) {
+        TopScreenDataSource_t2 *dataSource = (TopScreenDataSource_t2 *)self.collectionView.dataSource;
+        lineSpacing = [dataSource minimumLineSpacingForSection:section];
+    }
+    return lineSpacing;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-    TopScreenDataSource *dataSource = (TopScreenDataSource *)self.collectionView.dataSource;
-    return [dataSource minimumInteritemSpacingForSection:section];
+    CGFloat interSpacing = 0;
+    if ([self.collectionView.dataSource isKindOfClass:[TopScreenDataSource class]]) {
+        TopScreenDataSource *dataSource = (TopScreenDataSource *)self.collectionView.dataSource;
+        interSpacing = [dataSource minimumInteritemSpacingForSection:section];
+    }else if ([self.collectionView.dataSource isKindOfClass:[TopScreenDataSource_t2 class]]) {
+        TopScreenDataSource_t2 *dataSource = (TopScreenDataSource_t2 *)self.collectionView.dataSource;
+        interSpacing = [dataSource minimumInteritemSpacingForSection:section];
+    }
+    return interSpacing;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
-    TopScreenDataSource *dataSource = (TopScreenDataSource *)self.collectionView.dataSource;
-    return [dataSource sizeForHeaderAtSection:section inCollectionView:collectionView];
+    CGSize headerSize = CGSizeZero;
+    if ([self.collectionView.dataSource isKindOfClass:[TopScreenDataSource class]]) {
+        TopScreenDataSource *dataSource = (TopScreenDataSource *)self.collectionView.dataSource;
+        headerSize = [dataSource sizeForHeaderAtSection:section inCollectionView:collectionView];
+    }else if ([self.collectionView.dataSource isKindOfClass:[TopScreenDataSource_t2 class]]) {
+        TopScreenDataSource_t2 *dataSource = (TopScreenDataSource_t2 *)self.collectionView.dataSource;
+        headerSize = [dataSource sizeForHeaderAtSection:section inCollectionView:collectionView];
+    }
+    return headerSize;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
-    TopScreenDataSource *dataSource = (TopScreenDataSource *)self.collectionView.dataSource;
-    return [dataSource sizeForFooterAtSection:section inCollectionView:collectionView];
+    CGSize footerSize = CGSizeZero;
+    if ([self.collectionView.dataSource isKindOfClass:[TopScreenDataSource class]]) {
+        TopScreenDataSource *dataSource = (TopScreenDataSource *)self.collectionView.dataSource;
+        footerSize = [dataSource sizeForFooterAtSection:section inCollectionView:collectionView];
+    }else if ([self.collectionView.dataSource isKindOfClass:[TopScreenDataSource_t2 class]]) {
+        TopScreenDataSource_t2 *dataSource = (TopScreenDataSource_t2 *)self.collectionView.dataSource;
+        footerSize = [dataSource sizeForFooterAtSection:section inCollectionView:collectionView];
+    }
+    return footerSize;
 }
 
 #pragma mark - Navigation Methods
+
+- (void)handleItemTouched:(NSObject *)item{
+    if (item) {
+        if ([self.parentViewController isKindOfClass:[GrandViewController class]]) {
+            [((GrandViewController *)self.parentViewController) performSegueWithObject:item];
+        }
+    }
+}
 
 - (void)performNavigateToScreenWithId:(NSInteger)screenId{
     Bundle *extra = [Bundle new];

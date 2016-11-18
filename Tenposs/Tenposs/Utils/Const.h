@@ -26,6 +26,9 @@
 #define NOTI_COUPON_REQUEST_SUCCESS     @"success"
 #define NOTI_COUPON_REQUEST_FAILED      @"failed"
 
+#define ARGB(a,r,g,b)       [UIColor colorWithRed:(r / 255.0) green:(g / 255.0) blue:(b / 255.0) alpha:a]
+#define RGB(r,g,b)          ARGB(1.0, r,g,b)
+
 ///CellSpanType to define how much space a cell should takes
 typedef NS_ENUM(NSInteger, CellSpanType) {
     CellSpanTypeSmall,

@@ -7,7 +7,7 @@
 //
 
 #import "Item_Cell_News.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
 
 @interface Item_Cell_News()
 

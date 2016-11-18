@@ -7,7 +7,6 @@
 //
 
 #import "OAuthScreen.h"
-#import <InAppSettingsKit/IASKSettingsReader.h>
 #import "Const.h"
 #import "NetworkCommunicator.h"
 

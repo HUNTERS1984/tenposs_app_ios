@@ -14,5 +14,6 @@
 @property(strong, nonatomic) StaffCategory *mainData;
 
 - (instancetype)initWithDelegate:(id<SimpleDataSourceDelegate>)delegate andStaffCategory:(StaffCategory *)category;
+- (instancetype)initWithStaffCategory:(StaffCategory *)category;
 
 @end

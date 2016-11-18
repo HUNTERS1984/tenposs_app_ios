@@ -233,8 +233,9 @@
 @property (strong, nonatomic) NSString *updated_at;
 @property (assign, nonatomic) NSInteger store_id;
 @property (assign, nonatomic) bool can_use;
-@property (strong, nonatomic) NSMutableArray<NSString *>   *taglist;
+@property (strong, nonatomic) NSMutableArray<NSString *> *taglist;
 @property (strong, nonatomic) CouponTypeObject *coupon_type;
+@property (strong, nonatomic) NSString *code;
 
 @end
 

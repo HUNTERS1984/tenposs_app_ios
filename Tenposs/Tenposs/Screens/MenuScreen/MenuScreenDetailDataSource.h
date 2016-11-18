@@ -14,5 +14,8 @@
 @interface MenuScreenDetailDataSource : SimpleDataSource <TenpossCommunicatorDelegate>
 
 @property (strong, nonatomic) MenuCategoryModel *mainData;
+
+- (instancetype)initWithMenuCategory:(MenuCategoryModel *)menuCategory;
+
 - (instancetype)initWithDelegate:(id<SimpleDataSourceDelegate>)delegate andMenuCategory:(MenuCategoryModel *)menuCategory;
 @end

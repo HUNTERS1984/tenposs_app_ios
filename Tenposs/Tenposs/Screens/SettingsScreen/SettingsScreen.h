@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <InAppSettingsKit/IASKAppSettingsViewController.h>
 #import "BaseViewController.h"
 
-@interface SettingsScreen : BaseViewController <IASKSettingsDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface SettingsScreen : BaseViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,18 +16,26 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="320" height="87"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_icon" translatesAutoresizingMaskIntoConstraints="NO" id="6N9-AH-NSe" userLabel="user_avatar">
+                        <rect key="frame" x="18" y="14" width="60" height="60"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="60" id="ND0-2g-TBY"/>
                             <constraint firstAttribute="width" constant="60" id="PCb-KK-dZo"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ログイン" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Xs-tg-FIE" userLabel="user_name">
+                        <rect key="frame" x="88" y="35" width="62" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNn-UA-9ep" userLabel="user_email">
+                        <rect key="frame" x="88" y="57" width="31" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -34,14 +45,17 @@
                     <constraint firstItem="6N9-AH-NSe" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Ote-6Q-4kF"/>
                     <constraint firstItem="4Xs-tg-FIE" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="RlR-tD-dFu"/>
                     <constraint firstItem="4Xs-tg-FIE" firstAttribute="leading" secondItem="6N9-AH-NSe" secondAttribute="trailing" constant="10" id="SLN-PC-0tT"/>
+                    <constraint firstItem="BNn-UA-9ep" firstAttribute="leading" secondItem="4Xs-tg-FIE" secondAttribute="leading" id="dJ2-Av-aYk"/>
+                    <constraint firstItem="BNn-UA-9ep" firstAttribute="top" secondItem="4Xs-tg-FIE" secondAttribute="bottom" constant="4" id="eSZ-nz-mgU"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
                 <outlet property="user_avatar" destination="6N9-AH-NSe" id="NQU-0G-Pce"/>
+                <outlet property="user_email" destination="BNn-UA-9ep" id="lTX-Ze-I4r"/>
                 <outlet property="user_name" destination="4Xs-tg-FIE" id="boc-eB-y4V"/>
             </connections>
-            <point key="canvasLocation" x="283" y="383"/>
+            <point key="canvasLocation" x="138" y="340"/>
         </tableViewCell>
     </objects>
     <resources>

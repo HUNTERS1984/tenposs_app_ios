@@ -8,7 +8,7 @@
 
 #import "UserHomeScreen.h"
 #import "UIViewController+LoadingView.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
 #import "UserData.h"
 #import "GrandViewController.h"
 #import "MBCircularProgressBarView.h"
@@ -43,6 +43,7 @@
     _avatar.layer.cornerRadius = _avatar.bounds.size.width/2;
     _avatar.clipsToBounds = YES;
     _headerImage.clipsToBounds = YES;
+    [_avatar setContentMode:UIViewContentModeScaleAspectFill];
 }
 
 - (void)viewDidAppear:(BOOL)animated{

@@ -9,7 +9,7 @@
 #import "MenuItem_User.h"
 #import "AppConfiguration.h"
 #import "HexColors.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
 #import "UserData.h"
 #import "UIUtils.h"
 
@@ -17,6 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *user_avatar;
 @property (weak, nonatomic) IBOutlet UILabel *user_name;
+@property (weak, nonatomic) IBOutlet UILabel *user_email;
 
 @end
 
@@ -27,6 +28,7 @@
     // Initialization code
     [self layoutIfNeeded];
     _user_avatar.clipsToBounds = YES;
+    [_user_avatar setContentMode:UIViewContentModeScaleAspectFill];
 
 }
 
@@ -40,6 +42,16 @@
     
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     AppSettings *settings = [appConfig getAvailableAppSettings];
+    
+    if (settings.template_id == 1) {
+        [_user_email setHidden:YES];
+    }else if (settings.template_id == 2){
+        [_user_email setHidden:NO];
+        NSString *email = [[UserData shareInstance] getUserEmail];
+        if (email) {
+            [_user_email setText:email];
+        }
+    }
     
     ///Config user name
     [self.user_name setFont:[UIFont fontWithName:settings.menu_font_family size:[UIUtils getTextSizeWithType:settings.menu_font_size]]];

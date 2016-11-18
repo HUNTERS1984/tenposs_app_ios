@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Center_Text_Header" id="U6b-Vx-4bR" customClass="Center_Text_Header">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MEM-u5-1bj">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lN-hc-Q5I">
+                            <rect key="frame" x="139" y="11" width="42" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rcs-5M-QAw">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="1lN-hc-Q5I" firstAttribute="centerX" secondItem="MEM-u5-1bj" secondAttribute="centerX" id="5H0-at-PUF"/>
+                        <constraint firstItem="rcs-5M-QAw" firstAttribute="leading" secondItem="MEM-u5-1bj" secondAttribute="leading" id="NSD-Nk-y0o"/>
+                        <constraint firstItem="1lN-hc-Q5I" firstAttribute="centerY" secondItem="MEM-u5-1bj" secondAttribute="centerY" id="bFs-ky-kQk"/>
+                        <constraint firstAttribute="bottom" secondItem="rcs-5M-QAw" secondAttribute="bottom" id="gJJ-Dw-yb1"/>
+                        <constraint firstAttribute="trailing" secondItem="rcs-5M-QAw" secondAttribute="trailing" id="r1G-ra-hG5"/>
+                        <constraint firstItem="rcs-5M-QAw" firstAttribute="top" secondItem="MEM-u5-1bj" secondAttribute="top" id="xdr-bq-ukj"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="MEM-u5-1bj" secondAttribute="trailing" id="Wzv-K7-NmU"/>
+                <constraint firstAttribute="bottom" secondItem="MEM-u5-1bj" secondAttribute="bottom" id="aj5-PJ-zE9"/>
+                <constraint firstItem="MEM-u5-1bj" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="oL6-rc-xvX"/>
+                <constraint firstItem="MEM-u5-1bj" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="vPT-R5-0Nw"/>
+            </constraints>
+            <connections>
+                <outlet property="headerButton" destination="rcs-5M-QAw" id="N4F-5C-DSq"/>
+                <outlet property="title" destination="1lN-hc-Q5I" id="5o6-Ct-XwJ"/>
+            </connections>
+        </collectionReusableView>
+    </objects>
+</document>

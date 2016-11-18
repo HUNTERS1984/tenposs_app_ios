@@ -14,4 +14,6 @@
 
 - (instancetype)initWithDelegate:(id<SimpleDataSourceDelegate>)delegate andStoreId:(NSInteger)store_id;
 
+- (instancetype)initWithStoreId:(NSInteger)store_id;
+
 @end

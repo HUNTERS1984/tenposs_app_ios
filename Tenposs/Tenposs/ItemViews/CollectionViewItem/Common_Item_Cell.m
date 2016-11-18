@@ -10,4 +10,13 @@
 
 @implementation Common_Item_Cell
 
+- (void)configureCellWithData:(NSObject *)data{
+    NSAssert(NO, @"Should be implemented by subclasses");
+}
+
++(CGFloat)getCellHeightWithWidth:(CGFloat)width{
+    NSAssert(NO, @"Should be implemented by subclasses");
+    return 0;
+}
+
 @end

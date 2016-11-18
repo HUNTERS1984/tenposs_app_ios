@@ -16,5 +16,6 @@
 @property(strong, nonatomic) PhotoCategory *mainData;
 
 - (instancetype)initWithDelegate:(id<SimpleDataSourceDelegate>)delegate andPhotoCategory:(PhotoCategory *)category;
+- (instancetype)initWithPhotoCategory:(PhotoCategory *)category;
 
 @end

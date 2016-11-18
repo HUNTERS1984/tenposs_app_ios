@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Item_Cell_News_Top_t2" id="gTV-IL-0wX" customClass="Item_Cell_News_Top_t2">
+            <rect key="frame" x="0.0" y="0.0" width="464" height="282"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="464" height="282"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="18R-68-eyL">
+                        <rect key="frame" x="0.0" y="0.0" width="464" height="252"/>
+                    </scrollView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PlW-nX-ftm" userLabel="bottomView">
+                        <rect key="frame" x="0.0" y="252" width="464" height="30"/>
+                        <subviews>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="IpQ-fz-TUu">
+                                <rect key="frame" x="213" y="-3" width="39" height="37"/>
+                                <color key="pageIndicatorTintColor" red="0.87800781250000004" green="0.87800781250000004" blue="0.87800781250000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="currentPageIndicatorTintColor" red="0.23723548650000001" green="0.72708380220000002" blue="0.38642960790000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </pageControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="IpQ-fz-TUu" firstAttribute="centerY" secondItem="PlW-nX-ftm" secondAttribute="centerY" id="9Et-O2-zo3"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="St7-3M-egN"/>
+                            <constraint firstItem="IpQ-fz-TUu" firstAttribute="centerX" secondItem="PlW-nX-ftm" secondAttribute="centerX" id="Uqn-gf-eHQ"/>
+                            <constraint firstAttribute="height" constant="30" id="x9E-p6-Jhn"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="PlW-nX-ftm" secondAttribute="trailing" id="0jI-Ep-V4U"/>
+                <constraint firstItem="18R-68-eyL" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="FVy-vR-5hS"/>
+                <constraint firstItem="PlW-nX-ftm" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="GN5-ry-Mev"/>
+                <constraint firstItem="18R-68-eyL" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" id="NA9-k9-tUw"/>
+                <constraint firstAttribute="bottom" secondItem="PlW-nX-ftm" secondAttribute="bottom" id="Ngl-IX-p9G"/>
+                <constraint firstItem="PlW-nX-ftm" firstAttribute="top" secondItem="18R-68-eyL" secondAttribute="bottom" id="b6j-dp-zqg"/>
+                <constraint firstAttribute="trailing" secondItem="18R-68-eyL" secondAttribute="trailing" id="bdF-Dd-Zsr"/>
+                <constraint firstItem="18R-68-eyL" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="zS6-2i-Gpx"/>
+            </constraints>
+            <size key="customSize" width="420" height="282"/>
+            <connections>
+                <outlet property="pageControl" destination="IpQ-fz-TUu" id="ran-WJ-lkh"/>
+                <outlet property="scrollView" destination="18R-68-eyL" id="J75-iV-QHK"/>
+            </connections>
+            <point key="canvasLocation" x="-70" y="39"/>
+        </collectionViewCell>
+    </objects>
+</document>

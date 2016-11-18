@@ -52,7 +52,7 @@
         [self.itemTitle setText:data.name];
     }
     
-    UIImage *icon = [SideMenuIcon sideMenuImageWithMenuId:data.menu_id];
+    UIImage *icon = [SideMenuIcon sideMenuImageWithMenuId:data.menu_id andTemplateId:settings.template_id];
     if (icon) {
         [_itemIconFont setImage:icon];
     }

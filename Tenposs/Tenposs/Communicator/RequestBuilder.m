@@ -18,7 +18,7 @@
 NSString * const BASE_ADDRESS  =  @"https://api.ten-po.com/";
 NSString * const API_BASE = @"api/v1";
 
-NSString * const API_LOGIN  = @"/signin?";
+NSString * const API_LOGIN  = @"/signin?";//@"/login?";
 NSString * const API_SLOGIN  = @"/social_login?";
 NSString * const API_SIGNUP = @"/signup?";
 NSString * const API_LOGOUT  =   @"/signout?";

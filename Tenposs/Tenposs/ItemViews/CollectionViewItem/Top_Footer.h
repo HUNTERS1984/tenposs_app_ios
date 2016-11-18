@@ -11,6 +11,8 @@
 typedef void (^TopFooterTouchHandler)();
 
 @interface Top_Footer : UICollectionReusableView
+@property (weak, nonatomic) IBOutlet UIButton *footerButton;
+@property(copy) TopFooterTouchHandler touchHandler;
 
 - (void)configureFooterWithTitle:(NSString *)title withTouchHandler:(TopFooterTouchHandler)handler;
 

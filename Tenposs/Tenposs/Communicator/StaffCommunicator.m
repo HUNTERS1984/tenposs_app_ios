@@ -46,6 +46,11 @@
         //TODO: real error code
         [params put:KeyResponseResult value:@(ERROR_JSON_PARSER)];
     }else{
+        if (!data) {
+            [params put:KeyResponseResult value:@(ERROR_UNKNOWN)];
+            [params put:KeyResponseObject value:data];
+            return;
+        }
         if(data.code != ERROR_OK){
             NSString* description = [CommunicatorConst getErrorMessage:data.code];
             [params put:KeyResponseResult value:@(data.code)];

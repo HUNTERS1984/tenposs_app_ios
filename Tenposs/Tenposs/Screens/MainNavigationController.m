@@ -21,9 +21,9 @@
 @implementation MainNavigationController
 
 - (instancetype)initWithTemplateId:(NSInteger)templateId{
-    if (templateId == TEMPLATE_1) {
+    //if (templateId == TEMPLATE_1) {
         self.rootViewController = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([GrandViewController class])];
-    }
+    //}
     
     self = [super initWithRootViewController:self.rootViewController];
     

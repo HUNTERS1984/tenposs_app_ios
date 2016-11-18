@@ -7,7 +7,7 @@
 //
 
 #import "Item_Cell_ShopInfo.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
 #import <GoogleMaps/GoogleMaps.h>
 
 #define SHOP_MAPS_IMAGE_FORMAT  @"http://maps.google.com/maps/api/staticmap?center=%@,%@&zoom=15&size=%fx%f&sensor=false"

@@ -12,6 +12,7 @@
 
 #import "UIViewController+LoadingView.h"
 #import "HexColors.h"
+#import "Reachability.h"
 
 @implementation UIViewController(LoadingView)
 
@@ -346,4 +347,40 @@
     
     return NO;
 }
+
+-(void)showLogin{
+    //    if (![[UIApplication sharedApplication].keyWindow.rootViewController isKindOfClass:[LoginScreen class]]){
+    UIViewController *login = [GlobalMapping getLoginScreenWithNavigation];
+    [self presentViewController:login animated:YES completion:nil];
+    //    }
+    
+}
+
+- (void)invalidateCurrentUserSession{
+    UserData *userData = [UserData shareInstance];
+    [userData clearUserData];
+    [self showLogin];
+}
+
+- (BOOL)checkForInternetConnectionWithRetryHandler:(ActionBlock)handler{
+    if ([[Reachability reachabilityForInternetConnection]currentReachabilityStatus]==NotReachable){
+        //connection unavailable
+        [self showErrorScreen:NSLocalizedString(@"no_internet_connection", nil) andRetryButton:handler];
+        return NO;
+    }else{
+        //connection available
+        return YES;
+    }
+}
+
+- (BOOL)checkForInternetConnection{
+    if ([[Reachability reachabilityForInternetConnection]currentReachabilityStatus]==NotReachable){
+        //connection unavailable
+        return NO;
+    }else{
+        //connection available
+        return YES;
+    }
+}
+
 @end

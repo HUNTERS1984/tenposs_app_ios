@@ -91,7 +91,8 @@
     _request_url = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddress],API];
     
     NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
-    NSArray *sigs = [NSArray arrayWithObjects:APP_ID,currentTime,APP_SECRET,nil];
+    NSString *email = [parameters objectForKey:KeyAPI_EMAIL];
+    NSArray *sigs = [NSArray arrayWithObjects:APP_ID,currentTime,email,APP_SECRET,nil];
     
     Bundle *body = [Bundle new];
     NSMutableDictionary *dictData = [parameters mutableCopy];

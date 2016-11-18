@@ -20,13 +20,14 @@
 #import "UIFont+Themify.h"
 #import "UIImage+fixOrientation.h"
 
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
 #import "HexColors.h"
 
 #import "Settings_Avatar.h"
 #import "Setting_EditText.h"
 #import "Settings_Expand_Selector.h"
 #import "Settings_Social_Connect.h"
+#import "Settings_Avatar_t2.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
@@ -158,6 +159,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([Setting_EditText class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([Setting_EditText class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([Settings_Expand_Selector class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([Settings_Expand_Selector class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([Settings_Social_Connect class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([Settings_Social_Connect class])];
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([Settings_Avatar_t2 class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([Settings_Avatar_t2 class])];
 }
 
 -(void)buildSettingsFunctions{
@@ -228,34 +230,60 @@
     UITableViewCell *cell = nil;
     UserData *userData = [UserData shareInstance];
     NSNumber *function = [self functionForIndexPath:indexPath];
+    AppSettings *settings = [[AppConfiguration sharedInstance] getAvailableAppSettings];
     
     if ([function isEqual:SET_EDIT_AVATAR]) {
-        cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([Settings_Avatar class])];
-        if (!cell) {
-            cell = (Settings_Avatar *)[[[NSBundle mainBundle]
-                                        loadNibNamed:NSStringFromClass([Settings_Avatar class])
-                                        owner:self
-                                        options:nil] objectAtIndex:0];
-        }
-        ///Config Avatar
-        ((Settings_Avatar *)cell).avatar.layer.cornerRadius = ((Settings_Avatar *)cell).avatar.bounds.size.width/2;
-        ((Settings_Avatar *)cell).avatar.layer.borderWidth = 1;
-        ((Settings_Avatar *)cell).avatar.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        
-        if ([userData getUserAvatarImg]) {
-            UIImage *ava = [userData getUserAvatarImg];
-            [((Settings_Avatar *)cell).avatar setImage:ava];
-        }else{
-            NSString *avaURL = [userData getUserAvatarUrl];
-            if (avaURL && ![avaURL isKindOfClass:[NSNull class]]) {
-                [((Settings_Avatar *)cell).avatar sd_setImageWithURL:[NSURL URLWithString:avaURL] ];
+        if(settings.template_id == 1){
+            cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([Settings_Avatar class])];
+            if (!cell) {
+                cell = (Settings_Avatar *)[[[NSBundle mainBundle]
+                                            loadNibNamed:NSStringFromClass([Settings_Avatar class])
+                                            owner:self
+                                            options:nil] objectAtIndex:0];
+            }
+            ///Config Avatar
+            ((Settings_Avatar *)cell).avatar.layer.cornerRadius = ((Settings_Avatar *)cell).avatar.bounds.size.width/2;
+            ((Settings_Avatar *)cell).avatar.layer.borderWidth = 1;
+            ((Settings_Avatar *)cell).avatar.layer.borderColor = [UIColor lightGrayColor].CGColor;
+            
+            if ([userData getUserAvatarImg]) {
+                UIImage *ava = [userData getUserAvatarImg];
+                [((Settings_Avatar *)cell).avatar setImage:ava];
             }else{
-                [((Settings_Avatar *)cell).avatar setImage:[UIImage imageNamed:@"user_icon"]];
+                NSString *avaURL = [userData getUserAvatarUrl];
+                if (avaURL && ![avaURL isKindOfClass:[NSNull class]]) {
+                    [((Settings_Avatar *)cell).avatar sd_setImageWithURL:[NSURL URLWithString:avaURL] ];
+                }else{
+                    [((Settings_Avatar *)cell).avatar setImage:[UIImage imageNamed:@"user_icon"]];
+                }
+            }
+            
+            [((Settings_Avatar *)cell).title setText:[_settingNames objectForKey:SET_EDIT_AVATAR]];
+        }else if (settings.template_id == 2){
+            cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([Settings_Avatar_t2 class])];
+            if (!cell) {
+                cell = (Settings_Avatar_t2 *)[[[NSBundle mainBundle]
+                                            loadNibNamed:NSStringFromClass([Settings_Avatar class])
+                                            owner:self
+                                            options:nil] objectAtIndex:0];
+            }
+            ///Config Avatar
+            ((Settings_Avatar_t2 *)cell).avatar.layer.cornerRadius = ((Settings_Avatar_t2 *)cell).avatar.bounds.size.width/2;
+            ((Settings_Avatar_t2 *)cell).avatar.layer.borderWidth = 1;
+            ((Settings_Avatar_t2 *)cell).avatar.layer.borderColor = [UIColor lightGrayColor].CGColor;
+            
+            if ([userData getUserAvatarImg]) {
+                UIImage *ava = [userData getUserAvatarImg];
+                [((Settings_Avatar_t2 *)cell).avatar setImage:ava];
+            }else{
+                NSString *avaURL = [userData getUserAvatarUrl];
+                if (avaURL && ![avaURL isKindOfClass:[NSNull class]]) {
+                    [((Settings_Avatar_t2 *)cell).avatar sd_setImageWithURL:[NSURL URLWithString:avaURL] ];
+                }else{
+                    [((Settings_Avatar_t2 *)cell).avatar setImage:[UIImage imageNamed:@"user_icon"]];
+                }
             }
         }
-        
-        [((Settings_Avatar *)cell).title setText:[_settingNames objectForKey:SET_EDIT_AVATAR]];
-        
     }else if ([function isEqual:SET_EDIT_USER_ID]) {
         cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([Setting_EditText class])];
         if (!cell) {

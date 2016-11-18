@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Const.h"
+#import "DataModel.h"
+#import "UIImageView+WebCache.h"
 
 @interface Common_Item_Cell : UICollectionViewCell
 
 - (void)configureCellWithData:(NSObject *)data;
-
-+(CellSpanType)getCellSpanType;
 
 +(CGFloat)getCellHeightWithWidth:(CGFloat)width;
 

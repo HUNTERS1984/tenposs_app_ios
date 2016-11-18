@@ -16,6 +16,7 @@
 #import "HexColors.h"
 #import "Reachability.h"
 #import "UIViewController+LoadingView.h"
+#import "GlobalMapping.h"
 
 @interface BaseViewController () {
     __weak id<NSObject> observer;
@@ -170,13 +171,10 @@
 
 -(void)showLogin{
 //    if (![[UIApplication sharedApplication].keyWindow.rootViewController isKindOfClass:[LoginScreen class]]){
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        LoginScreen *nextController = [storyboard instantiateViewControllerWithIdentifier:@"LoginScreen"];
-        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];
-        [navi.navigationBar setHidden:YES];
-        [self presentViewController:navi animated:YES completion:nil];
+    UIViewController *login = [GlobalMapping getLoginScreenWithNavigation];
+    [self presentViewController:login animated:YES completion:nil];
 //    }
-    
+
 }
 
 -(void)logOutBecauseInvalidToken{
@@ -218,11 +216,15 @@
             //clear avatar img
             [[UserData shareInstance] setUserAvatarImg:nil];
             
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            /*UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
             LoginScreen *nextController = [storyboard instantiateViewControllerWithIdentifier:@"LoginScreen"];
             UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];
             [navi.navigationBar setHidden:YES];
             [self presentViewController:navi animated:YES completion:nil];
+             */
+            
+            [self showLogin];
+            
         }];
         return YES;
     }

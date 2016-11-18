@@ -43,10 +43,10 @@ static size_t const kDashedCount            = (2.0f);
     
 }
 
-//- (CGColorRef) dashColor{
-//    return self.lineColor.CGColor;
-//}
-//
+- (CGColorRef) dashColor{
+    return self.lineColor.CGColor;
+}
+
 //- (CGFloat)dashLength{
 //    return self
 //}

@@ -8,7 +8,7 @@
 
 #import "NewsDetailScreen.h"
 #import "UIViewController+LoadingView.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
 
 @interface NewsDetailScreen ()
 

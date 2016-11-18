@@ -13,4 +13,5 @@
 +(instancetype)sharedInstance;
 +(UIImage*) imageWithIdentifier:(NSString*) identifier;
 +(UIImage *)sideMenuImageWithMenuId:(NSInteger)menu_id;
++(UIImage *)sideMenuImageWithMenuId:(NSInteger)menu_id andTemplateId:(NSInteger)template_id;
 @end

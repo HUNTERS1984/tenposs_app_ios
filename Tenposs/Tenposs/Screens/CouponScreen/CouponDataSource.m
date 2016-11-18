@@ -32,6 +32,17 @@
     return self;
 }
 
+- (instancetype)initWithStoreId:(NSInteger)store_id{
+    self = [super init];
+    if (self) {
+        if(!self.mainData){
+            self.mainData = [StoreCoupon new];
+            self.mainData.store_id = store_id;
+        }
+    }
+    return self;
+}
+
 -(void)reloadDataSource{
     self.mainData.pageindex = 1;
     [self.mainData removeAllCoupons];

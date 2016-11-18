@@ -8,7 +8,6 @@
 
 #import "SettingsProvineScreen.h"
 #import "Const.h"
-#import <InAppSettingsKit/IASKSettingsReader.h>
 #import "UIFont+Themify.h"
 #import "HexColors.h"
 #import "AppConfiguration.h"

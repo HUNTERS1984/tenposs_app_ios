@@ -104,6 +104,8 @@
         } else {
             NSLog (@"Instagram not found");
         }
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -117,9 +119,6 @@
     
     self.contentView.clipsToBounds = YES;
     self.contentView.layer.cornerRadius = 5;
-    
-    
-    
     
 }
 - (IBAction)handleDismiss:(id)sender {

@@ -14,7 +14,7 @@ typedef void (^TabDataCompleteHandler)(NSError *error, NSString *detailDataSourc
 
 @interface TabDataSource : NSObject
 
-@property (strong, nonatomic)UICollectionView *collectionView;
+@property (strong, nonatomic) UICollectionView *collectionView;
 
 @property (strong, nonatomic) SimpleDataSource *activeDetailDataSource;
 

@@ -10,8 +10,6 @@
 
 @interface Top_Footer()
 
-@property (weak, nonatomic) IBOutlet UIButton *footerButton;
-@property(copy) TopFooterTouchHandler touchHandler;
 
 @end
 

@@ -23,6 +23,14 @@
     return self;
 }
 
+- (instancetype)initWithNewsCategory:(NewsCategoryObject *)newsCategory{
+    self = [super init];
+    if (self) {
+        self.mainData = newsCategory;
+    }
+    return self;
+}
+
 -(void)reloadDataSource{
     [self cancelOldRequest];
     self.mainData.pageIndex = 1;
@@ -125,7 +133,7 @@
     return CGSizeZero;
 }
 
-- (UIEdgeInsets)insetForSection{
+-(UIEdgeInsets)insetForSection:(NSInteger)section{
     return UIEdgeInsetsMake(8, 8, 8, 8);
 }
 

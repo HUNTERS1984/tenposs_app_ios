@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Item_Detail_Common.h"
+#import "Common_Item_Cell.h"
 
-@interface Item_Detail_TopImage : Item_Detail_Common
+@interface Item_Detail_TopImage : Common_Item_Cell
 
 @end

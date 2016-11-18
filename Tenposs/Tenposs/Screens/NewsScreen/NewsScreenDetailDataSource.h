@@ -15,5 +15,8 @@
 
 @interface NewsScreenDetailDataSource : SimpleDataSource <TenpossCommunicatorDelegate>
 @property(strong, nonatomic) NewsCategoryObject *mainData;
+
 - (instancetype)initWithDelegate:(id<SimpleDataSourceDelegate>)delegate andNewsCategory:(NewsCategoryObject *)newsCategory;
+- (instancetype)initWithNewsCategory:(NewsCategoryObject *)newsCategory;
+
 @end

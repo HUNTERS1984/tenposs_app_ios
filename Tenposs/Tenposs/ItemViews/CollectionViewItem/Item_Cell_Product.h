@@ -13,4 +13,8 @@
 
 @interface Item_Cell_Product : Common_Item_Cell
 
+@property (weak, nonatomic) IBOutlet UIImageView *productThumbnail;
+@property (weak, nonatomic) IBOutlet UILabel *productName;
+@property (weak, nonatomic) IBOutlet UILabel *productPrice;
+
 @end

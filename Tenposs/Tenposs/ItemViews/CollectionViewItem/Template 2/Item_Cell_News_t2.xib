@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Item_Cell_News_t2" id="gTV-IL-0wX" customClass="Item_Cell_News_t2">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iU5-su-rTr" userLabel="contentView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Peo-v3-5qr">
+                                <rect key="frame" x="8" y="8" width="104" height="104"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Peo-v3-5qr" secondAttribute="height" multiplier="1:1" id="IzG-md-kSg"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="1000" text="顧客が店でパンを受信するには無料ドリンクを与えます" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGd-m3-uGr">
+                                <rect key="frame" x="120" y="8" width="192" height="36"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                <color key="textColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="749" text="アメリカ大統領選挙に向けた最後の" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p12-Um-h58">
+                                <rect key="frame" x="120" y="52" width="192" height="33.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.3483758425245097" green="0.3483758425245097" blue="0.3483758425245097" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="10月20日 12時23分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qcz-9X-ikD">
+                                <rect key="frame" x="120" y="93.5" width="192" height="18.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.63921568627450975" green="0.63921568627450975" blue="0.63921568627450975" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UFw-Bo-3Si" userLabel="separator">
+                                <rect key="frame" x="0.0" y="119" width="320" height="1"/>
+                                <color key="backgroundColor" red="0.87800781250000004" green="0.87800781250000004" blue="0.87800781250000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="ZkC-qo-MAV"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Qcz-9X-ikD" firstAttribute="leading" secondItem="Peo-v3-5qr" secondAttribute="trailing" constant="8" id="5vQ-r0-Obc"/>
+                            <constraint firstAttribute="bottom" secondItem="Peo-v3-5qr" secondAttribute="bottom" constant="8" id="ACq-YO-Hsx"/>
+                            <constraint firstItem="p12-Um-h58" firstAttribute="top" secondItem="HGd-m3-uGr" secondAttribute="bottom" constant="8" id="GT2-Kb-j5r"/>
+                            <constraint firstItem="HGd-m3-uGr" firstAttribute="top" secondItem="Peo-v3-5qr" secondAttribute="top" id="MIh-Hu-V7b"/>
+                            <constraint firstAttribute="trailing" secondItem="UFw-Bo-3Si" secondAttribute="trailing" id="O4u-f3-zbB"/>
+                            <constraint firstItem="HGd-m3-uGr" firstAttribute="leading" secondItem="Peo-v3-5qr" secondAttribute="trailing" constant="8" id="S3X-Wx-og9"/>
+                            <constraint firstItem="UFw-Bo-3Si" firstAttribute="leading" secondItem="iU5-su-rTr" secondAttribute="leading" id="UlX-zp-PB3"/>
+                            <constraint firstAttribute="trailing" secondItem="p12-Um-h58" secondAttribute="trailing" constant="8" id="WSD-QE-29V"/>
+                            <constraint firstAttribute="trailing" secondItem="Qcz-9X-ikD" secondAttribute="trailing" constant="8" id="Y0E-SD-hby"/>
+                            <constraint firstAttribute="bottom" secondItem="UFw-Bo-3Si" secondAttribute="bottom" id="bTh-Uo-372"/>
+                            <constraint firstItem="Peo-v3-5qr" firstAttribute="top" secondItem="iU5-su-rTr" secondAttribute="top" constant="8" id="flX-IT-s0B"/>
+                            <constraint firstAttribute="trailing" secondItem="HGd-m3-uGr" secondAttribute="trailing" constant="8" id="iVW-aj-QDz"/>
+                            <constraint firstAttribute="bottom" secondItem="Qcz-9X-ikD" secondAttribute="bottom" constant="8" id="j2H-6u-iu9"/>
+                            <constraint firstItem="Peo-v3-5qr" firstAttribute="leading" secondItem="iU5-su-rTr" secondAttribute="leading" constant="8" id="moP-LM-EXI"/>
+                            <constraint firstItem="p12-Um-h58" firstAttribute="leading" secondItem="Peo-v3-5qr" secondAttribute="trailing" constant="8" id="pVX-Ei-MU3"/>
+                            <constraint firstItem="Qcz-9X-ikD" firstAttribute="top" secondItem="p12-Um-h58" secondAttribute="bottom" constant="8" id="xkN-Ed-A93"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="iU5-su-rTr" secondAttribute="bottom" id="2F3-3n-VPh"/>
+                <constraint firstItem="iU5-su-rTr" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="8aM-hC-rXB"/>
+                <constraint firstAttribute="trailing" secondItem="iU5-su-rTr" secondAttribute="trailing" id="RrH-VZ-g60"/>
+                <constraint firstItem="iU5-su-rTr" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="jnQ-QS-Bfi"/>
+            </constraints>
+            <size key="customSize" width="445" height="239"/>
+            <connections>
+                <outlet property="date" destination="Qcz-9X-ikD" id="rul-Dc-wJZ"/>
+                <outlet property="desc" destination="p12-Um-h58" id="2gx-ud-nJo"/>
+                <outlet property="thumb" destination="Peo-v3-5qr" id="n5T-0h-Xfu"/>
+                <outlet property="title" destination="HGd-m3-uGr" id="UaG-OY-6Si"/>
+            </connections>
+            <point key="canvasLocation" x="138" y="71"/>
+        </collectionViewCell>
+    </objects>
+</document>

@@ -7,7 +7,7 @@
 //
 
 #import "PhotoViewer.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
 
 @interface PhotoViewer ()
 
@@ -30,7 +30,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _closeButton.hidden = YES;
-
 }
 
 - (void)setPhoto:(PhotoObject *)photo{

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="NO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <development version="7000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -16,23 +19,21 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uTv-0M-KvP" userLabel="photo">
-                        <rect key="frame" x="0.0" y="0.0" width="188" height="188"/>
-                        <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="uTv-0M-KvP" secondAttribute="height" multiplier="1:1" id="nTl-oH-aGz"/>
-                        </constraints>
+                        <rect key="frame" x="2" y="2" width="184" height="184"/>
+                        <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </imageView>
                 </subviews>
             </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="uTv-0M-KvP" secondAttribute="trailing" id="6Gc-Vu-ahm"/>
+                <constraint firstItem="uTv-0M-KvP" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="2" id="4Kh-uk-Qln"/>
+                <constraint firstAttribute="trailing" secondItem="uTv-0M-KvP" secondAttribute="trailing" constant="2" id="6Gc-Vu-ahm"/>
                 <constraint firstAttribute="bottom" secondItem="uTv-0M-KvP" secondAttribute="bottom" id="6Uk-e7-ja2"/>
                 <constraint firstAttribute="trailing" secondItem="uTv-0M-KvP" secondAttribute="trailing" id="HSA-Ah-LTs"/>
                 <constraint firstItem="uTv-0M-KvP" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="abY-X5-ws5"/>
-                <constraint firstItem="uTv-0M-KvP" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="f52-w9-Ngn"/>
-                <constraint firstItem="uTv-0M-KvP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="hp5-XQ-n8R"/>
+                <constraint firstItem="uTv-0M-KvP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="hp5-XQ-n8R"/>
                 <constraint firstItem="uTv-0M-KvP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="kgQ-BW-TmU"/>
-                <constraint firstItem="uTv-0M-KvP" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="sTa-0m-8ZF"/>
+                <constraint firstAttribute="bottom" secondItem="uTv-0M-KvP" secondAttribute="bottom" constant="2" id="nPa-qG-Wsl"/>
             </constraints>
             <size key="customSize" width="188" height="188"/>
             <variation key="default">

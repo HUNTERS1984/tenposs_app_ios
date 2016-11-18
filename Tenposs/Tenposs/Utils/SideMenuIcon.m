@@ -114,9 +114,56 @@
             break;
         default:
             return nil;
-            break;
     }
     return [SideMenuIcon imageWithIdentifier:iconIdentifier];
+}
+
++(UIImage *)sideMenuImageWithMenuId:(NSInteger)menu_id andTemplateId:(NSInteger)template_id{
+    if (template_id == 1) {
+        return [self sideMenuImageWithMenuId:menu_id];
+    }else if (template_id == 2){
+        UIImage *icon = nil;
+        NSString *imageName = nil;
+        switch (menu_id) {
+            case APP_MENU_TOP:
+                imageName = @"t2_icon_menu_home";
+                break;
+            case APP_MENU_CHAT:
+                imageName = @"t2_icon_menu_chat";
+                break;
+            case APP_MENU_MENU:
+                imageName = @"t2_icon_menu_menu";
+                break;
+            case APP_MENU_NEWS:
+                imageName = @"t2_icon_menu_news";
+                break;
+            case APP_MENU_RESERVE:
+                imageName = @"t2_icon_menu_reserve";
+                break;
+            case APP_MENU_STAFF:
+                imageName = @"t2_icon_menu_staff";
+                break;
+            case APP_MENU_COUPON:
+                imageName = @"t2_icon_menu_coupon";
+                break;
+            case APP_MENU_LOGOUT:
+                imageName = @"icon-logout";
+                break;
+            case APP_MENU_PHOTO_GALLERY:
+                imageName = @"t2_icon_menu_gallery";
+                break;
+            case APP_MENU_SETTING:
+                imageName = @"t2_icon_menu_setting";
+                break;
+            default:
+                return nil;
+        }
+        if(imageName){
+            icon = [UIImage imageNamed:imageName];
+        }
+        return icon;
+    }
+    return nil;
 }
 
 @end

@@ -84,6 +84,7 @@
                 _heightConstraint.constant = cellInfo.fullSizeHeight;
             }
         }
+        [self setNeedsLayout];
     }
 }
 

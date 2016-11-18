@@ -13,8 +13,10 @@
 @interface TopScreen : UICollectionViewController
 @property UINavigationController *mainNavigationController;
 
-- (void)performNavigateToMenuScreen:(Bundle *)extraData;
-- (void)performNavigateToNewsScreen:(Bundle *)extraData;
-- (void)performNavigateToCouponScreen:(Bundle *)extraData;
+//- (void)performNavigateToMenuScreen:(Bundle *)extraData;
+//- (void)performNavigateToNewsScreen:(Bundle *)extraData;
+//- (void)performNavigateToCouponScreen:(Bundle *)extraData;
+
+- (void)handleItemTouched:(NSObject *)item;
 - (void)performNavigateToScreenWithId:(NSInteger)screenId;
 @end

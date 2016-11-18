@@ -8,7 +8,7 @@
 
 #import "Item_Cell_Coupon.h"
 #import "DataModel.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
 
 @interface Item_Cell_Coupon()
 @property (weak, nonatomic) IBOutlet UIView *coupon_thumbnail_boundary;

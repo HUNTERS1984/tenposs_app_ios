@@ -27,6 +27,9 @@
 #import "CouponDetailScreen.h"
 #import "ItemDetailScreen.h"
 #import "StaffDetailScreen.h"
+#import "ItemDetailScreen_t2.h"
+#import "UserHomeScreen.h"
+#import "UserHomeScreen_t2.h"
 
 #import "UIFont+Themify.h"
 
@@ -44,7 +47,7 @@
 @property (strong, nonatomic) NSMutableDictionary *cachedChildController;
 @property (strong, nonatomic) UIViewController *currentChildController;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
-
+@property (weak, nonatomic) IBOutlet UIView *childContainerView;
 @end
 
 @implementation GrandViewController
@@ -104,14 +107,16 @@
                                        forState:UIControlStateNormal];
             [_menuButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-menu"]]];
             
-            UIBarButtonItem *settingProfile = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(showUserEditProfile)];
-            self.navigationItem.rightBarButtonItem = settingProfile;
-            [settingProfile setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                 [UIFont themifyFontOfSize:20], NSFontAttributeName,
-                                                 [UIColor colorWithHexString:@"FFFFFF"], NSForegroundColorAttributeName,
-                                                 nil]
-                                       forState:UIControlStateNormal];
-            [settingProfile setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-settings"]]];
+            if (settings.template_id == 1) {
+                UIBarButtonItem *settingProfile = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(showUserEditProfile)];
+                self.navigationItem.rightBarButtonItem = settingProfile;
+                [settingProfile setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                        [UIFont themifyFontOfSize:20], NSFontAttributeName,
+                                                        [UIColor colorWithHexString:@"FFFFFF"], NSForegroundColorAttributeName,
+                                                        nil]
+                                              forState:UIControlStateNormal];
+                [settingProfile setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-settings"]]];
+            }
             
             self.navigationController.navigationBar.backgroundColor= [UIColor clearColor];
             
@@ -248,9 +253,19 @@
         [self.currentChildController.view removeFromSuperview];
         [self.currentChildController removeFromParentViewController];
     }
+    NSString *nameClass = NSStringFromClass([child class]);
+    if([nameClass containsString:@"UserHomeScreen"]){
+        self.currentChildController = child;
+        child.view.frame = self.view.frame;
+        [self.view addSubview:child.view];
+        [self addChildViewController:child];
+        [child didMoveToParentViewController:self];
+        return;
+    }
     self.currentChildController = child;
+    child.view.frame = self.childContainerView.bounds;
+    [self.childContainerView addSubview:child.view];
     [self addChildViewController:child];
-    [self.view addSubview:child.view];
     [child didMoveToParentViewController:self];
 }
 
@@ -258,14 +273,29 @@
     if (!object) {
         return;
     }
+    
+    AppSettings *settings = [[AppConfiguration sharedInstance] getAvailableAppSettings];
+    
     if ([object isKindOfClass:[NewsObject class]]) {
         [self performSegueWithIdentifier:GRAND_IDENTIFIER_NEWS_DETAIL sender:object];
     }else if ([object isKindOfClass:[CouponObject class]]){
         [self performSegueWithIdentifier:GRAND_IDENTIFIER_COUPON_DETAIL sender:object];
     }else if ([object isKindOfClass:[PhotoObject class]]){
-        [self performSegueWithIdentifier:GRAND_IDENTIFIER_PHOTO_DETAIL sender:object];
+        //[self performSegueWithIdentifier:GRAND_IDENTIFIER_PHOTO_DETAIL sender:object];
+        PhotoObject *photo = (PhotoObject *)object;
+        Bundle *extra = [Bundle new];
+        [extra put:PhotoViewer_PHOTO value:photo];
+        UIViewController *photoViewer = [GlobalMapping getPhotoViewer:settings.template_id andExtra:extra];
+        [self presentViewController:photoViewer animated:YES completion:nil];
+        return;
     }else if ([object isKindOfClass:[ProductObject class]]){
-        [self performSegueWithIdentifier:GRAND_IDENTIFIER_ITEM_DETAIL sender:object];
+        if (settings.template_id == 1) {
+            [self performSegueWithIdentifier:GRAND_IDENTIFIER_ITEM_DETAIL sender:object];
+        }else{
+            ProductObject *item = (ProductObject *)object;
+            ItemDetailScreen_t2 *controller = [[ItemDetailScreen_t2 alloc] initWithItem:item];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
     }else if([object isKindOfClass:[StaffObject class]]){
         StaffObject *staff = (StaffObject *)object;
         StaffDetailScreen *controller = [[StaffDetailScreen alloc] initWithStaff:staff];

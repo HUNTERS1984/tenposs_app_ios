@@ -10,6 +10,8 @@
 #import "Item_Cell_News.h"
 #import "Item_Cell_Product.h"
 #import "Utils.h"
+#import "AppConfiguration.h"
+#import "Item_Cell_Product_Item_t2.h"
 
 #define SPACING_ITEM_PRODUCT 8
 
@@ -18,6 +20,14 @@
 @end
 
 @implementation MenuScreenDetailDataSource
+
+- (instancetype)initWithMenuCategory:(MenuCategoryModel *)menuCategory{
+    self = [super init];
+    if (self) {
+        self.mainData = menuCategory;
+    }
+    return self;
+}
 
 - (instancetype)initWithDelegate:(id<SimpleDataSourceDelegate>)delegate andMenuCategory:(MenuCategoryModel *)menuCategory{
     self = [super initWithDelegate:delegate];
@@ -67,7 +77,12 @@
 }
 
 - (void)registerClassForCollectionView:(UICollectionView *)collection{
-    [collection registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Cell_Product class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Cell_Product class])];
+    AppSettings *settings = [[AppConfiguration sharedInstance] getAvailableAppSettings];
+    if(settings.template_id == 1){
+        [collection registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Cell_Product class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Cell_Product class])];
+    }else if (settings.template_id == 2){
+        [collection registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Cell_Product_Item_t2 class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Cell_Product_Item_t2 class])];
+    }
 }
 
 - (BOOL)isEqualTo:(SimpleDataSource *)second{
@@ -109,7 +124,16 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ProductObject *item = (ProductObject *)[self itemAtIndexPath:indexPath];
-    Item_Cell_Product *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Cell_Product class]) forIndexPath:indexPath];
+    
+    Common_Item_Cell *cell = nil;
+    
+    AppSettings *settings = [[AppConfiguration sharedInstance] getAvailableAppSettings];
+    if(settings.template_id == 1){
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Cell_Product class]) forIndexPath:indexPath];
+    }else if (settings.template_id == 2){
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Cell_Product_Item_t2 class]) forIndexPath:indexPath];
+    }
+    
     if (cell && item) {
         [cell configureCellWithData:item];
     }
@@ -117,8 +141,17 @@
 }
 
 - (CGSize)sizeForCellAtIndexPath:(NSIndexPath *)indexPath withCollectionWidth:(CGFloat)superWidth{
+    
     CGFloat width = (superWidth - 3*SPACING_ITEM_PRODUCT) / 2;
-    CGFloat height = [Item_Cell_Product getCellHeightWithWidth:width];
+    CGFloat height = 0;
+    
+    AppSettings *settings = [[AppConfiguration sharedInstance] getAvailableAppSettings];
+    if(settings.template_id == 1){
+      height = [Item_Cell_Product getCellHeightWithWidth:width];
+    }else if (settings.template_id == 2){
+     height = [Item_Cell_Product_Item_t2 getCellHeightWithWidth:width];
+    }
+    
     return CGSizeMake(width,height);
 }
 
@@ -130,8 +163,16 @@
     return CGSizeZero;
 }
 
-- (UIEdgeInsets)insetForSection{
+-(UIEdgeInsets)insetForSection:(NSInteger)section{
     return UIEdgeInsetsMake(20, 8, 5, 8);
+}
+
+- (CGFloat)minimumLineSpacingForSection:(NSInteger)section{
+    return 8;
+}
+
+- (CGFloat)minimumInteritemSpacingForSection:(NSInteger)section{
+    return 8;
 }
 
 #pragma mark - TenpossCommunicatorDelegate

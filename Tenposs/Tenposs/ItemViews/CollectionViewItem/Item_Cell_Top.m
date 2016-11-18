@@ -7,7 +7,7 @@
 //
 
 #import "Item_Cell_Top.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
 
 #define Top_ThumbnailRatio  2
 
@@ -79,6 +79,9 @@
     NSUInteger page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     self.pageControl.currentPage = page;
     self.currentPageIndex = page;
+    if ([self.topArray count] > self.currentPageIndex + 1) {
+        [self loadPageContent:self.currentPageIndex +1];
+    }
 }
 
 //+ (CellSpanType)getCellSpanType{

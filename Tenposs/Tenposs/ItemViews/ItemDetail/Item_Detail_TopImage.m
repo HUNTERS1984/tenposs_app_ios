@@ -7,7 +7,8 @@
 //
 
 #import "Item_Detail_TopImage.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
+//#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface Item_Detail_TopImage()
 @property (weak, nonatomic) IBOutlet UIImageView *itemThumbnail;

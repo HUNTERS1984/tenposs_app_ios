@@ -18,8 +18,9 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <TwitterKit/TwitterKit.h>
 #import <Fabric/Fabric.h>
-#import <SDWebImage/UIImageView+WebCache.h>
-#import "LoginScreen.h"
+#import "UIImageView+WebCache.h"
+
+#import "GlobalMapping.h"
 
 @interface AppDelegate ()
 @property UIView *loadingView;
@@ -56,17 +57,9 @@
         _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     }
     
-    if ([[UserData shareInstance] getToken]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        SplashScreen *nextController = [storyboard instantiateViewControllerWithIdentifier:@"SplashScreen"];
-        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];
-        [navi.navigationBar setHidden:YES];
-        [self.window setRootViewController:navi];
-    }else{
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        LoginScreen *nextController = [storyboard instantiateViewControllerWithIdentifier:@"LoginScreen"];
-        [self.window setRootViewController:nextController];
-    }
+    UIViewController *infoViewController = [[UIViewController alloc] init];
+    
+    [self.window setRootViewController:infoViewController];
     
     [self.window makeKeyAndVisible];
     
@@ -358,7 +351,18 @@
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     
     [appConfig loadAppInfoWithCompletionHandler:^(NSError *error) {
-        
+        if ([[UserData shareInstance] getToken]) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            SplashScreen *nextController = [storyboard instantiateViewControllerWithIdentifier:@"SplashScreen"];
+            UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];
+            [navi.navigationBar setHidden:YES];
+            [self.window setRootViewController:navi];
+            [self.window makeKeyAndVisible];
+        }else{
+            UIViewController *login = [GlobalMapping getLoginScreenWithNavigation];
+            [self.window setRootViewController:login];
+            [self.window makeKeyAndVisible];
+        }
     }];
 }
 

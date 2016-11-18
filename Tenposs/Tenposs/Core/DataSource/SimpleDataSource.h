@@ -28,6 +28,8 @@
 
 @property(weak, nonatomic) id<SimpleDataSourceDelegate> delegate;
 
+- (instancetype)init;
+
 - (instancetype)initWithDelegate:(id<SimpleDataSourceDelegate>)delegate;
 
 -(void)reloadDataSource;
@@ -50,6 +52,10 @@
 
 - (CGSize)sizeForFooterAtSection:(NSInteger)section inCollectionView:(UICollectionView *)collectionView;
 
-- (UIEdgeInsets)insetForSection;
+- (CGFloat)minimumLineSpacingForSection:(NSInteger)section;
+
+- (CGFloat)minimumInteritemSpacingForSection:(NSInteger)section;
+
+- (UIEdgeInsets)insetForSection:(NSInteger)section;
 
 @end

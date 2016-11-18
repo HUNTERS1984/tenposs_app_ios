@@ -10,6 +10,7 @@
 #import "UIButton+HandleBlock.h"
 #import "UserData.h"
 #import "LoginScreen.h"
+#import "GlobalMapping.h"
 
 @interface UIViewController(LoadingView)
 
@@ -23,5 +24,13 @@
 -(void) removeErrorRetry;
 
 - (void) removeAllInfoView;
+
+- (BOOL)checkForInternetConnectionWithRetryHandler:(ActionBlock)handler;
+- (BOOL)checkForInternetConnection;
+
+
+- (void)invalidateCurrentUserSession;
+-(void)showLogin;
+-(BOOL)signOut;
 
 @end

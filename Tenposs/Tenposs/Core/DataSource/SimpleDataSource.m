@@ -10,6 +10,11 @@
 
 @implementation SimpleDataSource
 
+- (instancetype)init{
+    self = [super init];
+    return self;
+}
+
 - (instancetype)initWithDelegate:(id<SimpleDataSourceDelegate>)delegate{
     self = [super init];
     if (self) {
@@ -56,7 +61,7 @@
     return NO;
 }
 
-- (UIEdgeInsets)insetForSection{
+- (UIEdgeInsets)insetForSection:(NSInteger)section{
     NSAssert(NO, @"Should be implemented");
     return UIEdgeInsetsZero;
 }
@@ -74,6 +79,16 @@
 - (CGSize)sizeForFooterAtSection:(NSInteger)section inCollectionView:(UICollectionView *)collectionView{
     NSAssert(NO, @"Should be implemented");
     return CGSizeZero;
+}
+
+- (CGFloat)minimumLineSpacingForSection:(NSInteger)section{
+    NSAssert(NO, @"Should be implemented");
+    return 0;
+}
+
+- (CGFloat)minimumInteritemSpacingForSection:(NSInteger)section{
+    NSAssert(NO, @"Should be implemented");
+    return 0;
 }
 
 #pragma UICollectionViewDataSource

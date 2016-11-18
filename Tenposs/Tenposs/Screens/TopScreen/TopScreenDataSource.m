@@ -25,6 +25,7 @@
 #import "Utils.h"
 #import "MenuCommunicator.h"
 
+
 @interface TopScreenDataSource()<TenpossCommunicatorDelegate>
 
 @property (strong, nonatomic)NSMutableArray *sectionArray;
@@ -36,14 +37,6 @@
 @end
 
 @implementation TopScreenDataSource
-
--(instancetype)initWithDelegate: (id <TopScreenDataSourceDelegate>) delegate{
-    self = [super init];
-    if (self) {
-        self.delegate = delegate;
-    }
-    return self;
-}
 
 - (NSObject *)sectionDataForSection:(NSInteger)section{
     if (section >= [_sectionArray count]) {
@@ -218,20 +211,6 @@
 
 - (void)fetchContent{
     [self loadTopData];
-}
-
-- (CellSpanType)cellSpanTypeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSObject *item = [self dataAtIndexPath:indexPath];
-    if ([item isKindOfClass:[ProductObject class]]) {
-        return [Item_Cell_Product getCellSpanType];
-    }else if([item isKindOfClass:[TopObject class]]){
-        return CellSpanTypeFull;
-    }else if([item isKindOfClass:[PhotoObject class]]){
-        return [Item_Cell_Photo getCellSpanType];
-    }else if([item isKindOfClass:[ContactObject class]]){
-        return [Item_Cell_ShopInfo getCellSpanType];
-    }
-    return CellSpanTypeNone;
 }
 
 - (CGSize)sizeForCellAtIndexPath:(NSIndexPath *)indexPath withCollectionWidth:(CGFloat)superWidth{

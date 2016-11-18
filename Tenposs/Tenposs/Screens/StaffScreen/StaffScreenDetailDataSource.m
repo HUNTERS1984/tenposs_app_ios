@@ -26,6 +26,14 @@
     return self;
 }
 
+- (instancetype)initWithStaffCategory:(StaffCategory *)category{
+    self = [super init];
+    if (self) {
+        self.mainData = category;
+    }
+    return self;
+}
+
 - (void)reloadDataSource{
     [self cancelOldRequest];
     self.mainData.pageindex = 1;
@@ -121,7 +129,7 @@
     return CGSizeZero;
 }
 
-- (UIEdgeInsets)insetForSection{
+- (UIEdgeInsets)insetForSection:(NSInteger)section{
     return UIEdgeInsetsMake(8, 8, 8, 8);
 }
 

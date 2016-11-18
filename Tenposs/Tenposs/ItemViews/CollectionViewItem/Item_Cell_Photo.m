@@ -7,7 +7,7 @@
 //
 
 #import "Item_Cell_Photo.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
 #import "DataModel.h"
 
 @interface Item_Cell_Photo()
@@ -20,7 +20,15 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    [self setNeedsLayout];
+    self.photo.clipsToBounds = YES;
+    
+    self.layer.masksToBounds = NO;
+    self.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.layer.shadowOffset = CGSizeMake(1, 1);
+    self.layer.shadowOpacity = 0.3;
+    self.layer.shadowRadius = 1;
+    
 }
 
 - (void)configureCellWithData:(NSObject *)data{
@@ -31,19 +39,8 @@
     }else if (data && [data isKindOfClass:[NSString class]]){
         imageURL = (NSString *)data;
     }
-    self.photo.clipsToBounds = YES;
-    
-    self.layer.masksToBounds = NO;
-    self.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.layer.shadowOffset = CGSizeMake(1, 1);
-    self.layer.shadowOpacity = 0.3;
-    self.layer.shadowRadius = 1;
 
     [self.photo sd_setImageWithURL:[NSURL URLWithString:imageURL]];
-}
-
-+(CellSpanType)getCellSpanType{
-    return CellSpanTypeSmall;
 }
 
 +(CGFloat)getCellHeightWithWidth:(CGFloat)width{

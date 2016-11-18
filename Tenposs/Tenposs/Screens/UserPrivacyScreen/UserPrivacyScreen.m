@@ -7,7 +7,6 @@
 //
 
 #import "UserPrivacyScreen.h"
-#import <InAppSettingsKit/IASKSpecifier.h>
 
 @interface UserPrivacyScreen ()
 

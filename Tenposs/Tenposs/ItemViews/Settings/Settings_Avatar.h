@@ -12,4 +12,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
 - (void) configureCellWithData:(NSObject *)data;
++ (CGFloat)height;
 @end

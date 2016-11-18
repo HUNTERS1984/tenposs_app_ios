@@ -8,12 +8,9 @@
 
 #import "Item_Cell_Product.h"
 #import "UIUtils.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
 
 @interface Item_Cell_Product()
-@property (weak, nonatomic) IBOutlet UIImageView *productThumbnail;
-@property (weak, nonatomic) IBOutlet UILabel *productName;
-@property (weak, nonatomic) IBOutlet UILabel *productPrice;
 
 @end
 

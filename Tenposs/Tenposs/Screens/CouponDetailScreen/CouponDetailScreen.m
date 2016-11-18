@@ -10,7 +10,7 @@
 #import "UIViewController+LoadingView.h"
 #import "HexColors.h"
 #import "QRCodeScreen.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
 
 @interface CouponDetailScreen () <UIScrollViewDelegate>
 
