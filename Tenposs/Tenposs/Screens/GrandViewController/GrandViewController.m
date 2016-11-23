@@ -263,8 +263,8 @@
         return;
     }
     self.currentChildController = child;
-    child.view.frame = self.childContainerView.bounds;
-    [self.childContainerView addSubview:child.view];
+    child.view.frame = self.view.bounds;
+    [self.view addSubview:child.view];
     [self addChildViewController:child];
     [child didMoveToParentViewController:self];
 }

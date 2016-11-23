@@ -45,7 +45,11 @@
     
     if (!_mainDataSource) {
         _mainDataSource = [[MenuScreenDataSource_t2 alloc] init];
-        _mainDataSource.mainNavigationController = self.navigationController;
+        if (!self.navigationController) {
+            _mainDataSource.mainNavigationController = _mainNavigationController;
+        }else{
+            _mainDataSource.mainNavigationController = self.navigationController;
+        }
     }
     
     __weak MenuScreen_t2 *weakSelf = self;

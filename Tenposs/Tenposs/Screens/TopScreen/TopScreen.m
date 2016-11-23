@@ -98,10 +98,6 @@
         AppSettings *settings = [[AppConfiguration sharedInstance] getAvailableAppSettings];
         UIViewController *shareApp = [GlobalMapping getShareAppScreen:settings.template_id andExtra:nil];
         [self presentViewController:shareApp animated:YES completion:nil];
-//        ShareAppScreen *app = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([ShareAppScreen class])];
-//        app.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-//        app.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-//        [self presentViewController:app animated:YES completion:nil];
     }
 }
 

@@ -36,6 +36,10 @@
 "company_info"="逼营会社";
 "user_privacy"="採用情報";
 
+"setting_connect" = "連携";
+"setting_disconnect" = "非接続";
+
+
 "sign_in"="ログイン";
 "sign_up"="サインアップ";
 "sign_out"="サインアウト";

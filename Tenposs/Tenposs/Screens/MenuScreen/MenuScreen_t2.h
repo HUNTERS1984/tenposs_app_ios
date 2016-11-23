@@ -12,5 +12,5 @@
 #import "UIViewController+LoadingView.h"
 
 @interface MenuScreen_t2 : ViewPagerController
-
+@property(strong, nonatomic)UINavigationController *mainNavigationController;
 @end

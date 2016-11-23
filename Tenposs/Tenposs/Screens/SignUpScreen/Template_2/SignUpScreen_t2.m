@@ -10,6 +10,11 @@
 #import "AppConfiguration.h"
 #import "HexColors.h"
 #import "UIFont+Themify.h"
+#import "NetworkCommunicator.h"
+#import "UserData.h"
+#import "AppDelegate.h"
+#import "SplashScreen.h"
+
 
 @interface SignUpScreen_t2 ()
 
@@ -71,7 +76,70 @@
 }
 
 - (IBAction)nextTouched:(id)sender {
+    if ([self validateEnteredInfo]) {
+        [self doRegister];
+    }
+}
+
+- (BOOL)validateEnteredInfo{
     
+    if ([_userName.text isEqualToString:@""] || [_email.text isEqualToString:@""] || ![self validateEmailWithString:_email.text]){
+        [self showAlertView:@"警告" message:@"メールと名前を入力してください"];
+        return NO;
+    }
+    
+    if ([_password.text isEqualToString:@""]){
+        [self showAlertView:@"警告" message:@"パスワード入力してください"];
+        return NO;
+    }
+    
+    if (![_rePassword.text isEqualToString:_password.text]){
+        [self showAlertView:@"警告" message:@"確認パスワードが正しくありません"];
+        return NO;
+    }
+    
+    return YES;
+}
+
+- (BOOL)validateEmailWithString:(NSString*)checkString{
+    BOOL stricterFilter = NO;
+    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
+    NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:checkString];
+}
+
+- (void)doRegister{
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    [params setObject:_email.text forKey:KeyAPI_EMAIL];
+    [params setObject:_password.text forKey:KeyAPI_PASSWORD];
+    [params setObject:_userName.text forKey:KeyAPI_USERNAME];
+    
+    [[NetworkCommunicator shareInstance] POST:API_SIGNUP parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+        if(isSuccess) {
+            [UserData shareInstance].userDataDictionary = [dictionary mutableCopy];
+            [[UserData shareInstance] saveUserData];
+            AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+            [delegate registerPushNotification];
+            [self showTop];
+        }else{
+            [self showAlertView:@"エラー" message:@"新規会員登録できません"];
+        }
+    }];
+}
+
+-(void)showAlertView:(NSString *)title message:(NSString *)message{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"閉じる" otherButtonTitles:nil];
+    [alert show];
+}
+
+-(void)showTop{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    SplashScreen *nextController = [storyboard instantiateViewControllerWithIdentifier:@"SplashScreen"];
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];
+    //[navi.navigationBar setHidden:YES];
+    [self presentViewController:navi animated:YES completion:nil];
 }
 
 @end

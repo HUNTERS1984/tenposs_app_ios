@@ -66,7 +66,7 @@
     }else if (viewControlerId == APP_MENU_RESERVE){
         viewController = (ReserveScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ReserveScreen class])];
     }else if (viewControlerId == APP_MENU_SETTING){
-        viewController = [SettingHomeScreen new];
+        viewController = [self getSettingsHomeScreen:settings.template_id andExtra:extra];
     }else if (viewControlerId == APP_MENU_STAFF){
         viewController = [self getStaffScreen:settings.template_id andExtra:extra];
     }else if (viewControlerId == APP_MENU_CHAT){
@@ -107,6 +107,13 @@
     return nil;
 }
 
++ (UIViewController *)getSettingsHomeScreen:(NSInteger) templateId andExtra:(Bundle *)extra{
+    UIViewController *viewController = nil;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    viewController = (SettingHomeScreen *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SettingHomeScreen class])];
+    return viewController;
+}
+
 + (UIViewController *)getUserHomeScreen:(NSInteger) templateId andExtra:(Bundle *)extra{
     UIViewController *viewController = nil;
     UIStoryboard *storyboard = [self mainStoryboardWithTemplateId:templateId];
@@ -126,6 +133,7 @@
 }
 
 + (UIViewController *)getHomeScreen:(NSInteger)templateId andExtra:(Bundle *)extra{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *viewController = nil;
     UINavigationController *navigationController = nil;
     if ([extra get:VC_EXTRA_NAVIGATION]) {
@@ -134,7 +142,7 @@
     switch (templateId) {
         case 1:
         case 2:{
-            viewController = [[TopScreen alloc]initWithCollectionViewLayout:[UICollectionViewFlowLayout new]];
+            viewController = [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([TopScreen class])];
             ((TopScreen *)viewController).mainNavigationController = navigationController;
         }
             break;
@@ -164,6 +172,7 @@
             break;
         case 2:{
             viewController = [[MenuScreen_t2 alloc] init];
+            ((MenuScreen_t2 *)viewController).mainNavigationController = navigationController;
         }
             break;
         default:
@@ -193,7 +202,8 @@
             NewsCategoryObject *newsCate = [NewsCategoryObject new];
             newsCate.category_id = 0;
             NewsScreenDetailDataSource_t2 *dataSource = [[NewsScreenDetailDataSource_t2 alloc] initWithNewsCategory:newsCate];
-            viewController = [[BasicCollectionViewController alloc] initWithDataSource:dataSource];
+            viewController = [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([BasicCollectionViewController class])];
+            ((BasicCollectionViewController *)viewController).dataSource = dataSource;
             ((BasicCollectionViewController *)viewController).bkgColor = [UIColor colorWithHexString:@"#FFFFFF"];
             viewController.title = @"ニュース";
         }
@@ -225,7 +235,8 @@
             staffCate.staff_cate_id = 0;
             staffCate.pageindex = 1;
             StaffScreenDetailDataSource_t2 *dataSource = [[StaffScreenDetailDataSource_t2 alloc] initWithStaffCategory:staffCate];
-            viewController = [[BasicCollectionViewController alloc] initWithDataSource:dataSource];
+            viewController = [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([BasicCollectionViewController class])];
+            ((BasicCollectionViewController *)viewController).dataSource = dataSource;
             ((BasicCollectionViewController *)viewController).bkgColor = [UIColor colorWithHexString:@"#FFFFFF"];
             viewController.title = @"スタッフ";
         }

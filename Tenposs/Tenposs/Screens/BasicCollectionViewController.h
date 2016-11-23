@@ -12,11 +12,12 @@
 #import "GlobalMapping.h"
 #import "DataModel.h"
 
-@interface BasicCollectionViewController : UICollectionViewController <SimpleDataSourceDelegate>
+@interface BasicCollectionViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,SimpleDataSourceDelegate>
+@property(weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) UINavigationController *mainNavigationController;
 @property (strong, nonatomic) SimpleDataSource *dataSource;
 @property(strong, nonatomic) UIColor *bkgColor;
 
--(instancetype)initWithDataSource:(SimpleDataSource *)dataSource;
+//-(instancetype)initWithDataSource:(SimpleDataSource *)dataSource;
 
 @end

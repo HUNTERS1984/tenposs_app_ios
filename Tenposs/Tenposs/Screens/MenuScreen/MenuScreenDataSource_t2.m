@@ -18,7 +18,7 @@
 @property (strong, nonatomic) NSMutableDictionary *cachedViewControllers;
 @property (strong, nonatomic) BasicCollectionViewController *activeViewController;
 @property (assign, nonatomic) NSInteger activeViewControllerIndex;
-@property (nonatomic,copy)MenuScreenLoadedHandler menuCategoryCompleteHandler;
+@property (nonatomic,copy) MenuScreenLoadedHandler menuCategoryCompleteHandler;
 
 @end
 
@@ -56,7 +56,9 @@
         if (!viewController) {
             
             MenuScreenDetailDataSource *detailDataSource = [[MenuScreenDetailDataSource alloc]initWithMenuCategory:cate];
-            viewController = [[BasicCollectionViewController alloc] initWithDataSource:detailDataSource];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_t2" bundle:nil];
+            viewController = [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([BasicCollectionViewController class])];
+            viewController.dataSource = detailDataSource;
             viewController.bkgColor = [UIColor colorWithHexString:@"#FFFFFF"];
             viewController.mainNavigationController = _mainNavigationController;
             if(!_cachedViewControllers){

@@ -11,6 +11,7 @@
 #import <FBSDKShareKit/FBSDKShareLinkContent.h>
 #import <FBSDKShareKit/FBSDKShareDialog.h>
 #import <TwitterKit/TwitterKit.h>
+#import "SVProgressHUD.h"
 
 @interface ShareAppScreen () <UIDocumentInteractionControllerDelegate>
 
@@ -104,7 +105,9 @@
         } else {
             NSLog (@"Instagram not found");
         }
-    }else{
+    }else if(sender == _buttonCopy){
+        [self copyHashTag:_appId.text];
+    }else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
@@ -131,6 +134,17 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
+- (void)copyHashTag:(NSString *)tag{
+    UIPasteboard *pb = [UIPasteboard generalPasteboard];
+    [pb setString:tag];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"hash_tag_copied", nil)];
+}
+
+
 
 /*
 #pragma mark - Navigation

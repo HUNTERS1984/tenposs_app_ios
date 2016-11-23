@@ -22,8 +22,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="272" height="120"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Product description" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="Y1I-33-L1P">
-                        <rect key="frame" x="10" y="0.0" width="252" height="120"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Product description" translatesAutoresizingMaskIntoConstraints="NO" id="Y1I-33-L1P">
+                        <rect key="frame" x="4" y="0.0" width="260" height="120"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="120" id="lPy-M5-nlg"/>
@@ -36,10 +36,10 @@
             </view>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="PBF-CQ-JAG" secondAttribute="trailing" id="DWU-k5-Zlq"/>
-                <constraint firstItem="Y1I-33-L1P" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="OKT-He-i5B"/>
+                <constraint firstItem="Y1I-33-L1P" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="4" id="OKT-He-i5B"/>
                 <constraint firstItem="PBF-CQ-JAG" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="jDj-Du-1D6"/>
                 <constraint firstItem="PBF-CQ-JAG" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="jEf-6m-3x3"/>
-                <constraint firstAttribute="trailing" secondItem="Y1I-33-L1P" secondAttribute="trailing" constant="10" id="llH-mv-bln"/>
+                <constraint firstAttribute="trailing" secondItem="Y1I-33-L1P" secondAttribute="trailing" constant="8" id="llH-mv-bln"/>
                 <constraint firstItem="Y1I-33-L1P" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="p5v-C7-S8r"/>
                 <constraint firstAttribute="bottom" secondItem="PBF-CQ-JAG" secondAttribute="bottom" id="wEn-d8-hEn"/>
             </constraints>

@@ -104,7 +104,7 @@
             iconIdentifier = @"icon-coupon";
             break;
         case APP_MENU_LOGOUT:
-            iconIdentifier = @"icon-logout";
+            return [UIImage imageNamed:@"icon_unlock"];
             break;
         case APP_MENU_PHOTO_GALLERY:
             iconIdentifier = @"icon-photo";

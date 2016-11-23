@@ -44,6 +44,11 @@ static NSDictionary *settingsNames;
     
     [super viewDidLoad];
     
+//    if([self respondsToSelector:@selector(edgesForExtendedLayout)]){
+//        self.edgesForExtendedLayout = UIRectEdgeNone;
+//        self.automaticallyAdjustsScrollViewInsets = NO;
+//    }
+    
     [self showLoadingViewWithMessage:@""];
     
      settingsNames = @{
@@ -58,8 +63,7 @@ static NSDictionary *settingsNames;
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    self.clearsSelectionOnViewWillAppear = YES;
-    
+//    self.clearsSelectionOnViewWillAppear = YES;
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([Settings_Text class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([Settings_Text class])];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([Settings_Text_Switch class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([Settings_Text_Switch class])];
     
@@ -269,6 +273,7 @@ static NSDictionary *settingsNames;
         NSString *errorDomain = [CommunicatorConst getErrorMessage:errorCode];
         error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:nil];
         if(errorCode == ERROR_INVALID_TOKEN){
+            [[UserData shareInstance] clearUserData];
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
             LoginScreen *nextController = [storyboard instantiateViewControllerWithIdentifier:@"LoginScreen"];
             UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];

@@ -23,6 +23,6 @@
 #define SVALUE_OFF      @"off"
 
 
-@interface SettingHomeScreen : UITableViewController
-
+@interface SettingHomeScreen : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end

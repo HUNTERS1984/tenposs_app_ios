@@ -10,9 +10,9 @@
 #import "Bundle.h"
 #import "DataModel.h"
 
-@interface TopScreen : UICollectionViewController
+@interface TopScreen : UIViewController <UICollectionViewDelegateFlowLayout, UICollectionViewDelegate>
 @property UINavigationController *mainNavigationController;
-
+@property(weak, nonatomic) IBOutlet UICollectionView *collectionView;
 //- (void)performNavigateToMenuScreen:(Bundle *)extraData;
 //- (void)performNavigateToNewsScreen:(Bundle *)extraData;
 //- (void)performNavigateToCouponScreen:(Bundle *)extraData;

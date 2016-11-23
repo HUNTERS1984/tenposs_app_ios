@@ -202,6 +202,7 @@
 		02CD65AD1D47D9AC0015661D /* Item_Cell_News.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02CD65AB1D47D9AC0015661D /* Item_Cell_News.xib */; };
 		02CD65B11D47E7DB0015661D /* Item_Cell_ShopInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CD65AF1D47E7DB0015661D /* Item_Cell_ShopInfo.m */; };
 		02CD65B21D47E7DB0015661D /* Item_Cell_ShopInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02CD65B01D47E7DB0015661D /* Item_Cell_ShopInfo.xib */; };
+		02D90DCB1DE3FE850041D294 /* AuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D90DCA1DE3FE850041D294 /* AuthenticationManager.m */; };
 		02DAF3A71D47CAA70068BB71 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DAF3A61D47CAA70068BB71 /* main.m */; };
 		02DAF3AA1D47CAA70068BB71 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DAF3A91D47CAA70068BB71 /* AppDelegate.m */; };
 		02DAF3B21D47CAA70068BB71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02DAF3B11D47CAA70068BB71 /* Assets.xcassets */; };
@@ -622,6 +623,8 @@
 		02CD65AE1D47E7DB0015661D /* Item_Cell_ShopInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item_Cell_ShopInfo.h; sourceTree = "<group>"; };
 		02CD65AF1D47E7DB0015661D /* Item_Cell_ShopInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item_Cell_ShopInfo.m; sourceTree = "<group>"; };
 		02CD65B01D47E7DB0015661D /* Item_Cell_ShopInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Item_Cell_ShopInfo.xib; sourceTree = "<group>"; };
+		02D90DC91DE3FE850041D294 /* AuthenticationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationManager.h; sourceTree = "<group>"; };
+		02D90DCA1DE3FE850041D294 /* AuthenticationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationManager.m; sourceTree = "<group>"; };
 		02DAF3A21D47CAA70068BB71 /* Tenposs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tenposs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02DAF3A61D47CAA70068BB71 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		02DAF3A81D47CAA70068BB71 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1314,6 +1317,22 @@
 			path = Screens;
 			sourceTree = "<group>";
 		};
+		02D90DC71DE3FE560041D294 /* PointCommunicator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PointCommunicator;
+			sourceTree = "<group>";
+		};
+		02D90DC81DE3FE560041D294 /* AuthCommunicator */ = {
+			isa = PBXGroup;
+			children = (
+				02D90DC91DE3FE850041D294 /* AuthenticationManager.h */,
+				02D90DCA1DE3FE850041D294 /* AuthenticationManager.m */,
+			);
+			path = AuthCommunicator;
+			sourceTree = "<group>";
+		};
 		02DAF3991D47CAA70068BB71 = {
 			isa = PBXGroup;
 			children = (
@@ -1609,6 +1628,8 @@
 		02F2FDBA1D4A30E3006D4C83 /* Communicator */ = {
 			isa = PBXGroup;
 			children = (
+				02D90DC71DE3FE560041D294 /* PointCommunicator */,
+				02D90DC81DE3FE560041D294 /* AuthCommunicator */,
 				02F2FDBD1D4A30E3006D4C83 /* LogoutCommunicator.h */,
 				02F2FDBE1D4A30E3006D4C83 /* LogoutCommunicator.m */,
 				02F2FDBF1D4A30E3006D4C83 /* TenpossCommunicator.h */,
@@ -2029,6 +2050,7 @@
 				021A5EAF1D698F9D001F8F8E /* GalleryScreenDataSource.m in Sources */,
 				0233DDBB1DC9CB6400B960FD /* LoginScreen_t2.m in Sources */,
 				02765C2E1DCB5E3A008562E3 /* Item_Cell_Top_t2.m in Sources */,
+				02D90DCB1DE3FE850041D294 /* AuthenticationManager.m in Sources */,
 				02FDF0181D88D642005AC6E9 /* QRCodeScreen.m in Sources */,
 				0257C2E61D857F3B00506F73 /* PhotoCommunicator.m in Sources */,
 				021AA4C61D7F70620042C511 /* Item_Detail_Header_Segmented.m in Sources */,

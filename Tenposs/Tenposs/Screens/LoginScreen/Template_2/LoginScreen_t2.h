@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface LoginScreen_t2 : UIViewController
-
+@interface LoginScreen_t2 : BaseViewController
 
 - (void)changeNavigationBarTitle:(NSString *)title showPageControl:(BOOL)show currentPage:(NSInteger)pageIndex;
 

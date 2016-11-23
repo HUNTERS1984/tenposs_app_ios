@@ -71,6 +71,7 @@
         return;
     }
     [_thumb sd_setImageWithURL:[NSURL URLWithString:_news.image_url]];
+    _thumb.clipsToBounds = YES;
     [_title setText:_news.title];
     [_desc setText:_news.desc];
 }

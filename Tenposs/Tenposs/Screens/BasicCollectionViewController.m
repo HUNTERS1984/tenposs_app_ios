@@ -27,6 +27,7 @@
 
 static NSString * const reuseIdentifier = @"Cell";
 
+/*
 -(instancetype)initWithDataSource:(SimpleDataSource *)dataSource{
     self = [super initWithCollectionViewLayout:[UICollectionViewFlowLayout new]];
     if(self){
@@ -34,6 +35,14 @@ static NSString * const reuseIdentifier = @"Cell";
         self.dataSource.delegate = self;
     }
     return self;
+}
+*/
+
+- (void)loadView{
+    [super loadView];
+    if (_dataSource) {
+        self.dataSource.delegate = self;
+    }
 }
 
 - (void)setBkgColor:(UIColor *)bkgColor{
@@ -44,6 +53,9 @@ static NSString * const reuseIdentifier = @"Cell";
     [super viewDidLoad];
     if (_bkgColor) {
         [self.collectionView setBackgroundColor:_bkgColor];
+    }
+    if (_dataSource && !_dataSource.delegate) {
+        _dataSource.delegate = self;
     }
     if (self.navigationController && [self.navigationController.viewControllers count] > 1) {
 

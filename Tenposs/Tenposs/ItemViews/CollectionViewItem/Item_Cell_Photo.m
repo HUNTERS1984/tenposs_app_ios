@@ -9,6 +9,7 @@
 #import "Item_Cell_Photo.h"
 #import "UIImageView+WebCache.h"
 #import "DataModel.h"
+#import "AppConfiguration.h"
 
 @interface Item_Cell_Photo()
 
@@ -22,13 +23,14 @@
     [super awakeFromNib];
     [self setNeedsLayout];
     self.photo.clipsToBounds = YES;
-    
-    self.layer.masksToBounds = NO;
-    self.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.layer.shadowOffset = CGSizeMake(1, 1);
-    self.layer.shadowOpacity = 0.3;
-    self.layer.shadowRadius = 1;
-    
+    AppSettings *settings = [[AppConfiguration sharedInstance] getAvailableAppSettings];
+    if (settings.template_id == 1) {
+        self.layer.masksToBounds = NO;
+        self.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.layer.shadowOffset = CGSizeMake(1, 1);
+        self.layer.shadowOpacity = 0.3;
+        self.layer.shadowRadius = 1;
+    }
 }
 
 - (void)configureCellWithData:(NSObject *)data{

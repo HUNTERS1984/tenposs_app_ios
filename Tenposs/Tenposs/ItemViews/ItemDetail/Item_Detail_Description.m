@@ -72,6 +72,7 @@
         self.textView.scrollEnabled = NO;
         self.textView.textContainer.maximumNumberOfLines = 0;
         self.textView.textContainer.lineBreakMode = NSLineBreakByTruncatingTail;
+        self.textView.contentInset = UIEdgeInsetsMake(-4,0,0,0);
         [self.textView setText:cellInfo.fullText];
         self.textView.textAlignment = NSTextAlignmentJustified;
         if(cellInfo.isCollapsed){

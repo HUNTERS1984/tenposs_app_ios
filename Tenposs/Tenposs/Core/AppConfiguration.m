@@ -212,8 +212,7 @@
         error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:nil];
     }else{
         _appInfo = (AppInfo *)[responseParams get:KeyResponseObject];
-        _appInfo.app_setting.template_id = 2;
-        
+        _appInfo.app_setting.template_id = 1;
     }
     [self requestCompleteWithError:error];
 }

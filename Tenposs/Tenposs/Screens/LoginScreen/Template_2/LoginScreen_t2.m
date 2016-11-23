@@ -7,6 +7,14 @@
 //
 
 #import "LoginScreen_t2.h"
+#import "HexColors.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import "NetworkCommunicator.h"
+#import "UserData.h"
+#import "AppDelegate.h"
+#import <TwitterKit/TwitterKit.h>
+#import <Fabric/Fabric.h>
 
 @interface LoginScreen_t2 ()
 
@@ -16,7 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *twitterButton;
 @property (weak, nonatomic) IBOutlet UIButton *facebookButton;
 @property (weak, nonatomic) IBOutlet UIButton *loginEmailButton;
-@property (weak, nonatomic) IBOutlet UIButton *signUpButton;
+@property (weak, nonatomic) IBOutlet UIButton *skipButton;
 
 @end
 
@@ -58,14 +66,78 @@
     }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)buttionFacebookClicked:(id)sender{
+    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+    [login logInWithReadPermissions:@[@"email", @"public_profile"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+        if (error) {
+            // Process error
+            NSLog(@"error %@",error);
+        } else if (result.isCancelled) {
+            // Handle cancellations
+            NSLog(@"Cancelled");
+        } else {
+            if ([result.grantedPermissions containsObject:@"email"]) {
+                // Do work
+                NSString *token = result.token.tokenString;
+                [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
+                 startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                     if (!error) {
+                         NSLog(@"fetched user:%@", result);
+                         NSMutableDictionary *params = [NSMutableDictionary new];
+                         [params setObject:@"1" forKey:KeyAPI_SOCIAL_TYPE];
+                         [params setObject:[result objectForKey:@"id"] forKey:KeyAPI_SOCIAL_ID];
+                         [params setObject:token forKey:KeyAPI_SOCIAL_TOKEN];
+                         [params setObject:[result objectForKey:@"name"] forKey:KeyAPI_USERNAME];
+                         
+                         [[NetworkCommunicator shareInstance] POST:API_SLOGIN parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+                             if(isSuccess) {
+                                 [UserData shareInstance].userDataDictionary = [dictionary mutableCopy];
+                                 [[UserData shareInstance] saveUserData];
+                                 AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+                                 [delegate registerPushNotification];
+                                 [self showTop];
+                             }else{
+                                 
+                             }
+                         }];
+                     }
+                 }];
+            }
+        }
+    }];
 }
-*/
+
+- (IBAction)buttionTwitterClicked:(id)sender{
+    
+    [[Twitter sharedInstance] logInWithViewController:self methods:TWTRLoginMethodAll completion:^(TWTRSession *session, NSError *error) {
+        if (session) {
+            NSLog(@"signed in as %@", [session userName]);
+            NSMutableDictionary *params = [NSMutableDictionary new];
+            [params setObject:@"2" forKey:KeyAPI_SOCIAL_TYPE];
+            [params setObject:[session userID] forKey:KeyAPI_SOCIAL_ID];
+            [params setObject:[session authToken] forKey:KeyAPI_SOCIAL_TOKEN];
+            [params setObject:[session authTokenSecret] forKey:KeyAPI_SOCIAL_SECRET];
+            [params setObject:[session userName] forKey:KeyAPI_USERNAME];
+            
+            [[NetworkCommunicator shareInstance] POST:API_SLOGIN parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+                if(isSuccess) {
+                    [UserData shareInstance].userDataDictionary = [dictionary mutableCopy];
+                    [[UserData shareInstance] saveUserData];
+                    AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+                    [delegate registerPushNotification];
+                    [self showTop];
+                }else{
+                    
+                }
+            }];
+        } else {
+            NSLog(@"error: %@", [error localizedDescription]);
+        }
+    }];
+}
+
+- (IBAction)buttonSKipClicked:(id)sender{
+    [self showTop];
+}
 
 @end

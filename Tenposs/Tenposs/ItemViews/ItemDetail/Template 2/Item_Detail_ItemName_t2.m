@@ -23,7 +23,7 @@
     if (item) {
         [_title setText:item.title];
         [_categoryName setText:item.parentCategory.categoryName];
-        [_price setText:item.price];
+        [_price setText:[NSString stringWithFormat:@"¥%@",item.price]];
     }
 }
 

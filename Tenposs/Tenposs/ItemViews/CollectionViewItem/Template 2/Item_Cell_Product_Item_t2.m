@@ -30,7 +30,7 @@
     [_thumb sd_setImageWithURL:[NSURL URLWithString:product.image_url]];
     [_title setText:product.title];
     [_desc setText:product.desc];
-    [_price setText:product.price];
+    [_price setText:[NSString stringWithFormat:@"¥%@",product.price]];
 }
 
 
