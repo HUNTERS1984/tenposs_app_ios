@@ -20,7 +20,12 @@
 #import <Fabric/Fabric.h>
 #import "UIImageView+WebCache.h"
 
+#import "PushNotificationManager.h"
 #import "GlobalMapping.h"
+
+#import "SVProgressHUD.h"
+
+#import "Reachability.h"
 
 @interface AppDelegate ()
 @property UIView *loadingView;
@@ -33,7 +38,6 @@
 @end
 
 @implementation AppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -64,6 +68,8 @@
     [self.window makeKeyAndVisible];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProfile:) name:NOTI_USER_PROFILE_REQUEST object:nil];
+    
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     
     return YES;
 }
@@ -114,6 +120,7 @@
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings{
     //register to receive notifications
     [application registerForRemoteNotifications];
+    
 }
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
     NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
@@ -124,23 +131,22 @@
     NSLog(@"content---%@", token);
 }
 
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
+    NSLog(@"Failed to register Push notification with error: %@", error);
+}
+
 -(void) sendPushToken:(NSString*)devtoken{
-    NSMutableDictionary *params = [NSMutableDictionary new];
-    [params setObject:devtoken forKey:KeyAPI_KEY];
-    [params setObject:@"1" forKey:KeyAPI_CLIENT];
-    [[NetworkCommunicator shareInstance] POST:API_SETPUSHKEY parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
-        if(isSuccess) {
-            //TODO: Successfully send Push key
+    [[PushNotificationManager sharedInstance] PushUserSetPushKey:devtoken WithCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
+        if(isSuccess){
+            NSLog(@"PUSH - Successfully set push key for user!");
         }else{
-            //TODO: Failed send Push key
+            NSLog(@"PUSH - Failed to set push key for user!");
         }
     }];
 }
 
-
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
     BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
                                                                   openURL:url
                                                         sourceApplication:sourceApplication
@@ -149,7 +155,6 @@
     return handled;
 }
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options{
-    
     if ([[Twitter sharedInstance] application:app openURL:url options:options]) {
         return YES;
     }
@@ -164,12 +169,6 @@
         }
     }
     return NO;
-}
-
-
--(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
-    //do something here!
-    return YES;
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{

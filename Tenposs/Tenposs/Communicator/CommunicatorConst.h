@@ -33,6 +33,15 @@
 #define ERROR_SIG_NOT_EXIST         1012
 #define ERROR_SIG_INVALID           1013
 
+#define ERROR_EMAIL_NOT_ACTIVATED       99950
+#define ERROR_ACTIVATE_CODE_NOT_EXIST   99951
+#define ERROR_ACTIVATE_CODE_EXPIRE      99952
+#define ERROR_NOT_EXIST                 99953
+#define ERROR_REFRESH_TOKEN_INVALID     99954
+#define ERROR_AUTH_INVALID              99955
+#define ERROR_PASSWORD_NOT_MATCH        99956
+#define ERROR_METHOD_NOT_ALLOWED        99957
+
 //Client error
 #define ERROR_JSON_PARSER                       901
 #define ERROR_CONTENT_FULLY_LOADED              902

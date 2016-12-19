@@ -247,6 +247,9 @@
 @property (assign, nonatomic) NSInteger store_id;
 @property (assign, nonatomic) NSInteger total_coupons;
 @property (strong, nonatomic) NSMutableArray <CouponObject, ConvertOnDemand> * coupons;
+
+- (instancetype)init;
+
 @end
 
 #pragma mark - User

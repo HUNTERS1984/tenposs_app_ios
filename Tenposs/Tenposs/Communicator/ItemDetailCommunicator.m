@@ -16,7 +16,7 @@
 
 +(JSONKeyMapper*)keyMapper{
     return [[JSONKeyMapper alloc] initWithDictionary:@{
-                                                       @"data.detail":@"detail",
+                                                       @"data.items":@"detail",
                                                        @"data.items_related":@"items_related",
                                                        @"data.total_items_related":@"total_items_related"
                                                         }];

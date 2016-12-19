@@ -19,6 +19,7 @@
 #import "Top_Footer.h"
 #import "HexColors.h"
 #import "UIUtils.h"
+#import "Utils.h"
 
 
 #define COLLAPESED_HEIGHT 120
@@ -97,7 +98,7 @@
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Detail_Description class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Detail_Description class])];
     
-    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Top_Footer class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass([Top_Footer class])];
+//    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Top_Footer class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass([Top_Footer class])];
 
 }
 
@@ -121,6 +122,7 @@
         //TODO: Clear mockup
         _introductionData = [[DescriptionCellInfo alloc]initWithFullText:_staff.introduction];
         [_introductionData calculateFullTextHeightWithWidth:(self.collectionView.bounds.size.width - 16)];
+        _introductionData.isCollapsed = NO;
     }
     if (!_informationData) {
         NSString *infoString = @"";
@@ -130,7 +132,7 @@
             infoString = [infoString stringByAppendingString:@"\n\n"];
         }
         if (_staff.price && ![_staff.price isEqualToString:@""]) {
-            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"Price: %@", _staff.price]];
+            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"Price: %@", [Utils formatPriceToJapaneseFormat:_staff.price]]];
             infoString = [infoString stringByAppendingString:@"\n\n"];
         }
         if (_staff.birthday && ![_staff.birthday isEqualToString:@""]) {
@@ -148,6 +150,7 @@
         
         _informationData = [[DescriptionCellInfo alloc]initWithFullText:infoString];
         [_informationData calculateFullTextHeightWithWidth:(self.collectionView.bounds.size.width - 16)];
+        _informationData.isCollapsed = NO;
     }
     [self.collectionView reloadData];
     [self removeLoadingView];
@@ -156,21 +159,21 @@
 #pragma mark - UICollectionViewDataSource
 
 -(BOOL)sectionShouldHaveFooter:(NSInteger)section{
-    if (section == 1) {
-        if (_currentSwitchIndex == 0) {
-            if (_introductionData.fullSizeHeight <= DETAIL_DESCRIPTION_COLLAPSE) {
-                return NO;
-            }else{
-                return YES;
-            }
-        }else if (_currentSwitchIndex == 1){
-            if (_informationData.fullSizeHeight <= DETAIL_DESCRIPTION_COLLAPSE) {
-                return NO;
-            }else{
-                return YES;
-            }
-        }
-    }
+//    if (section == 1) {
+//        if (_currentSwitchIndex == 0) {
+//            if (_introductionData.fullSizeHeight <= DETAIL_DESCRIPTION_COLLAPSE) {
+//                return NO;
+//            }else{
+//                return YES;
+//            }
+//        }else if (_currentSwitchIndex == 1){
+//            if (_informationData.fullSizeHeight <= DETAIL_DESCRIPTION_COLLAPSE) {
+//                return NO;
+//            }else{
+//                return YES;
+//            }
+//        }
+//    }
     return NO;
 }
 
@@ -324,7 +327,7 @@
                 height = [Item_Detail_Header_Segmented getCellHeightWithWidth:width];
             }else{
                 if (_introductionData.isCollapsed) {
-                    height = DETAIL_DESCRIPTION_COLLAPSE;
+                    height = _introductionData.fullSizeHeight;
                 }else{
                     height = _introductionData.fullSizeHeight;
                 }

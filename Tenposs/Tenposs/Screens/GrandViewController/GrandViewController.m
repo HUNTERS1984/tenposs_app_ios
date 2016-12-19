@@ -81,7 +81,7 @@
             [self.navigationController.navigationBar setShadowImage:nil];
             [_menuButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                  [UIFont themifyFontOfSize:20/*[UIUtils getTextSizeWithType:settings.font_size]*/], NSFontAttributeName,
-                                                 [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
+                                                 [UIColor colorWithHexString:settings.menu_icon_color], NSForegroundColorAttributeName,
                                                  nil]
                                        forState:UIControlStateNormal];
             [_menuButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-menu"]]];

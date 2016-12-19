@@ -36,6 +36,11 @@
 #define KeyResponseResultFromNetwork    @"KeyResponseResultFromNetwork"
 #define KeyResponseResultFromAPI        @"KeyResponseResultFromAPI"
 
+typedef NS_ENUM(NSInteger, AuthenticationType) {
+    AuthenticationType_authorization,
+    AuthenticationType_basicAuth
+};
+
 typedef NS_ENUM(NSInteger, TenpossErrorCode){
     //Application Define
     ResultErrorConnection = -1,
@@ -81,12 +86,13 @@ typedef NS_ENUM(NSInteger, TenpossErrorCode){
 @property BOOL cancelled;
 @property (nonatomic, weak) id<TenpossCommunicatorDelegate> delegate;
 
--(void)     customPrepare:(Bundle*) params;
--(void)     customProcess:(Bundle*) params;
+-(void)customPrepare:(Bundle*) params;
+-(void)customProcess:(Bundle*) params;
 
--(void)     execute:(Bundle*) params withDelegate:(id) delegate;
--(void) executeUpdateProfile:(Bundle*) params withDelegate:(id) delegate;
+-(void)execute:(Bundle*) params withDelegate:(id) delegate;
+-(void)executeUpdateProfile:(Bundle*) params withDelegate:(id) delegate andAuthHeaderType:(AuthenticationType)authType;
+- (void)execute:(Bundle*) params withDelegate:(id) delegate andAuthHeaderType:(AuthenticationType)authType;
 
--(void)     cancelRequest;
+-(void)cancelRequest;
 
 @end

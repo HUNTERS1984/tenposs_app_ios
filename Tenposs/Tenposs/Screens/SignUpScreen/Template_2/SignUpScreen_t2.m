@@ -14,7 +14,7 @@
 #import "UserData.h"
 #import "AppDelegate.h"
 #import "SplashScreen.h"
-
+#import "SignUpScreenNext_t2.h"
 
 @interface SignUpScreen_t2 ()
 
@@ -24,6 +24,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *password;
 @property (weak, nonatomic) IBOutlet UITextField *rePassword;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
+
+@property (strong, nonatomic) NSMutableDictionary *signUpData;
 
 @end
 
@@ -76,9 +78,7 @@
 }
 
 - (IBAction)nextTouched:(id)sender {
-    if ([self validateEnteredInfo]) {
-        [self doRegister];
-    }
+    
 }
 
 - (BOOL)validateEnteredInfo{
@@ -98,6 +98,10 @@
         return NO;
     }
     
+    [_signUpData setObject:_userName.text forKey:@"name"];
+    [_signUpData setObject:_email.text forKey:@"email"];
+    [_signUpData setObject:_password.text forKey:@"password"];
+    
     return YES;
 }
 
@@ -110,36 +114,29 @@
     return [emailTest evaluateWithObject:checkString];
 }
 
-- (void)doRegister{
-    NSMutableDictionary *params = [NSMutableDictionary new];
-    [params setObject:_email.text forKey:KeyAPI_EMAIL];
-    [params setObject:_password.text forKey:KeyAPI_PASSWORD];
-    [params setObject:_userName.text forKey:KeyAPI_USERNAME];
-    
-    [[NetworkCommunicator shareInstance] POST:API_SIGNUP parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
-        if(isSuccess) {
-            [UserData shareInstance].userDataDictionary = [dictionary mutableCopy];
-            [[UserData shareInstance] saveUserData];
-            AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-            [delegate registerPushNotification];
-            [self showTop];
-        }else{
-            [self showAlertView:@"エラー" message:@"新規会員登録できません"];
-        }
-    }];
-}
-
 -(void)showAlertView:(NSString *)title message:(NSString *)message{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"閉じる" otherButtonTitles:nil];
     [alert show];
 }
 
--(void)showTop{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    SplashScreen *nextController = [storyboard instantiateViewControllerWithIdentifier:@"SplashScreen"];
-    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];
-    //[navi.navigationBar setHidden:YES];
-    [self presentViewController:navi animated:YES completion:nil];
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"signup_to_next"]) {
+        SignUpScreenNext_t2 *nextScreen = (SignUpScreenNext_t2 *) segue.destinationViewController;
+        if (nextScreen) {
+            nextScreen.signUpData = [_signUpData mutableCopy];
+        }
+    }
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
+    if ([identifier isEqualToString:@"signup_to_next"]) {
+        if ([self validateEnteredInfo]) {
+            return YES;
+        }else{
+            return NO;
+        }
+    }
+    return YES;
 }
 
 @end

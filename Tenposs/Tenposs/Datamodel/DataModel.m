@@ -48,6 +48,7 @@
     self.desc = item.desc;
     self.price = item.price;
     self.image_url = item.image_url;
+    self.menu_name = item.menu_name;
 }
 
 - (NSMutableArray *)getSizeArray{

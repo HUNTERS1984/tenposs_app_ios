@@ -56,7 +56,7 @@
 }
 
 - (void)loadPageContent:(NSInteger)pageIndex{
-    if (pageIndex > [self.topArray count]) {
+    if (pageIndex >= [self.topArray count]) {
         return;
     }
     

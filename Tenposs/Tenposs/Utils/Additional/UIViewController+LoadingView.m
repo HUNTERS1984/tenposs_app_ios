@@ -13,6 +13,8 @@
 #import "UIViewController+LoadingView.h"
 #import "HexColors.h"
 #import "Reachability.h"
+#import "SVProgressHUD.h"
+#import "AuthenticationManager.h"
 
 @implementation UIViewController(LoadingView)
 
@@ -320,27 +322,13 @@
 
 -(BOOL)signOut{
     if ([[UserData shareInstance]getToken]) {
+        [SVProgressHUD show];
         NSMutableDictionary *params = [NSMutableDictionary new];
         [params setObject:[[UserData shareInstance]getToken] forKey:KeyAPI_TOKEN];
-        
-        [[NetworkCommunicator shareInstance] POST:API_LOGOUT parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
-            if(isSuccess) {
-                
-                
-            }else{
-                //[self showAlertView:@"エラー" message:@"ログアウトすることはできません"];
-            }
-            [UserData shareInstance].userDataDictionary = nil;
-            [[UserData shareInstance] clearUserData];
-            [UserData shareInstance].isLogin = NO;
-            //clear avatar img
-            [[UserData shareInstance] setUserAvatarImg:nil];
-            
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            LoginScreen *nextController = [storyboard instantiateViewControllerWithIdentifier:@"LoginScreen"];
-            UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];
-            [navi.navigationBar setHidden:YES];
-            [self presentViewController:navi animated:YES completion:nil];
+        __weak UIViewController *weakSelf = self;
+        [[AuthenticationManager sharedInstance] AuthLogOutWithCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
+            [SVProgressHUD dismiss];
+            [weakSelf invalidateCurrentUserSession];
         }];
         return YES;
     }
@@ -349,16 +337,13 @@
 }
 
 -(void)showLogin{
-    //    if (![[UIApplication sharedApplication].keyWindow.rootViewController isKindOfClass:[LoginScreen class]]){
     UIViewController *login = [GlobalMapping getLoginScreenWithNavigation];
     [self presentViewController:login animated:YES completion:nil];
-    //    }
-    
 }
 
 - (void)invalidateCurrentUserSession{
     UserData *userData = [UserData shareInstance];
-    [userData clearUserData];
+    [userData invalidateCurrentUser];
     [self showLogin];
 }
 

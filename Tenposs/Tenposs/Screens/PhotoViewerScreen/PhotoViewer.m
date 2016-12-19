@@ -27,9 +27,20 @@
     }
 }
 
+- (void)awakeFromNib{
+    [super awakeFromNib];
+    [self.view setNeedsLayout];
+    if (_imageView) {
+        _imageView.clipsToBounds = YES;
+        _imageView.layer.borderWidth = 2.0;
+        _imageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     _closeButton.hidden = YES;
+    [_imageView setHidden:YES];
 }
 
 - (void)setPhoto:(PhotoObject *)photo{
@@ -62,11 +73,13 @@
 }
 
 - (void) presentPhoto:(PhotoObject *)photo{
+    __weak UIImageView *weakImage = _imageView;
     [_imageView sd_setImageWithURL:[NSURL URLWithString:(photo.image_url)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         if (image != nil) {
             [self.loadingIndicator stopAnimating];
             self.loadingIndicator.hidden = YES;
         }
+        [weakImage setHidden:NO];
     }];
 }
 

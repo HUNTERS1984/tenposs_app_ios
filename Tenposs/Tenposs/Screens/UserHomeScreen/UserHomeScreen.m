@@ -12,6 +12,8 @@
 #import "UserData.h"
 #import "GrandViewController.h"
 #import "MBCircularProgressBarView.h"
+#import "PointManager.h"
+#import "AuthenticationManager.h"
 
 @interface UserHomeScreen ()
 
@@ -23,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet MBCircularProgressBarView *mileGraph;
 @property (weak, nonatomic) IBOutlet UILabel *pointInfo;
 @property (weak, nonatomic) IBOutlet UIImageView *barcode;
+
+@property (strong, nonatomic) NSDictionary *userPointData;
 
 @end
 
@@ -67,13 +71,62 @@
     
     [_headerImage sd_setImageWithURL:[NSURL URLWithString:@"http://ryecityschools.schoolfusion.us/modules/groups/homepagefiles/cms/496886/Image/Webquests/Japan/Cities/tokyo1.jpg"]];
     [_userName setText:[user getUserName]];
-    
-    [_mileInfo setText:[NSString stringWithFormat:@"%ld ポイント 獲得まで あと %ld マイル", (long)[self getTotalPoint], (long)[self getTotalMile]]];
+    [self getUserPoint];
+}
+
+- (void)getUserPoint{
+    __weak UserHomeScreen *weakSelf = self;
+    [[PointManager sharedInstance] PointGetUserPointWithCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
+        CommonResponse *data = (CommonResponse *)resultData;
+        if (isSuccess) {
+            if (data.data) {
+                _userPointData = [data.data mutableCopy];
+                [weakSelf setupValueView];
+            }
+        }else{
+            if (data) {
+                if (data.code == ERROR_INVALID_TOKEN) {
+                    [[AuthenticationManager sharedInstance] AuthRefreshTokenWithCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
+                        CommonResponse *data = (CommonResponse *)resultData;
+                        if (isSuccess) {
+                            if (data && data.code == ERROR_OK) {
+                                [[PointManager sharedInstance] PointGetUserPointWithCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
+                                    if (data.data) {
+                                        _userPointData = [data.data mutableCopy];
+                                        [weakSelf setupValueView];
+                                    }
+                                }];
+                            }else if(data.code == ERROR_REFRESH_TOKEN_INVALID){
+                                [weakSelf removeAllInfoView];
+                                [weakSelf invalidateCurrentUserSession];
+                            }
+                        }else{
+                            if (data.code == ERROR_REFRESH_TOKEN_INVALID) {
+                                [weakSelf removeAllInfoView];
+                                [weakSelf invalidateCurrentUserSession];
+                            }
+                        }
+                    }];
+                }
+            }else{
+                [self showErrorScreen:@"ERROR" andRetryButton:^{
+                    [weakSelf getUserPoint];
+                }];
+            }
+        }
+    }];
+}
+
+- (void)setupValueView{
+    [_mileInfo setText:[NSString stringWithFormat:@"%ld ポイント 獲得まで あと %ld マイル", (long)[self getNextPoint], (long)[self getNextMile]]];
     [_pointInfo setText:[NSString stringWithFormat:@"tenpossポイント : %ldポイント",(long)[self getCurrentPoint]]];
     
-    _mileGraph.maxValue = (CGFloat)[self getTotalMile];
+    _mileGraph.maxValue = (CGFloat)[self getNextMile];
     
-    [self generateBarCode:@"123123"];
+    if([[UserData shareInstance] getAuthUserID]){
+        NSString *barcodeString = [NSString stringWithFormat:@"%@=%@",@"user",[[UserData shareInstance] getAuthUserID]];
+        [self generateBarCode:barcodeString];
+    }
     
     [self removeAllInfoView];
     
@@ -112,26 +165,26 @@
     return @"私のページ";
 }
 
-- (NSInteger) getTotalPoint{
-    return 200;
+- (NSInteger) getNextPoint{
+    return [[_userPointData objectForKey:@"next_points"] integerValue];
 }
 
 - (NSInteger)getCurrentPoint{
-    return 150;
+    return [[_userPointData objectForKey:@"points"] integerValue];
 }
 
-- (NSInteger)getTotalMile{
-    return 4280;
+- (NSInteger)getNextMile{
+    return [[_userPointData objectForKey:@"next_miles"] integerValue];
 }
 
 - (NSInteger)getCurrentMile{
-    return 2500;
+    return [[_userPointData objectForKey:@"miles"] integerValue];
 }
 
 -(void)generateBarCode:(NSString *)qrString{
-    
-    qrString = @"123465";
-    
+    if (!qrString) {
+        return;
+    }
     NSData *stringData = [qrString dataUsingEncoding:NSASCIIStringEncoding];
     
     CIFilter *qrFilter = [CIFilter filterWithName:@"CICode128BarcodeGenerator"];

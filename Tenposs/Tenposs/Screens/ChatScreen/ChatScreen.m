@@ -30,8 +30,8 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     UserData *userdata = [UserData shareInstance];
-    if ([userdata getToken] && [userdata getAppUserID]) {
-        NSString *url = [NSString stringWithFormat:@"https://ten-po.com/chat/screen/%@" ,[userdata getAppUserID]];
+    if ([userdata getToken] && [userdata getAuthUserID]) {
+        NSString *url = [NSString stringWithFormat:@"https://ten-po.com/chat/screen/%@" ,[userdata getAuthUserID]];
         [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     }
 }

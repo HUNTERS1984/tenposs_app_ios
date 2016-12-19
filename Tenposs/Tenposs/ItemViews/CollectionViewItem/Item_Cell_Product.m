@@ -9,6 +9,7 @@
 #import "Item_Cell_Product.h"
 #import "UIUtils.h"
 #import "UIImageView+WebCache.h"
+#import "Utils.h"
 
 @interface Item_Cell_Product()
 
@@ -27,7 +28,7 @@
         return;
     }
     [_productName setText:product.title];
-    [_productPrice setText:[NSString stringWithFormat:@"¥%@", product.price]];
+    [_productPrice setText:[Utils formatPriceToJapaneseFormat:product.price]]; //[NSString stringWithFormat:@"¥%@", product.price]];
     [_productThumbnail sd_setImageWithURL:[NSURL URLWithString:product.image_url]];
     _productThumbnail.clipsToBounds = YES;
 }

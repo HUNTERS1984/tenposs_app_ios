@@ -89,4 +89,63 @@
 {
     return [NSString stringWithCharacters:(unichar[]){char16} length:1];
 }
+
++ (NSString*)makeParamtersString:(NSDictionary*)parameters withEncoding:(NSStringEncoding)encoding
+{
+    if (nil == parameters || [parameters count] == 0)
+        return nil;
+    
+    NSMutableString* stringOfParamters = [[NSMutableString alloc] init];
+    NSEnumerator *keyEnumerator = [parameters keyEnumerator];
+    id key = nil;
+    while ((key = [keyEnumerator nextObject]))
+    {
+        if([[parameters valueForKey:key] isKindOfClass:[NSData class]]){
+            
+        }else{
+            NSString *value = [[parameters valueForKey:key] isKindOfClass:[NSString class]] ?
+            [parameters valueForKey:key] : [[parameters valueForKey:key] stringValue];
+            [stringOfParamters appendFormat:@"%@=%@&",
+             [self URLEscaped:key withEncoding:encoding],
+             [self URLEscaped:value withEncoding:encoding]];
+        }
+        
+    }
+    
+    // Delete last character of '&'
+    NSRange lastCharRange = {[stringOfParamters length] - 1, 1};
+    [stringOfParamters deleteCharactersInRange:lastCharRange];
+    return stringOfParamters;
+}
+
++ (NSString *)URLEscaped:(NSString *)strIn withEncoding:(NSStringEncoding)encoding{
+    
+    CFStringRef escaped = CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)strIn, NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]", CFStringConvertNSStringEncodingToEncoding(encoding));
+    NSString *strOut = [NSString stringWithString:(__bridge NSString *)escaped];
+    CFRelease(escaped);
+    return strOut;
+}
+
++ (NSString *)formatDateStringToJapaneseFormat:(NSString *)dateStr{
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
+    NSDate *date = [dateFormat dateFromString:dateStr];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy年MM月dd日"];
+    NSString *stringFromDate = [formatter stringFromDate:date];
+    return stringFromDate;
+}
+
++ (NSString *)formatPriceToJapaneseFormat:(NSString *)oldPrice{
+    NSString *newPrice = nil;
+    NSNumber *price = @([oldPrice integerValue]);
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.locale = [NSLocale localeWithLocaleIdentifier:@"ja_JP"];
+    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    
+    newPrice = [formatter stringFromNumber:price];
+    
+    return newPrice;
+}
+
 @end

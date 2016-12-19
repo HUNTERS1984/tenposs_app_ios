@@ -71,7 +71,7 @@
     UserData *user = [UserData shareInstance];
     NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
     NSString *token = [user getToken];
-    NSString *app_user_id = [user getAppUserID];
+    NSString *app_user_id = [user getAuthUserID];
     if ([app_user_id isKindOfClass:[NSNumber class]]) {
         app_user_id = [((NSNumber *)app_user_id) stringValue];
     }
@@ -81,7 +81,7 @@
     
     [params setObject:[user getToken] forKey: KeyAPI_TOKEN];
     [params setObject:currentTime  forKey:   KeyAPI_TIME];
-    [params setObject:[user getAppUserID]  forKey:  KeyAPI_APP_USER_ID ];
+    [params setObject:[user getAuthUserID]  forKey:  KeyAPI_APP_USER_ID ];
     [params setObject:[@(_coupon.coupon_id) stringValue]  forKey:   KeyAPI_COUPON_ID];
     [params setObject:[@(_staff.staff_id) stringValue] forKey:   KeyAPI_STAFF_ID];
     [params setObject:[Utils getSigWithStrings:sigs] forKey: KeyAPI_SIG  ];

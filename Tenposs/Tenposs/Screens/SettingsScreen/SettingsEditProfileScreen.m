@@ -130,26 +130,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    NSArray *viewControllers = self.navigationController.viewControllers;
-    if (viewControllers.count > 1 && [viewControllers objectAtIndex:viewControllers.count-2] == self) {
-        // View is disappearing because a new view controller was pushed onto the stack, DO NOTHING
-    } else if ([viewControllers indexOfObject:self] == NSNotFound) {
-        // View is disappearing because it was popped from the stack, UPDATE PROFILE here
-        UserData *userData = [UserData shareInstance];
-        if([_userProfileChanges objectForKey:KeyAPI_AVATAR] ||
-           (![_cur_userId isEqualToString:[userData getUserID]] ||
-           ![_cur_userName isEqualToString:[userData getUserName]] ||
-           _cur_gender != [userData getUserGender] ||
-           ![_cur_province isEqualToString:[userData getUserProvine]])){
-               [_userProfileChanges setObject:_cur_userName forKey:KeyAPI_USERNAME_NAME];
-               [_userProfileChanges setObject:[@(_cur_gender) stringValue] forKey:KeyAPI_GENDER];
-               [_userProfileChanges setObject:_cur_province forKey:KeyAPI_ADDRESS];
-               
-               [[UserData shareInstance] updateProfile:[_userProfileChanges mutableCopy]];
-               [_userProfileChanges removeAllObjects];
-               [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTI_SET_EDIT_CHANGED object:nil];
-        }
-    }
 }
 
 #pragma mark - Private methods
@@ -191,7 +171,43 @@
 }
 
 - (void)didPressBackButton{
-    [self.navigationController popViewControllerAnimated:YES];
+    UserData *userData = [UserData shareInstance];
+    if([_userProfileChanges objectForKey:KeyAPI_AVATAR] ||
+       (![_cur_userName isEqualToString:[userData getUserName]] ||
+        _cur_gender != [userData getUserGender] ||
+        ![_cur_province isEqualToString:[userData getUserProvine]])){
+           
+           __weak SettingsEditProfileScreen *weakSelf = self;
+           // View is disappearing because it was popped from the stack, UPDATE PROFILE here
+           UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@""
+                                                                                    message:@"あなたは変更を保存したいですか?"
+                                                                             preferredStyle:UIAlertControllerStyleAlert];
+           UIAlertAction *actionSave = [UIAlertAction actionWithTitle:@"はい"
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  
+                                                                  [_userProfileChanges setObject:_cur_userName forKey:KeyAPI_USERNAME_NAME];
+                                                                  [_userProfileChanges setObject:[@(_cur_gender) stringValue] forKey:KeyAPI_GENDER];
+                                                                  [_userProfileChanges setObject:_cur_province forKey:KeyAPI_ADDRESS];
+                                                                  [[UserData shareInstance] updateProfile:[_userProfileChanges mutableCopy]];
+                                                                  [_userProfileChanges removeAllObjects];
+                                                                  [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTI_SET_EDIT_CHANGED object:nil];
+                                                                  
+                                                                  [weakSelf.navigationController popViewControllerAnimated:YES];
+                                                              }];
+           
+           UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"キャンセル"
+                                                                  style:UIAlertActionStyleDefault
+                                                                handler:^(UIAlertAction * _Nonnull action) {
+                                                                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                                                                }];
+           [alertController addAction:actionSave];
+           [alertController addAction:actionCancel];
+           [self presentViewController:alertController animated:YES completion:nil];
+           
+       }else{
+           [self.navigationController popViewControllerAnimated:YES];
+       }
 }
 
 #pragma mark - Table view data source
@@ -263,9 +279,9 @@
             cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([Settings_Avatar_t2 class])];
             if (!cell) {
                 cell = (Settings_Avatar_t2 *)[[[NSBundle mainBundle]
-                                            loadNibNamed:NSStringFromClass([Settings_Avatar class])
-                                            owner:self
-                                            options:nil] objectAtIndex:0];
+                                               loadNibNamed:NSStringFromClass([Settings_Avatar class])
+                                               owner:self
+                                               options:nil] objectAtIndex:0];
             }
             ///Config Avatar
             ((Settings_Avatar_t2 *)cell).avatar.layer.cornerRadius = ((Settings_Avatar_t2 *)cell).avatar.bounds.size.width/2;
@@ -295,8 +311,9 @@
         
         //TODO: Get UserData and fill the text
         [((Setting_EditText *)cell).title setText:[_settingNames objectForKey:SET_EDIT_USER_ID]];
-        [((Setting_EditText *)cell).text  setPlaceholder:NSLocalizedString(@"user_id",nil)];
-        [((Setting_EditText *)cell).text  setText:_cur_userId];
+        [((Setting_EditText *)cell).text setPlaceholder:NSLocalizedString(@"user_id",nil)];
+        [((Setting_EditText *)cell).text setText:_cur_userId];
+        [((Setting_EditText *)cell).text setEnabled:NO];
         ((Setting_EditText *)cell).text.tag = USERID_TAG;
         ((Setting_EditText *)cell).text.delegate = self;
     }else if ([function isEqual:SET_EDIT_USER_NAME]) {
@@ -376,9 +393,9 @@
             [((Settings_Social_Connect *)cell).connectButton setBackgroundColor:[UIColor colorWithHexString:@"18C1BF"]];
             [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [((Settings_Social_Connect *)cell).connectButton setTitle:NSLocalizedString(@"setting_connect", nil) forState:UIControlStateNormal];
-
+            
         }
-                    [((Settings_Social_Connect *)cell).connectButton addTarget:self action:@selector(doSettingFacebookLogin) forControlEvents:UIControlEventTouchUpInside];
+        [((Settings_Social_Connect *)cell).connectButton addTarget:self action:@selector(doSettingFacebookLogin) forControlEvents:UIControlEventTouchUpInside];
         
     }else if ([function isEqual:SET_EDIT_TWITTER]){
         cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([Settings_Social_Connect class])];
@@ -434,7 +451,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
-
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -449,7 +466,7 @@
         @try {
             [self presentViewController:_imagePickerController animated:YES completion:nil];
         } @catch (NSException *exception) {
-             NSLog(@"exception:%@", exception) ;
+            NSLog(@"exception:%@", exception) ;
         } @finally {
             
         }
@@ -471,7 +488,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-   NSNumber *function = [self functionForIndexPath:indexPath];
+    NSNumber *function = [self functionForIndexPath:indexPath];
     if ([function isEqual:SET_EDIT_AVATAR]) {
         return 88;
     }else{
@@ -502,34 +519,34 @@
     if ([status isEqualToString:@"1"]) {
         [self cancelSocialProfile:@"1"];
     }else{
-    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-    [login logInWithReadPermissions:@[@"email", @"public_profile"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-        if (error) {
-            // Process error
-            NSLog(@"error %@",error);
-        } else if (result.isCancelled) {
-            // Handle cancellations
-            NSLog(@"Cancelled");
-        } else {
-            if ([result.grantedPermissions containsObject:@"email"]) {
-                // Do work
-                NSString *token = result.token.tokenString;
-                [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
-                 startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-                     if (!error) {
-                         NSLog(@"fetched user:%@", result);
-                         NSMutableDictionary *params = [NSMutableDictionary new];
-                         [params setObject:@"1" forKey:KeyAPI_SOCIAL_TYPE];
-                         [params setObject:[result objectForKey:@"id"] forKey:KeyAPI_SOCIAL_ID];
-                         [params setObject:token forKey:KeyAPI_SOCIAL_TOKEN];
-                         [params setObject:@"" forKey:KeyAPI_SOCIAL_SECRET];
-                         [params setObject:[result objectForKey:@"name"] forKey:KeyAPI_NICKNAME];
-                         [[UserData shareInstance] updateSocialSetting:params];
-                     }
-                 }];
+        FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+        [login logInWithReadPermissions:@[@"email", @"public_profile"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+            if (error) {
+                // Process error
+                NSLog(@"error %@",error);
+            } else if (result.isCancelled) {
+                // Handle cancellations
+                NSLog(@"Cancelled");
+            } else {
+                if ([result.grantedPermissions containsObject:@"email"]) {
+                    // Do work
+                    NSString *token = result.token.tokenString;
+                    [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
+                     startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                         if (!error) {
+                             NSLog(@"fetched user:%@", result);
+                             NSMutableDictionary *params = [NSMutableDictionary new];
+                             [params setObject:@"1" forKey:KeyAPI_SOCIAL_TYPE];
+                             [params setObject:[result objectForKey:@"id"] forKey:KeyAPI_SOCIAL_ID];
+                             [params setObject:token forKey:KeyAPI_SOCIAL_TOKEN];
+                             [params setObject:@"" forKey:KeyAPI_SOCIAL_SECRET];
+                             [params setObject:[result objectForKey:@"name"] forKey:KeyAPI_NICKNAME];
+                             [[UserData shareInstance] updateSocialSetting:params];
+                         }
+                     }];
+                }
             }
-        }
-    }];
+        }];
     }
 }
 
@@ -538,19 +555,19 @@
     if ([status isEqualToString:@"1"]) {
         [self cancelSocialProfile:@"2"];
     }else{
-    [[Twitter sharedInstance] logInWithViewController:self methods:TWTRLoginMethodAll completion:^(TWTRSession *session, NSError *error) {
-        if (session) {
-            NSMutableDictionary *params = [NSMutableDictionary new];
-            [params setObject:@"2" forKey:KeyAPI_SOCIAL_TYPE];
-            [params setObject:[session userID] forKey:KeyAPI_SOCIAL_ID];
-            [params setObject:[session authToken] forKey:KeyAPI_SOCIAL_TOKEN];
-            [params setObject:[session authTokenSecret] forKey:KeyAPI_SOCIAL_SECRET];
-            [params setObject:[session userName] forKey:KeyAPI_NICKNAME];
-            [[UserData shareInstance] updateSocialSetting:params];
-        } else {
-            NSLog(@"error: %@", [error localizedDescription]);
-        }
-    }];
+        [[Twitter sharedInstance] logInWithViewController:self methods:TWTRLoginMethodAll completion:^(TWTRSession *session, NSError *error) {
+            if (session) {
+                NSMutableDictionary *params = [NSMutableDictionary new];
+                [params setObject:@"2" forKey:KeyAPI_SOCIAL_TYPE];
+                [params setObject:[session userID] forKey:KeyAPI_SOCIAL_ID];
+                [params setObject:[session authToken] forKey:KeyAPI_SOCIAL_TOKEN];
+                [params setObject:[session authTokenSecret] forKey:KeyAPI_SOCIAL_SECRET];
+                [params setObject:[session userName] forKey:KeyAPI_NICKNAME];
+                [[UserData shareInstance] updateSocialSetting:params];
+            } else {
+                NSLog(@"error: %@", [error localizedDescription]);
+            }
+        }];
     }
 }
 
@@ -559,8 +576,8 @@
     if ([status isEqualToString:@"1"]) {
         [self cancelSocialProfile:@"3"];
     }else{
-    OAuthScreen *oAuth = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([OAuthScreen class])];
-    [self.navigationController pushViewController:oAuth animated:YES];
+        OAuthScreen *oAuth = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([OAuthScreen class])];
+        [self.navigationController pushViewController:oAuth animated:YES];
     }
 }
 
@@ -591,7 +608,7 @@
         //        [_userProfileChanges setObject:userEmail forKey:KeyAPI_EMAIL];
         _cur_userEmail = userEmail;
         
-//        [[UserData shareInstance] setUserEmail:userEmail];
+        //        [[UserData shareInstance] setUserEmail:userEmail];
         
     }else if ([notification.userInfo.allKeys.firstObject isEqual:SET_EDIT_GENDER]){
         NSInteger gender = [[[notification.userInfo mutableCopy] objectForKey:SET_EDIT_GENDER] integerValue];
@@ -599,16 +616,16 @@
         _cur_gender = gender;
         
         ///Add to profile change dict
-//        [_userProfileChanges setObject:@(gender) forKey:KeyAPI_GENDER];
-//        
-//        [[UserData shareInstance] setUserGender:gender];
+        //        [_userProfileChanges setObject:@(gender) forKey:KeyAPI_GENDER];
+        //
+        //        [[UserData shareInstance] setUserGender:gender];
         
     }else if([notification.userInfo.allKeys.firstObject isEqual:SET_EDIT_PROVINCE]){
         NSString *provine = [notification.userInfo objectForKey:SET_EDIT_PROVINCE];
         ///Add to profile change dict
         _cur_province = provine;
-//        [_userProfileChanges setObject:provine forKey:KeyAPI_ADDRESS];
-//        [[UserData shareInstance] setUserProvine:provine];
+        //        [_userProfileChanges setObject:provine forKey:KeyAPI_ADDRESS];
+        //        [[UserData shareInstance] setUserProvine:provine];
     }else if ([notification.userInfo.allKeys.firstObject isEqual:SETTINGS_KeyUserInstaAccessToken]){
         //TODO: send instagram token
         NSMutableDictionary *socialProfile = [notification.userInfo objectForKey:SETTINGS_KeyUserInstaAccessToken];
@@ -639,6 +656,28 @@
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    NSString *changedString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    switch (textField.tag) {
+        case USERID_TAG:{
+            //TODO: need implementation
+        }
+            break;
+        case USERNAME_TAG:{
+            _cur_userName = changedString;
+        }
+            break;
+        case USEREMAIL_TAG:{
+            _cur_userEmail = changedString;
+        }
+            break;
+        default:
+            break;
+    }
+    
     return YES;
 }
 

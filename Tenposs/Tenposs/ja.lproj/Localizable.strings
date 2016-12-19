@@ -111,7 +111,20 @@
 "msg_enter_email_and_name"="メールと名前を入力してください";
 "msg_invalid_response_data"="無効な応答データ！";
 
+"NO CONTENT" = "データなし";
 
+/// SCREEN TITLE
+
+"SCREEN_TITLE_MENU"="メニュー";
+"SCREEN_TITLE_NEWS"="ニュース";
+"SCREEN_TITLE_GALLERY" = "フォトギャラリー";
+"SCREEN_TITLE_STAFF"="スタッフ";
+"SCREEN_TITLE_SETTINGS"="";
+"SCREEN_TITLE_RESERVE"="";
+"SCREEN_TITLE_COUPON" = "";
+"SCREEN_TITLE_CHAT"="";
+"SCREEN_TITLE_COMPANY_INFO"="";
+"SCREEN_TITLE_USER_PRIVACY"="";
 
 /*
  

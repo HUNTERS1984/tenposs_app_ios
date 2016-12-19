@@ -10,7 +10,8 @@
 #import "Const.h"
 #import "Common_Item_Cell.h"
 #import "DataModel.h"
+#import "UIButton+HandleBlock.h"
 
 @interface Item_Cell_ShopInfo : Common_Item_Cell
-
+@property (weak, nonatomic) IBOutlet UIButton *reserveButton;
 @end

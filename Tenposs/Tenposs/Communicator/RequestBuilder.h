@@ -13,10 +13,12 @@
  * URL
  */
 extern NSString * const BASE_ADDRESS;
-extern NSString * const API_ADDRESS;
+extern NSString * const API_BASE_V2;
 extern NSString * const API_LOGIN;
 extern NSString * const API_SLOGIN;
 extern NSString * const API_SIGNUP;
+extern NSString * const API_SIGNUP_SOCIAL;
+extern NSString * const API_UPDATE_AFTER_SOCIAL;
 extern NSString * const API_LOGOUT;
 extern NSString * const API_TOP;
 extern NSString * const API_MENU;
@@ -72,6 +74,7 @@ extern NSString * const KeyAPI_USERNAME;
 extern NSString * const KeyAPI_GENDER;
 extern NSString * const KeyAPI_ADDRESS;
 extern NSString * const KeyAPI_AVATAR;
+extern NSString * const KeyAPI_AVATAR_URL;
 extern NSString * const KeyAPI_CLIENT;
 extern NSString * const KeyAPI_KEY;
 extern NSString * const KeyAPI_RANKING;
@@ -87,6 +90,7 @@ extern NSString * const KeyAPI_APP_USER_ID;
 + (NSString *)getImageRequestURL:(NSString *)imageURL;
 
 + (NSString *)APIAddress;
++ (NSString *)APIAddressV2;
 
 +(NSString*) requestBuilder:(Bundle *)params;
 

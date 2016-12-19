@@ -45,7 +45,7 @@
     [dictData setObject:currentTime forKey:KeyAPI_TIME];
     [dictData setObject:[Utils getSigWithStrings:sigs] forKey:KeyAPI_SIG];
     
-    NSString *strData = [self makeParamtersString:dictData withEncoding:NSUTF8StringEncoding];
+    NSString *strData = [Utils makeParamtersString:dictData withEncoding:NSUTF8StringEncoding];
     NSData *req_data = [strData dataUsingEncoding:NSUTF8StringEncoding];
     
     [body put:KeyRequestData value:req_data];
@@ -100,7 +100,7 @@
     [dictData setObject:currentTime forKey:KeyAPI_TIME];
     [dictData setObject:[Utils getSigWithStrings:sigs] forKey:KeyAPI_SIG];
     
-    NSString *strData = [self makeParamtersString:dictData withEncoding:NSUTF8StringEncoding];
+    NSString *strData = [Utils makeParamtersString:dictData withEncoding:NSUTF8StringEncoding];
     NSData *req_data = [strData dataUsingEncoding:NSUTF8StringEncoding];
     
     [body put:KeyRequestData value:req_data];
@@ -120,7 +120,7 @@
     [dictData setObject:currentTime forKey:KeyAPI_TIME];
     [dictData setObject:[Utils getSigWithStrings:sigs] forKey:KeyAPI_SIG];
     
-    NSString *strData = [self makeParamtersString:dictData withEncoding:NSUTF8StringEncoding];
+    NSString *strData = [Utils makeParamtersString:dictData withEncoding:NSUTF8StringEncoding];
     NSData *req_data = [strData dataUsingEncoding:NSUTF8StringEncoding];
     
     [body put:KeyRequestData value:req_data];
@@ -135,7 +135,7 @@
     Bundle *body = [Bundle new];
     NSMutableDictionary *dictData = [parameters mutableCopy];
     
-    NSString *strData = [self makeParamtersString:dictData withEncoding:NSUTF8StringEncoding];
+    NSString *strData = [Utils makeParamtersString:dictData withEncoding:NSUTF8StringEncoding];
     NSData *req_data = [strData dataUsingEncoding:NSUTF8StringEncoding];
     
     [body put:KeyRequestData value:req_data];
@@ -150,7 +150,7 @@
     [params put:KeyRequestData value:parameters];
     [params put:KeyRequestCallback value:completeBlock];
     
-    [self executeUpdateProfile:params withDelegate:self];
+    [self executeUpdateProfile:params withDelegate:self andAuthHeaderType:AuthenticationType_authorization];
 }
 
 - (void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams{
@@ -171,42 +171,6 @@
     }
 }
 
-
-- (NSString*)makeParamtersString:(NSDictionary*)parameters withEncoding:(NSStringEncoding)encoding
-{
-    if (nil == parameters || [parameters count] == 0)
-        return nil;
-    
-    NSMutableString* stringOfParamters = [[NSMutableString alloc] init];
-    NSEnumerator *keyEnumerator = [parameters keyEnumerator];
-    id key = nil;
-    while ((key = [keyEnumerator nextObject]))
-    {
-        if([[parameters valueForKey:key] isKindOfClass:[NSData class]]){
-            
-        }else{
-            NSString *value = [[parameters valueForKey:key] isKindOfClass:[NSString class]] ?
-            [parameters valueForKey:key] : [[parameters valueForKey:key] stringValue];
-            [stringOfParamters appendFormat:@"%@=%@&",
-            [self URLEscaped:key withEncoding:encoding],
-            [self URLEscaped:value withEncoding:encoding]];
-        }
-        
-    }
-    
-    // Delete last character of '&'
-    NSRange lastCharRange = {[stringOfParamters length] - 1, 1};
-    [stringOfParamters deleteCharactersInRange:lastCharRange];
-    return stringOfParamters;
-}
-
-- (NSString *)URLEscaped:(NSString *)strIn withEncoding:(NSStringEncoding)encoding{
-    
-    CFStringRef escaped = CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)strIn, NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]", CFStringConvertNSStringEncodingToEncoding(encoding));
-    NSString *strOut = [NSString stringWithString:(__bridge NSString *)escaped];
-    CFRelease(escaped);
-    return strOut;
-}
 
 - (void)customPrepare:(Bundle *)params{
     _request_url = [_request_url stringByAppendingFormat:@"%@", [RequestBuilder requestBuilder:params]];

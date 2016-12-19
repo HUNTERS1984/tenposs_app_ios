@@ -15,6 +15,12 @@
 #import "AppDelegate.h"
 #import <TwitterKit/TwitterKit.h>
 #import <Fabric/Fabric.h>
+#import "AuthenticationManager.h"
+#import "Const.h"
+#import "Utils.h"
+#import "SVProgressHUD.h"
+#import "UIUtils.h"
+#import "SignUpScreenNext_t2.h"
 
 @interface LoginScreen_t2 ()
 
@@ -67,6 +73,7 @@
 }
 
 - (IBAction)buttionFacebookClicked:(id)sender{
+    [SVProgressHUD show];
     FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
     [login logInWithReadPermissions:@[@"email", @"public_profile"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
         if (error) {
@@ -84,18 +91,52 @@
                      if (!error) {
                          NSLog(@"fetched user:%@", result);
                          NSMutableDictionary *params = [NSMutableDictionary new];
+                         [params setObject:APP_ID forKey:KeyAPI_APP_ID];
                          [params setObject:@"1" forKey:KeyAPI_SOCIAL_TYPE];
                          [params setObject:[result objectForKey:@"id"] forKey:KeyAPI_SOCIAL_ID];
                          [params setObject:token forKey:KeyAPI_SOCIAL_TOKEN];
                          [params setObject:[result objectForKey:@"name"] forKey:KeyAPI_USERNAME];
-                         
-                         [[NetworkCommunicator shareInstance] POST:API_SLOGIN parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+                         [params setObject:@"ios" forKey:KeyAPI_PLATFORM];
+                         NSLog(@"SOCIAL LOGIN = %@", params);
+                         [[AuthenticationManager sharedInstance] AuthSignUpWithSocialAccount:params andCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
                              if(isSuccess) {
-                                 [UserData shareInstance].userDataDictionary = [dictionary mutableCopy];
+                                 NSMutableDictionary *userData;
+                                 if ([resultData isKindOfClass:[CommonResponse class]]) {
+                                     userData = [((CommonResponse *)resultData).data mutableCopy];
+                                 }else{
+                                     userData = [resultData mutableCopy];
+                                 }
+                                 
+                                 NSMutableDictionary *tokenKit = [[NSMutableDictionary alloc] init];
+                                 if ([userData objectForKey:@"token"]) {
+                                     [tokenKit setObject:[userData objectForKey:@"token"] forKey:@"token"];
+                                     [userData removeObjectForKey:@"token"];
+                                 }
+                                 if ([userData objectForKey:@"refresh_token"]) {
+                                     [tokenKit setObject:[userData objectForKey:@"refresh_token"] forKey:@"refresh_token"];
+                                     [userData removeObjectForKey:@"refresh_token"];
+                                 }
+                                 if ([userData objectForKey:@"access_refresh_token_href"]) {
+                                     [tokenKit setObject:[userData objectForKey:@"access_refresh_token_href"] forKey:@"access_refresh_token_href"];
+                                     [userData removeObjectForKey:@"access_refresh_token_href"];
+                                 }
+                                 
+                                 [UserData shareInstance].userDataDictionary = [userData mutableCopy];
                                  [[UserData shareInstance] saveUserData];
-                                 AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-                                 [delegate registerPushNotification];
-                                 [self showTop];
+                                 [[UserData shareInstance] saveTokenKit:[tokenKit copy]];
+                                 BOOL isFirstLogin = [userData objectForKey:@"first_login"];
+                                 [SVProgressHUD dismiss];
+                                 if (isFirstLogin) {
+                                     //TODO: show additional info
+                                     UIStoryboard *mainStoryboard = nil;
+                                     mainStoryboard = [UIStoryboard storyboardWithName:@"Main_t2" bundle: nil];
+                                     UIViewController *addInfoScreen = [mainStoryboard instantiateViewControllerWithIdentifier:NSStringFromClass([SignUpScreenNext_t2 class])];
+                                     [self presentViewController:addInfoScreen animated:YES completion:nil];
+                                 }else{
+                                     AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+                                     [delegate registerPushNotification];
+                                     [self showTop];
+                                 }
                              }else{
                                  
                              }
@@ -108,24 +149,58 @@
 }
 
 - (IBAction)buttionTwitterClicked:(id)sender{
-    
+    [SVProgressHUD show];
     [[Twitter sharedInstance] logInWithViewController:self methods:TWTRLoginMethodAll completion:^(TWTRSession *session, NSError *error) {
         if (session) {
             NSLog(@"signed in as %@", [session userName]);
             NSMutableDictionary *params = [NSMutableDictionary new];
+            [params setObject:APP_ID forKey:KeyAPI_APP_ID];
             [params setObject:@"2" forKey:KeyAPI_SOCIAL_TYPE];
             [params setObject:[session userID] forKey:KeyAPI_SOCIAL_ID];
             [params setObject:[session authToken] forKey:KeyAPI_SOCIAL_TOKEN];
             [params setObject:[session authTokenSecret] forKey:KeyAPI_SOCIAL_SECRET];
             [params setObject:[session userName] forKey:KeyAPI_USERNAME];
-            
-            [[NetworkCommunicator shareInstance] POST:API_SLOGIN parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+            [params setObject:@"ios" forKey:KeyAPI_PLATFORM];
+            [[AuthenticationManager sharedInstance] AuthSignUpWithSocialAccount:params andCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
+                [SVProgressHUD dismiss];
                 if(isSuccess) {
-                    [UserData shareInstance].userDataDictionary = [dictionary mutableCopy];
+                    NSMutableDictionary *userData;
+                    if ([resultData isKindOfClass:[CommonResponse class]]) {
+                        userData = [((CommonResponse *)resultData).data mutableCopy];
+                    }else{
+                        userData = [resultData mutableCopy];
+                    }
+                    
+                    NSMutableDictionary *tokenKit = [[NSMutableDictionary alloc] init];
+                    if ([userData objectForKey:@"token"]) {
+                        [tokenKit setObject:[userData objectForKey:@"token"] forKey:@"token"];
+                        [userData removeObjectForKey:@"token"];
+                    }
+                    if ([userData objectForKey:@"refresh_token"]) {
+                        [tokenKit setObject:[userData objectForKey:@"refresh_token"] forKey:@"refresh_token"];
+                        [userData removeObjectForKey:@"refresh_token"];
+                    }
+                    if ([userData objectForKey:@"access_refresh_token_href"]) {
+                        [tokenKit setObject:[userData objectForKey:@"access_refresh_token_href"] forKey:@"access_refresh_token_href"];
+                        [userData removeObjectForKey:@"access_refresh_token_href"];
+                    }
+                    
+                    [UserData shareInstance].userDataDictionary = [userData mutableCopy];
                     [[UserData shareInstance] saveUserData];
-                    AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-                    [delegate registerPushNotification];
-                    [self showTop];
+                    [[UserData shareInstance] saveTokenKit:[tokenKit copy]];
+                    BOOL isFirstLogin = [userData objectForKey:@"first_login"];
+                    if (isFirstLogin) {
+                        //TODO: show additional info
+                        UIStoryboard *mainStoryboard = nil;
+                        mainStoryboard = [UIStoryboard storyboardWithName:@"Main_t2" bundle: nil];
+                        UIViewController *addInfoScreen = [mainStoryboard instantiateViewControllerWithIdentifier:NSStringFromClass([SignUpScreenNext_t2 class])];
+                        [self presentViewController:addInfoScreen animated:YES completion:nil];
+                    }else{
+                        AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+                        [delegate registerPushNotification];
+                        [self showTop];
+                    }
+                    
                 }else{
                     
                 }

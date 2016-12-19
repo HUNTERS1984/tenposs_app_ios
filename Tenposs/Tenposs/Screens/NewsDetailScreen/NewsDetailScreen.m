@@ -9,6 +9,8 @@
 #import "NewsDetailScreen.h"
 #import "UIViewController+LoadingView.h"
 #import "UIImageView+WebCache.h"
+#import "AppConfiguration.h"
+#import "HexColors.h"
 
 @interface NewsDetailScreen ()
 
@@ -30,7 +32,7 @@
     [super viewDidLoad];
     [self.newsTitle setText:_news.title];
     [self.categoryTitle setText:_news.parentCategory.name];
-    [self.date setText:@"2016-08-14"];
+    [self.date setText:_news.date];
     [self.newsContent setText:_news.desc];
     self.newsContent.textAlignment = NSTextAlignmentJustified;
     [self.newsContent setFont:[UIFont systemFontOfSize:16]];
@@ -38,6 +40,18 @@
     self.thumbnail.clipsToBounds = YES;
     [self showLoadingViewWithMessage:@""];
     [self setTitle:_news.title];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    UINavigationBar *nav = self.navigationController.navigationBar;
+    if (nav) {
+        AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+        AppSettings *settings = [appConfig getAvailableAppSettings];
+        
+        [nav setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                     [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,nil]];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated{

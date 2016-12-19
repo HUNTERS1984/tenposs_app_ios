@@ -15,6 +15,8 @@
 #import "HexColors.h"
 #import "UIFont+Themify.h"
 #import "UIUtils.h"
+#import "SignUpScreenNext.h"
+#import "Const.h"
 
 @interface SignUpScreen ()
 
@@ -29,6 +31,8 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *closeButton;
 @property (weak, nonatomic) IBOutlet CXAHyperlinkLabel *loginLabel;
 @property (weak, nonatomic) IBOutlet UINavigationBar *nav;
+
+@property (strong, nonatomic) NSMutableDictionary *signUpData;
 
 @end
 
@@ -51,9 +55,9 @@
     if (sender == _closeButton) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }else if (sender == _registerButton){
-        if ([self validateEnteredInfo]) {
-            [self doRegister];
-        }
+//        if ([self validateEnteredInfo]) {
+//            [self doRegister];
+//        }
     }
 }
 
@@ -73,6 +77,13 @@
         [self showAlertView:@"警告" message:@"確認パスワードが正しくありません"];
         return NO;
     }
+    
+    if (!_signUpData) {
+        _signUpData = [[NSMutableDictionary alloc] init];
+    }
+    [_signUpData setObject:_name.text forKey:@"name"];
+    [_signUpData setObject:_email.text forKey:@"email"];
+    [_signUpData setObject:_password.text forKey:@"password"];
     
     return YES;
 }
@@ -106,6 +117,10 @@
     }];
 }
 
+- (NSString *)title{
+    return @"新規会員登録 (1/2)";
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -115,15 +130,59 @@
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     AppSettings *settings = [appConfig getAvailableAppSettings];
     
-    [_closeButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                         [UIFont themifyFontOfSize:[UIUtils getTextSizeWithType:settings.font_size]], NSFontAttributeName,
-                                         [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
-                                         nil]
-                               forState:UIControlStateNormal];
-    [_closeButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-close"]]];
-    _nav.backgroundColor= [UIColor colorWithHexString:settings.header_color];
-    [_nav setTitleTextAttributes:
-     @{NSForegroundColorAttributeName:[UIColor colorWithHexString:settings.title_color]}];
+//    [_closeButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+//                                         [UIFont themifyFontOfSize:[UIUtils getTextSizeWithType:settings.font_size]], NSFontAttributeName,
+//                                         [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
+//                                         nil]
+//                               forState:UIControlStateNormal];
+//    [_closeButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-close"]]];
+//    _nav.backgroundColor= [UIColor colorWithHexString:settings.header_color];
+//    [_nav setTitleTextAttributes:
+//     @{NSForegroundColorAttributeName:[UIColor colorWithHexString:settings.title_color]}];
+    
+    if (self.navigationController) {
+        UINavigationBar *navBar = self.navigationController.navigationBar;
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                       style:UIBarButtonItemStylePlain target:self action:@selector(didPressCloseButton)];
+        self.navigationItem.leftBarButtonItem = backButton;
+        [self.navigationItem setHidesBackButton:YES animated:YES];
+        [self.navigationItem setBackBarButtonItem:nil];
+        [self.navigationItem.leftBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                       [UIFont themifyFontOfSize:20/*[UIUtils getTextSizeWithType:settings.font_size]*/], NSFontAttributeName,
+                                                                       [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
+                                                                       nil]
+                                                             forState:UIControlStateNormal];
+        [self.navigationItem.leftBarButtonItem setTitle:[NSString stringWithFormat: @"%@", [UIFont stringForThemifyIdentifier:@"ti-close"]]];
+    }
+
+}
+
+- (void)didPressCloseButton{
+    if (self.navigationController) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"signup_to_next"]) {
+        SignUpScreenNext *nextScreen = (SignUpScreenNext *) segue.destinationViewController;
+        if (nextScreen) {
+            nextScreen.signUpData = [_signUpData mutableCopy];
+        }
+    }
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
+    if ([identifier isEqualToString:@"signup_to_next"]) {
+        if ([self validateEnteredInfo]) {
+            return YES;
+        }else{
+            return NO;
+        }
+    }
+    return YES;
 }
 
 -(void)tapViewAction:(UITapGestureRecognizer *)sender{

@@ -27,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *shopPhoneIcon;
 @property (weak, nonatomic) IBOutlet UILabel *shopPhoneText;
 
+
+
 @end
 
 @implementation Item_Cell_ShopInfo

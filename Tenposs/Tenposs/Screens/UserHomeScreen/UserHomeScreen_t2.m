@@ -15,6 +15,9 @@
 #import "GlobalMapping.h"
 #import "SettingsEditProfileScreen.h"
 
+#import "PointManager.h"
+#import "AuthenticationManager.h"
+
 @interface UserHomeScreen_t2 ()
 
 @property (weak, nonatomic) IBOutlet UIView *infoView;
@@ -28,6 +31,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *pointInfo;
 @property (weak, nonatomic) IBOutlet UIImageView *barcode;
 @property (weak, nonatomic) IBOutlet UIView *editProfileView;
+
+@property (strong, nonatomic) NSDictionary *userPointData;
 
 @end
 
@@ -85,13 +90,59 @@
     [_backgroundImage sd_setImageWithURL:[NSURL URLWithString:@"https://media.timeout.com/images/102917922/image.jpg"]];
     [_userName setText:[user getUserName]];
     
-    [_mileInfo setText:[NSString stringWithFormat:@"%ld ポイント 獲得まで あと %ld マイル", (long)[self getTotalPoint], (long)[self getTotalMile]]];
-    [_pointInfo setText:@"tenpossポイント:ポイント"];
-    [_pointCount setText:[NSString stringWithFormat:@"%ldポイント", (long)[self getCurrentPoint]]];
+    [self getUserPoint];
+}
+
+- (void)getUserPoint{
+    __weak UserHomeScreen_t2 *weakSelf = self;
+    [[PointManager sharedInstance] PointGetUserPointWithCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
+        CommonResponse *data = (CommonResponse *)resultData;
+        if (isSuccess) {
+            if (data.data) {
+                _userPointData = [data.data mutableCopy];
+                [weakSelf setupValueView];
+            }
+        }else{
+            if (data) {
+                if (data.code == ERROR_INVALID_TOKEN) {
+                    [[AuthenticationManager sharedInstance] AuthRefreshTokenWithCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
+                        CommonResponse *data = (CommonResponse *)resultData;
+                        if (isSuccess) {
+                            if (data && data.code == ERROR_OK) {
+                                [[PointManager sharedInstance] PointGetUserPointWithCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
+                                    if (data.data) {
+                                        _userPointData = [data.data mutableCopy];
+                                        [weakSelf setupValueView];
+                                    }
+                                }];
+                            }else if(data.code == ERROR_REFRESH_TOKEN_INVALID){
+                                [weakSelf removeAllInfoView];
+                                [weakSelf invalidateCurrentUserSession];
+                            }
+                        }else{
+                            if (data.code == ERROR_REFRESH_TOKEN_INVALID) {
+                                [weakSelf removeAllInfoView];
+                                [weakSelf invalidateCurrentUserSession];
+                            }
+                        }
+                    }];
+                }
+            }else{
+                [self showErrorScreen:@"ERROR" andRetryButton:^{
+                    [weakSelf getUserPoint];
+                }];
+            }
+        }
+    }];
+}
+
+- (void)setupValueView{
+    [_mileInfo setText:[NSString stringWithFormat:@"%ld ポイント 獲得まで あと %ld マイル", (long)[self getNextPoint], (long)[self getNextMile]]];
+    [_pointInfo setText:[NSString stringWithFormat:@"tenpossポイント : %ldポイント",(long)[self getCurrentPoint]]];
     
-    _mileGraph.maxValue = (CGFloat)[self getTotalMile];
+    _mileGraph.maxValue = (CGFloat)[self getNextMile];
     
-    [self generateBarCode:@"123123"];
+    [self generateBarCode:[[UserData shareInstance] getAuthUserID]];
     
     [self removeAllInfoView];
     
@@ -99,6 +150,7 @@
         [self.mileGraph setValue:(CGFloat)[self getCurrentMile] animateWithDuration:1];
     });
 }
+
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -121,23 +173,23 @@
 }
 
 - (NSString *)title{
-    return @" ";
+    return @"";
 }
 
-- (NSInteger) getTotalPoint{
-    return 200;
+- (NSInteger) getNextPoint{
+    return [[_userPointData objectForKey:@"next_points"] integerValue];
 }
 
 - (NSInteger)getCurrentPoint{
-    return 150;
+    return [[_userPointData objectForKey:@"points"] integerValue];
 }
 
-- (NSInteger)getTotalMile{
-    return 4280;
+- (NSInteger)getNextMile{
+    return [[_userPointData objectForKey:@"next_miles"] integerValue];
 }
 
 - (NSInteger)getCurrentMile{
-    return 2500;
+    return [[_userPointData objectForKey:@"miles"] integerValue];
 }
 
 - (IBAction)editProfileTapped:(id)sender {
@@ -149,8 +201,6 @@
 
 
 -(void)generateBarCode:(NSString *)qrString{
-    
-    qrString = @"123465";
     
     NSData *stringData = [qrString dataUsingEncoding:NSASCIIStringEncoding];
     

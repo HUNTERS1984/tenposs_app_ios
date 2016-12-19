@@ -17,12 +17,14 @@
 
 NSString * const BASE_ADDRESS  =  @"https://api.ten-po.com/";
 NSString * const API_BASE = @"api/v1";
+NSString * const API_BASE_V2 = @"api/v2";
 
 NSString * const API_LOGIN  = @"/signin?";//@"/login?";
 NSString * const API_SLOGIN  = @"/social_login?";
 NSString * const API_SIGNUP = @"/signup?";
+NSString * const API_SIGNUP_SOCIAL = @"/signup_social?";
 NSString * const API_LOGOUT  =   @"/signout?";
-
+NSString * const API_UPDATE_AFTER_SOCIAL = @"v2/update_profile_social_signup";
 NSString * const API_TOP  =  @"/top?";
 
 NSString * const API_MENU  = @"/menu?";
@@ -98,6 +100,7 @@ NSString * const KeyAPI_USERNAME_NAME = @"username";
 NSString * const KeyAPI_GENDER = @"gender";
 NSString * const KeyAPI_ADDRESS = @"address";
 NSString * const KeyAPI_AVATAR = @"avatar";
+NSString * const KeyAPI_AVATAR_URL = @"avatar_url";
 
 ///Push
 NSString * const KeyAPI_CLIENT = @"client";
@@ -123,6 +126,10 @@ NSString * const KeyAPI_APP_USER_ID = @"app_user_id";
     return [NSString stringWithFormat:@"%@%@",BASE_ADDRESS,API_BASE];
 }
 
++ (NSString *)APIAddressV2{
+    return [NSString stringWithFormat:@"%@%@",BASE_ADDRESS,API_BASE_V2];
+}
+
 +(NSString*) requestBuilder:(Bundle *)params{
     
     NSString* strUrlParams = @"";
@@ -146,6 +153,7 @@ NSString * const KeyAPI_APP_USER_ID = @"app_user_id";
                                    KeyAPI_CATEGORY_ID,
                                    KeyAPI_COUPON_ID,
                                    KeyAPI_USERNAME,
+                                   KeyAPI_USERNAME_NAME,
                                    KeyAPI_GENDER,
                                    KeyAPI_ADDRESS,
                                    KeyAPI_AVATAR,
@@ -155,6 +163,7 @@ NSString * const KeyAPI_APP_USER_ID = @"app_user_id";
                                    KeyAPI_NEWS,
                                    KeyAPI_COUPON,
                                    KeyAPI_CHAT,
+                                   KeyAPI_AVATAR_URL,
                                    nil];
     
     for (NSString* param in arrayParams) {

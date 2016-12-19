@@ -9,6 +9,8 @@
 #import "TenpossCommunicator.h"
 #import "Utils.h"
 #import "Const.h"
+#import "UserData.h"
+
 
 @implementation TenpossCommunicator
 
@@ -28,13 +30,130 @@
         [self customProcess:params];
 }
 
--(void) executeUpdateProfile:(Bundle*) params withDelegate:(id) delegate{
+- (void)execute:(Bundle*) params withDelegate:(id) delegate andAuthHeaderType:(AuthenticationType)authType{
+    self.delegate = delegate;
+    m_pParams = params;
+    [self prepare:params];
+    NSString* url = [m_pParams get:KeyRequestURL];
+    
+    NSData* requestData = [params get:KeyRequestData];
+    if(requestData == nil) {
+        m_pRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+        if(authType == AuthenticationType_basicAuth) {
+            //username and password value
+            NSString *username = @"tenposs";
+            NSString *password = @"Tenposs@123";
+            
+            //HTTP Basic Authentication
+            NSString *authenticationString = [NSString stringWithFormat:@"%@:%@", username, password];
+            NSData *authenticationData = [authenticationString dataUsingEncoding:NSASCIIStringEncoding];
+            NSString *authenticationValue = [[NSString alloc] initWithData:[authenticationData base64EncodedDataWithOptions:NSDataBase64EncodingEndLineWithLineFeed] encoding:NSASCIIStringEncoding];
+            
+            [m_pRequest setValue:[NSString stringWithFormat:@"Basic %@", authenticationValue] forHTTPHeaderField:@"Authorization"];
+        }else if (authType == AuthenticationType_authorization){
+            if (![[UserData shareInstance] getToken] || [[[UserData shareInstance] getToken] isEqualToString:@""]) {
+                NSString* description = [NSString stringWithFormat:@"Invalid access token"];
+                [m_pParams put:KeyResponseResult value:@(ERROR_INVALID_TOKEN)];
+                [m_pParams put:KeyResponseError value:description];
+                NSLog(@"End NSURLConnection : %@ - cancel : %d", NSStringFromClass([self class]), self.cancelled);
+                if(self.delegate != nil && [self.delegate respondsToSelector:@selector(completed:data:)] && self.cancelled == NO){
+                    [self.delegate completed:self data:m_pParams];
+                }
+                return;
+            }
+            NSString *authValue = [NSString stringWithFormat: @"Bearer %@",[[UserData shareInstance] getToken]];
+            [m_pRequest addValue:authValue forHTTPHeaderField:@"Authorization"];
+        }
+    }else{
+        NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[requestData length]];
+        m_pRequest = [[NSMutableURLRequest alloc] init];
+        
+        if(authType == AuthenticationType_basicAuth) {
+            //username and password value
+            NSString *username = @"tenposs";
+            NSString *password = @"Tenposs@123";
+            
+            //HTTP Basic Authentication
+            NSString *authenticationString = [NSString stringWithFormat:@"%@:%@", username, password];
+            NSData *authenticationData = [authenticationString dataUsingEncoding:NSASCIIStringEncoding];
+            NSString *authenticationValue = [[NSString alloc] initWithData:[authenticationData base64EncodedDataWithOptions:NSDataBase64EncodingEndLineWithLineFeed] encoding:NSASCIIStringEncoding];
+            
+            [m_pRequest setValue:[NSString stringWithFormat:@"Basic %@", authenticationValue] forHTTPHeaderField:@"Authorization"];
+        }else if (authType == AuthenticationType_authorization){
+            if (![[UserData shareInstance] getToken]) {
+                NSString* description = [NSString stringWithFormat:@"Invalid access token"];
+                [m_pParams put:KeyResponseResult value:@(ERROR_INVALID_TOKEN)];
+                [m_pParams put:KeyResponseError value:description];
+                NSLog(@"End NSURLConnection : %@ - cancel : %d", NSStringFromClass([self class]), self.cancelled);
+                if(self.delegate != nil && [self.delegate respondsToSelector:@selector(completed:data:)] && self.cancelled == NO){
+                    [self.delegate completed:self data:m_pParams];
+                }
+                return;
+            }
+            NSString *authValue = [NSString stringWithFormat: @"Bearer %@",[[UserData shareInstance] getToken]];
+            [m_pRequest addValue:authValue forHTTPHeaderField:@"Authorization"];
+        }
+        
+        [m_pRequest setURL:[NSURL URLWithString:url]];
+        [m_pRequest setHTTPMethod:@"POST"];
+        
+        [m_pRequest setValue:@"application/json, text/javascript, */*; q=0.01" forHTTPHeaderField:@"Accept"];
+        [m_pRequest setValue:@"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.154 Safari/537.36" forHTTPHeaderField:@"User-Agent"];
+        [m_pRequest setValue:@"en-US,en;q=0.8,vi;q=0.6" forHTTPHeaderField:@"Accept-Language"];
+        [m_pRequest setValue:@"Keep-Alive" forHTTPHeaderField:@"Connection"];
+        [m_pRequest setValue:@"no-cache" forHTTPHeaderField:@"Pragma"];
+        [m_pRequest setValue:@"no-cache" forHTTPHeaderField:@"Cache-Control"];
+        [m_pRequest setValue:@"gzip,deflate" forHTTPHeaderField:@"Accept-Encoding"];
+        [m_pRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        [m_pRequest setValue:@"application/x-www-form-urlencoded; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+        [m_pRequest setHTTPBody:requestData];
+    }
+    
+    // Create url connection and fire request
+    NSInteger timeout = [params getInt:KeyRequestTimeout];
+    if(timeout <= 0)
+        timeout = 15;
+    [m_pRequest setTimeoutInterval:timeout];
+    
+    m_pConnection = [[NSURLConnection alloc] initWithRequest:m_pRequest delegate:self];
+    NSLog(@"Start NSURLConnection: %@ - %@", NSStringFromClass([self class]), m_pRequest.URL);
+    [m_pConnection start];
+}
+
+-(void) executeUpdateProfile:(Bundle*) params withDelegate:(id) delegate andAuthHeaderType:(AuthenticationType)authType{
     self.delegate = delegate;
     m_pParams = params;
     
-    NSString *request_url = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddress],API_UPDATE_PROFILE];
+    NSString *request_url = [NSString stringWithFormat:@"%@%@%@",BASE_ADDRESS,API_BASE_V2,API_UPDATE_PROFILE];
     
     m_pRequest = [[NSMutableURLRequest alloc] init];
+    
+    if(authType == AuthenticationType_basicAuth) {
+        //username and password value
+        NSString *username = @"tenposs";
+        NSString *password = @"Tenposs@123";
+        
+        //HTTP Basic Authentication
+        NSString *authenticationString = [NSString stringWithFormat:@"%@:%@", username, password];
+        NSData *authenticationData = [authenticationString dataUsingEncoding:NSASCIIStringEncoding];
+        NSString *authenticationValue = [[NSString alloc] initWithData:[authenticationData base64EncodedDataWithOptions:NSDataBase64EncodingEndLineWithLineFeed] encoding:NSASCIIStringEncoding];
+        
+        [m_pRequest setValue:[NSString stringWithFormat:@"Basic %@", authenticationValue] forHTTPHeaderField:@"Authorization"];
+    }else if (authType == AuthenticationType_authorization){
+        if (![[UserData shareInstance] getToken]) {
+            NSString* description = [NSString stringWithFormat:@"Invalid access token"];
+            [m_pParams put:KeyResponseResult value:@(ERROR_INVALID_TOKEN)];
+            [m_pParams put:KeyResponseError value:description];
+            NSLog(@"End NSURLConnection : %@ - cancel : %d", NSStringFromClass([self class]), self.cancelled);
+            if(self.delegate != nil && [self.delegate respondsToSelector:@selector(completed:data:)] && self.cancelled == NO){
+                [self.delegate completed:self data:m_pParams];
+            }
+            return;
+        }
+        NSString *authValue = [NSString stringWithFormat: @"Bearer %@",[[UserData shareInstance] getToken]];
+        [m_pRequest addValue:authValue forHTTPHeaderField:@"Authorization"];
+    }
+    
     [m_pRequest setHTTPShouldHandleCookies:NO];
     [m_pRequest setTimeoutInterval:60];
     [m_pRequest setHTTPMethod:@"POST"];
@@ -44,17 +163,14 @@
     [m_pRequest setValue:contentType forHTTPHeaderField: @"Content-Type"];
     
     //    Bundle *body = [Bundle new];
-    NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
-    NSArray *sigs = [NSArray arrayWithObjects:APP_ID,currentTime,APP_SECRET,nil];
     
     NSMutableDictionary *dataDict = (NSMutableDictionary *)[params get:KeyRequestData];
     if (!dataDict || [dataDict count] <= 0) {
         return;
     }
+    
     NSMutableDictionary *dictData = [dataDict mutableCopy];
-    [dictData setObject:[APP_ID dataUsingEncoding:NSUTF8StringEncoding] forKey:KeyAPI_APP_ID];
-    [dictData setObject:[currentTime dataUsingEncoding:NSUTF8StringEncoding] forKey:KeyAPI_TIME];
-    [dictData setObject:[[Utils getSigWithStrings:sigs] dataUsingEncoding:NSUTF8StringEncoding] forKey:KeyAPI_SIG];
+    //[dictData setObject:[APP_ID dataUsingEncoding:NSUTF8StringEncoding] forKey:KeyAPI_APP_ID];
     
     // post body
     NSMutableData *body = [NSMutableData data];
@@ -201,6 +317,13 @@
         //TODO: return data to delegate
         if( self.httpCode == 200 ){
             [self process:m_pParams];
+        }else if (self.httpCode == 401){
+            NSString* description = [NSString stringWithFormat:@"Invalid token error: %ld - %@", (long)self.httpCode, [NSHTTPURLResponse localizedStringForStatusCode:self.httpCode]];
+            [m_pParams put:KeyResponseResult value:@(ERROR_INVALID_TOKEN)];
+            CommonResponse *responseCom = [[CommonResponse alloc] init];
+            responseCom.code = ERROR_INVALID_TOKEN;
+            [m_pParams put:KeyResponseObject value:responseCom];
+            [m_pParams put:KeyResponseError value:description];
         }else{
             NSString* description = [NSString stringWithFormat:@"Server error: %ld - %@", (long)self.httpCode, [NSHTTPURLResponse localizedStringForStatusCode:self.httpCode]];
             [m_pParams put:KeyResponseResult value:@(ResultErrorUnknown)];

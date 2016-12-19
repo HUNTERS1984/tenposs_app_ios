@@ -83,7 +83,7 @@
     if (error) {
         switch (error.code) {
             case ERROR_DATASOURCE_NO_CONTENT:{
-                [self showErrorScreen:@"NO CONTENT"];
+                [self showErrorScreen:NSLocalizedString(@"NO CONTENT",nil)];
                 [self removePullToRefresh];
                 [self removeInfiniteLoading];
             }

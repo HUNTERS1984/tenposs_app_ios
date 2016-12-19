@@ -22,13 +22,17 @@
 #import "UserPrivacyScreen.h"
 #import "UIViewController+LoadingView.h"
 #import "LoginScreen.h"
+#import "PushNotificationManager.h"
 
 #define SET_EDIT_PROFILE    @0
-#define SET_PUSH            @1
+#define SET_PUSH_NEWS       @1
 #define SET_PUSH_COUPON     @2
 #define SET_CHANGE_DEVICE   @3
 #define SET_COMPANY_INFO    @4
 #define SET_USER_PRIVACY    @5
+#define SET_USER_LOGOUT     @6
+#define SET_PUSH_RANK       @7
+#define SET_PUSH_CHAT       @8
 
 @interface SettingHomeScreen ()
 
@@ -53,11 +57,12 @@ static NSDictionary *settingsNames;
     
      settingsNames = @{
                   SET_EDIT_PROFILE : @"プロフィール編集",
-                  SET_PUSH : @"お知らせを受け取る",
+                  SET_PUSH_NEWS : @"お知らせを受け取る",
                   SET_PUSH_COUPON: @"クーポン情報を受け取る",
                   SET_CHANGE_DEVICE: @"機種変更時引継ぎコード発行",
                   SET_COMPANY_INFO: @"逼营会社",
-                  SET_USER_PRIVACY: @"採用情報"};
+                  SET_USER_PRIVACY: @"採用情報",
+                  SET_USER_LOGOUT: @"ログアウト"};
     
     [self buildSettingsFunctions];
     
@@ -74,15 +79,56 @@ static NSDictionary *settingsNames;
     [super viewDidAppear:animated];
     
     if ([[UserData shareInstance] getToken]) {
-        GetPushSettingsCommunicator *request = [GetPushSettingsCommunicator new];
-        Bundle *params = [Bundle new];
-        [params put:KeyAPI_TOKEN value:[[UserData shareInstance] getToken]];
-        NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
-        [params put:KeyAPI_TIME value:currentTime];
-        NSString *store_id = [[AppConfiguration sharedInstance] getStoreId];
-        NSArray *strings = [NSArray arrayWithObjects:APP_ID,currentTime,store_id,APP_SECRET,nil];
-        [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
-        [request execute:params withDelegate:self];
+        
+        [[PushNotificationManager sharedInstance] PushGetUserPushSettingsWithCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
+            CommonResponse *response = (CommonResponse *)resultData;
+            if (isSuccess) {
+                NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+                if(response && response.data){
+                    NSMutableDictionary *pushSetting = [response.data mutableCopy];
+                    if([pushSetting objectForKey:@"coupon"]){
+                        NSString *status = [pushSetting objectForKey:@"coupon"];
+                        if ([status isEqualToString:@"0"]) {
+                            [userDef setObject:SVALUE_OFF forKey:SKEY_PUSH_COUPON];
+                        }else{
+                            [userDef setObject:SVALUE_ON forKey:SKEY_PUSH_COUPON];
+                        }
+                    }
+                    
+                    if ([pushSetting objectForKey:@"news"]){
+                        NSString *status = [pushSetting objectForKey:@"news"];
+                        if ([status isEqualToString:@"0"]) {
+                            [userDef setObject:SVALUE_OFF forKey:SKEY_PUSH_NEWS];
+                        }else{
+                            [userDef setObject:SVALUE_ON forKey:SKEY_PUSH_NEWS];
+                        }
+                    }
+                    
+                    if ([pushSetting objectForKey:@"chat"]){
+                        NSString *status = [pushSetting objectForKey:@"chat"];
+                        if ([status isEqualToString:@"0"]) {
+                            [userDef setObject:SVALUE_OFF forKey:SKEY_PUSH_CHAT];
+                        }else{
+                            [userDef setObject:SVALUE_ON forKey:SKEY_PUSH_CHAT];
+                        }
+                    }
+                    
+                    if ([pushSetting objectForKey:@"ranking"]){
+                        NSString *status = [pushSetting objectForKey:@"ranking"];
+                        if ([status isEqualToString:@"0"]) {
+                            [userDef setObject:SVALUE_OFF forKey:SKEY_PUSH_RANKING];
+                        }else{
+                            [userDef setObject:SVALUE_ON forKey:SKEY_PUSH_RANKING];
+                        }
+                    }
+                }
+            }else{
+                if(response && response.code == ERROR_INVALID_TOKEN){
+                    [self invalidateCurrentUserSession];
+                }
+            }
+            [self previewData];
+        }];
     }else{
         [self removeAllInfoView];
     }
@@ -102,7 +148,7 @@ static NSDictionary *settingsNames;
         [_settingArrays addObjectsFromArray:[NSArray arrayWithObjects:SET_COMPANY_INFO,SET_USER_PRIVACY, nil]];
     }else{
         // User logged in
-        [_settingArrays addObjectsFromArray:[NSArray arrayWithObjects:SET_EDIT_PROFILE,SET_PUSH,SET_PUSH_COUPON,SET_CHANGE_DEVICE,SET_COMPANY_INFO,SET_USER_PRIVACY, nil]];
+        [_settingArrays addObjectsFromArray:[NSArray arrayWithObjects:SET_EDIT_PROFILE,SET_PUSH_NEWS,SET_PUSH_COUPON,SET_CHANGE_DEVICE,SET_COMPANY_INFO,SET_USER_PRIVACY,SET_USER_LOGOUT, nil]];
     }
     
     
@@ -151,17 +197,19 @@ static NSDictionary *settingsNames;
         NSString *title =[NSString stringWithFormat: @"%@", [UIFont stringForThemifyIdentifier:@"ti-angle-right"]];
         NSMutableAttributedString *atString = [[NSMutableAttributedString alloc] initWithString:title attributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                                                                  [UIFont themifyFontOfSize:20/*[UIUtils getTextSizeWithType:settings.font_size]*/], NSFontAttributeName,
-                                                                                                                 [UIColor colorWithHexString:@"#727272"], NSForegroundColorAttributeName,
-                                                                                                                 nil]];
+                                                                                                                 [UIColor colorWithHexString:@"#727272"], NSForegroundColorAttributeName,nil]];
         [((Settings_Text *)cell).indicator setAttributedText:atString];
         
+    }else if ([function isEqual:SET_USER_LOGOUT]){
+        cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([Settings_Text class]) forIndexPath:indexPath];
+        [((Settings_Text *)cell).title setText:[settingsNames objectForKey:function]];
     }else{
         cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([Settings_Text_Switch class]) forIndexPath:indexPath];
         [((Settings_Text_Switch *)cell).title setText:[settingsNames objectForKey:function]];
-        if ([function isEqual:SET_PUSH]) {
-            ((Settings_Text_Switch *)cell).set_switch.tag = [SET_PUSH integerValue];
-//            NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-            NSString *status = [self getPushValue];//[userDef objectForKey:SKEY_PUSH];
+        if ([function isEqual:SET_PUSH_NEWS]) {
+            ((Settings_Text_Switch *)cell).set_switch.tag = [SET_PUSH_NEWS integerValue];
+            NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+            NSString *status = [userDef objectForKey:SKEY_PUSH_NEWS];
             if (!status) {
                 [((Settings_Text_Switch *)cell).set_switch setOn:YES];
             }else{
@@ -198,6 +246,8 @@ static NSDictionary *settingsNames;
         [self.navigationController pushViewController:[[CompanyInfoScreen alloc] init] animated:NO];
     }else if ([function isEqual:SET_USER_PRIVACY]){
         [self.navigationController pushViewController:[[UserPrivacyScreen alloc] init] animated:NO];
+    }else if ([function isEqual:SET_USER_LOGOUT]){
+        [self signOut];
     }
 }
 
@@ -239,28 +289,59 @@ static NSDictionary *settingsNames;
 
 - (void)changeSwitch:(id)sender{
     if ([sender isKindOfClass:[UISwitch class]]) {
+        NSMutableDictionary *notificationChanges = [NSMutableDictionary new];
+        [notificationChanges setObject:@"0" forKey:KeyAPI_RANKING];
+        [notificationChanges setObject:@"0" forKey:KeyAPI_CHAT];
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-        if (((UISwitch *)sender).tag == [SET_PUSH integerValue]) {
+        if (((UISwitch *)sender).tag == [SET_PUSH_NEWS integerValue]) {
             if ([sender isOn]) {
-                [userDef setObject:SVALUE_ON forKey:SKEY_PUSH];
+                [userDef setObject:SVALUE_ON forKey:SKEY_PUSH_NEWS];
             }else{
-                [userDef setObject:SVALUE_OFF forKey:SKEY_PUSH];
+                [userDef setObject:SVALUE_OFF forKey:SKEY_PUSH_NEWS];
             }
         }else if (((UISwitch *)sender).tag == [SET_PUSH_COUPON integerValue]){
-            NSMutableDictionary *notificationChanges = [NSMutableDictionary new];
-            [notificationChanges setObject:@"0" forKey:KeyAPI_RANKING];
-            [notificationChanges setObject:@"0" forKey:KeyAPI_NEWS];
-            [notificationChanges setObject:@"0" forKey:KeyAPI_CHAT];
             if ([sender isOn]) {
                 [userDef setObject:SVALUE_ON forKey:SKEY_PUSH_COUPON];
-                [notificationChanges setObject:@"1" forKey:KeyAPI_COUPON];
             }else{
-                [notificationChanges setObject:@"0" forKey:KeyAPI_COUPON];
                 [userDef setObject:SVALUE_OFF forKey:SKEY_PUSH_COUPON];
             }
-            [[UserData shareInstance] updatePushSetting:[notificationChanges mutableCopy]];
-            [notificationChanges removeAllObjects];
         }
+        [userDef synchronize];
+        NSString *newsStatusStr = [userDef objectForKey:SKEY_PUSH_NEWS];
+        NSNumber *newsStatus;
+        if (!newsStatusStr) {
+            newsStatusStr = SVALUE_ON;
+            newsStatus = @(1);
+            [userDef setObject:SVALUE_ON forKey:SKEY_PUSH_NEWS];
+        }else{
+            if ([newsStatusStr isEqualToString:SVALUE_ON]) {
+                newsStatus = @(1);
+            }else{
+                newsStatus = @(0);
+            }
+        }
+        
+        NSString *couponStatusStr = [userDef objectForKey:SKEY_PUSH_COUPON];
+        NSNumber *couponStatus;
+        if (!couponStatusStr) {
+            couponStatusStr = SVALUE_ON;
+            couponStatus = @(1);
+            [userDef setObject:SVALUE_ON forKey:SKEY_PUSH_COUPON];
+        }else{
+            if ([couponStatusStr isEqualToString:SVALUE_ON]) {
+                couponStatus = @(1);
+            }else{
+                couponStatus = @(0);
+            }
+        }
+        [userDef synchronize];
+        
+        [notificationChanges setObject:@"0" forKey:KeyAPI_RANKING];
+        [notificationChanges setObject:newsStatus forKey:KeyAPI_NEWS];
+        [notificationChanges setObject:@"0" forKey:KeyAPI_CHAT];
+        [notificationChanges setObject:couponStatus forKey:KeyAPI_COUPON];
+        [[UserData shareInstance] updatePushSetting:[notificationChanges mutableCopy]];
+        [notificationChanges removeAllObjects];
     }
 }
 
@@ -273,12 +354,11 @@ static NSDictionary *settingsNames;
         NSString *errorDomain = [CommunicatorConst getErrorMessage:errorCode];
         error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:nil];
         if(errorCode == ERROR_INVALID_TOKEN){
-            [[UserData shareInstance] clearUserData];
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            LoginScreen *nextController = [storyboard instantiateViewControllerWithIdentifier:@"LoginScreen"];
-            UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];
-            [navi.navigationBar setHidden:YES];
-            [self presentViewController:navi animated:YES completion:nil];
+            [self invalidateCurrentUserSession];
+        }else{
+            [self showErrorScreen:@"Error has occurred!" andRetryButton:^{
+                [request execute:responseParams withDelegate:self];
+            }];
         }
     }else{
         NSDictionary *data = (NSDictionary *) [responseParams get:KeyResponseObject];
@@ -321,6 +401,7 @@ static NSDictionary *settingsNames;
                         [userDef setObject:SVALUE_ON forKey:SKEY_PUSH_RANKING];
                     }
                 }
+                [userDef synchronize];
             }
         }
         

@@ -93,6 +93,7 @@
 - (void)setUp{
     
     self.collectionView.delegate = self;
+    self.collectionView.alwaysBounceVertical = YES;
     
     if([self checkForInternetConnection]){
         
@@ -181,11 +182,11 @@
     switch (error.code) {
         case ERROR_DATASOURCE_NO_CONTENT:
             //TODO: need localize
-            message = @"NO CONTENT";
+            message = NSLocalizedString(@"NO CONTENT",nil);
             [self showErrorScreen:message];
             break;
         case ERROR_DETAIL_DATASOURCE_NO_CONTENT:
-            message = @"NO CONTENT";
+            message = NSLocalizedString(@"NO CONTENT",nil);
             [self showDetailLoadingView:YES message:message];
             break;
         case ERROR_CONTENT_FULLY_LOADED:

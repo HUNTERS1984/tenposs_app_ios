@@ -11,6 +11,9 @@
 		021140311D57D39E00598AD2 /* SimpleDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 021140301D57D39E00598AD2 /* SimpleDataSource.m */; };
 		021140341D58A9C200598AD2 /* MenuCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 021140331D58A9C200598AD2 /* MenuCommunicator.m */; };
 		021140371D58DF5400598AD2 /* UIView+LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 021140361D58DF5400598AD2 /* UIView+LoadingView.m */; };
+		021929BF1DF4E84000B2C6DF /* PushNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 021929BE1DF4E84000B2C6DF /* PushNotificationManager.m */; };
+		021929C21DF4ED2E00B2C6DF /* PointManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 021929C11DF4ED2E00B2C6DF /* PointManager.m */; };
+		021929C41DF5838100B2C6DF /* PointTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 021929C31DF5838100B2C6DF /* PointTest.m */; };
 		021A5EAC1D698F5E001F8F8E /* GalleryScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 021A5EAB1D698F5E001F8F8E /* GalleryScreen.m */; };
 		021A5EAF1D698F9D001F8F8E /* GalleryScreenDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 021A5EAE1D698F9D001F8F8E /* GalleryScreenDataSource.m */; };
 		021A5EB21D698FD7001F8F8E /* GalleryScreenDetailDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 021A5EB11D698FD7001F8F8E /* GalleryScreenDetailDataSource.m */; };
@@ -140,10 +143,13 @@
 		02765C761DD3278D008562E3 /* Center_Text_Header.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02765C741DD3278D008562E3 /* Center_Text_Header.xib */; };
 		02765C7E1DD32BA1008562E3 /* ItemDetailScreen_t2.m in Sources */ = {isa = PBXBuildFile; fileRef = 02765C7D1DD32BA1008562E3 /* ItemDetailScreen_t2.m */; };
 		02765C811DD44B3B008562E3 /* UserHomeScreen_t2.m in Sources */ = {isa = PBXBuildFile; fileRef = 02765C801DD44B3B008562E3 /* UserHomeScreen_t2.m */; };
+		0282D8951DE8197E002E8689 /* CouponDetailCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0282D8941DE8197E002E8689 /* CouponDetailCommunicator.m */; };
+		0282D8A11DEC4340002E8689 /* SignUpScreenNext.m in Sources */ = {isa = PBXBuildFile; fileRef = 0282D8A01DEC4340002E8689 /* SignUpScreenNext.m */; };
 		028A09871D77DBC1000BDD41 /* SignUpScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 028A09861D77DBC1000BDD41 /* SignUpScreen.m */; };
 		0299E6F91DA4F71300C0A755 /* GetPushSettingsCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299E6F81DA4F71300C0A755 /* GetPushSettingsCommunicator.m */; };
 		0299E6FC1DA5165500C0A755 /* ReserveCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299E6FB1DA5165500C0A755 /* ReserveCommunicator.m */; };
 		02A900F21D86639000AE0560 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02DAF3AE1D47CAA70068BB71 /* Main.storyboard */; };
+		02AE1F401DF4571200D4D6E0 /* AuthLoginTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AE1F3F1DF4571200D4D6E0 /* AuthLoginTest.m */; };
 		02AEEE961D6A73AD0064BB0B /* Item_Cell_Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AEEE941D6A73AD0064BB0B /* Item_Cell_Coupon.m */; };
 		02AEEE971D6A73AD0064BB0B /* Item_Cell_Coupon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02AEEE951D6A73AD0064BB0B /* Item_Cell_Coupon.xib */; };
 		02AEEE9B1D6A7AD70064BB0B /* CouponScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AEEE9A1D6A7AD70064BB0B /* CouponScreen.m */; };
@@ -289,6 +295,11 @@
 		021140331D58A9C200598AD2 /* MenuCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCommunicator.m; sourceTree = "<group>"; };
 		021140351D58DF5400598AD2 /* UIView+LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LoadingView.h"; sourceTree = "<group>"; };
 		021140361D58DF5400598AD2 /* UIView+LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LoadingView.m"; sourceTree = "<group>"; };
+		021929BD1DF4E84000B2C6DF /* PushNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNotificationManager.h; sourceTree = "<group>"; };
+		021929BE1DF4E84000B2C6DF /* PushNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNotificationManager.m; sourceTree = "<group>"; };
+		021929C01DF4ED2E00B2C6DF /* PointManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointManager.h; sourceTree = "<group>"; };
+		021929C11DF4ED2E00B2C6DF /* PointManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointManager.m; sourceTree = "<group>"; };
+		021929C31DF5838100B2C6DF /* PointTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointTest.m; sourceTree = "<group>"; };
 		021A5EAA1D698F5E001F8F8E /* GalleryScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryScreen.h; sourceTree = "<group>"; };
 		021A5EAB1D698F5E001F8F8E /* GalleryScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryScreen.m; sourceTree = "<group>"; };
 		021A5EAD1D698F9D001F8F8E /* GalleryScreenDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryScreenDataSource.h; sourceTree = "<group>"; };
@@ -516,12 +527,17 @@
 		02765C7D1DD32BA1008562E3 /* ItemDetailScreen_t2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemDetailScreen_t2.m; sourceTree = "<group>"; };
 		02765C7F1DD44B3B008562E3 /* UserHomeScreen_t2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHomeScreen_t2.h; sourceTree = "<group>"; };
 		02765C801DD44B3B008562E3 /* UserHomeScreen_t2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHomeScreen_t2.m; sourceTree = "<group>"; };
+		0282D8931DE8197E002E8689 /* CouponDetailCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponDetailCommunicator.h; sourceTree = "<group>"; };
+		0282D8941DE8197E002E8689 /* CouponDetailCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponDetailCommunicator.m; sourceTree = "<group>"; };
+		0282D89F1DEC4340002E8689 /* SignUpScreenNext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpScreenNext.h; sourceTree = "<group>"; };
+		0282D8A01DEC4340002E8689 /* SignUpScreenNext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpScreenNext.m; sourceTree = "<group>"; };
 		028A09851D77DBC1000BDD41 /* SignUpScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpScreen.h; sourceTree = "<group>"; };
 		028A09861D77DBC1000BDD41 /* SignUpScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpScreen.m; sourceTree = "<group>"; };
 		0299E6F71DA4F71300C0A755 /* GetPushSettingsCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPushSettingsCommunicator.h; sourceTree = "<group>"; };
 		0299E6F81DA4F71300C0A755 /* GetPushSettingsCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetPushSettingsCommunicator.m; sourceTree = "<group>"; };
 		0299E6FA1DA5165500C0A755 /* ReserveCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReserveCommunicator.h; sourceTree = "<group>"; };
 		0299E6FB1DA5165500C0A755 /* ReserveCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReserveCommunicator.m; sourceTree = "<group>"; };
+		02AE1F3F1DF4571200D4D6E0 /* AuthLoginTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthLoginTest.m; sourceTree = "<group>"; };
 		02AEEE931D6A73AD0064BB0B /* Item_Cell_Coupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item_Cell_Coupon.h; sourceTree = "<group>"; };
 		02AEEE941D6A73AD0064BB0B /* Item_Cell_Coupon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item_Cell_Coupon.m; sourceTree = "<group>"; };
 		02AEEE951D6A73AD0064BB0B /* Item_Cell_Coupon.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Item_Cell_Coupon.xib; sourceTree = "<group>"; };
@@ -799,6 +815,15 @@
 				02F098B61D890BF400E1D992 /* TabDataSource.m */,
 			);
 			path = DataSource;
+			sourceTree = "<group>";
+		};
+		021929BC1DF4E3AA00B2C6DF /* PushNotification */ = {
+			isa = PBXGroup;
+			children = (
+				021929BD1DF4E84000B2C6DF /* PushNotificationManager.h */,
+				021929BE1DF4E84000B2C6DF /* PushNotificationManager.m */,
+			);
+			path = PushNotification;
 			sourceTree = "<group>";
 		};
 		021A5EA91D698F45001F8F8E /* GalleryScreen */ = {
@@ -1180,6 +1205,8 @@
 				02765C231DCB37B9008562E3 /* Template_2 */,
 				028A09851D77DBC1000BDD41 /* SignUpScreen.h */,
 				028A09861D77DBC1000BDD41 /* SignUpScreen.m */,
+				0282D89F1DEC4340002E8689 /* SignUpScreenNext.h */,
+				0282D8A01DEC4340002E8689 /* SignUpScreenNext.m */,
 			);
 			path = SignUpScreen;
 			sourceTree = "<group>";
@@ -1320,6 +1347,8 @@
 		02D90DC71DE3FE560041D294 /* PointCommunicator */ = {
 			isa = PBXGroup;
 			children = (
+				021929C01DF4ED2E00B2C6DF /* PointManager.h */,
+				021929C11DF4ED2E00B2C6DF /* PointManager.m */,
 			);
 			path = PointCommunicator;
 			sourceTree = "<group>";
@@ -1395,6 +1424,8 @@
 			children = (
 				02DAF3BF1D47CAA70068BB71 /* TenpossTests.m */,
 				02DAF3C11D47CAA70068BB71 /* Info.plist */,
+				02AE1F3F1DF4571200D4D6E0 /* AuthLoginTest.m */,
+				021929C31DF5838100B2C6DF /* PointTest.m */,
 			);
 			path = TenpossTests;
 			sourceTree = "<group>";
@@ -1628,6 +1659,7 @@
 		02F2FDBA1D4A30E3006D4C83 /* Communicator */ = {
 			isa = PBXGroup;
 			children = (
+				021929BC1DF4E3AA00B2C6DF /* PushNotification */,
 				02D90DC71DE3FE560041D294 /* PointCommunicator */,
 				02D90DC81DE3FE560041D294 /* AuthCommunicator */,
 				02F2FDBD1D4A30E3006D4C83 /* LogoutCommunicator.h */,
@@ -1674,6 +1706,8 @@
 				023D515D1DC23A6300B83ACA /* ItemRelatedCommunicator.m */,
 				02B2ABEF1DC30D4B00074B65 /* UpdateProfileCommunicator.h */,
 				02B2ABF01DC30D4B00074B65 /* UpdateProfileCommunicator.m */,
+				0282D8931DE8197E002E8689 /* CouponDetailCommunicator.h */,
+				0282D8941DE8197E002E8689 /* CouponDetailCommunicator.m */,
 			);
 			path = Communicator;
 			sourceTree = "<group>";
@@ -2102,6 +2136,7 @@
 				02C127771DD9700C0040C7B4 /* UICollectionViewFlowLayout+PMUtils.m in Sources */,
 				02765C5D1DD1E9A0008562E3 /* ViewPagerController.m in Sources */,
 				02F097231D6B13A200E737C7 /* CouponDetailScreen.m in Sources */,
+				0282D8951DE8197E002E8689 /* CouponDetailCommunicator.m in Sources */,
 				02F2FDD41D4A30E3006D4C83 /* TenpossCommunicator.m in Sources */,
 				021AA4CD1D7FD9E60042C511 /* Item_Detail_Common.m in Sources */,
 				024C4DB81D5DB7DC00896EE4 /* NewsDetailScreen.m in Sources */,
@@ -2124,9 +2159,11 @@
 				02F097611D77100E00E737C7 /* PhotoViewer.m in Sources */,
 				024C4DAE1D5D85B300896EE4 /* NewsScreen.m in Sources */,
 				0257C2F61D858A2600506F73 /* StaffCommunicator.m in Sources */,
+				0282D8A11DEC4340002E8689 /* SignUpScreenNext.m in Sources */,
 				02765C5A1DD1E818008562E3 /* MenuScreen_t2.m in Sources */,
 				0257C2DA1D855E9C00506F73 /* Setting_EditText.m in Sources */,
 				02C1274C1DD8E5130040C7B4 /* StaffScreenDetailDataSource_t2.m in Sources */,
+				021929C21DF4ED2E00B2C6DF /* PointManager.m in Sources */,
 				02F2FDC41D4A30E3006D4C83 /* JSONModel.m in Sources */,
 				02F2FDC71D4A30E3006D4C83 /* JSONModelError.m in Sources */,
 				02C1279A1DDB29060040C7B4 /* ShareAppScreen_t2.m in Sources */,
@@ -2213,6 +2250,7 @@
 				02F2FDCB1D4A30E3006D4C83 /* JSONModel+networking.m in Sources */,
 				021AA4C21D7F67FC0042C511 /* TenpossSegmentedControl.m in Sources */,
 				0257C2DF1D856A5000506F73 /* Settings_Expand_Selector.m in Sources */,
+				021929BF1DF4E84000B2C6DF /* PushNotificationManager.m in Sources */,
 				0257C2ED1D8586B000506F73 /* StaffScreenDataSource.m in Sources */,
 				02B2ABF11DC30D4B00074B65 /* UpdateProfileCommunicator.m in Sources */,
 				02765C291DCB37E1008562E3 /* SignUpScreenNext_t2.m in Sources */,
@@ -2230,6 +2268,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				02DAF3C01D47CAA70068BB71 /* TenpossTests.m in Sources */,
+				02AE1F401DF4571200D4D6E0 /* AuthLoginTest.m in Sources */,
+				021929C41DF5838100B2C6DF /* PointTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

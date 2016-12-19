@@ -131,7 +131,7 @@
     ItemRelatedCommunicator *request = [ItemRelatedCommunicator new];
     Bundle *params = [Bundle new];
     [params put:KeyAPI_APP_ID value:APP_ID];
-    [params put:KeyAPI_ITEM_ID value:@"2"];
+    [params put:KeyAPI_ITEM_ID value:[@(_item.product_id) stringValue]];
     NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
     [params put:KeyAPI_TIME value:currentTime];
     [params put:KeyAPI_PAGE_INDEX value:[@(_item.rel_pageindex) stringValue]];
@@ -216,6 +216,9 @@
                         return noSize;
                     }else{
                         NSInteger realIndex = index - 2;
+                        if (realIndex < 0) {
+                            realIndex = 0;
+                        }
                         NSMutableArray *sizes = [_item getSizeArray];
                         if (sizes && [sizes count] > realIndex) {
                             return [sizes objectAtIndex:realIndex];

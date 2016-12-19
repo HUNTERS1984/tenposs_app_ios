@@ -23,6 +23,7 @@
                     </scrollView>
                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="TgJ-k7-3Ua">
                         <rect key="frame" x="186" y="262" width="39" height="37"/>
+                        <color key="currentPageIndicatorTintColor" red="0.10799161220219509" green="0.73699218750000006" blue="0.12636660189641605" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </pageControl>
                 </subviews>
             </view>

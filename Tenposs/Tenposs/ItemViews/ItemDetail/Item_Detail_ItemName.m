@@ -8,6 +8,7 @@
 
 #import "Item_Detail_ItemName.h"
 #import "DataModel.h"
+#import "Utils.h"
 
 #define CATEGORY_HEIGHT_phone 20
 #define TITLE_HEIGHT_phone 22
@@ -33,7 +34,7 @@
         
         [self.categoryTitle setText:item.menu_name];
         [self.ItemTitle setText: [item.title uppercaseString]];
-        [self.itemPrice setText:[NSString stringWithFormat:@"¥%@",item.price]];
+        [self.itemPrice setText:[Utils formatPriceToJapaneseFormat:item.price]];//[NSString stringWithFormat:@"¥%@",item.price]];
         
     }else if([data isKindOfClass:[StaffObject class]]){
         StaffObject *staff = (StaffObject *)data;

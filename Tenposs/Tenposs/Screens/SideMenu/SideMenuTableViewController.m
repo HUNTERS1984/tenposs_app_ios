@@ -80,25 +80,49 @@
 - (void) setData:(NSArray<MenuModel *> *)menuData{
     _menuArray = [menuData mutableCopy];
     if ([[UserData shareInstance] getToken]){
-        bool isLogout = false;
+        BOOL needChat = YES;
+        BOOL needSettings = YES;
         for (MenuModel * model in _menuArray) {
-            if (model.menu_id == -1) {
-                isLogout = true;
-                break;
+//            if (model.menu_id == -1) {
+//                isLogout = true;
+//                break;
+//            }else
+            if (model.menu_id == APP_MENU_CHAT){
+                needChat = NO;
+            }else if (model.menu_id == APP_MENU_SETTING){
+                needSettings = NO;
             }
+            
         }
-        if (!isLogout) {
-            MenuModel *signoutMenu = [MenuModel new];
-            signoutMenu.name = @"ログアウト";
-            signoutMenu.menu_id = -1;
-            signoutMenu.icon = @"ti-unlock";
-            [_menuArray addObject:signoutMenu];
+//        if (!isLogout) {
+//            MenuModel *signoutMenu = [MenuModel new];
+//            signoutMenu.name = @"ログアウト";
+//            signoutMenu.menu_id = -1;
+//            signoutMenu.icon = @"ti-unlock";
+//            [_menuArray addObject:signoutMenu];
+//        }
+        if (needChat) {
+            MenuModel *chatMenu = [MenuModel new];
+            chatMenu.name = @"チャット";
+            chatMenu.menu_id = APP_MENU_CHAT;
+            chatMenu.icon = @"ti-comments";
+            [_menuArray addObject:chatMenu];
+        }
+        
+        if(needSettings){
+            MenuModel *settingsMenu = [MenuModel new];
+            settingsMenu.name = @"設定";
+            settingsMenu.menu_id = APP_MENU_SETTING;
+            settingsMenu.icon = @"ti-settings";
+            [_menuArray addObject:settingsMenu];
         }
     }else{
         NSMutableIndexSet *discardedItems = [NSMutableIndexSet indexSet];
         NSUInteger index = 0;
         for (MenuModel *menu in _menuArray) {
-            if (menu.menu_id == APP_MENU_CHAT || menu.menu_id == -1) {
+            if (menu.menu_id == APP_MENU_CHAT
+                || menu.menu_id == -1
+                || menu.menu_id == APP_MENU_SETTING) {
                 [discardedItems addIndex:index];
             }
             index ++;

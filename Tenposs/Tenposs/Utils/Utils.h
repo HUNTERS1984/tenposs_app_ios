@@ -21,4 +21,11 @@
 + (NSString *)getSigWithStrings:(NSArray <NSString *> *)stringArray;
 + (NSString *)timeString;
 + (NSString *)stringForIcon:(UTF32Char)char32;
+
++ (NSString*)makeParamtersString:(NSDictionary*)parameters withEncoding:(NSStringEncoding)encoding;
++ (NSString *)URLEscaped:(NSString *)strIn withEncoding:(NSStringEncoding)encoding;
+
++ (NSString *)formatDateStringToJapaneseFormat:(NSString *)dateStr;
++ (NSString *)formatPriceToJapaneseFormat:(NSString *)oldPrice;
+
 @end

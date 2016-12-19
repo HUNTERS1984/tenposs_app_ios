@@ -19,21 +19,21 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uTv-0M-KvP" userLabel="photo">
-                        <rect key="frame" x="2" y="2" width="184" height="184"/>
+                        <rect key="frame" x="0.0" y="0.0" width="188" height="188"/>
                         <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </imageView>
                 </subviews>
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="uTv-0M-KvP" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="2" id="4Kh-uk-Qln"/>
-                <constraint firstAttribute="trailing" secondItem="uTv-0M-KvP" secondAttribute="trailing" constant="2" id="6Gc-Vu-ahm"/>
+                <constraint firstItem="uTv-0M-KvP" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="4Kh-uk-Qln"/>
+                <constraint firstAttribute="trailing" secondItem="uTv-0M-KvP" secondAttribute="trailing" id="6Gc-Vu-ahm"/>
                 <constraint firstAttribute="bottom" secondItem="uTv-0M-KvP" secondAttribute="bottom" id="6Uk-e7-ja2"/>
                 <constraint firstAttribute="trailing" secondItem="uTv-0M-KvP" secondAttribute="trailing" id="HSA-Ah-LTs"/>
                 <constraint firstItem="uTv-0M-KvP" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="abY-X5-ws5"/>
-                <constraint firstItem="uTv-0M-KvP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="hp5-XQ-n8R"/>
+                <constraint firstItem="uTv-0M-KvP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="hp5-XQ-n8R"/>
                 <constraint firstItem="uTv-0M-KvP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="kgQ-BW-TmU"/>
-                <constraint firstAttribute="bottom" secondItem="uTv-0M-KvP" secondAttribute="bottom" constant="2" id="nPa-qG-Wsl"/>
+                <constraint firstAttribute="bottom" secondItem="uTv-0M-KvP" secondAttribute="bottom" id="nPa-qG-Wsl"/>
             </constraints>
             <size key="customSize" width="188" height="188"/>
             <variation key="default">

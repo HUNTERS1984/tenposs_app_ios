@@ -16,6 +16,7 @@
 @property (assign, nonatomic)NSInteger currentPageIndex;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (strong, nonatomic) NSTimer *timer;
 @end
 
 @implementation Item_Cell_Top
@@ -52,10 +53,77 @@
         [self loadPageContent:self.currentPageIndex];
         self.pageControl.currentPage = self.currentPageIndex;
     }
+    __weak Item_Cell_Top *weakSelf = self;
+//    [NSTimer scheduledTimerWithTimeInterval:3.0 target:weakSelf selector:@selector(onTimer) userInfo:nil repeats:YES];
+    if ([_topArray count] > 1) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf timerFire:nil];
+        });
+    }
+}
+
+- (void)setUpTimer {
+    [self tearDownTimer];
+    
+    self.timer = [NSTimer timerWithTimeInterval:3.0
+                                         target:self
+                                       selector:@selector(timerFire:)
+                                       userInfo:nil
+                                        repeats:YES];
+    
+    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+}
+
+- (void)tearDownTimer {
+    [self.timer invalidate];
+}
+
+- (void)timerFire:(NSTimer *)timer {
+    [self tearDownTimer];
+    
+    CGFloat x = 0;
+    NSInteger nextIndex = _currentPageIndex + 1;
+    if (nextIndex == [self.topArray count]) {
+        //This is last page
+        _currentPageIndex = 0;
+        x = 0;
+    }else if (nextIndex < [self.topArray count]) {
+        CGRect frame = self.bounds;
+        x = (_currentPageIndex + 1) * CGRectGetWidth(frame);
+        _currentPageIndex = _currentPageIndex + 1;
+    }else{
+        x = 0;
+        _currentPageIndex = 0;
+    }
+    
+    [self.scrollView setContentOffset:CGPointMake(x, 0) animated:YES];
+    self.pageControl.currentPage = _currentPageIndex;
+    
+    [self setUpTimer];
+}
+
+
+- (void) onTimer {
+    CGFloat x = 0;
+    NSInteger nextIndex = _currentPageIndex + 1;
+    if (nextIndex == [self.topArray count]) {
+        _currentPageIndex = 0;
+        x = 0;
+    }else if (nextIndex < [self.topArray count]) {
+        CGRect frame = self.bounds;
+        x = (_currentPageIndex + 1) * CGRectGetWidth(frame);
+        _currentPageIndex = _currentPageIndex + 1;
+    }else{
+        x = 0;
+        _currentPageIndex = 0;
+    }
+    
+    [self.scrollView setContentOffset:CGPointMake(x, 0) animated:YES];
+    self.pageControl.currentPage = _currentPageIndex;
 }
 
 - (void)loadPageContent:(NSInteger)pageIndex{
-    if (pageIndex > [self.topArray count]) {
+    if (pageIndex >= [self.topArray count]) {
         return;
     }
     

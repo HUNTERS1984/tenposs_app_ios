@@ -65,7 +65,7 @@
 "hash_tag_copied"="ハッシユタグをコピーしました";
 
 "validity"="有効期間";
-"take_advantage_of_this_coupon"="このクーボンを利用す";
+"take_advantage_of_this_coupon"="このクーポンを利用する";//"このクーボンを利用す";
 "this_coupon_cannot_use"="このクーポンは使用できません";
 "staff_unknown_button"="テキストが入ります";
 
@@ -101,6 +101,8 @@
 
 "msg_enter_email_and_name"="メールと名前を入力してください";
 "msg_invalid_response_data"="無効な応答データ！";
+
+"NO CONTENT" = "データなし";
 
 "hokkaido"  ="Hokkaidō";
 "aomori"    ="Aomori";

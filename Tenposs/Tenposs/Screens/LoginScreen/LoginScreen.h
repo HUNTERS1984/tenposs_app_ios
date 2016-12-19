@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIViewController+LoadingView.h"
+#import "BaseViewController.h"
 
-@interface LoginScreen : UIViewController
+@interface LoginScreen : BaseViewController
 
 @end

@@ -6,14 +6,15 @@
 //  Copyright © 2016 Tenposs. All rights reserved.
 //
 
+
 #import <UIKit/UIKit.h>
+#import "UIViewController+LoadingView.h"
 
 #define SKEY_EDIT           @"sKeyEditProfile"
 #define SKEY_PUSH           @"sKeyPushNotification"
 #define SKEY_COMPANY_INFO   @"sKeyCompanyInfo"
 #define SKEY_USER_PRIVACY   @"sKeyUserPrivacy"
 
-#define SKEY_PUSH_ALL         @"push_status_all"
 #define SKEY_PUSH_COUPON      @"push_status_coupon"
 #define SKEY_PUSH_NEWS        @"push_status_news"
 #define SKEY_PUSH_CHAT        @"push_status_chat"

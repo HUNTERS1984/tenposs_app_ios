@@ -11,6 +11,16 @@
 #import "UIUtils.h"
 #import "SettingsEditProfileScreen.h"
 #import "Utils.h"
+#import "AuthenticationManager.h"
+#import "PushNotificationManager.h"
+
+@interface UserData()
+
+@property (strong, nonatomic) NSString * token;
+@property (strong, nonatomic) NSString * refreshToken;
+@property (strong, nonatomic) NSString * href_refreshToken;
+
+@end
 
 @implementation UserData
 
@@ -27,10 +37,72 @@ NSMutableArray *recentSearchList=nil;
 
 #pragma mark - save and load user data
 
+- (void)setToken:(NSString *)token{
+    _token = token;
+}
+
+- (void)setRefreshToken:(NSString *)refreshToken{
+    _refreshToken = refreshToken;
+}
+
+- (void)setHref_refreshToken:(NSString *)href_refreshToken{
+    _href_refreshToken = href_refreshToken;
+}
+
+- (BOOL)saveTokenKit:(NSDictionary *)tokenKit{
+    if ([tokenKit objectForKey:@"token"]) {
+        [self setToken:[tokenKit objectForKey:@"token"]];
+    }else{
+        return NO;
+    }
+    
+    if([tokenKit objectForKey:@"refresh_token"]) {
+        [self setRefreshToken:[tokenKit objectForKey:@"refresh_token"]];
+    }else{
+        return NO;
+    }
+    
+    if ([tokenKit objectForKey:@"access_refresh_token_href"]) {
+        [self setHref_refreshToken:[tokenKit objectForKey:@"access_refresh_token_href"]];
+    }
+    
+    NSError *error;
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSData *data =  [NSJSONSerialization dataWithJSONObject:tokenKit options:0 error:&error];
+    if (!data) {
+        return  NO;
+    }
+    if (!error) {
+        [userDef setObject:data forKey:@"userToken"];
+        [userDef synchronize];
+        return YES;
+    }else
+        return NO;
+    
+    return YES;
+}
+
+- (void)invalidateCurrentUser{
+    [self clearUserData];
+    [self clearTokenData];
+    _isLogin = NO;
+    [self setUserAvatarImg:nil];
+}
+
 -(void)clearUserData {
+    [_userDataDictionary removeAllObjects];
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     [userDef setObject:nil forKey:@"userData"];
     [userDef synchronize];
+}
+
+- (void)clearTokenData{
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    [userDef setObject:nil forKey:@"userToken"];
+    [userDef synchronize];
+    _token = nil;
+    _refreshToken = nil;
+    _href_refreshToken = nil;
 }
 
 -(BOOL)saveUserData{
@@ -91,18 +163,63 @@ NSMutableArray *recentSearchList=nil;
     }
     return nil;
 }
--(NSString *)getToken{
-    if (_userDataDictionary) {
-        return [_userDataDictionary objectForKey:@"token"];
+
+- (BOOL)loadSavedToken{
+    NSError *error;
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSData *data = [userDef objectForKey:@"userToken"];
+    if (!data) {
+        return NO;
     }
-    return [[self getUserData] objectForKey:@"token"];
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    [self setToken:[dic objectForKey:@"token"]];
+    [self setRefreshToken:[dic objectForKey:@"refresh_token"]];
+    [self setHref_refreshToken:[dic objectForKey:@"access_refresh_token_href"]];
+    return YES;
 }
+
+-(NSString *)getToken{
+    if (!_token || [_token isEqualToString:@""]) {
+        [self loadSavedToken];
+    }
+    return _token; //[[self getUserData] objectForKey:@"token"];
+}
+
+-(NSString *)getRefreshToken{
+    if (!_refreshToken || [_refreshToken isEqualToString:@""]) {
+        [self loadSavedToken];
+    }
+    return _refreshToken; //[[self getUserData] objectForKey:@"token"];
+}
+
+- (NSString *)getHrefRefreshToken{
+    if (!_href_refreshToken || [_href_refreshToken isEqualToString:@""]) {
+        [self loadSavedToken];
+    }
+    return _href_refreshToken;
+}
+
 -(NSString *)getUserID{
     if (_userDataDictionary) {
         return [[_userDataDictionary objectForKey:@"id"] stringValue];
     }
     return [[self getUserData] objectForKey:@"id"];
 }
+
+-(NSString *) getAuthUserID{
+    NSObject *auth;
+    if (_userDataDictionary) {
+        auth =  [_userDataDictionary objectForKey:@"auth_user_id"];
+    }else{
+        auth = [[self getUserData] objectForKey:@"auth_user_id"];
+    }
+    if ([auth isKindOfClass:[NSNumber class]]) {
+        return [(NSNumber *)auth stringValue];
+    }else{
+        return (NSString *)auth;
+    }
+}
+
 -(NSString *)getUserName{
     if (_userDataDictionary) {
         return [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"name"];
@@ -304,10 +421,17 @@ NSMutableArray *recentSearchList=nil;
 }
 
 - (NSString *)getFacebookStatus{
+    NSObject *status;
     if (_userDataDictionary) {
-        return [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"facebook_status"];
+        status = [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"facebook_status"];
+    }else{
+        status = [[[self getUserData] objectForKey:@"profile"] objectForKey:@"facebook_status"];
     }
-    return [[[self getUserData] objectForKey:@"profile"] objectForKey:@"facebook_status"];
+    if ([status isKindOfClass:[NSNumber class]]) {
+        return [(NSNumber *)status stringValue];
+    }else{
+        return (NSString *)status;
+    }
 }
 
 - (void)setTwitterStatus:(NSString *)status{
@@ -324,10 +448,17 @@ NSMutableArray *recentSearchList=nil;
 }
 
 - (NSString *)getTwitterStatus{
+    NSObject *status;
     if (_userDataDictionary) {
-        return [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"twitter_status"];
+        status = [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"twitter_status"];
+    }else{
+        status = [[[self getUserData] objectForKey:@"profile"] objectForKey:@"twitter_status"];
     }
-    return [[[self getUserData] objectForKey:@"profile"] objectForKey:@"twitter_status"];
+    if ([status isKindOfClass:[NSNumber class]]) {
+        return [(NSNumber *)status stringValue];
+    }else{
+        return (NSString *)status;
+    }
 }
 
 - (void)setInstagramStatus:(NSString *)status{
@@ -344,22 +475,30 @@ NSMutableArray *recentSearchList=nil;
 }
 
 - (NSString *)getInstagramStatus{
+    NSObject *status;
     if (_userDataDictionary) {
-        return [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"instagram_status"];
+        status = [[_userDataDictionary objectForKey:@"profile"] objectForKey:@"instagram_status"];
+    }else{
+        status = [[[self getUserData] objectForKey:@"profile"] objectForKey:@"instagram_status"];
     }
-    return [[[self getUserData] objectForKey:@"profile"] objectForKey:@"instagram_status"];
+    if ([status isKindOfClass:[NSNumber class]]) {
+        return [(NSNumber *)status stringValue];
+    }else{
+        return (NSString *)status;
+    }
 }
-
 
 - (void)updateProfile:(NSMutableDictionary *)profileToUpdate{
     if(![self getToken] || [profileToUpdate count] == 0){
         return;
     }
-
+    
     //Build user data to update
     
-    [profileToUpdate setObject:[[UserData shareInstance] getToken] forKey:KeyAPI_TOKEN];
-   
+    if (![profileToUpdate objectForKey:KeyAPI_APP_ID]) {
+        [profileToUpdate setObject:APP_ID forKey:KeyAPI_APP_ID];
+    }
+    
     if (![profileToUpdate objectForKey:KeyAPI_USERNAME_NAME]) {
         if ([self getUserName]) {
             [profileToUpdate setObject:[self getUserName] forKey:KeyAPI_USERNAME_NAME];
@@ -385,7 +524,7 @@ NSMutableArray *recentSearchList=nil;
     }
     
     if(![profileToUpdate objectForKey:KeyAPI_AVATAR]){
-//        [profileToUpdate setObject:[[NSData alloc]init] forKey:KeyAPI_AVATAR];
+        //        [profileToUpdate setObject:[[NSData alloc]init] forKey:KeyAPI_AVATAR];
     }else{
         UIImage *image = (UIImage *)[profileToUpdate objectForKey:KeyAPI_AVATAR];
         image = [UIUtils scaleImage:image toSize:CGSizeMake(200,200)];
@@ -403,21 +542,20 @@ NSMutableArray *recentSearchList=nil;
             if (![self getToken]) {
                 return;
             }else{
-                
                 //Update profile from server
-                
-                Bundle *params = [Bundle new];
-                [params put:KeyAPI_TOKEN value:[self getToken]];
-                NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
-                [params put:KeyAPI_TIME value:currentTime];
-                NSArray *strings = [NSArray arrayWithObjects:[self getToken],currentTime,APP_SECRET,nil];
-                [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
-                
-                [[NetworkCommunicator shareInstance] GETWithoutPreDefined:API_PROFILE parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+                [[AuthenticationManager sharedInstance] AuthGetUserProfileWithCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
+                    NSMutableDictionary *resultDict;
+                    if([resultData isKindOfClass:[CommonResponse class]]){
+                        CommonResponse *result = (CommonResponse *)resultData;
+                        resultDict = result.data;
+                    }else{
+                        resultDict = [resultData mutableCopy];
+                    }
                     if (isSuccess) {
-                        if([self updateNewProfile:dictionary]){
-                            [[NSNotificationCenter defaultCenter]postNotificationName:NOTI_USER_PROFILE_UPDATED object:nil userInfo:@{@"status":@"success"}];
-                        }
+                        NSMutableDictionary *userData = [resultDict objectForKey:@"user"];
+                        [UserData shareInstance].userDataDictionary = [userData mutableCopy];
+                        [[UserData shareInstance] saveUserData];
+                        [[NSNotificationCenter defaultCenter]postNotificationName:NOTI_USER_PROFILE_UPDATED object:nil userInfo:@{@"status":@"success"}];
                     }else{
                         [self setUserAvatarImg:nil];
                     }
@@ -428,7 +566,7 @@ NSMutableArray *recentSearchList=nil;
             [[NSNotificationCenter defaultCenter]postNotificationName:NOTI_USER_PROFILE_REQUEST object:nil userInfo:@{@"status":@"failed"}];
         }
     }];
-
+    
 }
 
 - (void)updatePushSetting:(NSMutableDictionary *)infoToUpdate{
@@ -436,9 +574,7 @@ NSMutableArray *recentSearchList=nil;
         return;
     }
     if ([self getToken]) {
-        NSString *token = [self getToken];
-        [infoToUpdate setObject:token forKey:KeyAPI_TOKEN];
-        [[NetworkCommunicator shareInstance] POSTWithoutAppId:API_SETPUSHSETTING parameters:infoToUpdate onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+        [[PushNotificationManager sharedInstance] PushSetUserPushSettings:infoToUpdate WithCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
             if(isSuccess){
                 NSLog(@"Update push settings SUCCESS!");
             }else{
@@ -455,10 +591,7 @@ NSMutableArray *recentSearchList=nil;
     }
     
     __weak NSNumber *socialType = [infoToUpdate objectForKey:KeyAPI_SOCIAL_TYPE];
-    
-    [infoToUpdate setObject:[self getToken] forKey:KeyAPI_TOKEN];
-    
-    [[NetworkCommunicator shareInstance] POSTWithoutAppId:API_SOCIALSETTING parameters:infoToUpdate onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+    [[AuthenticationManager sharedInstance] AuthLinkSocialProfile:infoToUpdate WithCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData){
         if(isSuccess){
             if ([socialType integerValue] == 1) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_SET_EDIT_CHANGED object:self userInfo:@{SET_EDIT_FACEBOOK:@"1"}];
@@ -481,17 +614,10 @@ NSMutableArray *recentSearchList=nil;
 }
 
 - (void)cancelSocial:(NSString *)type{
-    
-    NSMutableDictionary *infoToUpdate = [NSMutableDictionary new];
-    
-    NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
-    [infoToUpdate setObject:[[UserData shareInstance] getToken] forKey:KeyAPI_TOKEN];
-    [infoToUpdate setObject:currentTime forKey:KeyAPI_TIME];
-    [infoToUpdate setObject:type forKey:KeyAPI_SOCIAL_TYPE];
-    NSArray *sigs = [NSArray arrayWithObjects:[[UserData shareInstance] getToken],currentTime,type,APP_SECRET,nil];
-    [infoToUpdate setObject:[Utils getSigWithStrings:sigs] forKey:KeyAPI_SIG];
-    
-    [[NetworkCommunicator shareInstance] POSTNoParams:API_SOCIAL_CANCEL parameters:infoToUpdate onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+    if(![self getToken] || !type){
+        return;
+    }
+    [[AuthenticationManager sharedInstance] AuthCancelLinkSocialProfileType:[type integerValue] WithCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
         if(isSuccess){
             if ([type integerValue] == 1) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_SET_EDIT_CHANGED object:self userInfo:@{SET_EDIT_FACEBOOK:@"0"}];

@@ -89,6 +89,13 @@
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Cell_Photo class]) forIndexPath:indexPath];
     }else if([item isKindOfClass:[ContactObject class]]){
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Cell_ShopInfo class]) forIndexPath:indexPath];
+        [((Item_Cell_ShopInfo *)cell).reserveButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+            TopScreen *topScreen = (TopScreen *)self.delegate;
+            if (topScreen) {
+                [topScreen performNavigateToScreenWithId:APP_MENU_RESERVE];
+            }
+  
+        }];
     }else if([item isKindOfClass:[NewsObject class]]){
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Cell_News class]) forIndexPath:indexPath];
     }
@@ -165,7 +172,7 @@
             
             if ([data isKindOfClass:[ProductObject class]]) {
                 handler = ^{
-                    NSLog(@"Top Footer is tapped!");
+                    NSLog(@"Menu Footer is tapped!");
                     TopScreen *topScreen = (TopScreen *)self.delegate;
                     if (topScreen) {
                         [topScreen performNavigateToScreenWithId:APP_MENU_MENU];
@@ -173,7 +180,7 @@
                 };
             }else if([data isKindOfClass:[NewsObject class]]){
                 handler = ^{
-                    NSLog(@"Top Footer is tapped!");
+                    NSLog(@"News Footer is tapped!");
                     TopScreen *topScreen = (TopScreen *)self.delegate;
                     if (topScreen) {
                         [topScreen performNavigateToScreenWithId:APP_MENU_NEWS];
@@ -181,14 +188,13 @@
                 };
             }else if ([data isKindOfClass:[PhotoObject class]]){
                 handler = ^{
-                    NSLog(@"Top Footer is tapped!");
+                    NSLog(@"Gallery Footer is tapped!");
                     TopScreen *topScreen = (TopScreen *)self.delegate;
                     if (topScreen) {
                         [topScreen performNavigateToScreenWithId:APP_MENU_PHOTO_GALLERY];
                     }
                 };
             }
-            
             [footer configureFooterWithTitle:@"もっと見る" withTouchHandler:handler];
             reuseableView = footer;
         }

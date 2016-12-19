@@ -11,6 +11,9 @@
 #import "HexColors.h"
 #import "QRCodeScreen.h"
 #import "UIImageView+WebCache.h"
+#import "AppConfiguration.h"
+#import "HexColors.h"
+#import "Utils.h"
 
 @interface CouponDetailScreen () <UIScrollViewDelegate>
 
@@ -40,8 +43,18 @@
     [super viewDidLoad];
     
     [self.couponTitle setText:self.coupon.title];
-    [self.categoryTitle setText:self.coupon.coupon_type.name];
-    [self.couponEndDate setText:[NSString stringWithFormat:@"有効期間　%@",self.coupon.end_date]];
+
+    NSString *couponTypeId = [NSString stringWithFormat:@"ID%ld・%@", (long)_coupon.coupon_id, _coupon.coupon_type.name];
+    if (couponTypeId) {
+        [self.categoryTitle setText:couponTypeId];
+    }
+    
+    NSString *endDate = [Utils formatDateStringToJapaneseFormat:_coupon.end_date];
+    
+    if (endDate) {
+        [self.couponEndDate setText:[NSString stringWithFormat:@"有効期間　%@まで",endDate]];
+    }
+
     [self.couponDesciption setText:self.coupon.desc];
     self.couponDesciption.textAlignment = NSTextAlignmentJustified;
     NSString *tag = @"";
@@ -51,17 +64,15 @@
         tag = [NSString stringWithFormat:@"#%@", self.coupon.taglist[0]];
     }
     [self.hashTag setText:tag];
+    
     [self showLoadingViewWithMessage:@""];
-    
-    //TODO: clear test
-    
-    _coupon.can_use = YES;
     
     if (_coupon.can_use) {
         [_useCouponButton setBackgroundColor:[UIColor colorWithHexString:@"#29c9c8"]];
         [_useCouponButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_useCouponButton setTitle:NSLocalizedString(@"take_advantage_of_this_coupon", nil) forState:UIControlStateNormal];
         [_useCouponButton setTitle:NSLocalizedString(@"take_advantage_of_this_coupon", nil) forState:UIControlStateSelected];
+        [_useCouponButton setUserInteractionEnabled:YES];
     }else{
         [_useCouponButton setBackgroundColor:[UIColor colorWithHexString:@"#97a1a4"]];
         [_useCouponButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -79,6 +90,18 @@
 
 - (NSString *)title{
     return self.coupon.title;
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    UINavigationBar *nav = self.navigationController.navigationBar;
+    if (nav) {
+        AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+        AppSettings *settings = [appConfig getAvailableAppSettings];
+        
+        [nav setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                     [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,nil]];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated{

@@ -31,7 +31,7 @@
         _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
         [self.view addSubview:_webView];
     }else{
-        [self showErrorScreen:@"No Content"];
+        [self showErrorScreen:NSLocalizedString(@"NO CONTENT",nil)];
     }
     
     self.view.backgroundColor = [UIColor whiteColor];

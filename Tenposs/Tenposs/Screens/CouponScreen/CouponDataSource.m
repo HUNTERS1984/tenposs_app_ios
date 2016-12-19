@@ -13,6 +13,7 @@
 #import "CommunicatorConst.h"
 #import "Utils.h"
 #import "Const.h"
+#import "UserData.h"
 
 @interface CouponDataSource()
 @property (strong, nonatomic) StoreCoupon *mainData;
@@ -25,7 +26,7 @@
     if (self) {
         self.delegate = delegate;
         if(!self.mainData){
-            self.mainData = [StoreCoupon new];
+            self.mainData = [[StoreCoupon alloc] init];
             self.mainData.store_id = store_id;
         }
     }
@@ -65,6 +66,9 @@
     NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
     [params put:KeyAPI_TIME value:currentTime];
     NSArray *strings = [NSArray arrayWithObjects:APP_ID,currentTime,[@(_mainData.store_id) stringValue],APP_SECRET,nil];
+    if ([[UserData shareInstance] getToken]) {
+        [params put:KeyAPI_TOKEN value:[[UserData shareInstance] getToken]];
+    }
     [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
     [params put:KeyAPI_STORE_ID value:[@(_mainData.store_id) stringValue]];
     [params put:KeyAPI_PAGE_INDEX value:[@(_mainData.pageindex) stringValue]];

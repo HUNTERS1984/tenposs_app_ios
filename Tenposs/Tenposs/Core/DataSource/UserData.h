@@ -19,21 +19,25 @@
 
 @interface UserData : EntityBase
 
-
 @property(nonatomic,strong) NSMutableDictionary *userDataDictionary;
 @property(nonatomic) BOOL isLogin;
 
 +(UserData *)shareInstance;
 
+- (BOOL)saveTokenKit:(NSDictionary *)tokenKit;
+
 -(BOOL)saveUserData;
 -(void)clearUserData;
+- (void)invalidateCurrentUser;
 -(BOOL)shouldShowLogin;
 
 -(NSDictionary *)getUserData;
 
 -(NSString *)getToken;
+-(NSString *)getHrefRefreshToken;
 
 -(NSString *) getUserID;
+-(NSString *) getAuthUserID;
 
 -(NSString *)getUserName;
 -(void) setUserName:(NSString*)userName;
@@ -51,9 +55,6 @@
 - (NSInteger)getUserGender;
 - (NSString *)getUserGenderString;
 - (void)setUserGender:(NSInteger) gender;
-
-- (NSString *)getAppUserID;
-- (void)setAppUserID:(NSString *)app_user_id;
 
 - (void)setUserProvine:(NSString *)provine;
 - (NSString *)getUserProvine;

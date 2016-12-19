@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface ReserveScreen : UIViewController
+@interface ReserveScreen : BaseViewController
 
 @end
