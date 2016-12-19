@@ -127,7 +127,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
     if ([self.dataSource isKindOfClass:[NewsScreenDetailDataSource_t2 class]]) {
-        if (indexPath.section == 0) {
+        if (indexPath.section == 0 && [collectionView numberOfSections] > 1) {
             [collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
         }
     }

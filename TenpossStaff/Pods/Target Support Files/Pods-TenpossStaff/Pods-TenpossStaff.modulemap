@@ -1,0 +1,6 @@
+framework module Pods_TenpossStaff {
+  umbrella header "Pods-TenpossStaff-umbrella.h"
+
+  export *
+  module * { export * }
+}

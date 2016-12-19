@@ -53,7 +53,9 @@
     
     if (!self.currentPageIndex) {
         [self loadPageContent:0];
-        [self loadPageContent:1];
+        if ([self.topArray count] > 1) {
+            [self loadPageContent:1];
+        }
     }else{
         [self loadPageContent:self.currentPageIndex];
         self.pageControl.currentPage = self.currentPageIndex;

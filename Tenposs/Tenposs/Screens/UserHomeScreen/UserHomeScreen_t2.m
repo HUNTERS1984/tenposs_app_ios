@@ -138,8 +138,9 @@
 
 - (void)setupValueView{
     [_mileInfo setText:[NSString stringWithFormat:@"%ld ポイント 獲得まで あと %ld マイル", (long)[self getNextPoint], (long)[self getNextMile]]];
-    [_pointInfo setText:[NSString stringWithFormat:@"tenpossポイント : %ldポイント",(long)[self getCurrentPoint]]];
-    
+//    [_pointInfo setText:[NSString stringWithFormat:@"tenpossポイント : %ldポイント",(long)[self getCurrentPoint]]];
+    [_pointInfo setText:@"tenpossポイント"];
+    [_pointCount setText:[NSString stringWithFormat:@"%ldポイント",(long)[self getCurrentPoint]]];
     _mileGraph.maxValue = (CGFloat)[self getNextMile];
     
     [self generateBarCode:[[UserData shareInstance] getAuthUserID]];

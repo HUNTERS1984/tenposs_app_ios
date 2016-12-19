@@ -150,6 +150,8 @@
         numberOfSection = 2;
     }else if ([_collectionArray count] == 1) {
         numberOfSection = 1;
+    }else{
+        numberOfSection = 0;
     }
     return numberOfSection;
 }
@@ -178,16 +180,13 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    NSInteger numberOfSection = 0;
     if ([_collectionArray count] > 1){
-        numberOfSection = 2;
         if (section == 0) {
             return 1;
         }else{
             return [_collectionArray count] - 1;
         }
     }else if ([_collectionArray count] == 1) {
-        numberOfSection = 1;
         return 1;
     }
     return 0;

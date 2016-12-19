@@ -350,7 +350,7 @@
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     
     [appConfig loadAppInfoWithCompletionHandler:^(NSError *error) {
-        if ([[UserData shareInstance] getToken]) {
+        if ([[UserData shareInstance] getToken] && [[UserData shareInstance] getUserData]) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
             SplashScreen *nextController = [storyboard instantiateViewControllerWithIdentifier:@"SplashScreen"];
             UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];

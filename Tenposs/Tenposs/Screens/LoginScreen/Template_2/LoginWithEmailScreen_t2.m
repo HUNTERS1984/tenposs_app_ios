@@ -14,6 +14,9 @@
 #import "NetworkCommunicator.h"
 #import "UserData.h"
 #import "AppDelegate.h"
+#import "AuthenticationManager.h"
+#import "SVProgressHUD.h"
+
 
 @interface LoginWithEmailScreen_t2 ()
 
@@ -43,7 +46,7 @@
     // Do any additional setup after loading the view.
     [self.navigationController setNavigationBarHidden:NO];
     //TODO: Clean
-    [_email setText:@"luong.hong.quan@mqsolutions.vn"];
+    [_email setText:@"quanlh218@gmail.com"];
     [_password setText:@"123456"];
 }
 
@@ -92,25 +95,51 @@
 }
 
 - (void)sendLoginRequest{
-    NSMutableDictionary *params = [NSMutableDictionary new];
-    [params setObject:_email.text forKey:KeyAPI_EMAIL];
-    [params setObject:_password.text forKey:KeyAPI_PASSWORD];
-    //    [params setObject:@"luong.hong.quan@mqsolutions.vn" forKey:KeyAPI_EMAIL];
-    //    [params setObject:@"123456" forKey:KeyAPI_PASSWORD];
-    
-    [[NetworkCommunicator shareInstance] POST:API_LOGIN parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
-        if(isSuccess) {
-            [UserData shareInstance].userDataDictionary = [dictionary mutableCopy];
-            [[UserData shareInstance] saveUserData];
-            
-            //            if ([[UserData shareInstance] getUserEmail] == nil) {
-            //                [[UserData shareInstance] setUserEmail:_email.text];
-            //            }
-            
-            AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-            [delegate registerPushNotification];
-            [self showTop];
+    [SVProgressHUD show];
+    [[AuthenticationManager sharedInstance] AuthLoginWithEmail:_email.text password:_password.text role:ROLE_USER andCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
+        [SVProgressHUD dismiss];
+        NSDictionary *result;
+        if ([resultData isKindOfClass:[CommonResponse class]]) {
+            result = [((CommonResponse *)resultData).data copy];
         }else{
+            result = resultData;
+        }
+        if(isSuccess) {
+            if([[UserData shareInstance] saveTokenKit:result]){
+                [self getUserProfile];
+            }else{
+                [self showAlertView:@"エラー" message:@"ログインできません"];
+            }
+        }else{
+            [self showAlertView:@"エラー" message:@"ログインできません"];
+        }
+    }];
+}
+
+- (void)getUserProfile{
+    [SVProgressHUD show];
+    [[AuthenticationManager sharedInstance] AuthGetUserProfileWithCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
+        [SVProgressHUD dismiss];
+        NSMutableDictionary *resultDict;
+        if([resultData isKindOfClass:[CommonResponse class]]){
+            CommonResponse *result = (CommonResponse *)resultData;
+            resultDict = result.data;
+        }else{
+            resultDict = [resultData mutableCopy];
+        }
+        if(isSuccess){
+            if ([resultDict objectForKey:@"user"]) {
+                NSDictionary *userData = [resultDict objectForKey:@"user"];
+                [UserData shareInstance].userDataDictionary = [userData mutableCopy];
+                [[UserData shareInstance] saveUserData];
+                AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+                [delegate registerPushNotification];
+                [self showTop];
+            }else{
+                //TODO: handle server did not return user data
+            }
+        }else{
+            [[UserData shareInstance] invalidateCurrentUser];
             [self showAlertView:@"エラー" message:@"ログインできません"];
         }
     }];

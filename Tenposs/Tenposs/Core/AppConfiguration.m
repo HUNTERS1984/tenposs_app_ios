@@ -122,19 +122,6 @@
     self.cellSpacing = 8;
 }
 
-//TODO: clean
-//- (void)mockUp{
-//    if(self.completeHandler){
-//        NSError *error = nil;
-//        NSDictionary *data = [MockupData fetchDictionaryWithResourceName:@"app_info"];
-//        if (data) {
-//            self.appInfo = [[AppInfo alloc] initWithDictionary:data error:&error];
-//        }
-//        self.completeHandler(error);
-//        self.completeHandler = nil;
-//    }
-//}
-
 #pragma mark - Public methods
 - (void)loadAppInfoWithCompletionHandler:(void(^)(NSError *error))handler{
     [self loadAppInfo];
@@ -212,7 +199,6 @@
         error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:nil];
     }else{
         _appInfo = (AppInfo *)[responseParams get:KeyResponseObject];
-        _appInfo.app_setting.template_id = 1;
     }
     [self requestCompleteWithError:error];
 }

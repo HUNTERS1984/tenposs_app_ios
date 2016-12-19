@@ -11,7 +11,7 @@
 #import "HexColors.h"
 #import "UIFont+Themify.h"
 #import "AppConfiguration.h"
-
+#import "UIViewController+LoadingView.h"
 
 @interface MenuScreen_t2()
 
@@ -54,9 +54,13 @@
     
     __weak MenuScreen_t2 *weakSelf = self;
     [_mainDataSource fetchDataWithCompleteHandler:^(NSError *error) {
-        weakSelf.dataSource = _mainDataSource;
-        weakSelf.delegate = _mainDataSource;
-        [weakSelf reloadData];
+        if (error) {
+            [self handleDataSourceError:error];
+        }else{
+            weakSelf.dataSource = _mainDataSource;
+            weakSelf.delegate = _mainDataSource;
+            [weakSelf reloadData];
+        }
         [self removeAllInfoView];
     }];
     
@@ -79,6 +83,35 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+}
+
+- (void)handleDataSourceError:(NSError *)error{
+    if (!error) {
+        [self removeLoadingView];
+        return;
+    }
+    [self removeLoadingView];
+    NSString *message = @"Unknow Error";
+    switch (error.code) {
+        case ERROR_DATASOURCE_NO_CONTENT:
+            //TODO: need localize
+            message = NSLocalizedString(@"NO CONTENT",nil);
+            [self showErrorScreen:message];
+            break;
+        case ERROR_DETAIL_DATASOURCE_NO_CONTENT:
+            message = NSLocalizedString(@"NO CONTENT",nil);
+            [self showErrorScreen:message];
+            break;
+        case ERROR_CONTENT_FULLY_LOADED:
+            break;
+        case ERROR_DETAIL_DATASOURCE_IS_LAST:{
+        }break;
+            
+        case ERROR_DETAIL_DATASOURCE_IS_FIRST:{
+        }break;
+        default:
+            break;
+    }
 }
 
 @end
