@@ -519,7 +519,7 @@ NSMutableArray *recentSearchList=nil;
         if ([self getUserProvine]) {
             [profileToUpdate setObject:[self getUserProvine] forKey:KeyAPI_ADDRESS];
         }else{
-            [profileToUpdate setObject:@"abc" forKey:KeyAPI_ADDRESS];
+            [profileToUpdate setObject:@"" forKey:KeyAPI_ADDRESS];
         }
     }
     

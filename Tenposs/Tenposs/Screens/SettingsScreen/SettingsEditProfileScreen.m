@@ -83,6 +83,8 @@
                                                                        nil]
                                                              forState:UIControlStateNormal];
         [self.navigationItem.leftBarButtonItem setTitle:[NSString stringWithFormat: @"%@", [UIFont stringForThemifyIdentifier:@"ti-angle-left"]]];
+        [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                         [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,nil]];
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsDidChange:) name:NOTI_SET_EDIT_CHANGED object:nil];
@@ -96,7 +98,7 @@
                       SET_EDIT_USER_NAME:@"ユーザー名",
                       SET_EDIT_EMAIL:@"メールアドレス",
                       SET_EDIT_GENDER:@"性别",
-                      SET_EDIT_PROVINCE :@"都道府桌",
+                      SET_EDIT_PROVINCE :@"都道府県",
                       SET_EDIT_FACEBOOK :@"Facebook",
                       SET_EDIT_TWITTER  :@"Twitter",
                       SET_EDIT_INSTAGRAM:@"Instagram"};
@@ -120,7 +122,18 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(profileUpdated:) name:NOTI_USER_PROFILE_UPDATED object:nil];
+
+    
     [self removeAllInfoView];
+}
+
+- (void)profileUpdated:(NSNotification *) notification{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (NSString *)title{
+    return @"プロフィール編集";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -130,6 +143,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTI_USER_PROFILE_UPDATED object:nil];
 }
 
 #pragma mark - Private methods
@@ -180,7 +195,7 @@
            __weak SettingsEditProfileScreen *weakSelf = self;
            // View is disappearing because it was popped from the stack, UPDATE PROFILE here
            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@""
-                                                                                    message:@"あなたは変更を保存したいですか?"
+                                                                                    message:@"プロフィールを編集しますか?"
                                                                              preferredStyle:UIAlertControllerStyleAlert];
            UIAlertAction *actionSave = [UIAlertAction actionWithTitle:@"はい"
                                                                 style:UIAlertActionStyleDefault
@@ -193,7 +208,7 @@
                                                                   [_userProfileChanges removeAllObjects];
                                                                   [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTI_SET_EDIT_CHANGED object:nil];
                                                                   
-                                                                  [weakSelf.navigationController popViewControllerAnimated:YES];
+                                                                  
                                                               }];
            
            UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"キャンセル"
@@ -346,6 +361,7 @@
         [((Setting_EditText *)cell).text setText:email];
         ((Setting_EditText *)cell).text.delegate = self;
         ((Setting_EditText *)cell).text.tag = USEREMAIL_TAG;
+        ((Setting_EditText *)cell).text.userInteractionEnabled = NO;
     }else if ([function isEqual:SET_EDIT_GENDER]) {
         cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([Settings_Expand_Selector class])];
         if (!cell) {
@@ -387,11 +403,11 @@
         NSString *status = [[UserData shareInstance] getFacebookStatus];
         if ([status isEqualToString:@"1"]) {
             [((Settings_Social_Connect *)cell).connectButton setBackgroundColor:[UIColor lightGrayColor]];
-            [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor colorWithHexString:@"212121"] forState:UIControlStateNormal];
+            [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor colorWithHexString:@"FFFFFF"] forState:UIControlStateNormal];
             [((Settings_Social_Connect *)cell).connectButton setTitle:NSLocalizedString(@"setting_disconnect", nil) forState:UIControlStateNormal];
         }else{
-            [((Settings_Social_Connect *)cell).connectButton setBackgroundColor:[UIColor colorWithHexString:@"18C1BF"]];
-            [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [((Settings_Social_Connect *)cell).connectButton setBackgroundColor:[UIColor colorWithHexString:@"DDF8F8"]];
+            [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor colorWithHexString:@"18C1BF"] forState:UIControlStateNormal];
             [((Settings_Social_Connect *)cell).connectButton setTitle:NSLocalizedString(@"setting_connect", nil) forState:UIControlStateNormal];
             
         }
@@ -412,11 +428,11 @@
         NSString *status = [[UserData shareInstance] getTwitterStatus];
         if ([status isEqualToString:@"1"]) {
             [((Settings_Social_Connect *)cell).connectButton setBackgroundColor:[UIColor lightGrayColor]];
-            [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor colorWithHexString:@"212121"] forState:UIControlStateNormal];
+            [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor colorWithHexString:@"FFFFFF"] forState:UIControlStateNormal];
             [((Settings_Social_Connect *)cell).connectButton setTitle:NSLocalizedString(@"setting_disconnect", nil) forState:UIControlStateNormal];
         }else{
-            [((Settings_Social_Connect *)cell).connectButton setBackgroundColor:[UIColor colorWithHexString:@"18C1BF"]];
-            [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [((Settings_Social_Connect *)cell).connectButton setBackgroundColor:[UIColor colorWithHexString:@"DDF8F8"]];
+            [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor colorWithHexString:@"18C1BF"] forState:UIControlStateNormal];
             [((Settings_Social_Connect *)cell).connectButton setTitle:NSLocalizedString(@"setting_connect", nil) forState:UIControlStateNormal];
             
         }
@@ -436,12 +452,12 @@
         NSString *status = [[UserData shareInstance] getInstagramStatus];
         if ([status isEqualToString:@"1"]) {
             [((Settings_Social_Connect *)cell).connectButton setBackgroundColor:[UIColor lightGrayColor]];
-            [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor colorWithHexString:@"212121"] forState:UIControlStateNormal];
+            [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor colorWithHexString:@"FFFFFF"] forState:UIControlStateNormal];
             [((Settings_Social_Connect *)cell).connectButton setTitle:NSLocalizedString(@"setting_disconnect", nil) forState:UIControlStateNormal];
             
         }else{
-            [((Settings_Social_Connect *)cell).connectButton setBackgroundColor:[UIColor colorWithHexString:@"18C1BF"]];
-            [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [((Settings_Social_Connect *)cell).connectButton setBackgroundColor:[UIColor colorWithHexString:@"DDF8F8"]];
+            [((Settings_Social_Connect *)cell).connectButton setTitleColor:[UIColor colorWithHexString:@"18C1BF"] forState:UIControlStateNormal];
             [((Settings_Social_Connect *)cell).connectButton setTitle:NSLocalizedString(@"setting_connect", nil) forState:UIControlStateNormal];
         }
         

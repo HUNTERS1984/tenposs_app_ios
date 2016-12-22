@@ -256,7 +256,7 @@
 		02FDEFFD1D86E024005AC6E9 /* SettingsProvineScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FDEFFC1D86E024005AC6E9 /* SettingsProvineScreen.m */; };
 		02FDF0151D88104F005AC6E9 /* OAuthScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FDF0141D88104F005AC6E9 /* OAuthScreen.m */; };
 		02FDF0181D88D642005AC6E9 /* QRCodeScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FDF0171D88D642005AC6E9 /* QRCodeScreen.m */; };
-		030F0DEA47EA0F60E591829E /* Pods_Tenposs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFE408A8F7329E8324345E4C /* Pods_Tenposs.framework */; };
+		0A5CA4CBEF0CA4BABBE84291 /* Pods_Tenposs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C77ADD80C55E3CE2B6E720C /* Pods_Tenposs.framework */; };
 		3682129E1D7F0FA500E2DEF0 /* RoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3682129D1D7F0FA500E2DEF0 /* RoundButton.m */; };
 		368212A31D7FBFD800E2DEF0 /* CXAHyperlinkLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 368212A01D7FBFD800E2DEF0 /* CXAHyperlinkLabel.m */; };
 		368212A41D7FBFD800E2DEF0 /* NSAttributedString+CXACoreTextFrameSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 368212A21D7FBFD800E2DEF0 /* NSAttributedString+CXACoreTextFrameSize.m */; };
@@ -733,6 +733,8 @@
 		02FDF0141D88104F005AC6E9 /* OAuthScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthScreen.m; sourceTree = "<group>"; };
 		02FDF0161D88D642005AC6E9 /* QRCodeScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeScreen.h; sourceTree = "<group>"; };
 		02FDF0171D88D642005AC6E9 /* QRCodeScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeScreen.m; sourceTree = "<group>"; };
+		2C77ADD80C55E3CE2B6E720C /* Pods_Tenposs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tenposs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E409A0F7D3D82C43A46829D /* Pods-Tenposs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenposs.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tenposs/Pods-Tenposs.debug.xcconfig"; sourceTree = "<group>"; };
 		3682129C1D7F0FA500E2DEF0 /* RoundButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundButton.h; path = Customize/RoundButton.h; sourceTree = "<group>"; };
 		3682129D1D7F0FA500E2DEF0 /* RoundButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundButton.m; path = Customize/RoundButton.m; sourceTree = "<group>"; };
 		3682129F1D7FBFD800E2DEF0 /* CXAHyperlinkLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXAHyperlinkLabel.h; path = Customize/CXAHyperlinkLabel.h; sourceTree = "<group>"; };
@@ -750,9 +752,7 @@
 		368212B21D808A0200E2DEF0 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		368212B41D80F4F800E2DEF0 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		368212B51D80F4F800E2DEF0 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
-		8C74C072C8D2288BE79C4165 /* Pods-Tenposs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenposs.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tenposs/Pods-Tenposs.debug.xcconfig"; sourceTree = "<group>"; };
-		E2C398A3F44C4FEB41C8E8C6 /* Pods-Tenposs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenposs.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tenposs/Pods-Tenposs.release.xcconfig"; sourceTree = "<group>"; };
-		EFE408A8F7329E8324345E4C /* Pods_Tenposs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tenposs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E406AA27C750228941D2BF24 /* Pods-Tenposs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenposs.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tenposs/Pods-Tenposs.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -764,7 +764,7 @@
 				368212A81D7FC5F400E2DEF0 /* CoreGraphics.framework in Frameworks */,
 				368212A61D7FC29C00E2DEF0 /* CoreText.framework in Frameworks */,
 				022F25C51D525FFD008AEBA1 /* QuartzCore.framework in Frameworks */,
-				030F0DEA47EA0F60E591829E /* Pods_Tenposs.framework in Frameworks */,
+				0A5CA4CBEF0CA4BABBE84291 /* Pods_Tenposs.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1371,7 +1371,7 @@
 				02DAF3C91D47CAA70068BB71 /* TenpossUITests */,
 				02DAF3A31D47CAA70068BB71 /* Products */,
 				FA281DF0BAF1146BCCD67689 /* Frameworks */,
-				4A259A2AD222D9942EFBF260 /* Pods */,
+				A4CCA4DA0783392F839EB0B9 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1802,11 +1802,11 @@
 			name = Customize;
 			sourceTree = "<group>";
 		};
-		4A259A2AD222D9942EFBF260 /* Pods */ = {
+		A4CCA4DA0783392F839EB0B9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				8C74C072C8D2288BE79C4165 /* Pods-Tenposs.debug.xcconfig */,
-				E2C398A3F44C4FEB41C8E8C6 /* Pods-Tenposs.release.xcconfig */,
+				2E409A0F7D3D82C43A46829D /* Pods-Tenposs.debug.xcconfig */,
+				E406AA27C750228941D2BF24 /* Pods-Tenposs.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1817,7 +1817,7 @@
 				368212B21D808A0200E2DEF0 /* SafariServices.framework */,
 				368212A71D7FC5F400E2DEF0 /* CoreGraphics.framework */,
 				368212A51D7FC29C00E2DEF0 /* CoreText.framework */,
-				EFE408A8F7329E8324345E4C /* Pods_Tenposs.framework */,
+				2C77ADD80C55E3CE2B6E720C /* Pods_Tenposs.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1829,12 +1829,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 02DAF3CF1D47CAA70068BB71 /* Build configuration list for PBXNativeTarget "Tenposs" */;
 			buildPhases = (
-				01D5133CC3F29939F5936349 /* [CP] Check Pods Manifest.lock */,
+				9348DCE21E2E60412BADF7E4 /* [CP] Check Pods Manifest.lock */,
 				02DAF39E1D47CAA70068BB71 /* Sources */,
 				02DAF39F1D47CAA70068BB71 /* Frameworks */,
 				02DAF3A01D47CAA70068BB71 /* Resources */,
-				B5D678FC2D5441D79F4EF490 /* [CP] Embed Pods Frameworks */,
-				46495C9DF4EF1D401AAED51B /* [CP] Copy Pods Resources */,
+				FC56B0CA30BE816E1610E96C /* [CP] Embed Pods Frameworks */,
+				9DA1E0F00313CD529EE1CA2E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1893,6 +1893,7 @@
 					02DAF3A11D47CAA70068BB71 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = JQ8B5GA2WL;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -2018,7 +2019,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		01D5133CC3F29939F5936349 /* [CP] Check Pods Manifest.lock */ = {
+		9348DCE21E2E60412BADF7E4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2033,7 +2034,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		46495C9DF4EF1D401AAED51B /* [CP] Copy Pods Resources */ = {
+		9DA1E0F00313CD529EE1CA2E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2048,7 +2049,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tenposs/Pods-Tenposs-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B5D678FC2D5441D79F4EF490 /* [CP] Embed Pods Frameworks */ = {
+		FC56B0CA30BE816E1610E96C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2417,7 +2418,7 @@
 		};
 		02DAF3D01D47CAA70068BB71 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8C74C072C8D2288BE79C4165 /* Pods-Tenposs.debug.xcconfig */;
+			baseConfigurationReference = 2E409A0F7D3D82C43A46829D /* Pods-Tenposs.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Tenposs/Tenposs.entitlements;
@@ -2429,26 +2430,28 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.tenposs.Tenposs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8a1dc167-7d5c-4183-a57e-7c51be5a571b";
+				PROVISIONING_PROFILE_SPECIFIER = Tenposs201612201;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		02DAF3D11D47CAA70068BB71 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E2C398A3F44C4FEB41C8E8C6 /* Pods-Tenposs.release.xcconfig */;
+			baseConfigurationReference = E406AA27C750228941D2BF24 /* Pods-Tenposs.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Tenposs/Tenposs.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = JQ8B5GA2WL;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Tenposs/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.tenposs.Tenposs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

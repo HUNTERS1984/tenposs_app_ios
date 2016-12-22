@@ -65,6 +65,9 @@ NSString * const PUSH_USER_GETPUSHSETTINGS = @"/v1/user/get_push_setting";
 }
 
 - (void)PushSetUserPushSettings:(NSMutableDictionary *)pushData WithCompleteBlock:(void (^)(BOOL isSuccess, NSDictionary *resultData))completeBlock{
+    
+    _request_url = [NSString stringWithFormat:@"%@%@",PUSH_BASE_ADDRESS,PUSH_USER_SETPUSHSETTINGS];
+    
     Bundle *body = [Bundle new];
     NSMutableDictionary *dictData = [pushData mutableCopy];
     [dictData setObject:APP_ID forKey:KeyAPI_APP_ID];

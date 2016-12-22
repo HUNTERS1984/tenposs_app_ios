@@ -398,8 +398,8 @@
     return CGSizeMake(width, height);
 }
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-    CGFloat top = 0;
-    CGFloat left = 0;
+    CGFloat top = 10;
+    CGFloat left = 10;
     CGFloat bottom = 0;
     CGFloat right = 0;
     

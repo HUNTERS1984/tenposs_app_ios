@@ -34,7 +34,7 @@
     StaffObject *staff = (StaffObject *)data;
     [_avatar sd_setImageWithURL:[NSURL URLWithString:staff.image_url]];
     [_name setText:staff.name];
-    [_title setText:staff.category];
+    [_title setText:staff.staff_categories.name];
 }
 
 + (CGFloat)getHeightWithWidth:(CGFloat)width{

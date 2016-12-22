@@ -73,7 +73,7 @@
 }
 
 - (IBAction)buttionFacebookClicked:(id)sender{
-    [SVProgressHUD show];
+    //[SVProgressHUD show];
     FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
     [login logInWithReadPermissions:@[@"email", @"public_profile"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
         if (error) {
@@ -152,10 +152,15 @@
                                      [UserData shareInstance].userDataDictionary = [userData mutableCopy];
                                      [[UserData shareInstance] saveUserData];
                                      [[UserData shareInstance] saveTokenKit:[tokenKit copy]];
-                                     BOOL isFirstLogin = [userData objectForKey:@"first_login"];
-                                     [SVProgressHUD dismiss];
+                                     BOOL isFirstLogin = [[userData objectForKey:@"first_login"] boolValue];
+                                     //[SVProgressHUD dismiss];
                                      if (isFirstLogin) {
                                          //TODO: show additional info
+                                         UIViewController *nextController = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([SignUpScreenNext class])];
+                                         UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];
+                                         //[navi.navigationBar setHidden:YES];
+                                         [self presentViewController:navi animated:YES completion:nil];
+                                         
                                          UIViewController *addInfoScreen = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([SignUpScreenNext class])];
                                          [self presentViewController:addInfoScreen animated:YES completion:nil];
                                      }else{
@@ -164,7 +169,8 @@
                                          [self showTop];
                                      }
                                  }else{
-                                     
+                                     //[SVProgressHUD dismiss];
+                                     [self showAlertView:@"エラー" message:@"新規会員登録できません"];
                                  }
                              }];
                          }];
@@ -177,7 +183,7 @@
 }
 
 - (IBAction)buttionTwitterClicked:(id)sender{
-    [SVProgressHUD show];
+    //[SVProgressHUD show];
     [[Twitter sharedInstance] logInWithViewController:self methods:TWTRLoginMethodAll completion:^(TWTRSession *session, NSError *error) {
         if (session) {
             __weak TWTRSession *wSession = session;
@@ -194,7 +200,7 @@
                 [params setObject:[user profileImageURL] forKey:KeyAPI_AVATAR_URL];
                 [params setObject:@"ios" forKey:KeyAPI_PLATFORM];
                 [[AuthenticationManager sharedInstance] AuthSignUpWithSocialAccount:params andCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
-                    [SVProgressHUD dismiss];
+                    //[SVProgressHUD dismiss];
                     if(isSuccess) {
                         NSMutableDictionary *userData;
                         if ([resultData isKindOfClass:[CommonResponse class]]) {
@@ -220,11 +226,17 @@
                         [UserData shareInstance].userDataDictionary = [userData mutableCopy];
                         [[UserData shareInstance] saveUserData];
                         [[UserData shareInstance] saveTokenKit:[tokenKit copy]];
-                        BOOL isFirstLogin = [userData objectForKey:@"first_login"];
+                        BOOL isFirstLogin = YES;//[[userData objectForKey:@"first_login"] boolValue];
                         if (isFirstLogin) {
                             //TODO: show additional info
+                            UIViewController *nextController = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([SignUpScreenNext class])];
+                            UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:nextController];
+                            //[navi.navigationBar setHidden:YES];
+                            [self presentViewController:navi animated:YES completion:nil];
+                            
                             UIViewController *addInfoScreen = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([SignUpScreenNext class])];
                             [self presentViewController:addInfoScreen animated:YES completion:nil];
+
                         }else{
                             AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
                             [delegate registerPushNotification];
@@ -232,7 +244,8 @@
                         }
                         
                     }else{
-                        
+                        //[SVProgressHUD dismiss];
+                        [self showAlertView:@"エラー" message:@"新規会員登録できません"];
                     }
                 }];
             }];

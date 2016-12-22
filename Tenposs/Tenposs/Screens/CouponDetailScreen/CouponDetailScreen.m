@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIScrollView *pagerScrollView;
 @property (weak, nonatomic) IBOutlet UIPageControl *topPageControl;
+@property (weak, nonatomic) IBOutlet UILabel *idTitle;
 @property (weak, nonatomic) IBOutlet UILabel *categoryTitle;
 @property (weak, nonatomic) IBOutlet UILabel *couponTitle;
 @property (weak, nonatomic) IBOutlet UILabel *couponEndDate;
@@ -44,9 +45,10 @@
     
     [self.couponTitle setText:self.coupon.title];
 
-    NSString *couponTypeId = [NSString stringWithFormat:@"ID%ld・%@", (long)_coupon.coupon_id, _coupon.coupon_type.name];
+    NSString *couponTypeId = [NSString stringWithFormat:@"ID%ld・", (long)_coupon.coupon_id];
     if (couponTypeId) {
-        [self.categoryTitle setText:couponTypeId];
+        [self.idTitle setText:couponTypeId];
+        [self.categoryTitle setText:_coupon.coupon_type.name];
     }
     
     NSString *endDate = [Utils formatDateStringToJapaneseFormat:_coupon.end_date];
@@ -54,9 +56,21 @@
     if (endDate) {
         [self.couponEndDate setText:[NSString stringWithFormat:@"有効期間　%@まで",endDate]];
     }
-
-    [self.couponDesciption setText:self.coupon.desc];
+    
+    NSError *error = nil;
+    NSAttributedString *attString = [[NSAttributedString alloc] initWithData:[self.coupon.desc dataUsingEncoding:NSUTF8StringEncoding] options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute:@(NSUTF8StringEncoding)} documentAttributes:nil error:&error];
+    if (error) {
+        NSLog(@"Error: %@ %s %i", error.localizedDescription, __func__, __LINE__);
+    } else {
+        // Clear text view
+        self.couponDesciption.text = @"";
+        // Append the attributed string
+        [self.couponDesciption.textStorage appendAttributedString:attString];
+    }
+    
     self.couponDesciption.textAlignment = NSTextAlignmentJustified;
+    [self.couponDesciption setFont:[UIFont systemFontOfSize:14]];
+
     NSString *tag = @"";
     if ([self.coupon.taglist count] > 1) {
         tag = [self.coupon.taglist componentsJoinedByString:@" #"];

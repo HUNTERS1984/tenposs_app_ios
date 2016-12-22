@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface UserPrivacyScreen : UIViewController
+@interface UserPrivacyScreen : BaseViewController
 
 @end

@@ -88,6 +88,8 @@
                                                                        nil]
                                                              forState:UIControlStateNormal];
         [self.navigationItem.leftBarButtonItem setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-angle-left"]]];
+        [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                         [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,nil]];
     }
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Detail_TopImage class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Detail_TopImage class])];
@@ -127,24 +129,20 @@
     if (!_informationData) {
         NSString *infoString = @"";
         
-        if (_staff.name && ![_staff.name isEqualToString:@""]) {
-            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"Name: %@", _staff.name]];
-            infoString = [infoString stringByAppendingString:@"\n\n"];
-        }
         if (_staff.price && ![_staff.price isEqualToString:@""]) {
-            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"Price: %@", [Utils formatPriceToJapaneseFormat:_staff.price]]];
+            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"価格: %@", [Utils formatPriceToJapaneseFormat:_staff.price]]];
             infoString = [infoString stringByAppendingString:@"\n\n"];
         }
         if (_staff.birthday && ![_staff.birthday isEqualToString:@""]) {
-            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"Birthday: %@", _staff.birthday]];
+            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"年代: %@", _staff.birthday]];
             infoString = [infoString stringByAppendingString:@"\n\n"];
         }
         if (_staff.gender && ![_staff.gender isEqualToString:@""]) {
-            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"Gender: %@", _staff.gender]];
+            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"性別: %@", _staff.gender]];
             infoString = [infoString stringByAppendingString:@"\n\n"];
         }
         if (_staff.tel && ![_staff.tel isEqualToString:@""]) {
-            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"Tel: %@", _staff.tel]];
+            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"携帯電話: %@", _staff.tel]];
             infoString = [infoString stringByAppendingString:@"\n\n"];
         }
         
@@ -322,7 +320,7 @@
             width = superWidth;
             NSInteger index = indexPath.row;
             if (index == 0) {
-                height = [Item_Detail_ItemName getCellHeightWithWidth:width];
+                height = [Item_Detail_ItemName getCellHeightWithWidth:width] - 70;
             }else if (index == 1){
                 height = [Item_Detail_Header_Segmented getCellHeightWithWidth:width];
             }else{

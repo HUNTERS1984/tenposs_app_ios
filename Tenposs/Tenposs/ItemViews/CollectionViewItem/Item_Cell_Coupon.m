@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *coupon_store;
 @property (weak, nonatomic) IBOutlet UILabel *coupon_title;
 @property (weak, nonatomic) IBOutlet UIImageView *coupon_thumbnail;
-@property (weak, nonatomic) IBOutlet UILabel *coupon_description;
+@property (weak, nonatomic) IBOutlet UITextView *coupon_description;
 
 @end
 
@@ -31,7 +31,20 @@
     if (coupon) {
         [_coupon_store setText:coupon.coupon_type.name];
         [_coupon_title setText:coupon.title];
-        [_coupon_description setText:coupon.desc];
+        NSError *error = nil;
+        NSAttributedString *attString = [[NSAttributedString alloc] initWithData:[coupon.desc dataUsingEncoding:NSUTF8StringEncoding] options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute:@(NSUTF8StringEncoding)} documentAttributes:nil error:&error];
+        if (error) {
+            NSLog(@"Error: %@ %s %i", error.localizedDescription, __func__, __LINE__);
+        } else {
+            // Clear text view
+            _coupon_description.text = @"";
+            // Append the attributed string
+            [_coupon_description.textStorage appendAttributedString:attString];
+        }
+        
+        _coupon_description.textAlignment = NSTextAlignmentJustified;
+        [_coupon_description setFont:[UIFont systemFontOfSize:13]];
+
         [_coupon_thumbnail sd_setImageWithURL:[NSURL URLWithString:coupon.image_url]];
         _coupon_thumbnail.layer.masksToBounds = YES;
         

@@ -33,7 +33,7 @@
 "receive_push"="お知らせを受け取る";
 "receive_coupon_information"="クーポン情報を受け取る";
 "issue_the_takeover_code_during_the_model_change"="機種変更時引継ぎコード発行";
-"company_info"="逼营会社";
+"company_info"="運営会社";
 "user_privacy"="採用情報";
 
 "setting_connect" = "連携";
@@ -96,14 +96,14 @@
 "copy_hashtag"="ハッシュタグをコピーしました";
 
 //Message
-"msg_input_a_valid_email_address"="入力に有効なメールアドレスを喜ば";
-"msg_input_name"="入力してください名";
-"msg_input_password_confirm"="してください再入力パスワード";
-"msg_input_correct_confirm_password"="確認パスワードが正しくありません";
+"msg_input_a_valid_email_address"="有効なメールアドレスを入力してください";
+"msg_input_name"="名を入力してください";
+"msg_input_password_confirm"="確認パスワードを入力してください";
+"msg_input_correct_confirm_password"="パスワードが違います";
 "msg_input_password"="パスワード入力してください";
-"msg_exit_confirm"="本当に終了してもよろしいですか？";
-"msg_sign_out_confirm"="あなたがサインアウトしてもよろしいですか？";
-"msg_unable_to_sign_out"="ログアウトすることはできません";
+"msg_exit_confirm"="本当に終了しますか？";
+"msg_sign_out_confirm"="本当にサインアウトしますか？";
+"msg_unable_to_sign_out"="ログアウトできません";
 "msg_unable_to_sign_in"="ログインできません";
 "msg_unable_to_sign_up"="新規会員登録できません";
 "msg_not_sign_in"="まだログインしていません！";

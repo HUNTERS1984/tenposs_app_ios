@@ -86,7 +86,7 @@ NSString * const PLATFORM_IOS = @"ios";
     [body put:KeyRequestData value:req_data];
     [body put:KeyRequestCallback value:completeBlock];
     
-    [self execute:body withDelegate:self];
+    [self execute:body withDelegate:self andAuthHeaderType:AuthenticationType_authorization];
 }
 
 - (void)AuthLoginWithEmail:(NSString *)email password:(NSString *)password role:(NSString *)role andCompleteBlock:(void (^)(BOOL isSuccess, NSDictionary *resultData))completeBlock{

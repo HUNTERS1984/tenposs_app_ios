@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface CompanyInfoScreen : UIViewController
+@interface CompanyInfoScreen : BaseViewController
 
 @end

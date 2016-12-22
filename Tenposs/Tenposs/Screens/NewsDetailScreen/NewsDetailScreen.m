@@ -33,9 +33,19 @@
     [self.newsTitle setText:_news.title];
     [self.categoryTitle setText:_news.parentCategory.name];
     [self.date setText:_news.date];
-    [self.newsContent setText:_news.desc];
+    NSError *error = nil;
+    NSAttributedString *attString = [[NSAttributedString alloc] initWithData:[_news.desc dataUsingEncoding:NSUTF8StringEncoding] options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute:@(NSUTF8StringEncoding)} documentAttributes:nil error:&error];
+    if (error) {
+        NSLog(@"Error: %@ %s %i", error.localizedDescription, __func__, __LINE__);
+    } else {
+        // Clear text view
+        self.newsContent.text = @"";
+        // Append the attributed string
+        [self.newsContent.textStorage appendAttributedString:attString];
+    }
+
     self.newsContent.textAlignment = NSTextAlignmentJustified;
-    [self.newsContent setFont:[UIFont systemFontOfSize:16]];
+    [self.newsContent setFont:[UIFont systemFontOfSize:14]];
     [self.thumbnail sd_setImageWithURL:[NSURL URLWithString:self.news.image_url]];
     self.thumbnail.clipsToBounds = YES;
     [self showLoadingViewWithMessage:@""];

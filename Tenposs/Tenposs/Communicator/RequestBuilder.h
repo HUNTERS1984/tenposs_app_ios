@@ -58,6 +58,8 @@ extern NSString * const KeyAPI_APP_ID;
 extern NSString * const KeyAPI_APP_ID;
 extern NSString * const KeyAPI_EMAIL;
 extern NSString * const KeyAPI_PASSWORD;
+extern NSString * const KeyAPI_BIRTHDAY;
+extern NSString * const KeyAPI_CODE;
 extern NSString * const KeyAPI_SOCIAL_TYPE;
 extern NSString * const KeyAPI_SOCIAL_ID;
 extern NSString * const KeyAPI_SOCIAL_TOKEN;

@@ -44,6 +44,7 @@
             textView.scrollEnabled = NO;
             CGSize sizeThatFit = [textView sizeThatFits:CGSizeMake(textView.frame.size.width, MAXFLOAT)];
             _fullSizeHeight = sizeThatFit.height;
+            textView.textAlignment = NSTextAlignmentCenter;
         }
     }
 }
@@ -73,7 +74,21 @@
         self.textView.textContainer.maximumNumberOfLines = 0;
         self.textView.textContainer.lineBreakMode = NSLineBreakByTruncatingTail;
         self.textView.contentInset = UIEdgeInsetsMake(-4,0,0,0);
-        [self.textView setText:cellInfo.fullText];
+        NSError *error = nil;
+        NSAttributedString *attString = [[NSAttributedString alloc] initWithData:[cellInfo.fullText dataUsingEncoding:NSUTF8StringEncoding] options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute:@(NSUTF8StringEncoding)} documentAttributes:nil error:&error];
+        if (error) {
+            NSLog(@"Error: %@ %s %i", error.localizedDescription, __func__, __LINE__);
+        } else {
+            // Clear text view
+            self.textView.text = @"";
+            // Append the attributed string
+            [self.textView.textStorage appendAttributedString:attString];
+        }
+        
+        self.textView.textAlignment = NSTextAlignmentJustified;
+        [self.textView setFont:[UIFont systemFontOfSize:14]];
+
+        
         self.textView.textAlignment = NSTextAlignmentJustified;
         if(cellInfo.isCollapsed){
             _heightConstraint.constant = DETAIL_DESCRIPTION_COLLAPSE;

@@ -314,8 +314,8 @@
             }else if(top.top_id == APP_MENU_NEWS){
                 if(topData.news && [topData.news count] > 0){
                     
-                    NSMutableArray<TopObject *> *topArray = (NSMutableArray<TopObject *> *)[[NSMutableArray alloc]init];
-                    for (TopObject *top in topData.news) {
+                    NSMutableArray<NewsObject *> *topArray = (NSMutableArray<NewsObject *> *)[[NSMutableArray alloc]init];
+                    for (NewsObject *top in topData.news) {
                         [topArray addObject:top];
                     }
                     [self.sectionArray addObject:topArray];

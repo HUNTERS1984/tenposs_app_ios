@@ -72,6 +72,8 @@
                                                                        nil]
                                                              forState:UIControlStateNormal];
         [self.navigationItem.leftBarButtonItem setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-angle-left"]]];
+        [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                         [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,nil]];
     }
     
     [self showLoadingViewWithMessage:@""];
@@ -373,7 +375,7 @@
                     [footer configureFooterWithTitle:@"もっと見る" withTouchHandler:handler];
                 }else{
                     //TODO: need localize
-                    [footer configureFooterWithTitle:@"show less" withTouchHandler:handler];
+                    [footer configureFooterWithTitle:@"閉じる" withTouchHandler:handler];
                 }
                 
                 reuseableView = footer;
@@ -492,13 +494,18 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSObject *data = [self dataForIndexPath:indexPath];
-    if ([data isKindOfClass:[ProductObject class]]) {
-        ProductObject *product = (ProductObject *)data;
-        ItemDetailScreen *controller = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([ItemDetailScreen class])];
-        controller.item = product;
-        [self.navigationController pushViewController:controller animated:YES];
+    NSInteger section = indexPath.section;
+    
+    if (section == 2) {
+        NSObject *data = [self dataForIndexPath:indexPath];
+        if ([data isKindOfClass:[ProductObject class]]) {
+            ProductObject *product = (ProductObject *)data;
+            ItemDetailScreen *controller = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([ItemDetailScreen class])];
+            controller.item = product;
+            [self.navigationController pushViewController:controller animated:YES];
+        }
     }
+   
 }
 
 - (void)onHeaderSegmentedChange:(id)sender{

@@ -1,10 +1,18 @@
-/* 
-  Localizable.strings
-  Tenposs
+/*
+ Localizable.strings
+ Tenposs
+ 
+ Created by Phúc Nguyễn on 9/12/16.
+ Copyright © 2016 Tenposs. All rights reserved.
+ */
 
-  Created by Phúc Nguyễn on 9/12/16.
-  Copyright © 2016 Tenposs. All rights reserved.
-*/
+
+
+/*
+ 
+ 
+ 
+ */
 
 "home"="ホーム";
 "menu"="メニュー";
@@ -25,8 +33,12 @@
 "receive_push"="お知らせを受け取る";
 "receive_coupon_information"="クーポン情報を受け取る";
 "issue_the_takeover_code_during_the_model_change"="機種変更時引継ぎコード発行";
-"company_info"="逼营会社";
+"company_info"="逼営会社";
 "user_privacy"="採用情報";
+
+"setting_connect" = "連携";
+"setting_disconnect" = "非接続";
+
 
 "sign_in"="ログイン";
 "sign_up"="サインアップ";
@@ -57,15 +69,10 @@
 "size"="サイズ";
 "purchase"="商品購入ペ一ジへ";
 
-"setting_connect" = "連携";
-"setting_disconnect" = "非接続";
-
 "copy_one"="コピ一";
 "coupon_type"="クーポンタイプ";
-"hash_tag_copied"="ハッシユタグをコピーしました";
-
 "validity"="有効期間";
-"take_advantage_of_this_coupon"="このクーポンを利用する";//"このクーボンを利用す";
+"take_advantage_of_this_coupon"="このクーボンを利用す";
 "this_coupon_cannot_use"="このクーポンは使用できません";
 "staff_unknown_button"="テキストが入ります";
 
@@ -77,24 +84,26 @@
 "on"="オン";
 "off"="オフ";
 "link"="連撈";
-"retry_button"="再度お試しください";
 
 //Alert title
 "warning"="警告";
 "error"="エラー";
 "info"="インフォ";
 
+//TODO: need localize
+"use_coupon"="このクーボンを利用する";
+"unable_use_coupon"="このクーポンは使用できません";
+"copy_hashtag"="ハッシュタグをコピーしました";
+
 //Message
-"no_internet_connection"="ネットワークに接続できません";
-"no_content"="データがありません";
-"msg_input_a_valid_email_address"="入力に有効なメールアドレスを喜ば";
-"msg_input_name"="入力してください名";
-"msg_input_password_confirm"="してください再入力パスワード";
-"msg_input_correct_confirm_password"="確認パスワードが正しくありません";
+"msg_input_a_valid_email_address"="有効なメールアドレスを入力してください";
+"msg_input_name"="名を入力してください";
+"msg_input_password_confirm"="確認パスワードを入力してください";
+"msg_input_correct_confirm_password"="パスワードが違います";
 "msg_input_password"="パスワード入力してください";
-"msg_exit_confirm"="本当に終了してもよろしいですか？";
-"msg_sign_out_confirm"="あなたがサインアウトしてもよろしいですか？";
-"msg_unable_to_sign_out"="ログアウトすることはできません";
+"msg_exit_confirm"="本当に終了しますか？";
+"msg_sign_out_confirm"="本当にサインアウトしますか？";
+"msg_unable_to_sign_out"="ログアウトできません";
 "msg_unable_to_sign_in"="ログインできません";
 "msg_unable_to_sign_up"="新規会員登録できません";
 "msg_not_sign_in"="まだログインしていません！";
@@ -104,50 +113,76 @@
 
 "NO CONTENT" = "データなし";
 
-"hokkaido"  ="Hokkaidō";
-"aomori"    ="Aomori";
-"iwate"     ="Iwate";
-"miyagi"    ="Miyagi";
-"akita"     ="Akita";
-"yamagata"  ="Yamagata";
-"fukushima" ="Fukushima";
-"ibaraki"   ="Ibaraki";
-"tochigi"   ="Tochigi";
-"gunma"     ="Gunma";
-"saitama"   ="Saitama";
-"chiba"     ="Chiba";
-"tokyo"     ="Tōkyō";
-"kanagawa"  ="Kanagawa";
-"niigata"   ="Niigata";
-"toyama"    ="Toyama";
-"ishikawa"  ="Ishikawa";
-"fukui"     ="Fukui";
-"yamanashi" ="Yamanashi";
-"nagano"    ="Nagano";
-"gifi"      ="Gifu";
-"shizouka"  ="Shizuoka";
-"aichi"     ="Aichi";
-"mie"       ="Mie";
-"shiga"     ="Shiga";
-"kyoto"     ="Kyōto";
-"osaka"     ="Ōsaka";
-"hyogo"     ="Hyōgo";
-"nara"      ="Nara";
-"wakayama"  ="Wakayama";
-"tottori"   ="Tottori";
-"shimane"   ="Shimane";
-"okayama"   ="Okayama";
-"hiroshima" ="Hiroshima";
-"yamaguchi" ="Yamaguchi";
-"tokushima" ="Tokushima";
-"kagawa"    ="Kagawa";
-"ehime"     ="Ehime";
-"kochi"     ="Kōchi";
-"fukuoka"   ="Fukuoka";
-"saga"      ="Saga";
-"nagasaki"  ="Nagasaki";
-"kumamoto"  ="Kumamoto";
-"oita"      ="Ōita";
-"miyazaki"  ="Miyazaki";
-"kogoshima" ="Kagoshima";
-"okinawa"   ="Okinawa";
+/// SCREEN TITLE
+
+"SCREEN_TITLE_MENU"="メニュー";
+"SCREEN_TITLE_NEWS"="ニュース";
+"SCREEN_TITLE_GALLERY" = "フォトギャラリー";
+"SCREEN_TITLE_STAFF"="スタッフ";
+"SCREEN_TITLE_SETTINGS"="";
+"SCREEN_TITLE_RESERVE"="";
+"SCREEN_TITLE_COUPON" = "";
+"SCREEN_TITLE_CHAT"="";
+"SCREEN_TITLE_COMPANY_INFO"="";
+"SCREEN_TITLE_USER_PRIVACY"="";
+
+/*
+ 
+ Japanese Provine
+ 
+ */
+
+"hokkaido"="北海道";
+// Tōhoku
+"aomori"="青森県";
+"iwate"="岩手県";
+"miyagi"="宮城県";
+"akita"="秋田県";
+"yamagata"="山形県";
+"fukushima"="福島県";
+// Kantō
+"ibaraki"="茨城県";
+"tochigi"="栃木県";
+"gunma"="群馬県";
+"saitama"="埼玉県";
+"chiba"="千葉県";
+"tokyo"="東京都";
+"kanagawa"="神奈川県";
+// Chūbu
+"niigata"="新潟県";
+"toyama"="富山県";
+"ishikawa"="石川県";
+"fukui"="福井県";
+"yamanashi"="山梨県";
+"nagano"="長野県";
+"gifi"="岐阜県";
+"shizouka"="静岡県";
+"aichi"="愛知県";
+// Kansai
+"mie"="三重県";
+"shiga"="滋賀県";
+"kyoto"="京都府";
+"osaka"="大阪府";
+"hyogo"="兵庫県";
+"nara"="奈良県";
+"wakayama"="和歌山県";
+// Chūgoku
+"tottori"="鳥取県";
+"shimane"="島根県";
+"okayama"="岡山県";
+"hiroshima"="広島県";
+"yamaguchi"="山口県";
+// Shikoku
+"tokushima"="徳島県";
+"kagawa"="香川県";
+"ehime"="愛媛県";
+"kochi"="高知県";
+// Kyūshū
+"fukuoka"="福岡県";
+"saga"="佐賀県";
+"nagasaki"="長崎県";
+"kumamoto"="熊本県";
+"oita"="大分県";
+"miyazaki"="宮崎県";
+"kogoshima"="鹿児島県";
+"okinawa"="沖縄県";

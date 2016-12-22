@@ -24,7 +24,7 @@ NSString * const API_SLOGIN  = @"/social_login?";
 NSString * const API_SIGNUP = @"/signup?";
 NSString * const API_SIGNUP_SOCIAL = @"/signup_social?";
 NSString * const API_LOGOUT  =   @"/signout?";
-NSString * const API_UPDATE_AFTER_SOCIAL = @"v2/update_profile_social_signup";
+NSString * const API_UPDATE_AFTER_SOCIAL = @"/update_profile_social_signup";
 NSString * const API_TOP  =  @"/top?";
 
 NSString * const API_MENU  = @"/menu?";
@@ -98,6 +98,8 @@ NSString * const KeyAPI_COUPON_ID = @"coupon_id";
 NSString * const KeyAPI_USERNAME = @"name";
 NSString * const KeyAPI_USERNAME_NAME = @"username";
 NSString * const KeyAPI_GENDER = @"gender";
+NSString * const KeyAPI_CODE = @"code";
+NSString * const KeyAPI_BIRTHDAY = @"birthday";
 NSString * const KeyAPI_ADDRESS = @"address";
 NSString * const KeyAPI_AVATAR = @"avatar";
 NSString * const KeyAPI_AVATAR_URL = @"avatar_url";

@@ -38,8 +38,8 @@
         
     }else if([data isKindOfClass:[StaffObject class]]){
         StaffObject *staff = (StaffObject *)data;
-        
-        [self.categoryTitle setText:staff.category];
+        [self.purchaseButton setHidden:YES];
+        [self.categoryTitle setText:staff.staff_categories.name];
         [self.itemPrice setHidden:YES];
         [self.ItemTitle setText:staff.name];
     }

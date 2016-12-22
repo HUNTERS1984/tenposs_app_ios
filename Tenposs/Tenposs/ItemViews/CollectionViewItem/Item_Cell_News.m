@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *newsImage;
 @property (weak, nonatomic) IBOutlet UILabel *newsCategory;
 @property (weak, nonatomic) IBOutlet UILabel *newsTitle;
-@property (weak, nonatomic) IBOutlet UILabel *newsDescription;
+@property (weak, nonatomic) IBOutlet UITextView *newsDescription;
 
 @end
 
@@ -33,7 +33,21 @@
     }
 //    [_newsCategory setText:news.parentCategory.categoryName];
     [_newsTitle setText:news.title];
-    [_newsDescription setText:news.desc];
+    
+    NSError *error = nil;
+    NSAttributedString *attString = [[NSAttributedString alloc] initWithData:[news.desc dataUsingEncoding:NSUTF8StringEncoding] options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute:@(NSUTF8StringEncoding)} documentAttributes:nil error:&error];
+    if (error) {
+        NSLog(@"Error: %@ %s %i", error.localizedDescription, __func__, __LINE__);
+    } else {
+        // Clear text view
+        _newsDescription.text = @"";
+        // Append the attributed string
+        [_newsDescription.textStorage appendAttributedString:attString];
+    }
+    _newsDescription.textAlignment = NSTextAlignmentJustified;
+    [_newsDescription setFont:[UIFont systemFontOfSize:13]];
+    //[_newsDescription setScrollEnabled:NO];
+
     [_newsCategory setText:news.parentCategory.name];
     _newsImageBoundary.layer.masksToBounds = NO;
     _newsImageBoundary.layer.shadowColor = [UIColor blackColor].CGColor;

@@ -68,7 +68,8 @@
 }
 
 - (NSString *)title{
-    return @"ホーム";
+    AppSettings *settings = [[AppConfiguration sharedInstance] getAvailableAppSettings];
+    return settings.title;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{

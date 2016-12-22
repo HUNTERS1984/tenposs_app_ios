@@ -18,6 +18,7 @@
 @class NewsCategoryObject;
 @class PhotoCategory;
 @class AllPhotoCategory;
+@class StaffCategory;
 
 @protocol ProductObject
 @end
@@ -301,7 +302,7 @@
 @property (strong, nonatomic) NSString *gender;
 @property (strong, nonatomic) NSString *birthday;
 @property (strong, nonatomic) NSString *tel;
-@property (strong, nonatomic) NSString *category;
+@property (strong, nonatomic) StaffCategory *staff_categories;
 @property (strong, nonatomic) NSString *created_at;
 @property (strong, nonatomic) NSString *updated_at;
 @property (strong, nonatomic) NSString *deleted_at;

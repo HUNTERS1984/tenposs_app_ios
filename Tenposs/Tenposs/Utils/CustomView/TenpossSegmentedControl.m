@@ -74,6 +74,7 @@
     for (int i = 0; i < [_items count]; i ++) {
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectZero];
         label.text = _items[i];
+        [label setFont:[UIFont systemFontOfSize:14]];
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = [UIColor colorWithHexString:@"#b8b8b8"];
         [self addSubview:label];

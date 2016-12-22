@@ -32,6 +32,10 @@
 @property (strong, nonatomic) NSMutableArray *years;
 @property (strong, nonatomic) NSMutableArray *provinces;
 @property (strong, nonatomic) NSMutableArray *pickerDataArray;
+@property (strong, nonatomic) NSMutableDictionary *userProfileChanges;
+@property (assign, nonatomic) NSInteger cur_gender;
+@property (strong, nonatomic) NSString *cur_province;
+@property (strong, nonatomic) NSString *cur_birthday;
 
 @property (weak, nonatomic) id currentPickerSource;
 
@@ -49,11 +53,14 @@
                                            action:@selector(hideKeyBoard)];
     
     [self.view addGestureRecognizer:tapGesture];
-    
-    if (self.navigationController) {
+    _cur_gender = -1;
+    _cur_birthday = @"";
+    _cur_province = @"";
+    if (self.signUpData) {
         //TODO: this has been presented by SignUpScreen
         
     }else{
+        _userProfileChanges = [NSMutableDictionary new];
         //TODO: this has been presented by Social Login
         
     }
@@ -81,7 +88,7 @@
         [self toggleYearPicker];
     }else if (sender == _signinButton){
         //TODO: do login
-        if (self.navigationController) {
+        if (self.signUpData) {
             //This is for SignUp
             [self doRegister];
         }else{
@@ -100,6 +107,27 @@
 
 - (void)doRegister{
     [SVProgressHUD show];
+    if (![_invitationCodeText.text isEqualToString:@""])
+        [_signUpData setObject:_invitationCodeText.text forKey:KeyAPI_CODE];
+    else
+        [_signUpData removeObjectForKey:KeyAPI_CODE];
+    
+    if (![_cur_province isEqualToString:@""])
+        [_signUpData setObject:_cur_province forKey:KeyAPI_ADDRESS];
+    else
+        [_signUpData removeObjectForKey:KeyAPI_ADDRESS];
+    
+    if (![_cur_birthday isEqualToString:@""])
+        [_signUpData setObject:_cur_birthday forKey:KeyAPI_BIRTHDAY];
+    else
+        [_signUpData removeObjectForKey:KeyAPI_BIRTHDAY];
+    
+    if (_cur_gender > 0)
+        [_signUpData setObject:[@(_cur_gender) stringValue] forKey:KeyAPI_GENDER];
+    else
+        [_signUpData removeObjectForKey:KeyAPI_GENDER];
+    
+    
     [[AuthenticationManager sharedInstance] AuthSignUpWithEmail:_signUpData andCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
         NSMutableDictionary *resultDic;
         if ([resultData isKindOfClass:[CommonResponse class]]) {
@@ -141,9 +169,65 @@
 
 - (void)doUpdateUserInfo{
     //TODO: Update profile after signIn with social account
-    AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    [delegate registerPushNotification];
-    [self showTop];
+    [_userProfileChanges setObject:[UserData shareInstance].getUserEmail forKey:KeyAPI_EMAIL];
+    
+    if (![_invitationCodeText.text isEqualToString:@""])
+        [_userProfileChanges setObject:_invitationCodeText.text forKey:KeyAPI_CODE];
+    else
+        [_userProfileChanges removeObjectForKey:KeyAPI_CODE];
+    
+    if (![_cur_province isEqualToString:@""])
+        [_userProfileChanges setObject:_cur_province forKey:KeyAPI_ADDRESS];
+    else
+        [_userProfileChanges removeObjectForKey:KeyAPI_ADDRESS];
+    
+    if (![_cur_birthday isEqualToString:@""])
+        [_userProfileChanges setObject:_cur_birthday forKey:KeyAPI_BIRTHDAY];
+    else
+        [_userProfileChanges removeObjectForKey:KeyAPI_BIRTHDAY];
+    
+    if (_cur_gender > 0)
+        [_userProfileChanges setObject:[@(_cur_gender) stringValue] forKey:KeyAPI_GENDER];
+    else
+        [_userProfileChanges removeObjectForKey:KeyAPI_GENDER];
+    
+    
+    [[AuthenticationManager sharedInstance] AuthUpdateProfileAfterSocialSignUp:[_userProfileChanges mutableCopy] andCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
+        NSMutableDictionary *resultDic;
+        if ([resultData isKindOfClass:[CommonResponse class]]) {
+            resultDic = [((CommonResponse *)resultData).data mutableCopy];
+        }else{
+            resultDic = [resultData mutableCopy];
+        }
+        if(isSuccess){
+            [[AuthenticationManager sharedInstance] AuthGetUserProfileWithCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
+                NSMutableDictionary *resultDict;
+                if([resultData isKindOfClass:[CommonResponse class]]){
+                    CommonResponse *result = (CommonResponse *)resultData;
+                    resultDict = result.data;
+                }else{
+                    resultDict = [resultData mutableCopy];
+                }
+                if (isSuccess) {
+                    NSMutableDictionary *userData = [resultDict objectForKey:@"user"];
+                    [UserData shareInstance].userDataDictionary = [userData mutableCopy];
+                    [[UserData shareInstance] saveUserData];
+                    [[NSNotificationCenter defaultCenter]postNotificationName:NOTI_USER_PROFILE_UPDATED object:nil userInfo:@{@"status":@"success"}];
+                    
+                    AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+                    [delegate registerPushNotification];
+                    [self showTop];
+                }else{
+                    
+                }
+            }];
+            
+        }else{
+            [self showAlertView:@"エラー" message:@"新規会員登録できません"];
+        }
+        [SVProgressHUD dismiss];
+    }];
+    
 }
 
 - (void)togglePicker:(BOOL)show{
@@ -179,53 +263,53 @@
 - (void)toggleProvincePicker{
     if(!_provinces){
         _provinces = [NSMutableArray arrayWithObjects:
-                     @"hokkaido",
-                     @"aomori",
-                     @"iwate",
-                     @"miyagi",
-                     @"akita",
-                     @"yamagata",
-                     @"fukushima",
-                     @"ibaraki",
-                     @"tochigi",
-                     @"gunma",
-                     @"saitama",
-                     @"chiba",
-                     @"tokyo",
-                     @"kanagawa",
-                     @"niigata",
-                     @"toyama",
-                     @"ishikawa",
-                     @"fukui",
-                     @"yamanashi",
-                     @"nagano",
-                     @"gifi",
-                     @"shizouka",
-                     @"aichi",
-                     @"mie",
-                     @"shiga",
-                     @"kyoto",
-                     @"osaka",
-                     @"hyogo",
-                     @"nara",
-                     @"wakayama",
-                     @"tottori",
-                     @"shimane",
-                     @"okayama",
-                     @"hiroshima",
-                     @"yamaguchi",
-                     @"tokushima",
-                     @"kagawa"   ,
-                     @"ehime"    ,
-                     @"kochi"    ,
-                     @"fukuoka"  ,
-                     @"saga"     ,
-                     @"nagasaki" ,
-                     @"kumamoto" ,
-                     @"oita"     ,
-                     @"miyazaki" ,
-                     @"kogoshima",
-                     @"okinawa",
+                     NSLocalizedString(@"hokkaido",nil),
+                     NSLocalizedString(@"aomori",nil),
+                     NSLocalizedString(@"iwate",nil),
+                     NSLocalizedString(@"miyagi",nil),
+                     NSLocalizedString(@"akita",nil),
+                     NSLocalizedString(@"yamagata",nil),
+                     NSLocalizedString(@"fukushima",nil),
+                     NSLocalizedString(@"ibaraki",nil),
+                     NSLocalizedString(@"tochigi",nil),
+                     NSLocalizedString(@"gunma",nil),
+                     NSLocalizedString(@"saitama",nil),
+                     NSLocalizedString(@"chiba",nil),
+                     NSLocalizedString(@"tokyo",nil),
+                     NSLocalizedString(@"kanagawa",nil),
+                     NSLocalizedString(@"niigata",nil),
+                     NSLocalizedString(@"toyama",nil),
+                     NSLocalizedString(@"ishikawa",nil),
+                     NSLocalizedString(@"fukui",nil),
+                     NSLocalizedString(@"yamanashi",nil),
+                     NSLocalizedString(@"nagano",nil),
+                     NSLocalizedString(@"gifi",nil),
+                     NSLocalizedString(@"shizouka",nil),
+                     NSLocalizedString(@"aichi",nil),
+                     NSLocalizedString(@"mie",nil),
+                     NSLocalizedString(@"shiga",nil),
+                     NSLocalizedString(@"kyoto",nil),
+                     NSLocalizedString(@"osaka",nil),
+                     NSLocalizedString(@"hyogo",nil),
+                     NSLocalizedString(@"nara",nil),
+                     NSLocalizedString(@"wakayama",nil),
+                     NSLocalizedString(@"tottori",nil),
+                     NSLocalizedString(@"shimane",nil),
+                     NSLocalizedString(@"okayama",nil),
+                     NSLocalizedString(@"hiroshima",nil),
+                     NSLocalizedString(@"yamaguchi",nil),
+                     NSLocalizedString(@"tokushima",nil),
+                     NSLocalizedString(@"kagawa",nil),
+                     NSLocalizedString(@"ehime",nil),
+                     NSLocalizedString(@"kochi",nil),
+                     NSLocalizedString(@"fukuoka",nil),
+                     NSLocalizedString(@"saga",nil),
+                     NSLocalizedString(@"nagasaki",nil),
+                     NSLocalizedString(@"kumamoto",nil),
+                     NSLocalizedString(@"oita",nil),
+                     NSLocalizedString(@"miyazaki",nil),
+                     NSLocalizedString(@"kogoshima",nil),
+                     NSLocalizedString(@"okinawa",nil),
                      nil];
     }
     
@@ -235,11 +319,11 @@
     
     [self togglePicker:YES];
     
-    NSString *currentProvince = _provinceLabel.text;
-    if ([currentProvince containsString:@"Select"]) {
+    self.cur_province = _provinceLabel.text;
+    if ([self.cur_province containsString:@"都道府県"]) {
         return;
     }else{
-        NSInteger currentIndex = [_provinces indexOfObject:currentProvince];
+        NSInteger currentIndex = [_provinces indexOfObject:self.cur_province];
         [_picker selectRow:currentIndex inComponent:0 animated:YES];
     }
 }
@@ -303,9 +387,11 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     if(_currentPickerSource == _yearButton){
-        [_yearLabel setText:[_pickerDataArray objectAtIndex:row]];
+        self.cur_birthday = [_pickerDataArray objectAtIndex:row];
+        [_yearLabel setText:self.cur_birthday];
     }else if (_currentPickerSource == _provinceButton){
-        [_provinceLabel setText:[_pickerDataArray objectAtIndex:row]];
+        self.cur_province = [_pickerDataArray objectAtIndex:row];
+        [_provinceLabel setText:self.cur_province];
     }
 }
 
@@ -315,9 +401,11 @@
     if (buttonIndex == 0) {
         //MALE
         [_genderLabel setText:NSLocalizedString(@"gender_male",nil)];
+        self.cur_gender = 0;
     }else if (buttonIndex == 1){
         //FEMALE
         [_genderLabel setText:NSLocalizedString(@"gender_female",nil)];
+        self.cur_gender = 1;
     }
 }
 

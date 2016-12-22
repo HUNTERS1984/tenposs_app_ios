@@ -68,7 +68,7 @@
 		02B833CE1E038D4000041885 /* AuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B833C91E038D4000041885 /* AuthenticationManager.m */; };
 		02B833CF1E038D4000041885 /* PointManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B833CC1E038D4000041885 /* PointManager.m */; };
 		02B833D31E039A3100041885 /* APIService.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B833D21E039A3100041885 /* APIService.m */; };
-		542A8DA9F9DAAC728F406C7F /* Pods_TenpossStaff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050E1EC6024E6C38DCD15BE1 /* Pods_TenpossStaff.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		ACE509534167CA31B2C0A738 /* Pods_TenpossStaff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5742439DD37482B8BF6DE4FF /* Pods_TenpossStaff.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -210,9 +210,9 @@
 		02B833CC1E038D4000041885 /* PointManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointManager.m; sourceTree = "<group>"; };
 		02B833D11E039A3100041885 /* APIService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIService.h; sourceTree = "<group>"; };
 		02B833D21E039A3100041885 /* APIService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIService.m; sourceTree = "<group>"; };
-		050E1EC6024E6C38DCD15BE1 /* Pods_TenpossStaff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenpossStaff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3AFAE1C20CC9B64D6AD6DBDB /* Pods-TenpossStaff.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenpossStaff.release.xcconfig"; path = "Pods/Target Support Files/Pods-TenpossStaff/Pods-TenpossStaff.release.xcconfig"; sourceTree = "<group>"; };
-		DF9C229304DC296539E67D1A /* Pods-TenpossStaff.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenpossStaff.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TenpossStaff/Pods-TenpossStaff.debug.xcconfig"; sourceTree = "<group>"; };
+		5742439DD37482B8BF6DE4FF /* Pods_TenpossStaff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenpossStaff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		75F184D85B196A3652B4B35B /* Pods-TenpossStaff.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenpossStaff.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TenpossStaff/Pods-TenpossStaff.debug.xcconfig"; sourceTree = "<group>"; };
+		A075335FD40713A09D74BE4A /* Pods-TenpossStaff.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenpossStaff.release.xcconfig"; path = "Pods/Target Support Files/Pods-TenpossStaff/Pods-TenpossStaff.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,7 +220,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				542A8DA9F9DAAC728F406C7F /* Pods_TenpossStaff.framework in Frameworks */,
+				ACE509534167CA31B2C0A738 /* Pods_TenpossStaff.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,8 +248,8 @@
 				02640A131DADF0BA00B2F5DA /* TenpossStaffTests */,
 				02640A1E1DADF0BA00B2F5DA /* TenpossStaffUITests */,
 				026409F81DADF0BA00B2F5DA /* Products */,
-				0C212CF284258C307126605E /* Pods */,
-				82899FF91695002C16DC559E /* Frameworks */,
+				3CF41D1C3778E4DE210BD9DF /* Pods */,
+				A2DD40747687A30DF6852B3A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -618,19 +618,19 @@
 			path = APIService;
 			sourceTree = "<group>";
 		};
-		0C212CF284258C307126605E /* Pods */ = {
+		3CF41D1C3778E4DE210BD9DF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DF9C229304DC296539E67D1A /* Pods-TenpossStaff.debug.xcconfig */,
-				3AFAE1C20CC9B64D6AD6DBDB /* Pods-TenpossStaff.release.xcconfig */,
+				75F184D85B196A3652B4B35B /* Pods-TenpossStaff.debug.xcconfig */,
+				A075335FD40713A09D74BE4A /* Pods-TenpossStaff.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		82899FF91695002C16DC559E /* Frameworks */ = {
+		A2DD40747687A30DF6852B3A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				050E1EC6024E6C38DCD15BE1 /* Pods_TenpossStaff.framework */,
+				5742439DD37482B8BF6DE4FF /* Pods_TenpossStaff.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -642,12 +642,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 02640A241DADF0BA00B2F5DA /* Build configuration list for PBXNativeTarget "TenpossStaff" */;
 			buildPhases = (
-				B128A1D9185E051BF2629747 /* Check Pods Manifest.lock */,
+				E1C0580E8E13997008C1673B /* [CP] Check Pods Manifest.lock */,
 				026409F31DADF0BA00B2F5DA /* Sources */,
 				026409F41DADF0BA00B2F5DA /* Frameworks */,
 				026409F51DADF0BA00B2F5DA /* Resources */,
-				C8E6B713768142098BA31638 /* Embed Pods Frameworks */,
-				FC4E01ABAC13C9B47EA33DE4 /* Copy Pods Resources */,
+				F1A2289B722C99B24B165800 /* [CP] Embed Pods Frameworks */,
+				B1299271D1DD56BD9050745E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -780,49 +780,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		B128A1D9185E051BF2629747 /* Check Pods Manifest.lock */ = {
+		B1299271D1DD56BD9050745E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		C8E6B713768142098BA31638 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TenpossStaff/Pods-TenpossStaff-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FC4E01ABAC13C9B47EA33DE4 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TenpossStaff/Pods-TenpossStaff-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E1C0580E8E13997008C1673B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F1A2289B722C99B24B165800 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TenpossStaff/Pods-TenpossStaff-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1030,7 +1030,7 @@
 		};
 		02640A251DADF0BA00B2F5DA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF9C229304DC296539E67D1A /* Pods-TenpossStaff.debug.xcconfig */;
+			baseConfigurationReference = 75F184D85B196A3652B4B35B /* Pods-TenpossStaff.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TenpossStaff/TenpossStaff.entitlements;
@@ -1044,7 +1044,7 @@
 		};
 		02640A261DADF0BA00B2F5DA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3AFAE1C20CC9B64D6AD6DBDB /* Pods-TenpossStaff.release.xcconfig */;
+			baseConfigurationReference = A075335FD40713A09D74BE4A /* Pods-TenpossStaff.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TenpossStaff/TenpossStaff.entitlements;

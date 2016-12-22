@@ -60,7 +60,7 @@ static NSDictionary *settingsNames;
                   SET_PUSH_NEWS : @"お知らせを受け取る",
                   SET_PUSH_COUPON: @"クーポン情報を受け取る",
                   SET_CHANGE_DEVICE: @"機種変更時引継ぎコード発行",
-                  SET_COMPANY_INFO: @"逼营会社",
+                  SET_COMPANY_INFO: @"運営会社",
                   SET_USER_PRIVACY: @"採用情報",
                   SET_USER_LOGOUT: @"ログアウト"};
     
@@ -73,6 +73,10 @@ static NSDictionary *settingsNames;
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([Settings_Text_Switch class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([Settings_Text_Switch class])];
     
     
+}
+
+- (NSString *)title{
+    return @"設定";
 }
 
 - (void)viewDidAppear:(BOOL)animated{

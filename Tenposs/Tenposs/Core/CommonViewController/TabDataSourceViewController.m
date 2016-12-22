@@ -115,13 +115,15 @@
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     AppSettings *settings = [appConfig getAvailableAppSettings];
     
-    [_previousCategoryButton setFont:[UIFont themifyFontOfSize:20/*[UIUtils getTextSizeWithType:settings.font_size]*/]];
-    [_previousCategoryButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-arrow-left"]] forState:UIControlStateNormal];
+    [_categoryTitle setTextColor:[UIColor colorWithHexString:@"#969696"]];
+    [_categoryTitle setFont:[UIFont systemFontOfSize:18 weight:UIFontWeightMedium]];
+    [_previousCategoryButton setFont:[UIFont themifyFontOfSize:14/*[UIUtils getTextSizeWithType:settings.font_size]*/]];
+    [_previousCategoryButton setTitle:[NSString stringWithFormat: @"%@", [UIFont stringForThemifyIdentifier:@"ti-angle-left"]] forState:UIControlStateNormal];
     [_previousCategoryButton setTitleColor:[UIColor colorWithHexString:@"1FC0BD"] forState:UIControlStateNormal];
     [_previousCategoryButton setTitleColor:[UIColor colorWithHexString:@"#e2e2e2"] forState:UIControlStateDisabled];
     
-    [_nextCategoryButton setFont:[UIFont themifyFontOfSize:20/*[UIUtils getTextSizeWithType:settings.font_size]*/]];
-    [_nextCategoryButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-arrow-right"]] forState:UIControlStateNormal];
+    [_nextCategoryButton setFont:[UIFont themifyFontOfSize:14/*[UIUtils getTextSizeWithType:settings.font_size]*/]];
+    [_nextCategoryButton setTitle:[NSString stringWithFormat: @"%@", [UIFont stringForThemifyIdentifier:@"ti-angle-right"]] forState:UIControlStateNormal];
     [_nextCategoryButton setTitleColor:[UIColor colorWithHexString:@"1FC0BD"] forState:UIControlStateNormal];
     [_nextCategoryButton setTitleColor:[UIColor colorWithHexString:@"#e2e2e2"] forState:UIControlStateDisabled];
     
