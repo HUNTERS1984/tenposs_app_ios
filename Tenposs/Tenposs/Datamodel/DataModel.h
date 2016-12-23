@@ -263,6 +263,7 @@
 @property (assign, nonatomic) NSInteger social_type;
 @property (assign, nonatomic) NSInteger app_id;
 @property (strong, nonatomic) UserProfile *profile;
+@property (strong, nonatomic) NSString *share_code;
 @end
 
 @interface UserProfile : EntityBase

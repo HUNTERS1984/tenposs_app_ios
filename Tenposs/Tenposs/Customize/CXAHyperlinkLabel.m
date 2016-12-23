@@ -405,6 +405,7 @@
 {
   NSRange prevHitURLRange = _touchingURLRange;
   _touchingURL = [self URLAtPoint:[[touches anyObject] locationInView:self] effectiveRange:&_touchingURLRange];
+  [NSThread sleepForTimeInterval:2];
   if (_touchingURLRange.length){
     if (!prevHitURLRange.length ||
         !NSEqualRanges(prevHitURLRange, _touchingURLRange))

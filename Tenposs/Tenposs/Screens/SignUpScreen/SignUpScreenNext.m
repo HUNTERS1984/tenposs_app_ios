@@ -122,7 +122,7 @@
     else
         [_signUpData removeObjectForKey:KeyAPI_BIRTHDAY];
     
-    if (_cur_gender > 0)
+    if (_cur_gender >= 0)
         [_signUpData setObject:[@(_cur_gender) stringValue] forKey:KeyAPI_GENDER];
     else
         [_signUpData removeObjectForKey:KeyAPI_GENDER];
@@ -186,7 +186,7 @@
     else
         [_userProfileChanges removeObjectForKey:KeyAPI_BIRTHDAY];
     
-    if (_cur_gender > 0)
+    if (_cur_gender >= 0)
         [_userProfileChanges setObject:[@(_cur_gender) stringValue] forKey:KeyAPI_GENDER];
     else
         [_userProfileChanges removeObjectForKey:KeyAPI_GENDER];

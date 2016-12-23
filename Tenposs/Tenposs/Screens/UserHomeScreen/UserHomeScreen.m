@@ -14,6 +14,9 @@
 #import "MBCircularProgressBarView.h"
 #import "PointManager.h"
 #import "AuthenticationManager.h"
+#import "UIFont+Themify.h"
+#import "SettingsEditProfileScreen.h"
+#import "MainNavigationController.h"
 
 @interface UserHomeScreen ()
 
@@ -27,6 +30,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *barcode;
 
 @property (strong, nonatomic) NSDictionary *userPointData;
+@property (weak, nonatomic) IBOutlet UIButton *editBtn;
+@property (weak, nonatomic) IBOutlet UIButton *menuBtn;
 
 @end
 
@@ -54,12 +59,8 @@
     [super viewDidAppear:animated];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(profileUpdated:) name:NOTI_USER_PROFILE_UPDATED object:nil];
-
-    GrandViewController *parent = (GrandViewController *)self.parentViewController;
     
-    if(parent){
-        [parent setNavigationBarStyle:NavigationBarStyleLight];
-    }
+    [[self navigationController] setNavigationBarHidden:YES animated:NO];
     
     [self displayDetail];
 }
@@ -118,7 +119,7 @@
 }
 
 - (void)setupValueView{
-    [_mileInfo setText:[NSString stringWithFormat:@"%ld ポイント 獲得まで あと %ld マイル", (long)[self getNextPoint], (long)[self getNextMile]]];
+    [_mileInfo setText:[NSString stringWithFormat:@"%ldポイント獲得まであと, %ldマイル", (long)[self getNextPoint], (long)[self getNextMile]]];
     [_pointInfo setText:[NSString stringWithFormat:@"tenpossポイント : %ldポイント",(long)[self getCurrentPoint]]];
     
     _mileGraph.maxValue = (CGFloat)[self getNextMile];
@@ -137,15 +138,19 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    [_menuBtn setTitle:[NSString stringWithFormat: @"%@", [UIFont stringForThemifyIdentifier:@"ti-menu"]] forState:UIControlStateNormal] ;
+    [_menuBtn setFont:[UIFont themifyFontOfSize:20]];
+    [_editBtn setTitle:[NSString stringWithFormat: @"%@", [UIFont stringForThemifyIdentifier:@"ti-settings"]] forState:UIControlStateNormal] ;
+    [_editBtn setFont:[UIFont themifyFontOfSize:20]];
+    
+    [[self navigationController] setNavigationBarHidden:YES animated:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     
-    GrandViewController *parent = (GrandViewController *)self.parentViewController;
-    if(parent){
-        [parent setNavigationBarStyle:NavigationBarStyleDefault];
-    }
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTI_USER_PROFILE_UPDATED object:nil];
 }
@@ -209,6 +214,17 @@
     _barcode.image = [UIImage imageWithCIImage:grayImage
                                          scale:[UIScreen mainScreen].scale
                                    orientation:UIImageOrientationUp];
+}
+- (IBAction)didEditBtnPress:(id)sender {
+    SettingsEditProfileScreen *screen = [SettingsEditProfileScreen new];
+    
+    [self.navigationController pushViewController:screen animated:YES];
+    
+}
+- (IBAction)didMenuBtnPress:(id)sender {
+    if ([self.navigationController isKindOfClass:[MainNavigationController class]]) {
+        [((MainNavigationController *)self.navigationController) toogleMenu];
+    }
 }
 /*
 #pragma mark - Navigation

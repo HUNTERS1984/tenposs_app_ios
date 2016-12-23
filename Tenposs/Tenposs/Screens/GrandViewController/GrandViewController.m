@@ -85,8 +85,9 @@
                                                  nil]
                                        forState:UIControlStateNormal];
             [_menuButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-menu"]]];
-            self.navigationController.navigationBar.backgroundColor= [UIColor colorWithHexString:settings.header_color];
-            
+            self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:settings.header_color];
+            self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+            self.navigationController.navigationBar.translucent = NO;
             _navigationTitle.numberOfLines = 1;
             _navigationTitle.minimumFontSize = 10;
             _navigationTitle.adjustsFontSizeToFitWidth = YES;
@@ -253,15 +254,7 @@
         [self.currentChildController.view removeFromSuperview];
         [self.currentChildController removeFromParentViewController];
     }
-    NSString *nameClass = NSStringFromClass([child class]);
-    if([nameClass containsString:@"UserHomeScreen"]){
-        self.currentChildController = child;
-        child.view.frame = self.view.frame;
-        [self.view addSubview:child.view];
-        [self addChildViewController:child];
-        [child didMoveToParentViewController:self];
-        return;
-    }
+
     self.currentChildController = child;
     child.view.frame = self.view.bounds;
     [self.view addSubview:child.view];

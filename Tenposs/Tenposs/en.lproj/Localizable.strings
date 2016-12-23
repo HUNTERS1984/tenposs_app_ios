@@ -53,7 +53,7 @@
 "gender"="性别";
 "gender_male"="男性";
 "gender_female"="女性";
-"province"="都道府桌";
+"province"="都道府県";
 
 "sign_in_with_facebook"="Facebook ではじめる";
 "sign_in_with_twitter"="Twitter ではじめる";
@@ -94,6 +94,7 @@
 "use_coupon"="このクーボンを利用する";
 "unable_use_coupon"="このクーポンは使用できません";
 "copy_hashtag"="ハッシュタグをコピーしました";
+"copy_sharecode"="コードをコピーしました";
 
 //Message
 "msg_input_a_valid_email_address"="有効なメールアドレスを入力してください";

@@ -20,6 +20,7 @@ extern NSString * const API_SIGNUP;
 extern NSString * const API_SIGNUP_SOCIAL;
 extern NSString * const API_UPDATE_AFTER_SOCIAL;
 extern NSString * const API_LOGOUT;
+extern NSString * const API_GET_INVITE_CODE;
 extern NSString * const API_TOP;
 extern NSString * const API_MENU;
 extern NSString * const API_APPINFO;

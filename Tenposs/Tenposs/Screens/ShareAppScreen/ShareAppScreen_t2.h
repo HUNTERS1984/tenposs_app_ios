@@ -10,4 +10,6 @@
 
 @interface ShareAppScreen_t2 : UIViewController
 
+@property (strong, nonatomic) NSString *share_code;
+
 @end

@@ -167,7 +167,7 @@
 
 - (AppSettings *)getAvailableAppSettings{
     if (_appInfo.app_setting) {
-        _appInfo.app_setting.template_id = 1;
+        //_appInfo.app_setting.template_id = 1;
         return _appInfo.app_setting;
     }
     return nil;

@@ -71,6 +71,9 @@
                                                              forState:UIControlStateNormal];
         [self.navigationItem.leftBarButtonItem setTitle:[NSString stringWithFormat: @"%@", [UIFont stringForThemifyIdentifier:@"ti-angle-left"]]];
     }
+    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.translucent = NO;
 }
 
 - (void)didPressBackButton{
@@ -97,7 +100,7 @@
         [self showAlertView:@"警告" message:@"確認パスワードが正しくありません"];
         return NO;
     }
-    
+    _signUpData = [NSMutableDictionary new];
     [_signUpData setObject:_userName.text forKey:@"name"];
     [_signUpData setObject:_email.text forKey:@"email"];
     [_signUpData setObject:_password.text forKey:@"password"];
@@ -120,7 +123,7 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"signup_to_next"]) {
+    if ([segue.identifier isEqualToString:@"signup_to_next2"]) {
         SignUpScreenNext_t2 *nextScreen = (SignUpScreenNext_t2 *) segue.destinationViewController;
         if (nextScreen) {
             nextScreen.signUpData = [_signUpData mutableCopy];
@@ -129,7 +132,7 @@
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
-    if ([identifier isEqualToString:@"signup_to_next"]) {
+    if ([identifier isEqualToString:@"signup_to_next2"]) {
         if ([self validateEnteredInfo]) {
             return YES;
         }else{

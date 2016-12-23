@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -893,7 +893,7 @@
                                 <state key="normal" title="次へ"/>
                                 <connections>
                                     <action selector="nextTouched:" destination="eOG-mZ-2SD" eventType="touchUpInside" id="YRK-OO-s6B"/>
-                                    <segue destination="6yD-Eb-NY5" kind="show" identifier="sign_up_2_next" id="jW5-2l-B1c"/>
+                                    <segue destination="6yD-Eb-NY5" kind="show" identifier="signup_to_next2" id="jW5-2l-B1c"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1099,7 +1099,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zuf-z6-CjD" userLabel="Content View">
                                 <rect key="frame" x="38" y="84" width="300" height="189"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter invitation code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uex-Wy-mBJ">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="招待コード" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uex-Wy-mBJ">
                                         <rect key="frame" x="20" y="8" width="260" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="F2I-Nd-5FZ"/>
@@ -1116,7 +1116,7 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="2Wp-bh-H25"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select province" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCe-L3-LV0">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="都道府県" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCe-L3-LV0">
                                         <rect key="frame" x="20" y="55" width="260" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="e4G-UO-X9W"/>
@@ -1140,7 +1140,7 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="TXz-QH-Xti"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select province" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4YZ-AA-fvy" userLabel="Select gender">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="性別" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4YZ-AA-fvy" userLabel="Select gender">
                                         <rect key="frame" x="20" y="102" width="260" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="qr4-Pl-dmH"/>
@@ -1162,7 +1162,7 @@
                                             <action selector="buttonClicked:" destination="6yD-Eb-NY5" eventType="touchUpInside" id="dmG-N9-Q9O"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select year of birth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmu-IA-pOU">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="年代" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmu-IA-pOU">
                                         <rect key="frame" x="20" y="149" width="260" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Dlu-8o-IKE"/>

@@ -46,7 +46,7 @@
     // Do any additional setup after loading the view.
     [self.navigationController setNavigationBarHidden:NO];
     //TODO: Clean
-    [_email setText:@"quanlh218@gmail.com"];
+    [_email setText:@"quanbeodt1+1@gmail.com"];
     [_password setText:@"123456"];
 }
 
@@ -68,6 +68,9 @@
                                                                        nil]
                                                              forState:UIControlStateNormal];
         [self.navigationItem.leftBarButtonItem setTitle:[NSString stringWithFormat: @"%@", [UIFont stringForThemifyIdentifier:@"ti-close"]]];
+        self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
+        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+        self.navigationController.navigationBar.translucent = NO;
     }
 }
 

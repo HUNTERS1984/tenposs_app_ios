@@ -206,6 +206,21 @@ NSMutableArray *recentSearchList=nil;
     return [[self getUserData] objectForKey:@"id"];
 }
 
+-(NSString *) getShareCode{
+    NSObject *auth;
+    if (_userDataDictionary) {
+        auth =  [_userDataDictionary objectForKey:@"share_code"];
+    }else{
+        auth = [[self getUserData] objectForKey:@"share_code"];
+    }
+    if ([auth isKindOfClass:[NSNumber class]]) {
+        return [(NSNumber *)auth stringValue];
+    }else{
+        return (NSString *)auth;
+    }
+}
+
+
 -(NSString *) getAuthUserID{
     NSObject *auth;
     if (_userDataDictionary) {
@@ -631,6 +646,7 @@ NSMutableArray *recentSearchList=nil;
         }
     }];
 }
+
 
 
 @end

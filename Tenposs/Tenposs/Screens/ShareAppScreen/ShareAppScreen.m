@@ -112,6 +112,13 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    _appId.text = self.share_code;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -141,7 +148,7 @@
     UIPasteboard *pb = [UIPasteboard generalPasteboard];
     [pb setString:tag];
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
-    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"hash_tag_copied", nil)];
+    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"copy_sharecode", nil)];
 }
 
 

@@ -316,6 +316,7 @@
     switch (templateId) {
         case 1:{
             viewController = [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ShareAppScreen class])];
+            ((ShareAppScreen*)viewController).share_code = [UserData shareInstance].getShareCode;
             viewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
             viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         }
@@ -323,6 +324,7 @@
         case 2:{
             ///TODO: new NewsDetailDataSource
             viewController = [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([ShareAppScreen_t2 class])];
+            ((ShareAppScreen_t2*)viewController).share_code = [UserData shareInstance].getShareCode;
             viewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
             viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         }

@@ -38,12 +38,13 @@
     
     [self.signupButton setAttributedTitle:attributedString forState:UIControlStateNormal];
     
+    self.navigationController.topViewController.title=@"ログイン";
     
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     AppSettings *settings = [appConfig getAvailableAppSettings];
     
     [_doneButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                         [UIFont themifyFontOfSize:[UIUtils getTextSizeWithType:settings.font_size]], NSFontAttributeName,
+                                         [UIFont themifyFontOfSize:20], NSFontAttributeName,
                                          [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
                                          nil]
                                forState:UIControlStateNormal];
@@ -51,6 +52,12 @@
     _nav.backgroundColor= [UIColor colorWithHexString:settings.header_color];
     [_nav setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[UIColor colorWithHexString:settings.title_color]}];
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                     [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,nil]];
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:settings.header_color];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.translucent = NO;
     
 }
 - (void)viewDidLoad {
@@ -60,9 +67,13 @@
     [self.view addGestureRecognizer:tapGesture];
     
     //TODO: Clean
-    [_emailText setText:@"quanlh218@gmail.com"];
+    [_emailText setText:@"quanbeodt1+1@gmail.com"];
     [_passwordText setText:@"123456"];
     
+}
+
+- (NSString *)title{
+    return @"ログイン";
 }
 
 -(void)tapViewAction:(UITapGestureRecognizer *)sender{

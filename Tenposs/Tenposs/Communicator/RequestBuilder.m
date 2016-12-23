@@ -25,6 +25,7 @@ NSString * const API_SIGNUP = @"/signup?";
 NSString * const API_SIGNUP_SOCIAL = @"/signup_social?";
 NSString * const API_LOGOUT  =   @"/signout?";
 NSString * const API_UPDATE_AFTER_SOCIAL = @"/update_profile_social_signup";
+NSString * const API_GET_INVITE_CODE = @"/get_invite_code";
 NSString * const API_TOP  =  @"/top?";
 
 NSString * const API_MENU  = @"/menu?";

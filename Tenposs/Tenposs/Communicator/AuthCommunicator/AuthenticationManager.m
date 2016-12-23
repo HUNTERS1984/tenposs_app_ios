@@ -167,6 +167,17 @@ NSString * const PLATFORM_IOS = @"ios";
 }
 
 
+- (void)GetInviteCode:(NSMutableDictionary *)data WithCompleteBlock:(void (^)(BOOL isSuccess, NSDictionary *resultData))completeBlock{
+    _request_url = [NSString stringWithFormat:@"%@%@?%@=%@",[RequestBuilder APIAddressV2],API_GET_INVITE_CODE,KeyAPI_APP_ID,APP_ID];
+    
+    Bundle *body = [Bundle new];
+    
+    [body put:KeyRequestCallback value:completeBlock];
+    
+    [self execute:body withDelegate:self andAuthHeaderType:AuthenticationType_authorization];
+}
+
+
 - (void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams{
     NSInteger errorCode =[responseParams getInt:KeyResponseResult];
     NSError *error = nil;

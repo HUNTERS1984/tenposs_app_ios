@@ -38,7 +38,7 @@
 
 -(NSString *) getUserID;
 -(NSString *) getAuthUserID;
-
+-(NSString *) getShareCode;
 -(NSString *)getUserName;
 -(void) setUserName:(NSString*)userName;
 

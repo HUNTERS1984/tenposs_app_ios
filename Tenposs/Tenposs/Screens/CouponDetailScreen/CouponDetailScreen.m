@@ -194,7 +194,7 @@
         [bg addConstraint:centerVer];
         [bg needsUpdateConstraints];
         UILabel *message = [[UILabel alloc] init];
-        [message setText:NSLocalizedString(@"hash_tag_copied", nil)];
+        [message setText:NSLocalizedString(@"copy_hashtag", nil)];
         [message setTextColor:[UIColor whiteColor]];
         message.backgroundColor = [UIColor clearColor];
         [bg addSubview:message];

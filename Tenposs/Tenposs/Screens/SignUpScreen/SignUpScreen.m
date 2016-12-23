@@ -130,16 +130,6 @@
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     AppSettings *settings = [appConfig getAvailableAppSettings];
     
-//    [_closeButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-//                                         [UIFont themifyFontOfSize:[UIUtils getTextSizeWithType:settings.font_size]], NSFontAttributeName,
-//                                         [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
-//                                         nil]
-//                               forState:UIControlStateNormal];
-//    [_closeButton setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-close"]]];
-//    _nav.backgroundColor= [UIColor colorWithHexString:settings.header_color];
-//    [_nav setTitleTextAttributes:
-//     @{NSForegroundColorAttributeName:[UIColor colorWithHexString:settings.title_color]}];
-    
     if (self.navigationController) {
         UINavigationBar *navBar = self.navigationController.navigationBar;
         UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@""
@@ -148,11 +138,13 @@
         [self.navigationItem setHidesBackButton:YES animated:YES];
         [self.navigationItem setBackBarButtonItem:nil];
         [self.navigationItem.leftBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                       [UIFont themifyFontOfSize:20/*[UIUtils getTextSizeWithType:settings.font_size]*/], NSFontAttributeName,
+                                                                       [UIFont themifyFontOfSize:20], NSFontAttributeName,
                                                                        [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,
                                                                        nil]
                                                              forState:UIControlStateNormal];
         [self.navigationItem.leftBarButtonItem setTitle:[NSString stringWithFormat: @"%@", [UIFont stringForThemifyIdentifier:@"ti-close"]]];
+        [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                         [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,nil]];
     }
 
 }

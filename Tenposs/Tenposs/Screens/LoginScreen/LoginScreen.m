@@ -226,7 +226,7 @@
                         [UserData shareInstance].userDataDictionary = [userData mutableCopy];
                         [[UserData shareInstance] saveUserData];
                         [[UserData shareInstance] saveTokenKit:[tokenKit copy]];
-                        BOOL isFirstLogin = YES;//[[userData objectForKey:@"first_login"] boolValue];
+                        BOOL isFirstLogin = [[userData objectForKey:@"first_login"] boolValue];
                         if (isFirstLogin) {
                             //TODO: show additional info
                             UIViewController *nextController = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([SignUpScreenNext class])];
