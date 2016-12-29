@@ -45,6 +45,7 @@ NSString * const API_NEWS_DETAIL  = @"/news/detail?";
 NSString * const API_RESERVE = @"/reserve?";
 
 NSString * const API_COUPON  = @"/coupon?";
+NSString * const API_COUPON_LOGIN  = @"/coupon_login?";
 NSString * const API_COUPON_DETAIL = @"/coupon/detail?";
 
 NSString * const API_APPUSER  = @"/appuser?";

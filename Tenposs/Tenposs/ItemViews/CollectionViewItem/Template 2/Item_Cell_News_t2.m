@@ -7,6 +7,7 @@
 //
 
 #import "Item_Cell_News_t2.h"
+#import "Utils.h"
 
 @implementation Item_Cell_News_t2
 
@@ -24,8 +25,8 @@
     
     [_thumb sd_setImageWithURL:[NSURL URLWithString:news.image_url ]];
     [_title setText:news.title];
-    [_desc setText:news.desc];
-    [_date setText:@"this needs implemetation!"];
+    [_desc setText:news.parentCategory.name];
+    [_date setText:[Utils formatDateStringToJapaneseFormat:news.date]];
 }
 
 +(CGFloat)getCellHeightWithWidth:(CGFloat)width{

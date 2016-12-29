@@ -137,7 +137,7 @@
     NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
     [params put:KeyAPI_TIME value:currentTime];
     [params put:KeyAPI_PAGE_INDEX value:[@(_item.rel_pageindex) stringValue]];
-    [params put:KeyAPI_PAGE_SIZE value:@"4"];
+    [params put:KeyAPI_PAGE_SIZE value:@"10"];
     NSArray *strings = [NSArray arrayWithObjects:APP_ID,currentTime,@"2",APP_SECRET,nil];
     [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
     [request execute:params withDelegate:self];
@@ -527,7 +527,7 @@
         error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:nil];
         
         if ([request isKindOfClass:[ItemDetailCommunicator class]]) {
-            [self showErrorScreen:@"Error, something went wrong! Please try again." andRetryButton:^{
+            [self showErrorScreen:@"エラーが発生しました" andRetryButton:^{
                 [self getItemDetail];
             }];
             return;
@@ -542,13 +542,7 @@
             if (itemDetail) {
                 if (itemDetail.detail) {
                     [_item updateItemWithItem:itemDetail.detail];
-                }
-                if (itemDetail.items_related && [itemDetail.items_related count] > 0) {
                     [_item.rel_items removeAllObjects];
-                    [_item.rel_items addObjectsFromArray:itemDetail.items_related];
-                }
-                if (itemDetail.total_items_related) {
-                    _item.total_items_related = itemDetail.total_items_related;
                 }
             }
             [self getItemRelated];

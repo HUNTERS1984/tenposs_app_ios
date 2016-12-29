@@ -188,8 +188,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1i6-pg-QIM">
-                                <rect key="frame" x="156" y="342" width="63" height="30"/>
-                                <state key="normal" title="Try again"/>
+                                <rect key="frame" x="149" y="342" width="77" height="30"/>
+                                <state key="normal" title="再試行する"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -266,7 +266,7 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="InP-qJ-tXj" customClass="RoundButton">
                                 <rect key="frame" x="16" y="482" width="343" height="45"/>
-                                <color key="backgroundColor" red="0.33206635713577271" green="0.67377537488937378" blue="0.93154817819595337" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.33333333333333331" green="0.67450980392156867" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="dQu-sI-K55"/>
                                 </constraints>
@@ -1012,6 +1012,7 @@
                         <outlet property="couponTitle" destination="bmN-oo-UHX" id="HEA-y2-xKx"/>
                         <outlet property="descriptionHeightConstraint" destination="WeI-ZJ-tm6" id="sgL-bu-3L4"/>
                         <outlet property="hashTag" destination="pu8-OC-bYE" id="3ML-md-dKt"/>
+                        <outlet property="hashtagBtn" destination="sS5-qA-r9S" id="zs3-Jx-jI3"/>
                         <outlet property="idTitle" destination="JHg-mg-QDz" id="HVz-Tt-aCZ"/>
                         <outlet property="mainScrollView" destination="3zQ-ep-iPn" id="cas-zb-pbv"/>
                         <outlet property="pagerScrollView" destination="fAJ-9Z-o9f" id="Vva-7K-gcw"/>
@@ -1193,8 +1194,8 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="40% OFF" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qm0-sc-UUN">
-                                        <rect key="frame" x="89" y="243" width="72" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qm0-sc-UUN">
+                                        <rect key="frame" x="10" y="243" width="230" height="20.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1205,7 +1206,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                        <state key="normal" title="Use Coupon">
+                                        <state key="normal" title="クーポンを使用する">
                                             <color key="titleColor" red="0.082894362509250641" green="0.78185749053955078" blue="0.78017193078994751" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -1230,8 +1231,8 @@
                                             <constraint firstAttribute="height" constant="1" id="G9Z-p9-aHV"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STAFF" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ur9-y7-bhR">
-                                        <rect key="frame" x="164" y="16" width="48" height="20"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="スタッフ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ur9-y7-bhR">
+                                        <rect key="frame" x="155.5" y="16" width="65.5" height="20"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1245,9 +1246,9 @@
                                         </connections>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lEB-3T-1WA">
-                                        <rect key="frame" x="7" y="11" width="49" height="30"/>
+                                        <rect key="frame" x="7" y="11" width="77" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                        <state key="normal" title="Cancel"/>
+                                        <state key="normal" title="キャンセル"/>
                                         <connections>
                                             <action selector="cancelStaffList:" destination="HON-yg-55M" eventType="touchUpInside" id="gOL-yl-T3H"/>
                                         </connections>
@@ -1772,7 +1773,6 @@
         <!--User Home Screen-->
         <scene sceneID="qoE-ho-veL">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eWk-GI-Zaq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="UserHomeScreen" id="Xn9-Pi-ZFa" customClass="UserHomeScreen" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AlM-vH-Ydv"/>
@@ -1937,7 +1937,7 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
                                                         <real key="value" value="100"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="unitString" value="    mile"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="unitString" value="マイル"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="unitFontSize">
                                                         <real key="value" value="12"/>
                                                     </userDefinedRuntimeAttribute>
@@ -2026,6 +2026,7 @@
                         <outlet property="userName" destination="7Ef-N9-8wL" id="NEu-fZ-ga1"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eWk-GI-Zaq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2581.5999999999999" y="-1699.7001499250375"/>
         </scene>

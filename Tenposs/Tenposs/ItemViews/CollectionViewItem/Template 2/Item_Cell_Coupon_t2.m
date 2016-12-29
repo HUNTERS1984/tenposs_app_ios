@@ -8,6 +8,8 @@
 
 #import "Item_Cell_Coupon_t2.h"
 #import "UIImageView+WebCache.h"
+#import "Utils.h"
+#import "HexColors.h"
 
 @implementation Item_Cell_Coupon_t2
 
@@ -27,16 +29,31 @@
     CouponObject *coupon = (CouponObject *)data;
     [_thumb sd_setImageWithURL:[NSURL URLWithString:coupon.image_url]];
     [_couponTitle setText:coupon.title];
-    [_couponInfo setText:@"ID123456・クーポンタイプ"];
-    [_couponDesc setText:coupon.desc];
+    [_couponInfo setText:[NSString stringWithFormat:@"ID%d・%@", coupon.coupon_id, coupon.coupon_type.name]];
+    NSString *endDate = [Utils formatDateStringToJapaneseFormat:coupon.end_date];
+    
+    if (endDate) {
+        [_couponDesc setText:[NSString stringWithFormat:@"有効期間　%@まで",endDate]];
+    }
+    if (coupon.can_use) {
+        [_userButton setBackgroundColor:[UIColor colorWithHexString:@"#3CB963"]];
+        [_userButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_userButton setTitle:NSLocalizedString(@"take_advantage_of_this_coupon", nil) forState:UIControlStateNormal];
+        [_userButton setTitle:NSLocalizedString(@"take_advantage_of_this_coupon", nil) forState:UIControlStateSelected];
+        [_userButton setUserInteractionEnabled:YES];
+    }else{
+        [_userButton setBackgroundColor:[UIColor colorWithHexString:@"#97a1a4"]];
+        [_userButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_userButton setTitle:NSLocalizedString(@"this_coupon_cannot_use", nil) forState:UIControlStateNormal];
+        [_userButton setTitle:NSLocalizedString(@"this_coupon_cannot_use", nil) forState:UIControlStateSelected];
+        [_userButton setUserInteractionEnabled:NO];
+    }
     
     [self generateQRCode:coupon.code withImageView:_qrCodeImage];
     
 }
 
 -(void)generateQRCode:(NSString *)qrString withImageView:(UIImageView *)QRImage{
-    
-    qrString = @"http://google.com";
     
     NSData *stringData = [qrString dataUsingEncoding: NSUTF8StringEncoding];
     

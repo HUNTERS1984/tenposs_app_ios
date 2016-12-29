@@ -39,7 +39,9 @@
     
     [self setupScanner];
 }
-
+- (NSString*)title {
+    return @"QRコードリーダー";
+}
 - (void)didPressBackButton{
     [self.navigationController popViewControllerAnimated:YES];
 }

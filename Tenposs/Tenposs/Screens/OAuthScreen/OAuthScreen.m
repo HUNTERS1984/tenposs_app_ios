@@ -15,12 +15,12 @@ static NSString *const authUrlString = @"https://api.instagram.com/oauth/authori
 static NSString *const tokenUrlString = @"https://api.instagram.com/oauth/access_token/";
 
 // ADD YOUR CLIENT ID AND SECRET HERE
-static NSString *const clientID = @"8a2eb09ac42d4ad3bdbd61b3c6742a33";
-static NSString *const clientSecret = @"586b1c5041134bc7946894b8da702f4b";
+static NSString *const clientID = @"cd9f614f85f44238ace18045a51c44d1";
+static NSString *const clientSecret = @"d839149848c04447bd379ce8bff4d890";
 
 // YOU NEED A BAD URL HERE - THIS NEEDS TO MATCH YOUR URL SET UP FOR YOUR
 // INSTAGRAM APP
-static NSString *const redirectUri = @"http://tinhotplus.net/access_insta/";
+static NSString *const redirectUri = @"https://ten-po.com/callback/";
 
 // CHANGE TO THE SCOPE YOU NEED ACCESS TO
 static NSString *const scope = @"basic";
@@ -75,7 +75,7 @@ static NSString *const scope = @"basic";
     NSURL *Url = [request URL];
     NSLog(@"INSTA_URL = %@",[Url absoluteString]);
     NSArray *UrlParts = [Url pathComponents];
-    if ([[UrlParts objectAtIndex:(1)] isEqualToString:@"access_insta"]) {
+    if ([[UrlParts objectAtIndex:(1)] isEqualToString:@"callback"]) {
         // CONVERT TO STRING AN CLEAN
         NSString *urlResources = [Url resourceSpecifier];
         urlResources = [urlResources stringByReplacingOccurrencesOfString:@"?" withString:@""];

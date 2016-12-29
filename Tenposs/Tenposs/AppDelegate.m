@@ -78,7 +78,7 @@
     if([notification.userInfo objectForKey:@"status"]){
         NSString *status = [notification.userInfo objectForKey:@"status"];
         if ([status isEqualToString:@"failed"]) {
-            UIAlertView *failAlert = [[UIAlertView alloc] initWithTitle:@"Something went wrong!" message:@"We cannot update your profile at the meantime, please try again!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *failAlert = [[UIAlertView alloc] initWithTitle:@"エラー" message:@"プロフィールを編集できません" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [failAlert show];
         }
     }

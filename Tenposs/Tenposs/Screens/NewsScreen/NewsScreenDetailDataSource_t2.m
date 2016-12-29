@@ -289,7 +289,6 @@
         if (data.news && [data.news count] > 0) {
             _mainData.totalnew = data.total_news;
             for (NewsObject *news in data.news) {
-                news.parentCategory = _mainData;
                 [_mainData addNews:news];
             }
             [self buildCollectionArrayWithNews:_mainData.news];

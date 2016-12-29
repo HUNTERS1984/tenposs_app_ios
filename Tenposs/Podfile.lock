@@ -19,7 +19,6 @@ PODS:
     - GoogleMaps/Base (= 2.0.1)
   - GooglePlaces (2.0.1):
     - GoogleMaps/Base (= 2.0.1)
-  - InAppSettingsKit (2.8)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
@@ -36,8 +35,7 @@ DEPENDENCIES:
   - FBSDKShareKit
   - GoogleMaps
   - GooglePlaces
-  - InAppSettingsKit
-  - SDWebImage (~> 3.7)
+  - SDWebImage
   - SVProgressHUD
   - SVPullToRefresh
   - TwitterKit (~> 2.2)
@@ -50,11 +48,12 @@ SPEC CHECKSUMS:
   FBSDKShareKit: 11cbb5a4d7b5fda8143cc95b76188147e6725736
   GoogleMaps: f09da64fc987c1aa29394567c3cab5a3df83c402
   GooglePlaces: 72fab1d1651c6df0322f2aad245ffb15b80d3c56
-  InAppSettingsKit: fe3e73f8f9530cdd6270065cd7df7b3773f557e6
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   TwitterCore: a139904c80805ad3dde9eef1100704f96f646d1d
   TwitterKit: 1cf9742edf9d182c1518cfdd6aaac0dfe313b38b
 
-COCOAPODS: 0.38.2
+PODFILE CHECKSUM: edda3a0a66873d3bd7be02eddbad4dc6dafc6dbf
+
+COCOAPODS: 1.1.1

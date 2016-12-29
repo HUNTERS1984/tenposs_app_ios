@@ -11,4 +11,5 @@
 @interface BaseViewController : UIViewController
 -(void)showLogin;
 - (void)showHomeScreen;
+-(void)showAlertView:(NSString *)title message:(NSString *)message;
 @end

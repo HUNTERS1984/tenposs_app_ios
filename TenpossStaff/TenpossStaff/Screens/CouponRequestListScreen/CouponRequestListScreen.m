@@ -12,6 +12,7 @@
 #import "CouponAlertView.h"
 #import "NetworkCommunicator.h"
 #import "Const.h"
+#import "SVProgressHUD.h"
 
 @interface CouponRequestListScreen () <SimpleDataSourceDelegate, CouponAlertViewDelegate>
 @property(strong, nonatomic) CouponRequestListDataSource *dataSource;
@@ -80,7 +81,7 @@
 //                [self removeInfiniteLoading];
             }break;
             default:
-                [self showErrorScreen:@"UNKOWN ERROR"];
+                [self showErrorScreen:@"データなし"];
 //                [self removePullToRefresh];
 //                [self removeInfiniteLoading];
                 break;
@@ -147,11 +148,14 @@
         [params setObject:@"approve" forKey:KeyAPI_ACTION];
         [params setObject:[@(alertView.coupon.coupon_id) stringValue] forKey:KeyAPI_COUPON_ID];
         [params setObject:APP_ID forKey:KeyAPI_APP_ID];
+        [params setObject:alertView.coupon.code forKey:KeyAPI_COUPON_CODE];
+
         [[NetworkCommunicator shareInstance] POSTNoParams:API_COUPON_ACCEPT parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
             if(isSuccess){
-                
+                [self showAlertView:@"情報" message:@"承認しました"];
+                [self.dataSource reloadDataSource];
             }else{
-                //TODO: handle failed accept
+                [self showAlertView:@"エラー" message:@"承認できませんでした"];
             }
         }];
     }
@@ -161,18 +165,19 @@
 }
 
 - (void)onNegativeButtonTapped:(CouponAlertView *)alertView{
-    NSMutableDictionary * params = [NSMutableDictionary new];
-    [params setObject:@"reject" forKey:KeyAPI_ACTION];
-    [params setObject:[@(alertView.coupon.coupon_id) stringValue] forKey:KeyAPI_COUPON_ID];
-    [params setObject:APP_ID forKey:KeyAPI_APP_ID];
+    
     if (alertView.coupon) {
         NSMutableDictionary * params = [NSMutableDictionary new];
+        [params setObject:@"reject" forKey:KeyAPI_ACTION];
+        [params setObject:[@(alertView.coupon.coupon_id) stringValue] forKey:KeyAPI_COUPON_ID];
+        [params setObject:APP_ID forKey:KeyAPI_APP_ID];
+        [params setObject:alertView.coupon.code forKey:KeyAPI_COUPON_CODE];
         
         [[NetworkCommunicator shareInstance] POSTNoParams:API_COUPON_ACCEPT parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
             if(isSuccess){
-                
+                [self showAlertView:@"情報" message:@"承認しませんでした"];
+                [self.dataSource reloadDataSource];
             }else{
-                //TODO: handle failed accept
             }
         }];
     }

@@ -50,6 +50,7 @@
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *desc;
 @property (strong, nonatomic) NSString *image_url;
+@property (strong, nonatomic) NSString *code;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *user_use_date;
 

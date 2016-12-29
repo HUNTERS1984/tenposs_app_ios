@@ -140,7 +140,7 @@
 
 -(void) doLogin{
     if ([self validateUsernameAndPassword]) {
-        [SVProgressHUD showWithStatus:@"Logging in"];
+        [SVProgressHUD showWithStatus:@"ログイン中"];
         [self sendLoginRequest];
     }
 }
@@ -172,7 +172,7 @@
 }
 
 - (void)getUserProfile{
-    [SVProgressHUD showWithStatus:@"Fetching user profile"];
+    [SVProgressHUD showWithStatus:@"ユーザープロフィールを取得中"];
     [[AuthenticationManager sharedInstance] AuthGetUserProfileWithCompleteBlock:^(BOOL isSuccess, NSDictionary *resultData) {
         [SVProgressHUD dismiss];
         NSMutableDictionary *resultDict;
@@ -215,14 +215,7 @@
     return YES;
 }
 
--(void)showAlertView:(NSString *)title message:(NSString *)message{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                    message:message
-                                                   delegate:nil
-                                          cancelButtonTitle:@"閉じる"
-                                          otherButtonTitles:nil];
-    [alert show];
-}
+
 
 #pragma mark - UITextFieldDelegate
 

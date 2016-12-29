@@ -76,7 +76,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdR-cq-Yy0">
                                 <rect key="frame" x="44" y="490" width="288" height="45"/>
-                                <color key="backgroundColor" red="0.0" green="0.67450980390000004" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.33333333333333331" green="0.67450980392156867" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="288" id="Qdz-Dg-6ew"/>
                                     <constraint firstAttribute="height" constant="45" id="TCh-1x-2fG"/>
@@ -119,6 +119,13 @@
                                     <action selector="buttionFacebookClicked:" destination="3PA-Ng-BD6" eventType="touchUpInside" id="tSx-Mc-aSJ"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebook_icon" translatesAutoresizingMaskIntoConstraints="NO" id="zkJ-V7-Nxe">
+                                <rect key="frame" x="52" y="438" width="29" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="29" id="2Px-75-nr2"/>
+                                    <constraint firstAttribute="height" constant="29" id="QPj-kr-wC7"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pCd-eF-kPi" userLabel="signUpButton">
                                 <rect key="frame" x="155" y="615" width="66" height="32"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
@@ -127,14 +134,25 @@
                                     <action selector="buttonSKipClicked:" destination="3PA-Ng-BD6" eventType="touchUpInside" id="8gD-G3-4sS"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitter_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Y5V-JO-tT4">
+                                <rect key="frame" x="52" y="498" width="29" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="29" id="374-ph-XvF"/>
+                                    <constraint firstAttribute="height" constant="29" id="ACU-IF-CUT"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Y5V-JO-tT4" firstAttribute="leading" secondItem="sdR-cq-Yy0" secondAttribute="leading" constant="8" id="0qH-hL-1yD"/>
+                            <constraint firstItem="Y5V-JO-tT4" firstAttribute="top" secondItem="aFp-2r-PBv" secondAttribute="bottom" constant="23" id="4Dt-U5-nso"/>
                             <constraint firstItem="1pf-cE-haa" firstAttribute="top" secondItem="pCd-eF-kPi" secondAttribute="bottom" constant="20" id="7Pz-HT-si6"/>
                             <constraint firstItem="KBj-ts-Cm6" firstAttribute="top" secondItem="sdR-cq-Yy0" secondAttribute="bottom" constant="15" id="Kjp-xi-kgs"/>
                             <constraint firstItem="pCd-eF-kPi" firstAttribute="centerX" secondItem="s7L-rG-tI7" secondAttribute="centerX" id="QPI-pE-Sbt"/>
                             <constraint firstItem="KBj-ts-Cm6" firstAttribute="centerX" secondItem="s7L-rG-tI7" secondAttribute="centerX" id="W13-Yy-pD6"/>
                             <constraint firstItem="sdR-cq-Yy0" firstAttribute="centerX" secondItem="s7L-rG-tI7" secondAttribute="centerX" id="ZcS-z3-i9Q"/>
+                            <constraint firstItem="zkJ-V7-Nxe" firstAttribute="top" secondItem="aFp-2r-PBv" secondAttribute="top" constant="8" id="asP-xc-Jey"/>
+                            <constraint firstItem="zkJ-V7-Nxe" firstAttribute="leading" secondItem="aFp-2r-PBv" secondAttribute="leading" constant="8" id="b3L-QX-ddh"/>
                             <constraint firstItem="sdR-cq-Yy0" firstAttribute="top" secondItem="aFp-2r-PBv" secondAttribute="bottom" constant="15" id="glu-Hv-piH"/>
                             <constraint firstItem="pCd-eF-kPi" firstAttribute="top" secondItem="KBj-ts-Cm6" secondAttribute="bottom" constant="20" id="vMX-n8-7J8"/>
                             <constraint firstItem="aFp-2r-PBv" firstAttribute="centerX" secondItem="s7L-rG-tI7" secondAttribute="centerX" id="zYm-rF-5Hu"/>
@@ -258,15 +276,15 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ne5-if-BSA" userLabel="pointInfo view">
                                 <rect key="frame" x="15" y="144" width="345" height="508"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rum-Uh-qoN" userLabel="top label">
-                                        <rect key="frame" x="154.5" y="8" width="35.5" height="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tenpossポイント" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rum-Uh-qoN" userLabel="top label">
+                                        <rect key="frame" x="118" y="8" width="109" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qy0-4L-5Uh" userLabel="point label">
-                                        <rect key="frame" x="147" y="33" width="51" height="24"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0ポイント" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qy0-4L-5Uh" userLabel="point label">
+                                        <rect key="frame" x="121" y="33" width="103.5" height="26.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                         <color key="textColor" red="0.23723548650000001" green="0.72708380220000002" blue="0.38642960790000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -299,10 +317,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oXN-Rm-S9E" userLabel="graph view">
-                                        <rect key="frame" x="0.0" y="65" width="345" height="322"/>
+                                        <rect key="frame" x="0.0" y="67.5" width="345" height="337.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lih-pU-cFb" customClass="MBCircularProgressBarView">
-                                                <rect key="frame" x="57.5" y="56" width="230" height="211"/>
+                                                <rect key="frame" x="57.5" y="63.5" width="230" height="211"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="lih-pU-cFb" secondAttribute="height" multiplier="110:101" id="m1h-F5-LGZ"/>
@@ -313,7 +331,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="showValueString" value="YES"/>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="showUnitString" value="YES"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="unitString" value=" mile"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="unitString" value="マイル"/>
                                                     <userDefinedRuntimeAttribute type="point" keyPath="textOffset">
                                                         <point key="value" x="0.0" y="0.0"/>
                                                     </userDefinedRuntimeAttribute>
@@ -357,8 +375,8 @@
                                             <constraint firstItem="lih-pU-cFb" firstAttribute="centerX" secondItem="oXN-Rm-S9E" secondAttribute="centerX" id="tT2-bp-WQl"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GXl-Po-PlE" userLabel="milestone label">
-                                        <rect key="frame" x="153.5" y="395" width="37.5" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GXl-Po-PlE" userLabel="milestone label">
+                                        <rect key="frame" x="172.5" y="413" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -682,23 +700,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xjJ-Vs-wFi">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xjJ-Vs-wFi">
                                 <rect key="frame" x="0.0" y="146" width="375" height="375"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="xjJ-Vs-wFi" secondAttribute="height" multiplier="1:1" id="gEe-LJ-2DS"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="松阪牛コース 椿" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSc-RF-7BB">
-                                <rect key="frame" x="16" y="546" width="335" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSc-RF-7BB">
+                                <rect key="frame" x="16" y="639" width="335" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGv-Z6-QHR">
-                                <rect key="frame" x="16" y="575" width="351" height="72"/>
-                                <string key="text">先付、お造り、焚き合わせ、お凌ぎ（松阪牛握り、松阪牛と鮪の裏巻寿司）、
-冷菜、揚げ物（松阪牛の天ぷら他）、
-焼き物（伊勢海老またはあわび(あわびは＋800円)</string>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGv-Z6-QHR">
+                                <rect key="frame" x="16" y="647" width="351" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1578,6 +1593,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="facebook_icon" width="256" height="256"/>
         <image name="t2_bg" width="320" height="568"/>
         <image name="t2_icon_editprofile" width="54" height="54"/>
         <image name="t2_icon_facebook" width="28" height="28"/>
@@ -1588,6 +1604,7 @@
         <image name="t2_icon_share_mail" width="28" height="28"/>
         <image name="t2_icon_twitter" width="28" height="28"/>
         <image name="t2_icon_user" width="22" height="22"/>
+        <image name="twitter_icon" width="256" height="256"/>
         <image name="user_icon" width="104" height="104"/>
     </resources>
 </document>

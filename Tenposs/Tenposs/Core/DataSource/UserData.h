@@ -37,6 +37,7 @@
 -(NSString *)getHrefRefreshToken;
 
 -(NSString *) getUserID;
+-(NSString *) getAppUserID;
 -(NSString *) getAuthUserID;
 -(NSString *) getShareCode;
 -(NSString *)getUserName;

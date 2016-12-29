@@ -83,6 +83,7 @@ NSString * const KeyAPI_CATEGORY_ID = @"category_id";
 
 ///Coupon
 NSString * const KeyAPI_COUPON_ID = @"coupon_id";
+NSString * const KeyAPI_COUPON_CODE = @"code";
 
 ///Profile
 NSString * const KeyAPI_USERNAME = @"name";

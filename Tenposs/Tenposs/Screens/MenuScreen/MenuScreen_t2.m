@@ -41,6 +41,9 @@
                                                                        nil]
                                                              forState:UIControlStateNormal];
         [self.navigationItem.leftBarButtonItem setTitle:[NSString stringWithFormat: @"%@", [UIFont stringForThemifyIdentifier:@"ti-angle-left"]]];
+        
+        [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                         [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,nil]];
     }
     
     if (!_mainDataSource) {

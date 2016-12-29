@@ -9,6 +9,7 @@
 #import "BasicCollectionViewController.h"
 #import "GrandViewController.h"
 #import "ItemDetailScreen.h"
+#import "ItemDetailScreen_t2.h"
 #import "CouponDetailScreen.h"
 #import "NewsDetailScreen.h"
 #import "StaffDetailScreen.h"
@@ -149,9 +150,16 @@ static NSString * const reuseIdentifier = @"Cell";
         
         if ([item isKindOfClass:[ProductObject class]]) {
             ProductObject *product = (ProductObject *)item;
-            ItemDetailScreen *controller = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([ItemDetailScreen class])];
-            controller.item = product;
-            [navigation pushViewController:controller animated:YES];
+
+            if (settings.template_id == 1) {
+                ItemDetailScreen *controller = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([ItemDetailScreen class])];
+                controller.item = product;
+                [navigation pushViewController:controller animated:YES];
+            }else{
+                ItemDetailScreen_t2 *controller = [[ItemDetailScreen_t2 alloc] initWithItem:product];
+                [navigation pushViewController:controller animated:YES];
+            }
+            
         }else if ([item isKindOfClass:[CouponObject class]]) {
             CouponObject *coupon = (CouponObject *)item;
             CouponDetailScreen *controller = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([CouponDetailScreen class])];

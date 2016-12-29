@@ -30,8 +30,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    AppSettings *settings = [[AppConfiguration sharedInstance] getAvailableAppSettings];
     [self.newsTitle setText:_news.title];
     [self.categoryTitle setText:_news.parentCategory.name];
+    if (settings.template_id == 2)
+        [self.categoryTitle setTextColor:[UIColor colorWithHexString:@"3CB963"]];
     [self.date setText:_news.date];
     NSError *error = nil;
     NSAttributedString *attString = [[NSAttributedString alloc] initWithData:[_news.desc dataUsingEncoding:NSUTF8StringEncoding] options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute:@(NSUTF8StringEncoding)} documentAttributes:nil error:&error];

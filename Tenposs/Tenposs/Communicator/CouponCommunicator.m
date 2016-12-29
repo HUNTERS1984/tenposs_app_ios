@@ -25,9 +25,7 @@
 @implementation CouponCommunicator
 
 - (void)customPrepare:(Bundle *)params{
-    NSString* strUrl = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddress],API_COUPON];
-    strUrl = [strUrl stringByAppendingFormat:@"%@", [RequestBuilder requestBuilder:params]];
-    [params put:KeyRequestURL value:strUrl];
+
 }
 
 - (void)customProcess:(Bundle *)params{

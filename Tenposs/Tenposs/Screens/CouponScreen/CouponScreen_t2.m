@@ -18,6 +18,7 @@
 #import "Item_Staff_Table_t2.h"
 #import "CouponDataSource_t2.h"
 #import "UIButton+HandleBlock.h"
+#import "CouponDetailScreen.h"
 
 static inline CGFloat PMSquaredDistanceFromRectToPoint(CGRect rect, CGPoint point)
 {
@@ -149,6 +150,10 @@ static inline CGFloat PMSquaredDistanceFromRectToPoint(CGRect rect, CGPoint poin
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
+    CouponObject *coupon = (CouponObject *)[self.dataSource itemAtIndexPath:indexPath];
+    CouponDetailScreen *controller = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([CouponDetailScreen class])];
+    controller.coupon = coupon;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -259,7 +264,7 @@ static inline CGFloat PMSquaredDistanceFromRectToPoint(CGRect rect, CGPoint poin
 //    [params setObject:[@(staff.staff_id) stringValue] forKey:   KeyAPI_STAFF_ID];
 //    [params setObject:[Utils getSigWithStrings:sigs] forKey: KeyAPI_SIG  ];
 //    
-//    [[NetworkCommunicator shareInstance] POSTNoParams:API_COUPON_USE parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+//    [[NetworkCommunicator shareInstance] POSTNoParamsV2:API_COUPON_USE parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
 //        NSString *status;
 //        if (isSuccess) {
 //            status = @"success";

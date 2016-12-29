@@ -11,6 +11,7 @@
 #import "Utils.h"
 #import "Item_Cell_Coupon_t2.h"
 #import "UIButton+HandleBlock.h"
+#import "UserData.h"
 
 #define t2_coupon_cell_reveal   0.1
 #define t2_coupon_cell_spacing  15
@@ -70,7 +71,18 @@
     [params put:KeyAPI_STORE_ID value:[@(_mainData.store_id) stringValue]];
     [params put:KeyAPI_PAGE_INDEX value:[@(_mainData.pageindex) stringValue]];
     [params put:KeyAPI_PAGE_SIZE value:@"20"];
-    [request execute:params withDelegate:self];
+    if ([[UserData shareInstance] getToken]) {
+        NSString* strUrl = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddressV2],API_COUPON_LOGIN];
+        strUrl = [strUrl stringByAppendingFormat:@"%@", [RequestBuilder requestBuilder:params]];
+        [params put:KeyRequestURL value:strUrl];
+        [request execute:params withDelegate:self andAuthHeaderType:AuthenticationType_authorization];
+    }
+    else {
+        NSString* strUrl = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddress],API_COUPON];
+        strUrl = [strUrl stringByAppendingFormat:@"%@", [RequestBuilder requestBuilder:params]];
+        [params put:KeyRequestURL value:strUrl];
+        [request execute:params withDelegate:self];
+    }
     
 }
 

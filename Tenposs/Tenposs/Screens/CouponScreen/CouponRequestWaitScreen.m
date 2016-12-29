@@ -79,15 +79,15 @@
     
     NSMutableDictionary *params = [NSMutableDictionary new];
     
-    [params setObject:[user getToken] forKey: KeyAPI_TOKEN];
+    [params setObject:APP_ID forKey: KeyAPI_APP_ID];
     [params setObject:currentTime  forKey:   KeyAPI_TIME];
-    [params setObject:[user getAuthUserID]  forKey:  KeyAPI_APP_USER_ID ];
+    [params setObject:[user getAppUserID]  forKey:  KeyAPI_APP_USER_ID ];
     [params setObject:[@(_coupon.coupon_id) stringValue]  forKey:   KeyAPI_COUPON_ID];
     [params setObject:[@(_staff.staff_id) stringValue] forKey:   KeyAPI_STAFF_ID];
     [params setObject:[Utils getSigWithStrings:sigs] forKey: KeyAPI_SIG  ];
     
     
-    [[NetworkCommunicator shareInstance] POSTNoParams:API_COUPON_USE parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+    [[NetworkCommunicator shareInstance] POSTNoParamsV2:API_COUPON_USE parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
         NSString *status;
         if (isSuccess) {
             status = @"success";

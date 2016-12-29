@@ -10,6 +10,7 @@
 #import "UIFont+Themify.h"
 #import "UIImageView+WebCache.h"
 #import "HexColors.h"
+#import "AppConfiguration.h"
 
 @interface PhotoViewerScreen_t2 ()
 
@@ -24,12 +25,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+    AppSettings *settings = [appConfig getAvailableAppSettings];
     
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] init];
     
     [attString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat: @"%@", [UIFont stringForThemifyIdentifier:@"ti-close"]] attributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                                                                                                                                  [UIFont themifyFontOfSize:20/*[UIUtils getTextSizeWithType:settings.font_size]*/], NSFontAttributeName,
                                                                                                                                                                                  [UIColor colorWithHexString:@"ffffff"], NSForegroundColorAttributeName,                                                                                       nil]]];
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                     [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,nil]];
     [_closeButton setAttributedTitle:attString forState:UIControlStateNormal];
 }
 
@@ -55,6 +60,8 @@
             self.loadingIndicator.hidden = YES;
         }
     }];
+    [_photoTitle setText:@""];
+    [_photoDesc setText:@""];
 }
 
 - (void)didReceiveMemoryWarning {

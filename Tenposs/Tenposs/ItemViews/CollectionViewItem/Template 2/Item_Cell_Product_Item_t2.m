@@ -7,6 +7,7 @@
 //
 
 #import "Item_Cell_Product_Item_t2.h"
+#import "Utils.h"
 
 @implementation Item_Cell_Product_Item_t2
 
@@ -29,8 +30,8 @@
     ProductObject *product = (ProductObject *)data;
     [_thumb sd_setImageWithURL:[NSURL URLWithString:product.image_url]];
     [_title setText:product.title];
-    [_desc setText:product.desc];
-    [_price setText:[NSString stringWithFormat:@"¥%@",product.price]];
+    [_desc setText:product.menu_name];
+    [_price setText:[NSString stringWithFormat:@"%@",[Utils formatPriceToJapaneseFormat:product.price]]];
 }
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0Ge-q0-3xU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0Ge-q0-3xU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -222,8 +222,8 @@
                             <rect key="frame" x="113" y="6" width="150" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmf-V7-8KQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="150" height="33"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="クーポンリクエスト一覧" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmf-V7-8KQ">
+                                    <rect key="frame" x="-20" y="-1" width="200" height="33"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -231,10 +231,10 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="bmf-V7-8KQ" secondAttribute="bottom" id="7fj-0X-ROH"/>
-                                <constraint firstItem="bmf-V7-8KQ" firstAttribute="leading" secondItem="RPV-N0-Cdj" secondAttribute="leading" id="JHL-Ul-rWp"/>
-                                <constraint firstAttribute="trailing" secondItem="bmf-V7-8KQ" secondAttribute="trailing" id="l1F-vF-Gy7"/>
-                                <constraint firstItem="bmf-V7-8KQ" firstAttribute="top" secondItem="RPV-N0-Cdj" secondAttribute="top" id="ri5-bu-R7B"/>
+                                <constraint firstAttribute="bottom" secondItem="bmf-V7-8KQ" secondAttribute="bottom" constant="1" id="7fj-0X-ROH"/>
+                                <constraint firstItem="bmf-V7-8KQ" firstAttribute="leading" secondItem="RPV-N0-Cdj" secondAttribute="leading" constant="-20" id="JHL-Ul-rWp"/>
+                                <constraint firstAttribute="trailing" secondItem="bmf-V7-8KQ" secondAttribute="trailing" constant="-30" id="l1F-vF-Gy7"/>
+                                <constraint firstItem="bmf-V7-8KQ" firstAttribute="top" secondItem="RPV-N0-Cdj" secondAttribute="top" constant="-1" id="ri5-bu-R7B"/>
                             </constraints>
                         </view>
                         <barButtonItem key="rightBarButtonItem" title=" " id="Aj5-LV-DIY">

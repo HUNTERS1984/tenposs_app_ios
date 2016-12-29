@@ -82,7 +82,11 @@
                                                                        nil]
                                                              forState:UIControlStateNormal];
         [self.navigationItem.leftBarButtonItem setTitle:[NSString stringWithFormat: [UIFont stringForThemifyIdentifier:@"ti-angle-left"]]];
+        
+        [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                         [UIColor colorWithHexString:settings.title_color], NSForegroundColorAttributeName,nil]];
     }
+    
     
     [self showLoadingViewWithMessage:@""];
     
@@ -142,11 +146,11 @@
     ItemRelatedCommunicator *request = [ItemRelatedCommunicator new];
     Bundle *params = [Bundle new];
     [params put:KeyAPI_APP_ID value:APP_ID];
-    [params put:KeyAPI_ITEM_ID value:@"2"];
+    [params put:KeyAPI_ITEM_ID value:[@(_item.product_id) stringValue]];
     NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
     [params put:KeyAPI_TIME value:currentTime];
     [params put:KeyAPI_PAGE_INDEX value:[@(_item.rel_pageindex) stringValue]];
-    [params put:KeyAPI_PAGE_SIZE value:@"4"];
+    [params put:KeyAPI_PAGE_SIZE value:@"10"];
     NSArray *strings = [NSArray arrayWithObjects:APP_ID,currentTime,@"2",APP_SECRET,nil];
     [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
     [request execute:params withDelegate:self];
@@ -296,13 +300,15 @@
                 case 2:{
                     Left_Text_Header *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([Left_Text_Header class]) forIndexPath:indexPath];
                     [((Left_Text_Header *)header).title setText:@"商品詳細"];
+                    [((Left_Text_Header *)header).title setFont:[UIFont systemFontOfSize:18 weight:200]];
                     reuseableView = header;
                 }
                     break;
                 case 3:{
                     if ([self hasRelatedItems]) {
                         Left_Text_Header *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([Left_Text_Header class]) forIndexPath:indexPath];
-                        [((Left_Text_Header *)header).title setText:@"ゆかり"];
+                        [((Left_Text_Header *)header).title setText:@"連携項目"];
+                        [((Left_Text_Header *)header).title setFont:[UIFont systemFontOfSize:18 weight:200]];
                         reuseableView = header;
                     }
                 }
@@ -329,7 +335,7 @@
                         [((Left_Text_Footer *)footer).title setText:@"もっと見る"];
                     }else{
                         //TODO: need localize
-                        [((Left_Text_Footer *)footer).title setText:@"show less"];
+                        [((Left_Text_Footer *)footer).title setText:@"閉じる"];
                     }
                     [((Left_Text_Footer *)footer).title setTextColor:[UIColor colorWithHexString:@"3CB963"]];
                     reuseableView = footer;
@@ -339,7 +345,7 @@
                     if ([self hasRelatedItems]) {
                         Center_Text_Footer *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass([Center_Text_Footer class]) forIndexPath:indexPath];
                         [((Center_Text_Footer *)footer).title setText:@"もっと見る"];
-                        
+                        [((Center_Text_Footer *)footer).title setTextColor:[UIColor colorWithHexString:@"3CB963"]];
                         __weak ItemDetailScreen_t2 *weakSelf = self;
                         [((Center_Text_Footer *)footer).footerButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
                             [weakSelf getItemRelated];
@@ -455,12 +461,17 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSObject *data = [self dataForIndexPath:indexPath];
-    if ([data isKindOfClass:[ProductObject class]]) {
-        ProductObject *product = (ProductObject *)data;
-        ItemDetailScreen_t2 *controller = [[ItemDetailScreen_t2 alloc] initWithItem:product];
-        [self.navigationController pushViewController:controller animated:YES];
+    NSInteger section = indexPath.section;
+    
+    if (section == 2) {
+        NSObject *data = [self dataForIndexPath:indexPath];
+        if ([data isKindOfClass:[ProductObject class]]) {
+            ProductObject *product = (ProductObject *)data;
+            ItemDetailScreen_t2 *controller = [[ItemDetailScreen_t2 alloc] initWithItem:product];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
     }
+
 }
 
 #pragma mark - TenpossCommunicatorDelegate
@@ -473,7 +484,7 @@
         error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:nil];
         
         if ([request isKindOfClass:[ItemDetailCommunicator class]]) {
-            [self showErrorScreen:@"Error, something went wrong! Please try again." andRetryButton:^{
+            [self showErrorScreen:@"エラー" andRetryButton:^{
                 [self getItemDetail];
             }];
             return;
@@ -488,13 +499,7 @@
             if (itemDetail) {
                 if (itemDetail.detail) {
                     [_item updateItemWithItem:itemDetail.detail];
-                }
-                if (itemDetail.items_related && [itemDetail.items_related count] > 0) {
                     [_item.rel_items removeAllObjects];
-                    [_item.rel_items addObjectsFromArray:itemDetail.items_related];
-                }
-                if (itemDetail.total_items_related) {
-                    _item.total_items_related = itemDetail.total_items_related;
                 }
             }
             [self getItemRelated];

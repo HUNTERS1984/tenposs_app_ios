@@ -67,7 +67,7 @@ static NSString *ident = @"cell_ident";
     if (_QRString && ![_QRString isEqualToString:@""]) {
         [self generateQRCode:_QRString];
     }
-    
+    [_couponTitle setText:self.coupon.title];
     [_indicator stopAnimating];
     [_indicator setHidden:YES];
 }
@@ -93,7 +93,7 @@ static NSString *ident = @"cell_ident";
 
 -(void)generateQRCode:(NSString *)qrString{
     
-    qrString = @"http://google.com";
+    //qrString = @"http://google.com";
     
     NSData *stringData = [qrString dataUsingEncoding: NSUTF8StringEncoding];
     
@@ -193,12 +193,12 @@ static NSString *ident = @"cell_ident";
     
     [params setObject:[user getToken] forKey: KeyAPI_TOKEN];
      [params setObject:currentTime  forKey:   KeyAPI_TIME];
-     [params setObject:[user getAuthUserID]  forKey:  KeyAPI_APP_USER_ID ];
+     [params setObject:[user getAppUserID]  forKey:  KeyAPI_APP_USER_ID ];
      [params setObject:[@(_coupon.coupon_id) stringValue]  forKey:   KeyAPI_COUPON_ID];
      [params setObject:[@(staff.staff_id) stringValue] forKey:   KeyAPI_STAFF_ID];
     [params setObject:[Utils getSigWithStrings:sigs] forKey: KeyAPI_SIG  ];
 
-    [[NetworkCommunicator shareInstance] POSTNoParams:API_COUPON_USE parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+    [[NetworkCommunicator shareInstance] POSTNoParamsV2:API_COUPON_USE parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
         NSString *status;
         if (isSuccess) {
             status = @"success";

@@ -73,6 +73,18 @@
     [params put:KeyAPI_STORE_ID value:[@(_mainData.store_id) stringValue]];
     [params put:KeyAPI_PAGE_INDEX value:[@(_mainData.pageindex) stringValue]];
     [params put:KeyAPI_PAGE_SIZE value:@"20"];
+    if ([[UserData shareInstance] getToken]) {
+        NSString* strUrl = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddressV2],API_COUPON_LOGIN];
+        strUrl = [strUrl stringByAppendingFormat:@"%@", [RequestBuilder requestBuilder:params]];
+        [params put:KeyRequestURL value:strUrl];
+        [request execute:params withDelegate:self andAuthHeaderType:AuthenticationType_authorization];
+    }
+    else {
+        NSString* strUrl = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddress],API_COUPON];
+        strUrl = [strUrl stringByAppendingFormat:@"%@", [RequestBuilder requestBuilder:params]];
+        [params put:KeyRequestURL value:strUrl];
+        [request execute:params withDelegate:self];
+    }
     [request execute:params withDelegate:self];
 
 }
@@ -146,12 +158,6 @@
         }else if(data.total_coupons == 0){
             if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
                 NSError *error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_DATASOURCE_NO_CONTENT]  code:ERROR_DATASOURCE_NO_CONTENT userInfo:nil];
-                [self.delegate dataLoaded:self withError:error];
-                return;
-            }
-        }else if (data.total_coupons > 0 && (!data.coupons || [data.coupons count] <= 0)){
-            if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
-                NSError *error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_UNKNOWN]  code:ERROR_UNKNOWN userInfo:nil];
                 [self.delegate dataLoaded:self withError:error];
                 return;
             }

@@ -46,7 +46,6 @@ extern NSString * const API_LOGIN;
 extern NSString * const API_SETPUSHKEY;
 extern NSString * const API_LIST_REQUEST;
 extern NSString * const API_COUPON_ACCEPT;
-
 extern NSString * const API_STAFF;
 extern NSString * const API_STAFF_CAT;
 
@@ -85,7 +84,7 @@ extern NSString * const KeyAPI_RANKING;
 extern NSString * const KeyAPI_NEWS;
 extern NSString * const KeyAPI_COUPON;
 extern NSString * const KeyAPI_CHAT;
-
+extern NSString * const KeyAPI_COUPON_CODE;
 extern NSString * const KeyAPI_SOURCE;
 extern NSString * const KeyAPI_ACTION;
 

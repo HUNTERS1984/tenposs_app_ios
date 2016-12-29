@@ -34,6 +34,7 @@ extern NSString * const API_NEWS;
 extern NSString * const API_NEWS_DETAIL;
 extern NSString * const API_RESERVE;
 extern NSString * const API_COUPON;
+extern NSString * const API_COUPON_LOGIN;
 extern NSString * const API_COUPON_DETAIL;
 extern NSString * const API_APPUSER;
 extern NSString * const API_SETPUSHKEY;

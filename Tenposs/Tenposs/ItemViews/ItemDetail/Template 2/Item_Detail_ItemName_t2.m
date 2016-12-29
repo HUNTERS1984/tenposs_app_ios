@@ -7,6 +7,7 @@
 //
 
 #import "Item_Detail_ItemName_t2.h"
+#import "Utils.h"
 
 @implementation Item_Detail_ItemName_t2
 
@@ -22,8 +23,8 @@
     ProductObject *item = (ProductObject *)data;
     if (item) {
         [_title setText:item.title];
-        [_categoryName setText:item.parentCategory.categoryName];
-        [_price setText:[NSString stringWithFormat:@"¥%@",item.price]];
+        [_categoryName setText:item.menu_name];
+        [_price setText:[NSString stringWithFormat:@"%@",[Utils formatPriceToJapaneseFormat:item.price]]];
     }
 }
 

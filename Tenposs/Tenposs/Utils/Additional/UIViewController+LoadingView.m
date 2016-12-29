@@ -197,7 +197,7 @@
     [errorView needsUpdateConstraints];
     
     UIButton *retry = [UIButton buttonWithType:UIButtonTypeCustom];
-    [retry setTitle:NSLocalizedString(@"retry_button", nil) forState:UIControlStateNormal];
+    [retry setTitle:NSLocalizedString(@"再試行", nil) forState:UIControlStateNormal];
     [retry setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     retry.backgroundColor = [UIColor colorWithHexString:@"1FBFBD"];
     [retry handleControlEvent:UIControlEventTouchUpInside withBlock:handler];

@@ -8,6 +8,7 @@
 
 #import "Item_Cell_News_Top_t2_slide.h"
 #import "UIImageView+WebCache.h"
+#import "Utils.h"
 
 @interface Item_Cell_News_Top_t2_slide ()
 
@@ -73,7 +74,8 @@
     [_thumb sd_setImageWithURL:[NSURL URLWithString:_news.image_url]];
     _thumb.clipsToBounds = YES;
     [_title setText:_news.title];
-    [_desc setText:_news.desc];
+    [_desc setText:_news.parentCategory.name];
+    [_date setText:[Utils formatDateStringToJapaneseFormat:_news.date]];
 }
 
 +(CGFloat)getViewHeightWithWidth:(CGFloat)width{

@@ -89,6 +89,7 @@
     
     [_backgroundImage sd_setImageWithURL:[NSURL URLWithString:@"https://media.timeout.com/images/102917922/image.jpg"]];
     [_userName setText:[user getUserName]];
+    [_userEmail setText:[user getUserEmail]];
     
     [self getUserPoint];
 }
@@ -137,7 +138,7 @@
 }
 
 - (void)setupValueView{
-    [_mileInfo setText:[NSString stringWithFormat:@"%ld ポイント 獲得まで あと %ld マイル", (long)[self getNextPoint], (long)[self getNextMile]]];
+    [_mileInfo setText:[NSString stringWithFormat:@"%ldポイント獲得まであと、%ldマイル", (long)[self getNextPoint], (long)[self getNextMile]]];
 //    [_pointInfo setText:[NSString stringWithFormat:@"tenpossポイント : %ldポイント",(long)[self getCurrentPoint]]];
     [_pointInfo setText:@"tenpossポイント"];
     [_pointCount setText:[NSString stringWithFormat:@"%ldポイント",(long)[self getCurrentPoint]]];
@@ -147,9 +148,12 @@
     
     [self removeAllInfoView];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.mileGraph setValue:(CGFloat)[self getCurrentMile] animateWithDuration:1];
-    });
+    if ([self getCurrentMile] > 0) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.mileGraph setValue:(CGFloat)[self getCurrentMile] animateWithDuration:1];
+        });
+    }
+    
 }
 
 

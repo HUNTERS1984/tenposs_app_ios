@@ -29,7 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *useCouponButton;
 @property (weak, nonatomic) IBOutlet UITextView *couponDesciption;
 @property (weak, nonatomic) IBOutlet UILabel *hashTag;
-
+@property (weak, nonatomic) IBOutlet UIButton *hashtagBtn;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *descriptionHeightConstraint;
 
@@ -93,6 +93,16 @@
         [_useCouponButton setTitle:NSLocalizedString(@"this_coupon_cannot_use", nil) forState:UIControlStateNormal];
         [_useCouponButton setTitle:NSLocalizedString(@"this_coupon_cannot_use", nil) forState:UIControlStateSelected];
         [_useCouponButton setUserInteractionEnabled:NO];
+    }
+    
+    AppSettings *settings = [[AppConfiguration sharedInstance] getAvailableAppSettings];
+    if (settings.template_id == 2) {
+        [self.categoryTitle setTextColor:[UIColor colorWithHexString:@"3CB963"]];
+        [self.couponEndDate setTextColor:[UIColor colorWithHexString:@"3CB963"]];
+        [self.hashtagBtn setBackgroundColor:[UIColor colorWithHexString:@"3CB963"]];
+        if (_coupon.can_use) {
+            [_useCouponButton setBackgroundColor:[UIColor colorWithHexString:@"#3CB963"]];
+        }
     }
     
     if (!_topArray) {
@@ -244,7 +254,7 @@
 
 - (IBAction)useCouponClicked:(id)sender{
     //TODO: show REAL QRCode
-    [self performSegueWithIdentifier:@"coupon_qrcode" sender:@"http://google.com"];
+    [self performSegueWithIdentifier:@"coupon_qrcode" sender:_coupon.code];
     
 //    QRCodeScreen *qrScreen = [[UIUtils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([QRCodeScreen class])];
 //    qrScreen.QRString = @"http://google.com";
@@ -255,7 +265,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"coupon_qrcode"]) {
         QRCodeScreen *qrScreen = (QRCodeScreen *)segue.destinationViewController;
-        qrScreen.QRString = @"http://google.com";
+        qrScreen.QRString = _coupon.code;
         qrScreen.coupon = _coupon;
     }
 }

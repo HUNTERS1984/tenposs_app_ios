@@ -71,6 +71,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)showAlertView:(NSString *)title message:(NSString *)message{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                   delegate:nil
+                                          cancelButtonTitle:@"閉じる"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
 /*
 #pragma mark - Navigation
 
