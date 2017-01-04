@@ -74,11 +74,16 @@
                 break;
             case ERROR_UNKNOWN:{
                 [self showErrorScreen:error.domain];
+                [self invalidateCurrentUserSession];
 //                [self removeInfiniteLoading];
             }break;
             case ERROR_CONTENT_FULLY_LOADED:{
                 [self removeAllInfoView];
 //                [self removeInfiniteLoading];
+            }break;
+            case ERROR_TOKEN_EXPIRED:{
+                [self removeAllInfoView];;
+                [self invalidateCurrentUserSession];
             }break;
             default:
                 [self showErrorScreen:@"データなし"];
@@ -110,7 +115,7 @@
         CouponRequestModel *request = (CouponRequestModel *) item;
         CouponAlertView *alert = [[Utils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([CouponAlertView class])];
         alert.coupon = request;
-        [alert showFrom:self withType:CouponAlertImageTypeSend title:request.title description:request.desc positiveButton:@"Accept" negativeButton:@"Reject" delegate:self];
+        [alert showFrom:self withType:CouponAlertImageTypeSend title:request.title description:request.desc positiveButton:@"同意する" negativeButton:@"同意しない" delegate:self];
     }
 }
 

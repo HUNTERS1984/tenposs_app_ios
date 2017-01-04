@@ -47,7 +47,7 @@
 }
 - (IBAction)facebookTapped:(id)sender {
     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-    content.contentURL = [NSURL URLWithString:@"https://developers.facebook.com"];
+    content.contentURL = [NSURL URLWithString:@"http://ten-po.com/"];
     [FBSDKShareDialog showFromViewController:self
                                  withContent:content
                                     delegate:nil];
@@ -56,7 +56,7 @@
 - (IBAction)twitterTapped:(id)sender {
     TWTRComposer *composer = [[TWTRComposer alloc] init];
     
-    [composer setURL:[NSURL URLWithString:@"https://developers.facebook.com"]];
+    [composer setURL:[NSURL URLWithString:@"http://ten-po.com/"]];
     
     // Called from a UIViewController
     [composer showFromViewController:self completion:^(TWTRComposerResult result) {
@@ -75,6 +75,7 @@
         [[UIApplication sharedApplication] openURL:instagramURL];
     }else {
         NSLog (@"Instagram not found");
+        [self showError:@"Instagramアプリをインストールしてください"];
     }
 }
 - (IBAction)emailTapped:(id)sender {

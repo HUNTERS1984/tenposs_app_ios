@@ -16,6 +16,7 @@
 #import "SideMenuViewController.h"
 #import "Utils.h"
 #import "MFSideMenu.h"
+#import "UserData.h"
 
 @interface BaseViewController ()
 
@@ -41,6 +42,13 @@
     }
 
 }
+
+- (void)invalidateCurrentUserSession{
+    UserData *userData = [UserData shareInstance];
+    [userData invalidateCurrentUser];
+    [self showLogin];
+}
+
 
 -(void)showLogin{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];

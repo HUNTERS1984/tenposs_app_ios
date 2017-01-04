@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "DataModel.h"
+#import "BaseViewController.h"
 
-@interface CouponRequestWaitScreen : UIViewController
+@interface CouponRequestWaitScreen : BaseViewController
 
 @property (strong, nonatomic) CouponObject *coupon;
 @property (strong, nonatomic) StaffObject *staff;

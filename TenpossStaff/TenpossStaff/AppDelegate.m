@@ -8,20 +8,16 @@
 
 #import "AppDelegate.h"
 #import "UserData.h"
-#import "CouponAlertView.h"
 #import "LoginScreen.h"
 #import "MainNavigationController.h"
 #import "MFSideMenu.h"
 #import "Utils.h"
 #import "NetworkCommunicator.h"
 #import "PushNotificationManager.h"
-
-
-@interface AppDelegate ()
-
-@property (strong, nonatomic) NSDictionary *userInfo;
-
-@end
+#import "Const.h"
+#import "Utils.h"
+#import "GrandViewController.h"
+#import "SideMenuViewController.h"
 
 @implementation AppDelegate
 
@@ -29,18 +25,25 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    
-    NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if(userInfo){
-        [self application:[UIApplication sharedApplication] didReceiveRemoteNotification:userInfo];
-    }
-    
     if (!_window) {
         _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     }
     
     if ([[UserData shareInstance] getToken]) {
-        //TODO: user already logged in
+        [self registerPushNotification];
+        GrandViewController *rootViewController = [[Utils mainStoryboard]instantiateViewControllerWithIdentifier:NSStringFromClass([GrandViewController class])];
+        MainNavigationController *mainNavigation = [[MainNavigationController alloc]initWithRootViewController:rootViewController];
+        SideMenuViewController *sideMenu = [[Utils mainStoryboard]instantiateViewControllerWithIdentifier:NSStringFromClass([SideMenuViewController class])];//[[SideMenuViewController alloc] init];
+        MFSideMenuContainerViewController *viewController = [MFSideMenuContainerViewController
+                                                             containerWithCenterViewController:mainNavigation
+                                                             leftMenuViewController:sideMenu
+                                                             rightMenuViewController:nil];
+        
+        sideMenu.delegate = (id<SideMenuDelegate>)mainNavigation.rootViewController;
+        
+        [viewController setModalPresentationStyle:UIModalPresentationCustom];
+        viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self.window setRootViewController:viewController];
     }else{
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         LoginScreen *nextController = [storyboard instantiateViewControllerWithIdentifier:@"LoginScreen"];
@@ -80,19 +83,20 @@
 }
 
 - (void)registerPushNotification{
-    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-        UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeSound | UIRemoteNotificationTypeBadge categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0) {
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        center.delegate = self;
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
+            if(!error){
+                [[UIApplication sharedApplication] registerForRemoteNotifications];
+            }
+        }];
     } else {
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-         (UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge)];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound |    UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
 }
 
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings{
-    //register to receive notifications
-    [application registerForRemoteNotifications];
-}
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
     NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
@@ -121,73 +125,109 @@
     }];
 }
 
+//Called when a notification is delivered to a foreground app.
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler{
+    NSLog(@"User Info : %@",notification.request.content.userInfo);
+    completionHandler(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge);
+    
+    if([[UserData shareInstance] getToken].length == 0)
+        return;
+    
+    _userInfo = notification.request.content.userInfo;
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-    @try {
-        
-        // case: push comes after user logs out
-        if([[UserData shareInstance] getToken].length == 0)
-            return;
-        
-        _userInfo = userInfo;
-        if (application.applicationState == UIApplicationStateActive) {
-            
-            //TODO: Check for notification type
-            
-            //TODO: show request coupon popup
-            CouponAlertView *alert = [[Utils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([CouponAlertView class])];
-            UIViewController *vc = [self topMostViewController];
-            
-            [alert showFrom:vc withType:CouponAlertImageTypeSend title:@"Request use coupon" description:@"40% off Nike Air Max 2.0 edition 2016" positiveButton:@"Accept" negativeButton:@"Reject" delegate:nil];
-            
-        } else if (application.applicationState == UIApplicationStateInactive) {
-            [self showPushNotification:_userInfo];
-        } else if (application.applicationState == UIApplicationStateBackground) {
-            [self showPushNotification:_userInfo];
-        }
+    UIViewController *vc = [self topMostViewController];
+    NSMutableDictionary *data = [_userInfo objectForKey:@"data"];
+    if (data != nil) {
+        CouponRequestModel *request = [CouponRequestModel alloc];
+        request.coupon_id = [[data objectForKey:@"coupon_id"] integerValue];
+        request.code = [data objectForKey:@"code"];
+        request.app_user_id = [[data objectForKey:@"app_user_id"] integerValue];
+        request.title = [[_userInfo objectForKey:@"aps"] objectForKey:@"alert"];
+        CouponAlertView *alert = [[Utils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([CouponAlertView class])];
+        alert.coupon = request;
+        [alert showFrom:vc withType:CouponAlertImageTypeSend title:@"クーポン利用のリクエスト" description:request.title positiveButton:@"同意する" negativeButton:@"同意しない" delegate:self];
     }
-    @catch (NSException *exception) {
-        // do nothing
-    }
-    @finally {
-        // do nothing
-    }
+
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
-    @try {
-        
-        // case: push comes after user logs out
-        if([[UserData shareInstance] getToken].length == 0)
-            return;
-        
-        _userInfo = userInfo;
-        if (application.applicationState == UIApplicationStateActive) {
-            
-            //TODO: Check for notification type
-            
-            //TODO: show request coupon popup
-            CouponAlertView *alert = [[Utils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([CouponAlertView class])];
-            UIViewController *vc = [self topMostViewController];
-            
-            [alert showFrom:vc withType:CouponAlertImageTypeSend title:@"Request use coupon" description:@"40% off Nike Air Max 2.0 edition 2016" positiveButton:@"Accept" negativeButton:@"Reject" delegate:nil];
-            
-        } else if (application.applicationState == UIApplicationStateInactive) {
-            [self showPushNotification:_userInfo];
-        } else if (application.applicationState == UIApplicationStateBackground) {
-            [self showPushNotification:_userInfo];
-        }
+//Called to let your app know which action was selected by the user for a given notification.
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler{
+    NSLog(@"User Info : %@",response.notification.request.content.userInfo);
+    completionHandler();
+    
+    if([[UserData shareInstance] getToken].length == 0)
+        return;
+    
+    _userInfo = response.notification.request.content.userInfo;
+
+    UIViewController *vc = [self topMostViewController];
+    NSMutableDictionary *data = [_userInfo objectForKey:@"data"];
+    if (data != nil) {
+        CouponRequestModel *request = [CouponRequestModel alloc];
+        request.coupon_id = [[data objectForKey:@"coupon_id"] integerValue];
+        request.code = [data objectForKey:@"code"];
+        request.app_user_id = [[data objectForKey:@"app_user_id"] integerValue];
+        request.title = [[_userInfo objectForKey:@"aps"] objectForKey:@"alert"];
+        CouponAlertView *alert = [[Utils mainStoryboard] instantiateViewControllerWithIdentifier:NSStringFromClass([CouponAlertView class])];
+        alert.coupon = request;
+        [alert showFrom:vc withType:CouponAlertImageTypeSend title:@"クーポン利用のリクエスト" description:request.title positiveButton:@"同意する" negativeButton:@"同意しない" delegate:self];
     }
-    @catch (NSException *exception) {
-        // do nothing
-    }
-    @finally {
-        // do nothing
-    }
+
 }
+
 
 - (void) showPushNotification: (NSDictionary *)userInfo {
 
+}
+
+- (void)onPositiveButtonTapped:(CouponAlertView *)alertView{
+    //TODO: send accept request
+    if (alertView.coupon) {
+        NSMutableDictionary * params = [NSMutableDictionary new];
+        [params setObject:@"approve" forKey:KeyAPI_ACTION];
+        [params setObject:[@(alertView.coupon.coupon_id) stringValue] forKey:KeyAPI_COUPON_ID];
+        [params setObject:APP_ID forKey:KeyAPI_APP_ID];
+        [params setObject:alertView.coupon.code forKey:KeyAPI_COUPON_CODE];
+        
+        [[NetworkCommunicator shareInstance] POSTNoParams:API_COUPON_ACCEPT parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+            if(isSuccess){
+                [self showAlertView:@"情報" message:@"承認しました"];
+            }else{
+                [self showAlertView:@"エラー" message:@"承認できませんでした"];
+            }
+        }];
+    }
+    
+    [alertView dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+- (void)onNegativeButtonTapped:(CouponAlertView *)alertView{
+    
+    if (alertView.coupon) {
+        NSMutableDictionary * params = [NSMutableDictionary new];
+        [params setObject:@"reject" forKey:KeyAPI_ACTION];
+        [params setObject:[@(alertView.coupon.coupon_id) stringValue] forKey:KeyAPI_COUPON_ID];
+        [params setObject:APP_ID forKey:KeyAPI_APP_ID];
+        [params setObject:alertView.coupon.code forKey:KeyAPI_COUPON_CODE];
+        
+        [[NetworkCommunicator shareInstance] POSTNoParams:API_COUPON_ACCEPT parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
+            if(isSuccess){
+                [self showAlertView:@"情報" message:@"同意しない"];
+            }
+        }];
+    }
+    
+    [alertView dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)showAlertView:(NSString *)title message:(NSString *)message{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                   delegate:nil
+                                          cancelButtonTitle:@"閉じる"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 #pragma mark - Helper methods

@@ -52,11 +52,9 @@
     
     [self loadAppConfig];
     
-    NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if(userInfo){
-        [self application:[UIApplication sharedApplication] didReceiveRemoteNotification:userInfo];
-    }
-    
+    if ([[UserData shareInstance] getToken])
+        [self registerPushNotification];
+        
     if (!_window) {
         _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     }
@@ -108,14 +106,20 @@
 }
 
 - (void)registerPushNotification{
-    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-        UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeSound | UIRemoteNotificationTypeBadge categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0) {
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        center.delegate = self;
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
+            if(!error){
+                [[UIApplication sharedApplication] registerForRemoteNotifications];
+            }
+        }];
     } else {
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-         (UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge)];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound |    UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
 }
+
 
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings{
     //register to receive notifications
@@ -154,6 +158,68 @@
                     ];
     return handled;
 }
+
+//Called when a notification is delivered to a foreground app.
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler{
+    NSLog(@"User Info : %@",notification.request.content.userInfo);
+    completionHandler(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge);
+    
+    if([[UserData shareInstance] getToken].length == 0)
+        return;
+    
+    _userInfo = notification.request.content.userInfo;
+    
+    UIViewController *vc = [self topMostViewController];
+    NSMutableDictionary *data = [_userInfo objectForKey:@"data"];
+    if (data != nil) {
+        CouponAlertImageType type = CouponAlertImageTypeAccepted;
+        NSString *str = @"クーポン使用を承認されました";
+        if ([[data objectForKey:@"action"] isEqualToString:@"reject"]) {
+            type = CouponAlertImageTypeRejected;
+            str = @"クーポンの使用が拒否されました";
+        }
+        
+        
+        CouponAlertView *alert = [[UIStoryboard storyboardWithName:@"Main" bundle: nil] instantiateViewControllerWithIdentifier:NSStringFromClass([CouponAlertView class])];
+        [alert showFrom:vc withType:type title:@"クーポン利用のリクエスト" description: str positiveButton:@"閉じる" negativeButton:nil delegate:self];
+    }
+    
+}
+
+- (void)onPositiveButtonTapped:(CouponAlertView *)alertView{
+    [alertView dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+
+
+//Called to let your app know which action was selected by the user for a given notification.
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler{
+    NSLog(@"User Info : %@",response.notification.request.content.userInfo);
+    completionHandler();
+    
+    if([[UserData shareInstance] getToken].length == 0)
+        return;
+    
+    _userInfo = response.notification.request.content.userInfo;
+    
+    UIViewController *vc = [self topMostViewController];
+    NSMutableDictionary *data = [_userInfo objectForKey:@"data"];
+    if (data != nil) {
+        CouponAlertImageType type = CouponAlertImageTypeAccepted;
+        NSString *str = @"クーポン使用を承認されました";
+        if ([[data objectForKey:@"action"] isEqualToString:@"reject"]) {
+            type = CouponAlertImageTypeRejected;
+            str = @"クーポンの使用が拒否されました";
+        }
+        
+        CouponAlertView *alert = [[UIStoryboard storyboardWithName:@"Main" bundle: nil] instantiateViewControllerWithIdentifier:NSStringFromClass([CouponAlertView class])];
+        [alert showFrom:vc withType:type title:@"クーポン利用のリクエスト" description: str positiveButton:@"閉じる" negativeButton:nil delegate:self];
+    }
+    
+}
+
+
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options{
     if ([[Twitter sharedInstance] application:app openURL:url options:options]) {
         return YES;
@@ -169,173 +235,6 @@
         }
     }
     return NO;
-}
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-    @try {
-        
-        // case: push comes after user logs out
-        if([[UserData shareInstance] getToken].length == 0)
-            return;
-        _userInfo = userInfo;
-        if (application.applicationState == UIApplicationStateActive) {
-            
-            if (!self.smallNofiticationView) {
-                self.smallNofiticationView = [[UIView alloc] initWithFrame:CGRectMake(0, -64, self.window.bounds.size.width, 64)];
-                self.smallNofiticationView.backgroundColor = HEXCOLOR(0x3498db);
-                self.smallNofiticationView.opaque = TRUE;
-                self.infor = [[UILabel alloc] initWithFrame:CGRectMake(43, 7, self.window.bounds.size.width - 46, 64)];
-                self.infor.text = [[[_userInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"body"];
-                self.infor.textColor = [UIColor whiteColor];
-                self.infor.font = [UIFont systemFontOfSize:12];
-                self.infor.textAlignment = NSTextAlignmentLeft;
-                self.infor.numberOfLines = 0;
-                self.infor.lineBreakMode = YES;
-                [self.smallNofiticationView addSubview:self.infor];
-                
-                self.avatarIcon = [[UIImageView alloc]initWithFrame:CGRectMake(7, 25, 30, 30)];
-                self.avatarIcon.layer.cornerRadius = self.avatarIcon.bounds.size.width/2;
-                self.avatarIcon.layer.borderWidth = 1;
-                self.avatarIcon.layer.borderColor = [UIColor whiteColor].CGColor;
-                self.avatarIcon.clipsToBounds = YES;
-                
-                NSString *image_url = [[[_userInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"image_url"];
-                if (image_url != nil )
-                    [self.avatarIcon sd_setImageWithURL:[NSURL URLWithString:image_url]];
-                else
-                    [self.avatarIcon setImage:[UIImage imageNamed:@"user_icon"]];
-                [self.smallNofiticationView addSubview:self.avatarIcon];
-                
-                _customTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapNotificationView:)];
-                _customTap.numberOfTapsRequired = 1;
-                [self.smallNofiticationView addGestureRecognizer:_customTap];
-                
-                [self.window addSubview:self.smallNofiticationView];
-                self.infor.userInteractionEnabled = YES;
-            } else {
-                self.infor.text = [[[_userInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"body"];
-                NSString *image_url = [[[_userInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"image_url"];
-                if (image_url != nil )
-                    [self.avatarIcon sd_setImageWithURL:[NSURL URLWithString:image_url]];
-                else
-                    [self.avatarIcon setImage:[UIImage imageNamed:@"user_icon"]];
-            }
-            
-
-            [UIView animateWithDuration:1 animations:^{
-                [self.smallNofiticationView setFrame:CGRectMake(0, 0, self.window.bounds.size.width, 64)];
-                [self.window bringSubviewToFront:self.smallNofiticationView];
-                
-            }];
-            
-            double delayInSeconds = 4.0;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [UIView animateWithDuration:1 animations:^{
-                    [self.smallNofiticationView setFrame:CGRectMake(0, -64, self.window.bounds.size.width, 64)];
-                    [self.window bringSubviewToFront:self.smallNofiticationView];
-                }];
-            });
-            
-        } else if (application.applicationState == UIApplicationStateInactive) {
-            [self showPushNotification:_userInfo];
-        } else if (application.applicationState == UIApplicationStateBackground) {
-            [self showPushNotification:_userInfo];
-        }
-    }
-    @catch (NSException *exception) {
-        // do nothing
-    }
-    @finally {
-        // do nothing
-    }
-}
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
-    @try {
-        
-        // case: push comes after user logs out
-        if([[UserData shareInstance] getToken].length == 0)
-            return;
-        _userInfo = userInfo;
-        if (application.applicationState == UIApplicationStateActive) {
-            
-            if (!self.smallNofiticationView) {
-                self.smallNofiticationView = [[UIView alloc] initWithFrame:CGRectMake(0, -64, self.window.bounds.size.width, 64)];
-                self.smallNofiticationView.backgroundColor = HEXCOLOR(0x3498db);
-                self.smallNofiticationView.opaque = TRUE;
-                self.infor = [[UILabel alloc] initWithFrame:CGRectMake(43, 7, self.window.bounds.size.width - 46, 64)];
-                self.infor.text = [[[_userInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"body"];
-                self.infor.textColor = [UIColor whiteColor];
-                self.infor.font = [UIFont systemFontOfSize:12];
-                self.infor.textAlignment = NSTextAlignmentLeft;
-                self.infor.numberOfLines = 0;
-                self.infor.lineBreakMode = YES;
-                [self.smallNofiticationView addSubview:self.infor];
-                
-                self.avatarIcon = [[UIImageView alloc]initWithFrame:CGRectMake(7, 25, 30, 30)];
-                self.avatarIcon.layer.cornerRadius = self.avatarIcon.bounds.size.width/2;
-                self.avatarIcon.layer.borderWidth = 1;
-                self.avatarIcon.layer.borderColor = [UIColor whiteColor].CGColor;
-                self.avatarIcon.clipsToBounds = YES;
-                
-                NSString *image_url = [[[_userInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"image_url"];
-                if (image_url != nil )
-                    [self.avatarIcon sd_setImageWithURL:[NSURL URLWithString:image_url]];
-                else
-                    [self.avatarIcon setImage:[UIImage imageNamed:@"user_icon"]];
-                [self.smallNofiticationView addSubview:self.avatarIcon];
-                
-                _customTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapNotificationView:)];
-                _customTap.numberOfTapsRequired = 1;
-                [self.smallNofiticationView addGestureRecognizer:_customTap];
-                
-                [self.window addSubview:self.smallNofiticationView];
-                self.infor.userInteractionEnabled = YES;
-            } else {
-                self.infor.text = [[[_userInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"body"];
-                NSString *image_url = [[[_userInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"image_url"];
-                if (image_url != nil )
-                    [self.avatarIcon sd_setImageWithURL:[NSURL URLWithString:image_url]];
-                else
-                    [self.avatarIcon setImage:[UIImage imageNamed:@"user_icon"]];
-            }
-            
-            [UIView animateWithDuration:1 animations:^{
-                [self.smallNofiticationView setFrame:CGRectMake(0, 20, self.window.bounds.size.width, 64)];
-                [self.window bringSubviewToFront:self.smallNofiticationView];
-                
-            }];
-            
-            double delayInSeconds = 7.0;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [UIView animateWithDuration:1 animations:^{
-                    [self.smallNofiticationView setFrame:CGRectMake(0, -64, self.window.bounds.size.width, 64)];
-                    [self.window bringSubviewToFront:self.smallNofiticationView];
-                }];
-            });
-            
-        } else if (application.applicationState == UIApplicationStateInactive) {
-            [self showPushNotification:_userInfo];
-        } else if (application.applicationState == UIApplicationStateBackground) {
-            [self showPushNotification:_userInfo];
-        }
-    }
-    @catch (NSException *exception) {
-        // do nothing
-    }
-    @finally {
-        // do nothing
-    }
-}
-
--(void)handleTapNotificationView:(UITapGestureRecognizer*)customTap{
-    if (!_userInfo) {
-        return;
-    }else{
-        
-    }
 }
 
 - (void)showScreenWithType:(NSString *)noti_type{
@@ -363,6 +262,17 @@
             [self.window makeKeyAndVisible];
         }
     }];
+}
+
+- (UIViewController *)topMostViewController{
+    
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    
+    while (topController.presentedViewController) {
+        topController = topController.presentedViewController;
+    }
+    
+    return topController;
 }
 
 

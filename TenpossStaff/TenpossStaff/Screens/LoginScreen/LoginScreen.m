@@ -158,10 +158,7 @@
         }
         if(isSuccess) {
             if([[UserData shareInstance] saveTokenKit:result]){
-//                [self getUserProfile];
-                AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-                [delegate registerPushNotification];
-                [self showHomeScreen];
+                [self getUserProfile];
             }else{
                 [self showAlertView:@"エラー" message:@"ログインできません"];
             }

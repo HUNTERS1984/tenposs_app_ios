@@ -119,11 +119,12 @@ NSString * const PLATFORM_IOS = @"ios";
 }
 
 - (void)AuthGetUserProfileWithCompleteBlock:(void (^)(BOOL isSuccess, NSDictionary *resultData))completeBlock{
-    _request_url = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddressV2],API_PROFILE];
+    _request_url = [NSString stringWithFormat:@"https://api.ten-po.com/api/v2%@",API_PROFILE];
     Bundle *body = [Bundle new];
     [body put:KeyAPI_APP_ID value:APP_ID];
     [body put:KeyRequestCallback value:completeBlock];
     [self execute:body withDelegate:self andAuthHeaderType:AuthenticationType_authorization];
+    
 }
 
 - (void)AuthRefreshTokenWithCompleteBlock:(void (^)(BOOL isSuccess, NSDictionary *resultData))completeBlock{

@@ -34,7 +34,7 @@ extern NSString * const API_UPDATE_PROFILE;
 extern NSString * const API_SETPUSHSETTING;
 extern NSString * const API_GETPUSHSETTING;
 extern NSString * const API_SOCIALSETTING;
-
+extern NSString * const API_COUPON_USE;
 extern NSString * const API_PROFILE;
 
 extern NSString * const API_BASE_V2;
@@ -87,6 +87,8 @@ extern NSString * const KeyAPI_CHAT;
 extern NSString * const KeyAPI_COUPON_CODE;
 extern NSString * const KeyAPI_SOURCE;
 extern NSString * const KeyAPI_ACTION;
+extern NSString * const KeyAPI_COUPON_CODE;
+extern NSString * const KeyAPI_STAFF_AUTH_ID;
 
 @interface RequestBuilder : NSObject
 

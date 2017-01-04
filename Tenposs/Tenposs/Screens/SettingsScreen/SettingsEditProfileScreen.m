@@ -373,7 +373,14 @@
         //TODO: Get UserData and fill the text
         [((Settings_Expand_Selector *)cell).title setText:[_settingNames objectForKey:SET_EDIT_GENDER]];
         //TODO: get info from UserData
-        [((Settings_Expand_Selector *)cell).text  setText:_cur_gender==0?NSLocalizedString(@"gender_male",nil):NSLocalizedString(@"gender_female",nil)];
+        NSString *gender = NSLocalizedString(@"gender_male",nil);
+        if (_cur_gender==0)
+            gender = NSLocalizedString(@"gender_male",nil);
+        else if (_cur_gender==1)
+            gender = NSLocalizedString(@"gender_female",nil);
+        else
+            gender = NSLocalizedString(@"undefined",nil);
+        [((Settings_Expand_Selector *)cell).text  setText:gender];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }else if ([function isEqual:SET_EDIT_PROVINCE]) {
         cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([Settings_Expand_Selector class])];

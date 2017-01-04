@@ -12,6 +12,7 @@
 #import "Item_Detail_ItemName.h"
 #import "Item_Detail_TopImage.h"
 #import "Item_Detail_Description.h"
+#import "Item_Cell_StaffInfo.h"
 #import "Item_Detail_Header_Segmented.h"
 #import "Top_Header.h"
 #import "AppConfiguration.h"
@@ -20,7 +21,7 @@
 #import "HexColors.h"
 #import "UIUtils.h"
 #import "Utils.h"
-
+#import "TopScreenDataSource.h"
 
 #define COLLAPESED_HEIGHT 120
 
@@ -100,6 +101,8 @@
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Detail_Description class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Detail_Description class])];
     
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Cell_StaffInfo class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Cell_StaffInfo class])];
+    
 //    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Top_Footer class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass([Top_Footer class])];
 
 }
@@ -126,30 +129,7 @@
         [_introductionData calculateFullTextHeightWithWidth:(self.collectionView.bounds.size.width - 16)];
         _introductionData.isCollapsed = NO;
     }
-    if (!_informationData) {
-        NSString *infoString = @"";
-        
-        if (_staff.price && ![_staff.price isEqualToString:@""]) {
-            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"価格: %@", [Utils formatPriceToJapaneseFormat:_staff.price]]];
-            infoString = [infoString stringByAppendingString:@"\n\n"];
-        }
-        if (_staff.birthday && ![_staff.birthday isEqualToString:@""]) {
-            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"年代: %@", _staff.birthday]];
-            infoString = [infoString stringByAppendingString:@"\n\n"];
-        }
-        if (_staff.gender && ![_staff.gender isEqualToString:@""]) {
-            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"性別: %@", _staff.gender]];
-            infoString = [infoString stringByAppendingString:@"\n\n"];
-        }
-        if (_staff.tel && ![_staff.tel isEqualToString:@""]) {
-            infoString = [infoString stringByAppendingString:[NSString stringWithFormat:@"携帯電話: %@", _staff.tel]];
-            infoString = [infoString stringByAppendingString:@"\n\n"];
-        }
-        
-        _informationData = [[DescriptionCellInfo alloc]initWithFullText:infoString];
-        [_informationData calculateFullTextHeightWithWidth:(self.collectionView.bounds.size.width - 16)];
-        _informationData.isCollapsed = NO;
-    }
+
     [self.collectionView reloadData];
     [self removeLoadingView];
 }
@@ -194,7 +174,7 @@
                 if (_currentSwitchIndex == 0) {
                     return _introductionData;
                 }else if (_currentSwitchIndex == 1){
-                    return _informationData;
+                    return _staff;
                 }
             }
         }
@@ -245,8 +225,14 @@
                 [((Item_Detail_Header_Segmented *)cell).segmentControl setSelectedIndex:_currentSwitchIndex];
                 [((Item_Detail_Header_Segmented *)cell).segmentControl setSelectedIndex:_currentSwitchIndex];
             }else{
-                cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Detail_Description class]) forIndexPath:indexPath];
-                [((Item_Detail_Description *)cell) configureCellWithData:data WithWidth:self.collectionView.bounds.size.width - 16];
+                if (_currentSwitchIndex == 0) {
+                    cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Detail_Description class]) forIndexPath:indexPath];
+                    [((Item_Detail_Description *)cell) configureCellWithData:data WithWidth:self.collectionView.bounds.size.width - 16];
+                } else {
+                    cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Cell_StaffInfo class]) forIndexPath:indexPath];
+                    [((Item_Cell_StaffInfo *)cell) configureCellWithData:data];
+                }
+               
                 return cell;
             }
         }
@@ -317,17 +303,17 @@
         }
             break;
         case 1:{
-            width = superWidth;
+            width = superWidth - 4*SPACING_ITEM_PRODUCT;
             NSInteger index = indexPath.row;
             if (index == 0) {
                 height = [Item_Detail_ItemName getCellHeightWithWidth:width] - 70;
             }else if (index == 1){
                 height = [Item_Detail_Header_Segmented getCellHeightWithWidth:width];
             }else{
-                if (_introductionData.isCollapsed) {
+                if (_currentSwitchIndex == 0) {
                     height = _introductionData.fullSizeHeight;
                 }else{
-                    height = _introductionData.fullSizeHeight;
+                    height = [Item_Cell_StaffInfo getCellHeightWithWidth:width];
                 }
             }
             
@@ -340,6 +326,9 @@
     return CGSizeMake(width, height);
 }
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    if(section == 1){
+        return UIEdgeInsetsMake(5, SPACING_ITEM_PRODUCT*2, 5, SPACING_ITEM_PRODUCT*2);
+    }
     return UIEdgeInsetsZero;
 }
 

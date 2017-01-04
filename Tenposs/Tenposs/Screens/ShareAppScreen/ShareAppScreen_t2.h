@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface ShareAppScreen_t2 : UIViewController
+@interface ShareAppScreen_t2 : BaseViewController
 
 @property (strong, nonatomic) NSString *share_code;
 

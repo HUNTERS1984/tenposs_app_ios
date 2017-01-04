@@ -197,10 +197,12 @@ static NSString *ident = @"cell_ident";
      [params setObject:[@(_coupon.coupon_id) stringValue]  forKey:   KeyAPI_COUPON_ID];
      [params setObject:[@(staff.staff_id) stringValue] forKey:   KeyAPI_STAFF_ID];
     [params setObject:[Utils getSigWithStrings:sigs] forKey: KeyAPI_SIG  ];
-
+    [params setObject:APP_ID forKey: KeyAPI_APP_ID];
+    
     [[NetworkCommunicator shareInstance] POSTNoParamsV2:API_COUPON_USE parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
         NSString *status;
         if (isSuccess) {
+            [self showSuccess:@"送信しました。"];
             status = @"success";
         }else{
             status = @"failed";

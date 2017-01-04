@@ -90,6 +90,7 @@
     [[NetworkCommunicator shareInstance] POSTNoParamsV2:API_COUPON_USE parameters:params onCompleted:^(BOOL isSuccess, NSDictionary *dictionary) {
         NSString *status;
         if (isSuccess) {
+            [self showSuccess:@"送信しました。"];
             status = @"success";
         }else{
             status = @"failed";

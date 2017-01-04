@@ -56,7 +56,7 @@ NSString * const PUSH_USER_GETPUSHSETTINGS = @"/v1/user/get_push_setting";
 
 - (void)PushGetUserPushSettingsWithCompleteBlock:(void (^)(BOOL isSuccess, NSDictionary *resultData))completeBlock{
     _request_url = [NSString stringWithFormat:@"%@%@?%@=%@",PUSH_BASE_ADDRESS,PUSH_USER_GETPUSHSETTINGS,KeyAPI_APP_ID,APP_ID];
-    
+
     Bundle *body = [Bundle new];
     
     [body put:KeyRequestCallback value:completeBlock];

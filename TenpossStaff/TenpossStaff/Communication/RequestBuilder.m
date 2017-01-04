@@ -16,9 +16,10 @@
 #pragma mark - URL
 
 NSString * const BASE_ADDRESS  =  @"https://apistaffs.ten-po.com";
+NSString * const API_ADDRESS  =  @"https://api.ten-po.com";
 
 NSString * const API_BASE = @"/api/v1";
-NSString * const API_BASE_V2 = @"api/v2";
+NSString * const API_BASE_V2 = @"/api/v2";
 
 NSString * const API_LOGIN  = @"/login?";
 NSString * const API_SLOGIN  = @"/social_login?";
@@ -48,6 +49,7 @@ NSString * const API_SOCIALSETTING =@"/social_profile";
 
 NSString * const API_LIST_REQUEST = @"/list_user_request?";
 NSString * const API_COUPON_ACCEPT = @"/coupon_accept?";
+NSString * const API_COUPON_USE = @"/coupon_use_new?";
 
 NSString * const API_PROFILE = @"/profile?";
 
@@ -99,7 +101,7 @@ NSString * const KeyAPI_RANKING = @"ranking";
 NSString * const KeyAPI_NEWS = @"news";
 NSString * const KeyAPI_COUPON = @"coupon";
 NSString * const KeyAPI_CHAT = @"chat";
-
+NSString * const KeyAPI_STAFF_AUTH_ID = @"staff_auth_id";
 
 NSString * const KeyAPI_ACTION = @"action";
 
@@ -114,7 +116,7 @@ NSString * const KeyAPI_ACTION = @"action";
 }
 
 + (NSString *)APIAddressV2{
-    return [NSString stringWithFormat:@"%@%@",BASE_ADDRESS,API_BASE_V2];
+    return [NSString stringWithFormat:@"%@%@",API_ADDRESS,API_BASE_V2];
 }
 
 +(NSString*) requestBuilder:(Bundle *)params{

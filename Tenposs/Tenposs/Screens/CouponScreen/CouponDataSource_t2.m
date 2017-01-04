@@ -178,12 +178,6 @@
                 [self.delegate dataLoaded:self withError:error];
                 return;
             }
-        }else if (data.total_coupons > 0 && (!data.coupons || [data.coupons count] <= 0)){
-            if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {
-                NSError *error = [NSError errorWithDomain:[CommunicatorConst getErrorMessage:ERROR_UNKNOWN]  code:ERROR_UNKNOWN userInfo:nil];
-                [self.delegate dataLoaded:self withError:error];
-                return;
-            }
         }
     }
     if (self.delegate && [self.delegate respondsToSelector:@selector(dataLoaded:withError:)]) {

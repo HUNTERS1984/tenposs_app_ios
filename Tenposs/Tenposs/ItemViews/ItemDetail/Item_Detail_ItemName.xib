@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6po-6s-BUh" userLabel="categoryTitle">
-                        <rect key="frame" x="15" y="26" width="56" height="20"/>
+                        <rect key="frame" x="5" y="26" width="56" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="YJx-nO-mqe"/>
                         </constraints>
@@ -28,7 +28,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥1200" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpf-0f-ggK" userLabel="productPrice">
-                        <rect key="frame" x="100" y="48" width="205" height="22"/>
+                        <rect key="frame" x="90" y="48" width="225" height="22"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="ti8-1k-x1a"/>
                         </constraints>
@@ -37,7 +37,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Item title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MUG-1f-zRR" userLabel="productName">
-                        <rect key="frame" x="15" y="48" width="75" height="22"/>
+                        <rect key="frame" x="5" y="48" width="75" height="22"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="Ukv-Vx-xrf"/>
                         </constraints>
@@ -46,7 +46,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9zI-Bx-hi8" userLabel="purchasePageButton" customClass="RoundButton">
-                        <rect key="frame" x="10" y="100" width="300" height="40"/>
+                        <rect key="frame" x="0.0" y="100" width="320" height="40"/>
                         <color key="backgroundColor" red="0.1215686275" green="0.74901960779999999" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="ldn-5a-6wl"/>
@@ -59,14 +59,14 @@
             <constraints>
                 <constraint firstItem="9zI-Bx-hi8" firstAttribute="top" secondItem="MUG-1f-zRR" secondAttribute="bottom" constant="30" id="12f-PV-aTo"/>
                 <constraint firstItem="MUG-1f-zRR" firstAttribute="leading" secondItem="6po-6s-BUh" secondAttribute="leading" id="E4N-bu-q97"/>
-                <constraint firstAttribute="trailing" secondItem="bpf-0f-ggK" secondAttribute="trailing" constant="15" id="J9l-cK-yFo"/>
-                <constraint firstAttribute="trailing" secondItem="9zI-Bx-hi8" secondAttribute="trailing" constant="10" id="SS3-Gu-5XG"/>
-                <constraint firstItem="6po-6s-BUh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="TsE-uO-Syy"/>
+                <constraint firstAttribute="trailing" secondItem="bpf-0f-ggK" secondAttribute="trailing" constant="5" id="J9l-cK-yFo"/>
+                <constraint firstAttribute="trailing" secondItem="9zI-Bx-hi8" secondAttribute="trailing" id="SS3-Gu-5XG"/>
+                <constraint firstItem="6po-6s-BUh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="TsE-uO-Syy"/>
                 <constraint firstItem="MUG-1f-zRR" firstAttribute="top" secondItem="6po-6s-BUh" secondAttribute="bottom" constant="2" id="doC-Hb-8QU"/>
                 <constraint firstItem="6po-6s-BUh" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="26" id="ecb-R9-SjP"/>
                 <constraint firstItem="bpf-0f-ggK" firstAttribute="centerY" secondItem="MUG-1f-zRR" secondAttribute="centerY" id="gDM-1m-jrx"/>
                 <constraint firstItem="bpf-0f-ggK" firstAttribute="leading" secondItem="MUG-1f-zRR" secondAttribute="trailing" constant="10" id="joo-Rj-9mT"/>
-                <constraint firstItem="9zI-Bx-hi8" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="p3G-HI-vF4"/>
+                <constraint firstItem="9zI-Bx-hi8" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="p3G-HI-vF4"/>
             </constraints>
             <size key="customSize" width="320" height="131"/>
             <connections>

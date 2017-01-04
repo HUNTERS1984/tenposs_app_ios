@@ -225,10 +225,6 @@
                         if (sizes && [sizes count] > realIndex) {
                             return [sizes objectAtIndex:realIndex];
                         }
-//                        else{
-//                            _descriptionData = [[DescriptionCellInfo alloc]initWithFullText:_item.desc];
-//                            return _descriptionData;//_item.desc;
-//                        }
                     }
                 }
             }
@@ -414,7 +410,7 @@
         }
             break;
         case 1:{
-            width = superWidth;
+            width = superWidth - SPACING_ITEM_PRODUCT*4;
             NSInteger index = indexPath.row;
             if (index == 0) {
                 height = [Item_Detail_ItemName getCellHeightWithWidth:width];
@@ -438,7 +434,7 @@
                             return CGSizeMake(superWidth, 30);
                         }else{
                             height = [Item_Detail_Item_Size getCellHeightWithWidth:0];
-                            width = (superWidth)/column;
+                            width = (superWidth - SPACING_ITEM_PRODUCT*4)/column;
                         }
                     }
                 }
@@ -457,9 +453,13 @@
     return CGSizeMake(width, height);
 }
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-    if(section == 2){
+    if(section == 1){
+        return UIEdgeInsetsMake(5, SPACING_ITEM_PRODUCT*2, 5, SPACING_ITEM_PRODUCT*2);
+    }
+    else if(section == 2){
         return UIEdgeInsetsMake(10, 8, 5, 8);
     }
+    
     return UIEdgeInsetsZero;
 }
 
@@ -545,6 +545,7 @@
                     [_item.rel_items removeAllObjects];
                 }
             }
+            _item.rel_pageindex = 1;
             [self getItemRelated];
         }else if ([request isKindOfClass:[ItemRelatedCommunicator class]]){
             ItemRelatedResponse *itemRelated = (ItemRelatedResponse *)[responseParams get:KeyResponseObject];

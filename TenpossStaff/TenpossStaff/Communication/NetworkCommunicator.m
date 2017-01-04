@@ -118,6 +118,21 @@
     [self execute:body withDelegate:self];
 }
 
+-(void)POSTNoParamsV2:(NSString *)API parameters:(id)parameters onCompleted:(void (^)(BOOL isSuccess,NSDictionary *dictionary)) completeBlock{
+    _request_url = [NSString stringWithFormat:@"%@%@",[RequestBuilder APIAddressV2],API];
+    
+    Bundle *body = [Bundle new];
+    NSMutableDictionary *dictData = [parameters mutableCopy];
+    
+    NSString *strData = [self makeParamtersString:dictData withEncoding:NSUTF8StringEncoding];
+    NSData *req_data = [strData dataUsingEncoding:NSUTF8StringEncoding];
+    
+    [body put:KeyRequestData value:req_data];
+    [body put:KeyRequestCallback value:completeBlock];
+    
+    [self execute:body withDelegate:self andAuthHeaderType:AuthenticationType_authorization];
+}
+
 -(void)POSTNoParams:(NSString *)API parameters:(id)parameters onCompleted:(void (^)(BOOL isSuccess,NSDictionary *dictionary)) completeBlock{
     _request_url = [NSString stringWithFormat:@"%@%@",BASE_ADDRESS,API];
 

@@ -53,6 +53,7 @@
 "gender"="性别";
 "gender_male"="男性";
 "gender_female"="女性";
+"undefined"="未定義";
 "province"="都道府県";
 
 "sign_in_with_facebook"="Facebook ではじめる";

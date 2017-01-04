@@ -32,6 +32,7 @@
 #define ERROR_TIME_EXPIRE           1011
 #define ERROR_SIG_NOT_EXIST         1012
 #define ERROR_SIG_INVALID           1013
+#define ERROR_TOKEN_EXPIRED         10011
 
 //Client error
 #define ERROR_JSON_PARSER                       901

@@ -29,10 +29,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hYf-of-9uB">
-                                <rect key="frame" x="10" y="21" width="300" height="50"/>
+                                <rect key="frame" x="0.0" y="21" width="320" height="50"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Af2-in-0YW" customClass="TenpossSegmentedControl">
-                                        <rect key="frame" x="5" y="5" width="290" height="40"/>
+                                        <rect key="frame" x="5" y="5" width="310" height="40"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                 </subviews>
@@ -61,8 +61,8 @@
                             <constraint firstAttribute="trailing" secondItem="jzy-F9-Gcl" secondAttribute="trailing" id="Pon-bJ-M7t"/>
                             <constraint firstItem="hYf-of-9uB" firstAttribute="top" secondItem="jzy-F9-Gcl" secondAttribute="bottom" constant="20" id="S2j-g5-Qcf"/>
                             <constraint firstItem="hYf-of-9uB" firstAttribute="leading" secondItem="KkG-GT-jOF" secondAttribute="leading" constant="8" id="ZbP-BT-Qtg"/>
-                            <constraint firstAttribute="trailing" secondItem="hYf-of-9uB" secondAttribute="trailing" constant="10" id="don-Bz-JOT"/>
-                            <constraint firstItem="hYf-of-9uB" firstAttribute="leading" secondItem="KkG-GT-jOF" secondAttribute="leading" constant="10" id="mPp-hb-3hY"/>
+                            <constraint firstAttribute="trailing" secondItem="hYf-of-9uB" secondAttribute="trailing" id="don-Bz-JOT"/>
+                            <constraint firstItem="hYf-of-9uB" firstAttribute="leading" secondItem="KkG-GT-jOF" secondAttribute="leading" id="mPp-hb-3hY"/>
                             <constraint firstItem="jzy-F9-Gcl" firstAttribute="top" secondItem="KkG-GT-jOF" secondAttribute="top" id="zD9-Ff-A2D"/>
                         </constraints>
                         <variation key="default">

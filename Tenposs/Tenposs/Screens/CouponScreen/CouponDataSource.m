@@ -113,7 +113,8 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return [self numberOfItem];
+    int num = [self numberOfItem];
+    return num;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -127,7 +128,7 @@
 
 
 - (CGSize)sizeForCellAtIndexPath:(NSIndexPath *)indexPath withCollectionWidth:(CGFloat)superWidth{
-    CGFloat width = superWidth;
+    CGFloat width = superWidth - 20;
     CGFloat height = [Item_Cell_Coupon getCellHeightWithWidth:width];
     return CGSizeMake(width,height);
 }

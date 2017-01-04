@@ -36,14 +36,14 @@
 - (IBAction)shareButtonClicked:(id)sender{
     if(sender == _facebookShare){
         FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-        content.contentURL = [NSURL URLWithString:@"https://developers.facebook.com"];
+        content.contentURL = [NSURL URLWithString:@"http://ten-po.com/"];
         [FBSDKShareDialog showFromViewController:self
                                      withContent:content
                                         delegate:nil];
     }else if (sender == _twitterShare){
         TWTRComposer *composer = [[TWTRComposer alloc] init];
         
-        [composer setURL:[NSURL URLWithString:@"https://developers.facebook.com"]];
+        [composer setURL:[NSURL URLWithString:@"http://ten-po.com/"]];
         
         // Called from a UIViewController
         [composer showFromViewController:self completion:^(TWTRComposerResult result) {
@@ -104,6 +104,7 @@
             
         } else {
             NSLog (@"Instagram not found");
+            [self showError:@"Instagramアプリをインストールしてください"];
         }
     }else if(sender == _buttonCopy){
         [self copyHashTag:_appId.text];

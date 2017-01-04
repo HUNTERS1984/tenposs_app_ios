@@ -73,11 +73,11 @@ static NSString * const reuseIdentifier = @"Cell";
                                                              forState:UIControlStateNormal];
         [self.navigationItem.leftBarButtonItem setTitle:[NSString stringWithFormat: @"%@", [UIFont stringForThemifyIdentifier:@"ti-angle-left"]]];
     }
+    [self setUp];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self setUp];
 }
 
 - (void)didPressBackButton{

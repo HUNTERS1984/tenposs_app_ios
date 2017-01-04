@@ -1,12 +1,12 @@
 //
-//  ItemDetailScreen_t2.m
+//  StaffDetailScreen_t2.m
 //  Tenposs
 //
 //  Created by Phúc Nguyễn on 11/9/16.
 //  Copyright © 2016 Tenposs. All rights reserved.
 //
 
-#import "ItemDetailScreen_t2.h"
+#import "StaffDetailScreen_t2.h"
 
 #import "ItemDetailCommunicator.h"
 
@@ -18,7 +18,7 @@
 #import "Left_Text_Header.h"
 #import "Left_Text_Footer.h"
 #import "Center_Text_Footer.h"
-
+#import "Item_Cell_StaffInfo.h"
 #import "TopScreenDataSource.h"
 
 #import "UIViewController+LoadingView.h"
@@ -34,33 +34,28 @@
 #import "UIFont+Themify.h"
 
 
-@interface ItemDetailScreen_t2 ()
+@interface StaffDetailScreen_t2 ()
 
-@property DescriptionCellInfo *descriptionData;
+@property DescriptionCellInfo *introductionData;
+@property DescriptionCellInfo *informationData;
 
 @end
 
-@implementation ItemDetailScreen_t2
+@implementation StaffDetailScreen_t2
 
-- (instancetype)initWithItem:(ProductObject *)item{
+- (instancetype)initWithStaff:(StaffObject *)staff{
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     self = [super initWithCollectionViewLayout:layout];
     if (self) {
-        _item = item;
-        if(!_descriptionData){
-            NSString *fullText = _item.desc;
-            if (!fullText) {
-                fullText = @"データなし";
-            }else{
-                if([fullText isEqualToString:@""]){
-                    fullText = @"データなし";
-                }
-            }
-            _descriptionData = [[DescriptionCellInfo alloc] initWithFullText:fullText];
-        }
+        _staff = staff;
     }
     return self;
 }
+
+- (NSString *)title{
+    return _staff.name;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -106,12 +101,10 @@
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Left_Text_Footer class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass([Left_Text_Footer class])];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Center_Text_Footer class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass([Center_Text_Footer class])];
     
-    [self getItemDetail];
+    
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([Item_Cell_StaffInfo class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([Item_Cell_StaffInfo class])];
+    
 
-}
-
-- (NSString *)title{
-    return _item.title;
 }
 
 - (void)didPressBackButton
@@ -126,50 +119,28 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-}
-
-- (void)getItemDetail{
     
-    ItemDetailCommunicator *request = [ItemDetailCommunicator new];
-    Bundle *params = [Bundle new];
-    [params put:KeyAPI_APP_ID value:APP_ID];
-    [params put:KeyAPI_ITEM_ID value:[@(_item.product_id) stringValue]];
-    NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
-    [params put:KeyAPI_TIME value:currentTime];
-    NSArray *strings = [NSArray arrayWithObjects:APP_ID,currentTime,[@(_item.product_id) stringValue],APP_SECRET,nil];
-    [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
-    [request execute:params withDelegate:self];
+    [self previewData];
 }
 
-- (void)getItemRelated{
-    ///TODO: clean mockup
-    ItemRelatedCommunicator *request = [ItemRelatedCommunicator new];
-    Bundle *params = [Bundle new];
-    [params put:KeyAPI_APP_ID value:APP_ID];
-    [params put:KeyAPI_ITEM_ID value:[@(_item.product_id) stringValue]];
-    NSString *currentTime =[@([Utils currentTimeInMillis]) stringValue];
-    [params put:KeyAPI_TIME value:currentTime];
-    [params put:KeyAPI_PAGE_INDEX value:[@(_item.rel_pageindex) stringValue]];
-    [params put:KeyAPI_PAGE_SIZE value:@"10"];
-    NSArray *strings = [NSArray arrayWithObjects:APP_ID,currentTime,@"2",APP_SECRET,nil];
-    [params put:KeyAPI_SIG value:[Utils getSigWithStrings:strings]];
-    [request execute:params withDelegate:self];
-}
 
 
 - (void)handleRequestError:(NSError *)error{
     //TODO: show Error screen
 }
 
-- (void)previewData{
-    if(!_descriptionData){
-        _descriptionData = [[DescriptionCellInfo alloc] initWithFullText:_item.desc];
-        [_descriptionData calculateFullTextHeightWithWidth:(self.collectionView.bounds.size.width - 16)];
+-(void)previewData{
+    if(!_introductionData){
+        //TODO: Clear mockup
+        _introductionData = [[DescriptionCellInfo alloc]initWithFullText:_staff.introduction];
+        [_introductionData calculateFullTextHeightWithWidth:(self.collectionView.bounds.size.width - 16)];
+        _introductionData.isCollapsed = NO;
     }
+    
     [self.collectionView reloadData];
     [self removeLoadingView];
-    
 }
+
 
 #pragma mark - UICollectionViewDataSource
 
@@ -177,57 +148,44 @@
     if (section == 0 || section == 1) {
         return NO;
     }else if (section == 3){
-        if ([self hasRelatedItems]) {
-            return YES;
-        }else return NO;
+        return YES;
     }
     return YES;
 }
 
 -(BOOL)sectionShouldHaveFooter:(NSInteger)section{
     if (section == 3){
-        if (_item.rel_items && [_item.rel_items count] > 0 && [_item.rel_items count] < _item.total_items_related) {
-            return YES;
-        }else{
+        return NO;
+    }else if (section == 2) {
+        if (_introductionData.fullSizeHeight <= DETAIL_DESCRIPTION_COLLAPSE) {
             return NO;
         }
-    }else if (section == 2) {
-            if (_descriptionData.fullSizeHeight <= DETAIL_DESCRIPTION_COLLAPSE) {
-                return NO;
-            }
-            return YES;
+        return YES;
     }
     return NO;
-}
-
-- (BOOL)hasRelatedItems{
-    return _item.rel_items && [_item.rel_items count] > 0;
 }
 
 - (NSObject *)dataForIndexPath:(NSIndexPath *)indexPath{
     NSInteger section = indexPath.section;
     switch (section) {
         case 0:{
-            return _item.image_url;
+            return _staff.image_url;
         }
         case 1:{
-            return _item;
+            return _staff;
         }
         case 2:{
-            if (!_item.description) {
-                _descriptionData.fullText = @"データなし";
+            if (!_staff.description) {
+                _introductionData.fullText = @"データなし";
             }else{
-                if ([_item.description isEqualToString:@""]) {
-                    _descriptionData.fullText = @"データなし";
+                if ([_staff.description isEqualToString:@""]) {
+                    _introductionData.fullText = @"データなし";
                 }
             }
-            return _descriptionData;//_item.desc;
+            return _introductionData;//_item.desc;
         }
         case 3:{
-            if ([self hasRelatedItems]) {
-                return [_item.rel_items objectAtIndex:indexPath.row];
-            }
-            return nil;
+            return _staff;
         }
         default:
             return nil;
@@ -237,7 +195,7 @@
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return [self hasRelatedItems]?4:3;
+    return 4;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -247,9 +205,7 @@
         case 2:
             return 1;
         case 3:{
-            if ([self hasRelatedItems]) {
-                return [_item.rel_items count];
-            }else return 0;
+            return 1;
         }
         default:
             return 0;
@@ -278,7 +234,7 @@
         }
             break;
         case 3:{
-            cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Cell_Product_Item_t2 class]) forIndexPath:indexPath];
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([Item_Cell_StaffInfo class]) forIndexPath:indexPath];
         }
             break;
         default:
@@ -305,12 +261,10 @@
                 }
                     break;
                 case 3:{
-                    if ([self hasRelatedItems]) {
-                        Left_Text_Header *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([Left_Text_Header class]) forIndexPath:indexPath];
-                        [((Left_Text_Header *)header).title setText:@"関連"];
-                        [((Left_Text_Header *)header).title setFont:[UIFont systemFontOfSize:18 weight:200]];
-                        reuseableView = header;
-                    }
+                    Left_Text_Header *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([Left_Text_Header class]) forIndexPath:indexPath];
+                    [((Left_Text_Header *)header).title setText:@"プロフィール"];
+                    [((Left_Text_Header *)header).title setFont:[UIFont systemFontOfSize:18 weight:200]];
+                    reuseableView = header;
                 }
                     break;
                 default:
@@ -325,13 +279,13 @@
                 case 2:{
                     Left_Text_Footer *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass([Left_Text_Header class]) forIndexPath:indexPath];
                     
-                    __weak ItemDetailScreen_t2 *weakSelf = self;
-                    __weak DescriptionCellInfo *weakCellInfo = _descriptionData;
+                    __weak StaffDetailScreen_t2 *weakSelf = self;
+                    __weak DescriptionCellInfo *weakCellInfo = _introductionData;
                     [((Left_Text_Footer *)footer).footerButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
                         weakCellInfo.isCollapsed = !weakCellInfo.isCollapsed;
                         [weakSelf.collectionView reloadSections:[NSIndexSet indexSetWithIndex:2]];
                     }];
-                    if(_descriptionData.isCollapsed){
+                    if(_introductionData.isCollapsed){
                         [((Left_Text_Footer *)footer).title setText:@"もっと見る"];
                     }else{
                         //TODO: need localize
@@ -341,20 +295,6 @@
                     reuseableView = footer;
                     break;
                 }
-                case 3:{
-                    if ([self hasRelatedItems]) {
-                        Center_Text_Footer *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass([Center_Text_Footer class]) forIndexPath:indexPath];
-                        [((Center_Text_Footer *)footer).title setText:@"もっと見る"];
-                        [((Center_Text_Footer *)footer).title setTextColor:[UIColor colorWithHexString:@"3CB963"]];
-                        __weak ItemDetailScreen_t2 *weakSelf = self;
-                        [((Center_Text_Footer *)footer).footerButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-                            [weakSelf getItemRelated];
-                        }];
-                        reuseableView = footer;
-                        break;
-                    }
-                }
-                    break;
                 default:
                     break;
             }
@@ -385,16 +325,16 @@
             break;
         case 2:{
             width = superWidth - 2*5;
-            if (_descriptionData.isCollapsed) {
+            if (_introductionData.isCollapsed) {
                 height = DETAIL_DESCRIPTION_COLLAPSE;
             }else{
-                height = _descriptionData.fullSizeHeight >= 10?_descriptionData.fullSizeHeight:DETAIL_DESCRIPTION_COLLAPSE;
+                height = _introductionData.fullSizeHeight >= 10?_introductionData.fullSizeHeight:DETAIL_DESCRIPTION_COLLAPSE;
             }
         }
             break;
         case 3:{
-            width = (superWidth - 3*SPACING_ITEM_PRODUCT) / 2;
-            height = [Item_Cell_Product_Item_t2 getCellHeightWithWidth:width];
+            width = superWidth - 2*5;
+            height = [Item_Cell_StaffInfo getCellHeightWithWidth:width];
         }
             break;
         default:
@@ -409,7 +349,7 @@
         return UIEdgeInsetsMake(0, 5, 0, 5);
     }
     else if(section == 3){
-        return UIEdgeInsetsMake(0, 8, 5, 8);
+        return UIEdgeInsetsMake(0, 5, 0, 5);
     }
     
     return UIEdgeInsetsMake(0, 0, 5, 0);
@@ -443,75 +383,6 @@
     }else{
         return CGSizeMake(collectionView.bounds.size.width, 44);
     }
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSInteger section = indexPath.section;
-    
-    if (section == 3) {
-        NSObject *data = [self dataForIndexPath:indexPath];
-        if ([data isKindOfClass:[ProductObject class]]) {
-            ProductObject *product = (ProductObject *)data;
-            ItemDetailScreen_t2 *controller = [[ItemDetailScreen_t2 alloc] initWithItem:product];
-            [self.navigationController pushViewController:controller animated:YES];
-        }
-    }
-
-}
-
-#pragma mark - TenpossCommunicatorDelegate
-
-- (void)completed:(TenpossCommunicator*)request data:(Bundle*) responseParams{
-    NSInteger errorCode =[responseParams getInt:KeyResponseResult];
-    NSError *error = nil;
-    if (errorCode != ERROR_OK) {
-        NSString *errorDomain = [responseParams get:KeyResponseError];
-        error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:nil];
-        
-        if ([request isKindOfClass:[ItemDetailCommunicator class]]) {
-            [self showErrorScreen:@"エラー" andRetryButton:^{
-                [self getItemDetail];
-            }];
-            return;
-        }else if ([request isKindOfClass:[ItemRelatedCommunicator class]]){
-            [self previewData];
-        }
-        
-        
-    }else{
-        if ([request isKindOfClass:[ItemDetailCommunicator class]]) {
-            ItemDetailResponse *itemDetail = (ItemDetailResponse *)[responseParams get:KeyResponseObject];
-            if (itemDetail) {
-                if (itemDetail.detail) {
-                    [_item updateItemWithItem:itemDetail.detail];
-                    [_item.rel_items removeAllObjects];
-                }
-            }
-            [self getItemRelated];
-        }else if ([request isKindOfClass:[ItemRelatedCommunicator class]]){
-            ItemRelatedResponse *itemRelated = (ItemRelatedResponse *)[responseParams get:KeyResponseObject];
-            if (itemRelated) {
-                if (itemRelated.items && [itemRelated.items count] > 0) {
-                    for(ProductObject *item in itemRelated.items){
-                        [_item addRelatedItem:item];
-                    }
-                    _item.rel_pageindex += 1;
-                }
-                if (itemRelated.total_items) {
-                    _item.total_items_related = itemRelated.total_items;
-                }
-            }
-            [self previewData];
-        }
-    }
-}
-
-- (void)begin:(TenpossCommunicator*)request data:(Bundle*) responseParams{
-    
-}
-
--( void)cancelAllRequest{
-    
 }
 
 

@@ -291,6 +291,8 @@ NSMutableArray *recentSearchList=nil;
 }
 
 - (NSInteger)getUserGender{
+    if ([[_userDataDictionary objectForKey:@"profile"] objectForKey:@"gender"] == [NSNull null])
+        return 2;
     if (_userDataDictionary) {
         return [[[_userDataDictionary objectForKey:@"profile"] objectForKey:@"gender"] integerValue];
     }

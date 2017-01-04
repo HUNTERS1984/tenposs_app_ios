@@ -267,6 +267,9 @@
 		368212B11D800C2D00E2DEF0 /* NetworkCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 368212B01D800C2D00E2DEF0 /* NetworkCommunicator.m */; };
 		368212B31D808A0200E2DEF0 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 368212B21D808A0200E2DEF0 /* SafariServices.framework */; };
 		368212B61D80F4F800E2DEF0 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 368212B51D80F4F800E2DEF0 /* BaseViewController.m */; };
+		36A961FA1E1C0B2C00555FEB /* Item_Cell_StaffInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36A961F81E1C0B2C00555FEB /* Item_Cell_StaffInfo.xib */; };
+		36A961FB1E1C0B2C00555FEB /* Item_Cell_StaffInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A961F91E1C0B2C00555FEB /* Item_Cell_StaffInfo.m */; };
+		36A961FE1E1C318000555FEB /* StaffDetailScreen_t2.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A961FD1E1C318000555FEB /* StaffDetailScreen_t2.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -752,6 +755,11 @@
 		368212B21D808A0200E2DEF0 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		368212B41D80F4F800E2DEF0 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		368212B51D80F4F800E2DEF0 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		36A961F71E1C0B2C00555FEB /* Item_Cell_StaffInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item_Cell_StaffInfo.h; sourceTree = "<group>"; };
+		36A961F81E1C0B2C00555FEB /* Item_Cell_StaffInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Item_Cell_StaffInfo.xib; sourceTree = "<group>"; };
+		36A961F91E1C0B2C00555FEB /* Item_Cell_StaffInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item_Cell_StaffInfo.m; sourceTree = "<group>"; };
+		36A961FC1E1C318000555FEB /* StaffDetailScreen_t2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffDetailScreen_t2.h; sourceTree = "<group>"; };
+		36A961FD1E1C318000555FEB /* StaffDetailScreen_t2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffDetailScreen_t2.m; sourceTree = "<group>"; };
 		E406AA27C750228941D2BF24 /* Pods-Tenposs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenposs.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tenposs/Pods-Tenposs.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -855,6 +863,8 @@
 		021AA4D31D8026160042C511 /* StaffDetailScreen */ = {
 			isa = PBXGroup;
 			children = (
+				36A961FC1E1C318000555FEB /* StaffDetailScreen_t2.h */,
+				36A961FD1E1C318000555FEB /* StaffDetailScreen_t2.m */,
 				021AA4D41D80262F0042C511 /* StaffDetailScreen.h */,
 				021AA4D51D80262F0042C511 /* StaffDetailScreen.m */,
 			);
@@ -1454,6 +1464,9 @@
 		02DAF3D91D47CC5C0068BB71 /* CollectionViewItem */ = {
 			isa = PBXGroup;
 			children = (
+				36A961F71E1C0B2C00555FEB /* Item_Cell_StaffInfo.h */,
+				36A961F81E1C0B2C00555FEB /* Item_Cell_StaffInfo.xib */,
+				36A961F91E1C0B2C00555FEB /* Item_Cell_StaffInfo.m */,
 				02765C2A1DCB5E1A008562E3 /* Template 2 */,
 				024C4D831D5CA82100896EE4 /* Item_Cell_Top.m */,
 				024C4D841D5CA82100896EE4 /* Item_Cell_Top.h */,
@@ -1994,6 +2007,7 @@
 				021C81A51DA4CA66000FF5A7 /* Item_Detail_Item_Size.xib in Resources */,
 				02F097341D6BD8C300E737C7 /* Item_Detail_ItemName.xib in Resources */,
 				02C127851DD9914F0040C7B4 /* Item_Staff_Table_t2.xib in Resources */,
+				36A961FA1E1C0B2C00555FEB /* Item_Cell_StaffInfo.xib in Resources */,
 				02C127A01DDBCD500040C7B4 /* Settings_Avatar_t2.xib in Resources */,
 				02765C711DD31558008562E3 /* Left_Text_Header.xib in Resources */,
 				02DAF3B21D47CAA70068BB71 /* Assets.xcassets in Resources */,
@@ -2144,6 +2158,7 @@
 				02F2FDD41D4A30E3006D4C83 /* TenpossCommunicator.m in Sources */,
 				021AA4CD1D7FD9E60042C511 /* Item_Detail_Common.m in Sources */,
 				024C4DB81D5DB7DC00896EE4 /* NewsDetailScreen.m in Sources */,
+				36A961FB1E1C0B2C00555FEB /* Item_Cell_StaffInfo.m in Sources */,
 				0257C2D61D8543F500506F73 /* SettingsScreen.m in Sources */,
 				368212A41D7FBFD800E2DEF0 /* NSAttributedString+CXACoreTextFrameSize.m in Sources */,
 				02C127501DD900CA0040C7B4 /* Item_Cell_Coupon_t2.m in Sources */,
@@ -2182,6 +2197,7 @@
 				0257C2F31D85880F00506F73 /* StaffCategoryCommunicator.m in Sources */,
 				0299E6FC1DA5165500C0A755 /* ReserveCommunicator.m in Sources */,
 				0211402A1D57C99900598AD2 /* MenuScreen.m in Sources */,
+				36A961FE1E1C318000555FEB /* StaffDetailScreen_t2.m in Sources */,
 				022F25EA1D535983008AEBA1 /* UIViewController+LoadingView.m in Sources */,
 				3682129E1D7F0FA500E2DEF0 /* RoundButton.m in Sources */,
 				022114321D56494300F44E88 /* TopCommunicator.m in Sources */,
@@ -2450,8 +2466,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.tenposs.Tenposs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "15c96349-bbcd-4aa8-b3b3-9946bcf5e0a2";
-				PROVISIONING_PROFILE_SPECIFIER = "Tenposs Adhoc New";
+				PROVISIONING_PROFILE = "ba1ab30a-be21-45c2-a838-95b920e9b976";
+				PROVISIONING_PROFILE_SPECIFIER = "XC iOS Ad Hoc: jp.tenposs.Tenposs";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

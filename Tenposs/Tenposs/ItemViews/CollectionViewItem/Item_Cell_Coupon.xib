@@ -13,10 +13,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Item_Cell_Coupon" id="gTV-IL-0wX" customClass="Item_Cell_Coupon">
-            <rect key="frame" x="0.0" y="0.0" width="574" height="142"/>
+            <rect key="frame" x="0.0" y="0.0" width="411" height="142"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="574" height="142"/>
+                <rect key="frame" x="0.0" y="0.0" width="411" height="142"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xkF-rA-vpQ">
@@ -45,11 +45,12 @@
                         <rect key="frame" x="10" y="5" width="132" height="132"/>
                         <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="132" id="xE9-hg-rO0"/>
                             <constraint firstAttribute="width" secondItem="DrT-8F-t75" secondAttribute="height" multiplier="1:1" id="zEw-tV-HGU"/>
                         </constraints>
                     </imageView>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bd4-Pf-WIJ">
-                        <rect key="frame" x="147" y="52" width="400" height="80"/>
+                        <rect key="frame" x="147" y="52" width="237" height="80"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="80" id="Kkb-bh-Ij4"/>
                         </constraints>
@@ -96,7 +97,7 @@
                 <outlet property="coupon_thumbnail_boundary" destination="xkF-rA-vpQ" id="qT3-oL-fuK"/>
                 <outlet property="coupon_title" destination="ZNB-NE-fVG" id="Efv-9Q-qPK"/>
             </connections>
-            <point key="canvasLocation" x="305" y="410"/>
+            <point key="canvasLocation" x="304.5" y="410"/>
         </collectionViewCell>
     </objects>
 </document>

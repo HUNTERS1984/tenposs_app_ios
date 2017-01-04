@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface BaseViewController : UIViewController
+-(void)invalidateCurrentUserSession;
 -(void)showLogin;
 - (void)showHomeScreen;
 -(void)showAlertView:(NSString *)title message:(NSString *)message;

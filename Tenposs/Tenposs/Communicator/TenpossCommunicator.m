@@ -112,7 +112,7 @@
     // Create url connection and fire request
     NSInteger timeout = [params getInt:KeyRequestTimeout];
     if(timeout <= 0)
-        timeout = 15;
+        timeout = 60;
     [m_pRequest setTimeoutInterval:timeout];
     
     m_pConnection = [[NSURLConnection alloc] initWithRequest:m_pRequest delegate:self];
@@ -267,7 +267,7 @@
     // Create url connection and fire request
     NSInteger timeout = [params getInt:KeyRequestTimeout];
     if(timeout <= 0)
-        timeout = 15;
+        timeout = 60;
     [m_pRequest setTimeoutInterval:timeout];
     
     m_pConnection = [[NSURLConnection alloc] initWithRequest:m_pRequest delegate:self];

@@ -53,7 +53,7 @@ static NSString *ident = @"coupon_request_cell";
     CouponRequestListRequest *request = [CouponRequestListRequest new];
     Bundle *params = [Bundle new];
     [params put:KeyAPI_APP_ID value:APP_ID];
-    [request execute:params withDelegate:self];
+    [request execute:params withDelegate:self andAuthHeaderType:AuthenticationType_authorization];
 
 }
 

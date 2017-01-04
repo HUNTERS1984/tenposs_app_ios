@@ -40,13 +40,9 @@
     self.collectionView.delegate = self;
     
     [self showLoadingViewWithMessage:@""];
-}
-
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
     
     [self.dataSource loadData];
-
+    
     __weak __typeof__(self) weakSelf = self;
     __weak __typeof__(self.dataSource) wDataSource = self.dataSource;
     [self.collectionView addPullToRefreshWithActionHandler:^{
@@ -57,6 +53,12 @@
     [self.collectionView addInfiniteScrollingWithActionHandler:^{
         [wDataSource loadData];
     }];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -97,13 +99,13 @@
                 [self removeInfiniteLoading];
             }break;
             default:
-                [self showErrorScreen:@"UNKOWN ERROR"];
-                [self removePullToRefresh];
-                [self removeInfiniteLoading];
+//                [self showErrorScreen:@"UNKOWN ERROR"];
+//                [self removePullToRefresh];
+//                [self removeInfiniteLoading];
                 break;
         }
     }else{
-        [self.collectionView reloadData];
+        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
         [self.collectionView.infiniteScrollingView stopAnimating];
         [self.collectionView.pullToRefreshView stopAnimating];
         [self removeLoadingView];

@@ -17,14 +17,19 @@
 }
 
 - (void)configureCellWithData:(NSObject *)data{
-    if (![data isKindOfClass:[ProductObject class]]) {
-        return;
-    }
-    ProductObject *item = (ProductObject *)data;
-    if (item) {
-        [_title setText:item.title];
-        [_categoryName setText:item.menu_name];
-        [_price setText:[NSString stringWithFormat:@"%@",[Utils formatPriceToJapaneseFormat:item.price]]];
+    if ([data isKindOfClass:[ProductObject class]]) {
+        ProductObject *item = (ProductObject *)data;
+        if (item) {
+            [_title setText:item.title];
+            [_categoryName setText:item.menu_name];
+            [_price setText:[NSString stringWithFormat:@"%@",[Utils formatPriceToJapaneseFormat:item.price]]];
+        }
+        
+    }else if([data isKindOfClass:[StaffObject class]]){
+        StaffObject *staff = (StaffObject *)data;
+        [_categoryName setText:staff.staff_categories.name];
+        [_title setText:staff.name];
+        [_price setHidden:YES];
     }
 }
 

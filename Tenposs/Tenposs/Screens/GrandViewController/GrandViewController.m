@@ -30,7 +30,7 @@
 #import "ItemDetailScreen_t2.h"
 #import "UserHomeScreen.h"
 #import "UserHomeScreen_t2.h"
-
+#import "StaffDetailScreen_t2.h"
 #import "UIFont+Themify.h"
 
 #import "UserData.h"
@@ -291,8 +291,14 @@
         }
     }else if([object isKindOfClass:[StaffObject class]]){
         StaffObject *staff = (StaffObject *)object;
-        StaffDetailScreen *controller = [[StaffDetailScreen alloc] initWithStaff:staff];
-        [self.navigationController pushViewController:controller animated:YES];
+        if (settings.template_id == 1) {
+            StaffDetailScreen *controller = [[StaffDetailScreen alloc] initWithStaff:staff];
+            [self.navigationController pushViewController:controller animated:YES];
+        } else {
+            StaffDetailScreen_t2 *controller = [[StaffDetailScreen_t2 alloc] initWithStaff:staff];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+        
     }
 }
 

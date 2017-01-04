@@ -69,37 +69,42 @@
     if (![data isKindOfClass:[DescriptionCellInfo class]]) {
         return;
     }else{
+        
         DescriptionCellInfo *cellInfo = (DescriptionCellInfo *)data;
-        self.textView.scrollEnabled = NO;
-        self.textView.textContainer.maximumNumberOfLines = 0;
-        self.textView.textContainer.lineBreakMode = NSLineBreakByTruncatingTail;
-        self.textView.contentInset = UIEdgeInsetsMake(-4,0,0,0);
-        NSError *error = nil;
-        NSAttributedString *attString = [[NSAttributedString alloc] initWithData:[cellInfo.fullText dataUsingEncoding:NSUTF8StringEncoding] options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute:@(NSUTF8StringEncoding)} documentAttributes:nil error:&error];
-        if (error) {
-            NSLog(@"Error: %@ %s %i", error.localizedDescription, __func__, __LINE__);
+        if ([cellInfo.fullText isEqualToString:@"データなし"]) {
+            self.textView.text = @"データなし";
+            [self.textView setFont:[UIFont systemFontOfSize:18]];
+            [self.textView setTextAlignment:NSTextAlignmentCenter];
         } else {
-            // Clear text view
-            self.textView.text = @"";
-            // Append the attributed string
-            [self.textView.textStorage appendAttributedString:attString];
+            self.textView.scrollEnabled = NO;
+            self.textView.textContainer.maximumNumberOfLines = 0;
+            self.textView.textContainer.lineBreakMode = NSLineBreakByTruncatingTail;
+            self.textView.contentInset = UIEdgeInsetsMake(-4,0,0,0);
+            NSError *error = nil;
+            NSAttributedString *attString = [[NSAttributedString alloc] initWithData:[cellInfo.fullText dataUsingEncoding:NSUTF8StringEncoding] options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute:@(NSUTF8StringEncoding)} documentAttributes:nil error:&error];
+            if (error) {
+                NSLog(@"Error: %@ %s %i", error.localizedDescription, __func__, __LINE__);
+            } else {
+                // Clear text view
+                self.textView.text = @"";
+                // Append the attributed string
+                [self.textView.textStorage appendAttributedString:attString];
+            }
+            
+            self.textView.textAlignment = NSTextAlignmentJustified;
+            [self.textView setFont:[UIFont systemFontOfSize:14]];
+            if(cellInfo.isCollapsed){
+                _heightConstraint.constant = DETAIL_DESCRIPTION_COLLAPSE;
+            }else {
+                if(cellInfo.fullSizeHeight <= 0){
+                    [cellInfo calculateFullTextHeightWithWidth:width];
+                }
+                if (cellInfo.fullSizeHeight > 0) {
+                    _heightConstraint.constant = cellInfo.fullSizeHeight;
+                }
+            }
         }
         
-        self.textView.textAlignment = NSTextAlignmentJustified;
-        [self.textView setFont:[UIFont systemFontOfSize:14]];
-
-        
-        self.textView.textAlignment = NSTextAlignmentJustified;
-        if(cellInfo.isCollapsed){
-            _heightConstraint.constant = DETAIL_DESCRIPTION_COLLAPSE;
-        }else {
-            if(cellInfo.fullSizeHeight <= 0){
-                [cellInfo calculateFullTextHeightWithWidth:width];
-            }
-            if (cellInfo.fullSizeHeight > 0) {
-                _heightConstraint.constant = cellInfo.fullSizeHeight;
-            }
-        }
         [self setNeedsLayout];
     }
 }

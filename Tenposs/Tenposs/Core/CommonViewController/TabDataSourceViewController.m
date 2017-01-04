@@ -19,7 +19,7 @@
 #import "PhotoViewer.h"
 #import "ItemDetailScreen.h"
 #import "StaffDetailScreen.h"
-
+#import "StaffDetailScreen_t2.h"
 #import "UIViewController+LoadingView.h"
 #import "UIView+LoadingView.h"
 #import "UIUtils.h"
@@ -115,7 +115,7 @@
     AppConfiguration *appConfig = [AppConfiguration sharedInstance];
     AppSettings *settings = [appConfig getAvailableAppSettings];
     
-    [_categoryTitle setTextColor:[UIColor colorWithHexString:@"#969696"]];
+    [_categoryTitle setTextColor:[UIColor colorWithHexString:@"#5F5F5F"]];
     [_categoryTitle setFont:[UIFont systemFontOfSize:18 weight:UIFontWeightMedium]];
     [_previousCategoryButton setFont:[UIFont themifyFontOfSize:14/*[UIUtils getTextSizeWithType:settings.font_size]*/]];
     [_previousCategoryButton setTitle:[NSString stringWithFormat: @"%@", [UIFont stringForThemifyIdentifier:@"ti-angle-left"]] forState:UIControlStateNormal];
@@ -315,8 +315,16 @@
             [self.navigationController pushViewController:controller animated:YES];
         }else if ([item isKindOfClass:[StaffObject class]]){
             StaffObject *staff = (StaffObject *)item;
-            StaffDetailScreen *controller = [[StaffDetailScreen alloc] initWithStaff:staff];
-            [self.navigationController pushViewController:controller animated:YES];
+            AppConfiguration *appConfig = [AppConfiguration sharedInstance];
+            AppSettings *settings = [appConfig getAvailableAppSettings];
+            
+            if (settings.template_id == 1) {
+                StaffDetailScreen *controller = [[StaffDetailScreen alloc] initWithStaff:staff];
+                [self.navigationController pushViewController:controller animated:YES];
+            } else {
+                StaffDetailScreen_t2 *controller = [[StaffDetailScreen_t2 alloc] initWithStaff:staff];
+                [self.navigationController pushViewController:controller animated:YES];
+            }
 
         }
     }
